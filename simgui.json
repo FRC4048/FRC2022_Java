@@ -1,0 +1,11 @@
+{
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/LiveWindow/ExampleSubsystem": "Subsystem",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/Shuffleboard/Autonomous/Autonomous Action": "String Chooser",
+      "/Shuffleboard/Autonomous/Autonomous Position": "String Chooser"
+    }
+  }
+}
