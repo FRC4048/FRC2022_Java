@@ -19,16 +19,23 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+
+
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  public final PowerDistribution m_PowerDistPanel = new PowerDistribution();
+  private final PowerDistribution m_PowerDistPanel = new PowerDistribution();
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+  }
+
+  public PowerDistribution getPowerDistPanel(){
+    return m_PowerDistPanel;
   }
 
   /**

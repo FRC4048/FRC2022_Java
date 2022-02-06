@@ -8,8 +8,8 @@
 package frc.robot.utils;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.Robot;
 import frc.robot.utils.logging.Logging;
 
 /**
@@ -19,6 +19,11 @@ public class MotorUtils {
     public static final double DEFAULT_TIMEOUT = 0.15;
     private double timeout;
     private double time;
+    private PowerDistribution powerDistPanel; 
+
+
+
+
     final int PDPChannel;
     final double currentThreshold;
 
@@ -34,8 +39,13 @@ public class MotorUtils {
         this.timeout = timeout;
     }
 
+    public MotorUtils(int PDPPort, double currentThreshold, double timeout, PowerDistribution powerDistPanel ){
+        this(PDPPort,currentThreshold, timeout);
+        this.powerDistPanel = powerDistPanel;
+    }
+
     public boolean isStalled() {
-        final double currentValue = Robot.m_robotContainer.m_PowerDistPanel.getCurrent(PDPChannel);
+        final double currentValue = powerDistPanel.getCurrent(PDPChannel);
         final double now = Timer.getFPGATimestamp();
 
         if (currentValue < currentThreshold) {
