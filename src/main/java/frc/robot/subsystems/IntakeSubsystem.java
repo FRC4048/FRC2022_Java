@@ -16,7 +16,7 @@ public class IntakeSubsystem extends SubsystemBase {
   private WPI_TalonSRX intakeMotor;
   private Solenoid piston1;
   private Solenoid piston2;
-  private static DigitalInput intakeSensor; 
+  private DigitalInput intakeSensor;
 
   
   /** Creates a new ExampleSubsystem. */
@@ -56,7 +56,7 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.set(speed);
   }
 
-  public static boolean getIntakeSensor() {
+  public boolean getIntakeSensor() {
     return !intakeSensor.get();
   }
 
