@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 
@@ -9,7 +11,7 @@ public class TurretSubsystem extends SubsystemBase {
     private WPI_TalonSRX turretMotor;
 
     public TurretSubsystem(){
-       turretMotor = new WPI_TalonSRX(constants.turretMotorID); //waiting til ofey's pull request
+       turretMotor = new WPI_TalonSRX(Constants.turretMotorID); 
 
        turretMotor.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
        turretMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);

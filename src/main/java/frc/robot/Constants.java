@@ -12,4 +12,13 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {}
+public final class Constants {
+    //CAN ID
+    public static final int turretMotorID = 1; // for turret motor 
+    
+    
+
+    //OI
+    public static final int XBOX_LEFT_STICK_PRESS = 9; //for turret motor 
+
+}

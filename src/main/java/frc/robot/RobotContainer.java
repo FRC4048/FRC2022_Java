@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 
 /**
@@ -26,8 +27,12 @@ import edu.wpi.first.wpilibj.Joystick;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  
+
+  private Joystick controller = new Joystick(2);
+  
+
 
   public AutoChooser autoChooser = new AutoChooser();
 
