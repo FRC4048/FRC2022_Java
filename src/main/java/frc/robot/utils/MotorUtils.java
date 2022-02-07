@@ -21,27 +21,15 @@ public class MotorUtils {
     private double time;
     private PowerDistribution powerDistPanel; 
 
-
-
-
     final int PDPChannel;
     final double currentThreshold;
 
-    public MotorUtils(int PDPPort, double currentThreshold) {
-        this.timeout = DEFAULT_TIMEOUT;
+    public MotorUtils(int PDPPort, double currentThreshold, double timeout, PowerDistribution powerDistPanel ){
+        this.timeout = timeout;
         this.PDPChannel = PDPPort;
         this.currentThreshold = currentThreshold;
-        time = Timer.getFPGATimestamp();
-    }
-
-    public MotorUtils(int PDPPort, double currentThreshold, double timeout) {
-        this(PDPPort, currentThreshold);
-        this.timeout = timeout;
-    }
-
-    public MotorUtils(int PDPPort, double currentThreshold, double timeout, PowerDistribution powerDistPanel ){
-        this(PDPPort,currentThreshold, timeout);
         this.powerDistPanel = powerDistPanel;
+        time = Timer.getFPGATimestamp();
     }
 
     public boolean isStalled() {
