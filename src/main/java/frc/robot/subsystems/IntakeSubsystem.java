@@ -22,10 +22,10 @@ public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public IntakeSubsystem() {
     //IMPORTANT: these need to be changed from hardcoded values to "Constants.INTAKE_SENSOR" etc once the constants class exists
-    intakeMotor = new WPI_TalonSRX(9);
-    piston1 = new Solenoid(10, PneumaticsModuleType.CTREPCM, 0);
-    piston2 = new Solenoid(10, PneumaticsModuleType.CTREPCM, 0);
-    intakeSensor = new DigitalInput(6);
+    intakeMotor = new WPI_TalonSRX(10);
+    //piston1 = new Solenoid(1, PneumaticsModuleType.CTREPCM, 1);
+    //piston2 = new Solenoid(2, PneumaticsModuleType.CTREPCM, 1);
+    intakeSensor = new DigitalInput(0);
 
     int TIMEOUT = 100;
 
