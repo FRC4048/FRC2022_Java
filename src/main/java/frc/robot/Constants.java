@@ -14,11 +14,14 @@ package frc.robot;
  */
 public final class Constants {
     //CAN ID
-    public static final int turretMotorID = 1; // for turret motor 
+    public static final int turretMotorID = 12; // for turret motor 
     
     
 
     //OI
-    public static final int XBOX_LEFT_STICK_PRESS = 9; //for turret motor 
+    public static final int XBOX_LEFT_STICK_PRESS = 9; //x box controller for turret motor 
+
+    //Robot Speed Stuff
+    public static final double TURRETSPIN_SPEED = 0.5;
 
 }

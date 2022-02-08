@@ -1,33 +1,40 @@
 package frc.robot.commands;
 
-import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.utils.SmartShuffleboard;
 
 public class TurretCommand extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final TurretCommand m_subsystem;
+    private TurretSubsystem turretSubsystem;
+    private XboxController xboxController;
 
 
-  public TurretCommand(TurretCommand subsystem) {
-    m_subsystem = subsystem;
-  
+    public TurretCommand(TurretSubsystem turretSubsystem, XboxController xboxController) {
+        addRequirements(turretSubsystem);
+        this.turretSubsystem = turretSubsystem;
+        this.xboxController = xboxController;
+    }
+    @Override
+    public void initialize() {
+    }
+
+    @Override
+    public void execute() {
+      turretSubsystem.setTurret((xboxController.getLeftX() * Constants.TURRETSPIN_SPEED));
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        turretSubsystem.stopTurret();
+    }
+
+    @Override
+    public boolean isFinished() {
+        return false; //TODO: figure out the actual logic for when command will stop
+
+    }
   }
-
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {}
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {}
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {}
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
-}

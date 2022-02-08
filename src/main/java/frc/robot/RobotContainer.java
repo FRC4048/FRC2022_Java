@@ -7,7 +7,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.TurretCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.TurretSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj.XboxController;
@@ -37,6 +39,11 @@ public class RobotContainer {
   public AutoChooser autoChooser = new AutoChooser();
 
   private JoystickButton xBoxLeftStick = new JoystickButton(controller, Constants.XBOX_LEFT_STICK_PRESS);
+
+
+  TurretSubsystem turretSubsystem; 
+  XboxController xBoxController = new XboxController(3); 
+  private TurretCommand turretCommand = new TurretCommand(turretSubsystem, xBoxController);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */

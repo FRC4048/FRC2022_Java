@@ -25,11 +25,11 @@ public class TurretSubsystem extends SubsystemBase {
         turretMotor.set(0);
     }
 
-    public boolean getLeftSwitch(){
+    public boolean getRightSwitch(){
         return turretMotor.getSensorCollection().isRevLimitSwitchClosed();
     }
 
-    public boolean getRightSwitch(){
+    public boolean getLeftSwitch(){
         return turretMotor.getSensorCollection().isFwdLimitSwitchClosed();
     }
 
