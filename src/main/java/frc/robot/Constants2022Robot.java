@@ -14,7 +14,7 @@ package frc.robot;
  */
 public final class Constants2022Robot {
     //Global Constant
-    public static final boolean ENABLE_DEBUG = true;
+    public static final boolean ENABLE_DEBUG = false;
     
     //CAN ID
     public static final int MOTOR_LEFT1_ID = 1;

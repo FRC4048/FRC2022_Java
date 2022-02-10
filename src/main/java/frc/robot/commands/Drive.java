@@ -10,13 +10,13 @@ import frc.robot.subsystems.DriveTrain;
 
 public class Drive extends CommandBase {
   private final DriveTrain driveTrain;
-  private final DoubleSupplier leftSpeed;
-  private final DoubleSupplier rightSpeed;
+  private final double leftSpeed;
+  private final double rightSpeed;
 
   /**
    * Creates a new Drive.
    */
-  public Drive(DriveTrain driveTrain, DoubleSupplier leftSpeed, DoubleSupplier rightSpeed) {
+  public Drive(DriveTrain driveTrain, double leftSpeed, double rightSpeed) {
     this.leftSpeed = leftSpeed; 
     this.rightSpeed = rightSpeed;
     this.driveTrain = driveTrain;
@@ -31,13 +31,13 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      driveTrain.drive(-leftSpeed.getAsDouble(), -rightSpeed.getAsDouble(), true);
+      driveTrain.drive(-leftSpeed, /*-rightSpeed.getAsDouble(),*/ true);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    driveTrain.drive(0,0, false);
+    driveTrain.drive(0,/*0,*/ false);
   }
 
   // Returns true when the command should end.

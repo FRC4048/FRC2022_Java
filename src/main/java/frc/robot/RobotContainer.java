@@ -23,9 +23,9 @@ public class RobotContainer {
   private static Joystick joyLeft = new Joystick(4);
   private static Joystick joyRight = new Joystick(1);
 
-  private final DriveTrain driveTrain = new DriveTrain();
+  public final DriveTrain driveTrain = new DriveTrain();
 
-  private final Drive m_autoCommand = new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getY());
+  private final Drive m_autoCommand = new Drive(driveTrain, 0.0, 0.0);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {

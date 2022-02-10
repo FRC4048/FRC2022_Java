@@ -7,6 +7,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.Drive;
+import frc.robot.utils.SmartShuffleboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -19,6 +21,8 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  public Drive command;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -28,6 +32,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    
+    command = new Drive(m_robotContainer.driveTrain, .5, 0.0);
   }
 
   /**
@@ -74,6 +80,10 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+    SmartShuffleboard.putCommand("Test", "Drive", command);
+    m_robotContainer.driveTrain.left2.getEncoder().setPosition(0.0);
+    m_robotContainer.driveTrain.left1.getEncoder().setPosition(0.0);
+
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
@@ -81,7 +91,10 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    SmartShuffleboard.put("Test", "test", "EncoderMaster", m_robotContainer.driveTrain.getLeftEncoder());
+    SmartShuffleboard.put("Test", "test1", "EncoderSlave", m_robotContainer.driveTrain.left2.getEncoder().getPosition());
+  }
 
   @Override
   public void testInit() {
