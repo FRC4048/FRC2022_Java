@@ -22,7 +22,7 @@ public class RobotContainer {
   private static Joystick joyLeft = new Joystick(4);
   private static Joystick joyRight = new Joystick(1);
 
-  public final DriveTrain driveTrain = new DriveTrain();
+  private final DriveTrain driveTrain = new DriveTrain();
 
   private final Drive driveCommand = new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getX());
 
