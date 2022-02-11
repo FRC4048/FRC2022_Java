@@ -27,6 +27,9 @@ public class DriveTrain extends SubsystemBase {
         left1.restoreFactoryDefaults();
         left2.restoreFactoryDefaults();
 
+        right1.restoreFactoryDefaults();
+        right2.restoreFactoryDefaults();
+
         leftEncoder = left1.getEncoder();
         rightEncoder = right1.getEncoder();
 
