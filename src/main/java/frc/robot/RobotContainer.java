@@ -17,6 +17,9 @@ import edu.wpi.first.wpilibj2.command.Command;
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
+
+
+
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private static Joystick joyLeft = new Joystick(4);
@@ -26,10 +29,14 @@ public class RobotContainer {
 
   private final Drive driveCommand = new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getX());
 
+  public AutoChooser autoChooser = new AutoChooser();
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    autoChooser.addOptions();
     // Configure the button bindings
     configureButtonBindings();
+    autoChooser.initialize();
   }
 
   /**
