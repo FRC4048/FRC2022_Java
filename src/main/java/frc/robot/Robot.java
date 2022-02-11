@@ -11,6 +11,7 @@ import frc.robot.commands.intakecommands.DeployIntakeCommand;
 import frc.robot.commands.intakecommands.DropBallCommand;
 import frc.robot.commands.intakecommands.IntakeBallCommand;
 import frc.robot.commands.intakecommands.RaiseIntakeCommand;
+import frc.robot.commands.Drive;
 import frc.robot.utils.SmartShuffleboard;
 
 /**
@@ -93,7 +94,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+
+  }
 
   @Override
   public void testInit() {
