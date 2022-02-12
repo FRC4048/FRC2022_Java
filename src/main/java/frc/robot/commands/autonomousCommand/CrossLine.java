@@ -4,26 +4,27 @@
 
 package frc.robot.commands.autonomousCommand;
 
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class CrossLine extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final ExampleSubsystem m_subsystem;
+  
+  private final DriveTrain driveTrain;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public CrossLine(ExampleSubsystem subsystem) {
-    m_subsystem = subsystem;
+  public CrossLine(DriveTrain subsystem) {
+    driveTrain = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
 
-  // Called when the command is initially scheduled.
+  // Called when the comman   d is initially scheduled.
   @Override
   public void initialize() {
       
@@ -40,6 +41,6 @@ public class CrossLine extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

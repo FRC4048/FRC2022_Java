@@ -58,7 +58,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand(AutoChooser.AutoCommand autoOption) {
     // An ExampleCommand will run in autonomous
-    Command autoCommand= new DoNothing(); 
+    Command autoCommand; 
    
     switch(autoOption){
     case DO_NOTHING:
