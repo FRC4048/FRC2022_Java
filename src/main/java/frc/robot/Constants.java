@@ -21,7 +21,6 @@ public final class Constants {
     //OI
     public static final int XBOX_LEFT_STICK_PRESS = 9; //x box controller for turret motor 
 
-    public static final int JOYSTICK_CONTROLLER = 2; 
 
     //Robot Speed Stuff
     public static final double TURRETSPIN_SPEED = 0.5;
