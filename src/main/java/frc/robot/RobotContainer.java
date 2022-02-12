@@ -5,9 +5,14 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+
+import edu.wpi.first.wpilibj.PowerDistribution;
+
 import edu.wpi.first.wpilibj.Joystick;
+
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.AutoChooser.AutoCommand;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.commands.Drive;
 import frc.robot.commands.ShooterCommands.TogglePiston;
 import frc.robot.commands.ShooterCommands.ToggleShooterMotor;
@@ -27,13 +32,20 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+
   private static Joystick joyLeft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private static Joystick joyRight = new Joystick(Constants.RIGHT_JOYSTICK_ID);
   private static Joystick controller = new Joystick(Constants.CONTROLLER_ID);
   private XboxController xboxController = new XboxController(Constants.CONTROLLER_ID);
 
+
+  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  
+
   private final DriveTrain driveTrain = new DriveTrain();
   private final Shooter shooterSubsystem = new Shooter();
+
+  private final PowerDistribution m_PowerDistPanel = new PowerDistribution();
 
   public AutoChooser autoChooser = new AutoChooser();
 
@@ -49,6 +61,10 @@ public class RobotContainer {
     autoChooser.initialize();
   }
 
+  public PowerDistribution getPowerDistPanel(){
+    return m_PowerDistPanel;
+  }
+
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
@@ -60,6 +76,10 @@ public class RobotContainer {
     
   SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new TogglePiston(shooterSubsystem));
   SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
+  }
+
+  public IntakeSubsystem getIntakeSubsystem() {
+    return intakeSubsystem;
   }
 
   /**
