@@ -5,10 +5,16 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+
 import edu.wpi.first.wpilibj.PowerDistribution;
+
+import edu.wpi.first.wpilibj.Joystick;
+
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.commands.Drive;
+import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -25,8 +31,13 @@ public class RobotContainer {
 
 
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  private static Joystick joyLeft = new Joystick(Constants2022Robot.LEFT_JOYSTICK_ID);
+  private static Joystick joyRight = new Joystick(Constants2022Robot.RIGHT_JOYSTICK_ID);
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final DriveTrain driveTrain = new DriveTrain();
+
+  private final Drive driveCommand = new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getX());
 
   private final PowerDistribution m_PowerDistPanel = new PowerDistribution();
 
@@ -52,6 +63,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {}
 
+  public IntakeSubsystem getIntakeSubsystem() {
+    return intakeSubsystem;
+  }
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -59,6 +74,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return driveCommand;
   }
 }
