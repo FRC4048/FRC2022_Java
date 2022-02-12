@@ -4,11 +4,14 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.ctre.phoenix.sensors.PigeonIMU;
+import com.ctre.phoenix.sensors.PigeonIMUConfiguration;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants2022Robot;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.Constants2022Test;
+import frc.robot.utils.diag.DiagPigeon;
 
 public class DriveTrain extends SubsystemBase {
     public CANSparkMax left1;
@@ -17,6 +20,7 @@ public class DriveTrain extends SubsystemBase {
     private CANSparkMax right2;
     private RelativeEncoder leftEncoder;
     private RelativeEncoder rightEncoder;
+    private PigeonIMU gyro;
 
     public DriveTrain(){
         left1 = new CANSparkMax(Constants2022Test.MOTOR_LEFT1_ID, MotorType.kBrushless);
@@ -43,6 +47,9 @@ public class DriveTrain extends SubsystemBase {
         left2.setIdleMode(IdleMode.kBrake);
         right1.setIdleMode(IdleMode.kBrake);
         right2.setIdleMode(IdleMode.kBrake);
+
+        gyro = new PigeonIMU(Constants2022Robot.PIGEON_CAN_ID);
+        resetGyro();
     }
 
     public void drive(double speedLeft, double speedRight, boolean isSquared) {
@@ -54,6 +61,22 @@ public class DriveTrain extends SubsystemBase {
           //The joysticks are inverted so inverting this makes it drive correctly.
           left1.set(speedLeft);
           right1.set(speedRight);
+    }
+
+      /**
+   * Resets the Gyro
+   */
+    public void resetGyro() {
+        gyro.setFusedHeading(0);
+    }
+
+      /**
+   * Gets the angle of the robot
+   * 
+   * @return angle of robot between -180-180
+   */
+    public double getAngle() {
+        return Math.IEEEremainder(gyro.getFusedHeading(), 360);
     }
 
     @Override

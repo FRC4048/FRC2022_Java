@@ -22,6 +22,8 @@ public final class Constants2022Robot {
     public static final int MOTOR_RIGHT1_ID = 3;
     public static final int MOTOR_RIGHT2_ID = 4;
 
+    public static final int PIGEON_CAN_ID = 7;
+
     //Joystick ID
     public static final int LEFT_JOYSTICK_ID = 0;
     public static final int RIGHT_JOYSTICK_ID = 1;
