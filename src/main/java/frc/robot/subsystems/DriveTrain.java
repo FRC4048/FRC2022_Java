@@ -8,7 +8,9 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants2022Robot;
 import frc.robot.utils.SmartShuffleboard;
+import frc.robot.utils.diag.DiagEncoder;
 import frc.robot.Constants2022Test;
+import frc.robot.Robot;
 
 public class DriveTrain extends SubsystemBase {
     public CANSparkMax left1;
