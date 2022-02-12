@@ -17,8 +17,8 @@ public class MoveDistance extends CommandBase {
   private double encoder;
   private double speed;
   private double distanceInches;
-  //Still need to assign this a value
-  private double encoderPerInch;
+  //Still need to assign this a value 1.0 is temporary
+  private double encoderPerInch=1.0;
 
   
 

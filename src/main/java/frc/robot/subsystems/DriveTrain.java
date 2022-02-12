@@ -21,8 +21,8 @@ public class DriveTrain extends SubsystemBase {
     public DriveTrain(){
         left1 = new CANSparkMax(Constants2022Test.MOTOR_LEFT1_ID, MotorType.kBrushless);
         left2 = new CANSparkMax(Constants2022Test.MOTOR_LEFT2_ID, MotorType.kBrushless);
-        right1 = new CANSparkMax(Constants2022Robot.MOTOR_RIGHT1_ID, MotorType.kBrushless);
-        right2 = new CANSparkMax(Constants2022Robot.MOTOR_RIGHT2_ID, MotorType.kBrushless);
+        right1 = new CANSparkMax(Constants2022Test.MOTOR_RIGHT1_ID, MotorType.kBrushless);
+        right2 = new CANSparkMax(Constants2022Test.MOTOR_RIGHT2_ID, MotorType.kBrushless);
 
         left1.restoreFactoryDefaults();
         left2.restoreFactoryDefaults();

@@ -8,4 +8,7 @@ package frc.robot;
 public final class Constants2022Test {
     public static final int MOTOR_LEFT1_ID = 41;
     public static final int MOTOR_LEFT2_ID = 42;
+    
+    public static final int MOTOR_RIGHT1_ID = 44;
+    public static final int MOTOR_RIGHT2_ID = 45;
 }
