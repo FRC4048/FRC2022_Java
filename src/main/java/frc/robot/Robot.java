@@ -7,6 +7,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.AutoChooser.AutoCommand;
+import frc.robot.commands.autonomousCommand.DoNothing;
 import frc.robot.utils.SmartShuffleboard;
 
 /**
@@ -54,7 +56,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     //Need to implement autonomous commands before this line works
-    //SmartShuffleboard.put("Autonomous", "AutoCommandVerify", m_robotContainer.autoChooser.getAutonomousCommand(m_robotContainer.autoChooser.getPosition(), m_robotContainer.autoChooser.getAction());
+    SmartShuffleboard.put("Autonomous", "AutoCommandVerify", m_robotContainer.autoChooser.getAction().toString()+ m_robotContainer.autoChooser.getPosition().toString());
   }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
@@ -62,13 +64,12 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     frc.robot.AutoChooser.AutoCommand getAutoCommand = m_robotContainer.autoChooser.getAutonomousCommand(m_robotContainer.autoChooser.getPosition(),
     m_robotContainer.autoChooser.getAction());
-    
-    Command m_autonomousCommand = m_robotContainer.getAutonomousCommand(getAutoCommand);
-    
+    Command m_autonomousCommand= m_robotContainer.getAutonomousCommand(getAutoCommand);
+    m_autonomousCommand.schedule();
     // schedule the autonomous command (example)
     
     if (m_autonomousCommand != null) {
-      System.out.println("test");
+      
       m_autonomousCommand.schedule();
     }
     

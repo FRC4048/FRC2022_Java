@@ -24,11 +24,11 @@ public class AutoChooser {
     }
     //all actions driver choose at beginning of match
     enum Action {
-        ACTION_A, ACTION_B, ACTION_C;
+        DO_NOTHING, CROSS_LINE, ACTION_C ;
     }
     //all commmands during autonomous
     enum AutoCommand {
-        A_MIDDLE, B_MIDDLE, C_MIDDLE, A_LEFT, B_LEFT, C_LEFT, A_RIGHT, B_RIGHT, C_RIGHT;
+        CROSS_LINE, DO_NOTHING, C_MIDDLE, A_LEFT, B_LEFT, C_LEFT, A_RIGHT, B_RIGHT, C_RIGHT;
     }
     //replace ABC options once we decide what we are doing in auto
  
@@ -42,8 +42,8 @@ public class AutoChooser {
         positionChooser.addOption(Position.LEFT.name(), Position.LEFT);
         positionChooser.addOption(Position.MIDDLE.name(), Position.MIDDLE);
         positionChooser.addOption(Position.RIGHT.name(), Position.RIGHT); 
-        actionChooser.setDefaultOption(Action.ACTION_A.name(), Action.ACTION_A);
-        actionChooser.addOption(Action.ACTION_B.name(), Action.ACTION_B);
+        actionChooser.setDefaultOption(Action.DO_NOTHING.name(), Action.DO_NOTHING);
+        actionChooser.addOption(Action.CROSS_LINE.name(), Action.CROSS_LINE);
         actionChooser.addOption(Action.ACTION_C.name(), Action.ACTION_C);
 
     }
@@ -89,12 +89,25 @@ public class AutoChooser {
 
 
 
-    /* Had to take this stuff out because there is not an AutoCommands class, could be reimplemented later
+     //Had to take this stuff out because there is not an AutoCommands class, could be reimplemented later
 
     public AutoCommand getAutonomousCommand( Position p, Action a){
 
-        
-        if (a == Action.ACTION_A){
+        if (a== Action.DO_NOTHING){
+            return AutoCommand.DO_NOTHING;
+        }
+        else{
+            if(a==Action.CROSS_LINE){
+                return AutoCommand.CROSS_LINE;
+            }
+            else{
+                return AutoCommand.DO_NOTHING;
+            }
+            
+        }
+    }
+    
+       /* if (a == Action.ACTION_A){
             if (p == Position.LEFT){
                 return AutoCommand.A_LEFT;
             }   
@@ -126,6 +139,8 @@ public class AutoChooser {
             else if (p == Position.RIGHT){
                 return AutoCommand.C_RIGHT;
             }
-    }
-    */
-}
+            */
+}    
+    
+    
+

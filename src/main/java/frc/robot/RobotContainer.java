@@ -6,9 +6,12 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.AutoChooser.AutoCommand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.autonomousCommand.CrossLine;
+import frc.robot.commands.autonomousCommand.DoNothing;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -48,8 +51,19 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  public Command getAutonomousCommand(AutoChooser.AutoCommand autoOption) {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    Command autoCommand= new DoNothing(); 
+   
+    switch(autoOption){
+    case DO_NOTHING:
+        autoCommand = new DoNothing();
+        break;
+    case CROSS_LINE:
+        autoCommand= new CrossLine(m_exampleSubsystem);
+        break;
+    }
+    
+    return autoCommand;
   }
 }
