@@ -12,7 +12,6 @@ import frc.robot.commands.intakecommands.DropBallCommand;
 import frc.robot.commands.intakecommands.IntakeBallCommand;
 import frc.robot.commands.intakecommands.RaiseIntakeCommand;
 import frc.robot.commands.Drive;
-import frc.robot.commands.MoveDistance;
 import frc.robot.utils.SmartShuffleboard;
 
 /**
