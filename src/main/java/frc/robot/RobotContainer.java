@@ -5,10 +5,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.AutoChooser.AutoCommand;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.Drive;
+import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.autonomousCommand.CrossLine;
 import frc.robot.commands.autonomousCommand.DoNothing;
@@ -24,9 +26,12 @@ import frc.robot.commands.autonomousCommand.DoNothing;
 
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private static Joystick joyLeft = new Joystick(Constants2022Robot.LEFT_JOYSTICK_ID);
+  private static Joystick joyRight = new Joystick(Constants2022Robot.RIGHT_JOYSTICK_ID);
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final DriveTrain driveTrain = new DriveTrain();
+
+  private final Drive driveCommand = new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getX());
 
   public AutoChooser autoChooser = new AutoChooser();
 
@@ -60,7 +65,7 @@ public class RobotContainer {
         autoCommand = new DoNothing();
         break;
     case CROSS_LINE:
-        autoCommand= new CrossLine(m_exampleSubsystem);
+        autoCommand= new CrossLine();
         break;
     }
     
