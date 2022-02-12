@@ -17,7 +17,8 @@ public class IntakeSequence extends SequentialCommandGroup {
     addCommands(
         new DeployIntakeCommand(intakeSubsystem),
         new IntakeBallCommand(intakeSubsystem),
-        new RaiseIntakeCommand(intakeSubsystem)
+        new RaiseIntakeCommand(intakeSubsystem),
+        new DropBallCommand(intakeSubsystem)
     );
   }
 
