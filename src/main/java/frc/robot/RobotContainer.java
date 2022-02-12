@@ -5,17 +5,16 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-
-import edu.wpi.first.wpilibj.PowerDistribution;
-
 import edu.wpi.first.wpilibj.Joystick;
-
+import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.Drive;
+import frc.robot.commands.NeoCommand;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.commands.Drive;
-import frc.robot.subsystems.DriveTrain;
-import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.NeoSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -32,6 +31,7 @@ public class RobotContainer {
 
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  private final NeoSubsystem neoSubSystem = new NeoSubsystem();
   private static Joystick joyLeft = new Joystick(Constants2022Robot.LEFT_JOYSTICK_ID);
   private static Joystick joyRight = new Joystick(Constants2022Robot.RIGHT_JOYSTICK_ID);
 
@@ -43,12 +43,16 @@ public class RobotContainer {
 
   public AutoChooser autoChooser = new AutoChooser();
 
+  private final NeoCommand m_autoCommand = new NeoCommand(neoSubSystem);
+
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     autoChooser.addOptions();
     // Configure the button bindings
     configureButtonBindings();
     autoChooser.initialize();
+    neoSubSystem.setDefaultCommand(m_autoCommand);
   }
 
   public PowerDistribution getPowerDistPanel(){
