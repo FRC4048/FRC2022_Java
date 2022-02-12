@@ -1,12 +1,12 @@
 package frc.robot.commands.intakecommands;
 
+import frc.robot.Constants2022Robot;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class IntakeBallCommand extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 private IntakeSubsystem intakeSubsystem;
 private double initTime;
 
@@ -30,7 +30,7 @@ private double initTime;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      intakeSubsystem.spinMotor(1);
+      intakeSubsystem.spinMotor(Constants2022Robot.INTAKE_MOTOR_SPEED);
   }
 
   // Called once the command ends or is interrupted.
@@ -42,7 +42,7 @@ private double initTime;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (intakeSubsystem.getIntakeSensor() || (Timer.getFPGATimestamp() - initTime) > 5/*change this to Constants.INTAKE_TIMEOUT after constants file added*/) {
+    if (intakeSubsystem.getIntakeSensor() || (Timer.getFPGATimestamp() - initTime) > Constants2022Robot.DEPLOYED_INTAKE_TIMEOUT) {
         return true;
     }
     return false;
