@@ -1,17 +1,22 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+/**
+ * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
+ * constants.  This class should not be used for any other purpose.  All constants should be
+ * declared globally (i.e. public static).  Do not put anything functional in this class.
+ *
+ * Change the interface definition as needed to use one of the specific hardware
+ * maps.
+ */
 
-public class Constants extends SubsystemBase {
-  /** Creates a new Constants. */
-  public Constants() {}
+public interface Constants extends Constants2022TheTB {
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+
 }

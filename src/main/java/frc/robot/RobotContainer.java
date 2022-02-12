@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.AutoChooser.AutoCommand;
 import frc.robot.commands.Drive;
+import frc.robot.commands.ShooterCommands.TogglePiston;
+import frc.robot.commands.ShooterCommands.ToggleShooterMotor;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
 import frc.robot.utils.SmartShuffleboard;
@@ -35,12 +37,12 @@ public class RobotContainer {
 
   public AutoChooser autoChooser = new AutoChooser();
 
-  private final Drive driveCommand = new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getX());
+  private final Drive driveCommand = new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getY());
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     autoChooser.addOptions();
-    driveTrain.setDefaultCommand(new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getX()));
+    driveTrain.setDefaultCommand(new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getY()));
     
     // Configure the button bindings
     configureButtonBindings();
@@ -53,15 +55,18 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+
+    
+  SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new TogglePiston(shooterSubsystem));
+  SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
-
-  //SmartShuffleboard.putCommand("Shooter Elevator", "Extend Piston", );
 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous

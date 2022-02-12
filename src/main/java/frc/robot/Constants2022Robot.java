@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import javax.crypto.spec.PSource.PSpecified;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -14,7 +12,7 @@ import javax.crypto.spec.PSource.PSpecified;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-interface Constants2022Robot {
+public interface Constants2022Robot {
         //Global Constant
     public static final boolean ENABLE_DEBUG = false;
 

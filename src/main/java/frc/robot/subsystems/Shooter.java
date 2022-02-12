@@ -4,12 +4,9 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMax.SoftLimitDirection;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -27,22 +24,10 @@ public class Shooter extends SubsystemBase {
   public Shooter() {
     //climberSolenoid = new Solenoid(Constants.PCM_CAN_ID, Constants.CLIMBER_PISTON_ID);
     shooterSolenoid = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.SHOOTER_PISTON_ID);
-    shooterMotor = new CANSparkMax(Constants.MOTOR_RIGHT2_ID, MotorType.kBrushless);
+    shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_ID, MotorType.kBrushless);
 
-    int TIMEOUT = 100;
-
-    shooterMotor.configNominalOutputForward(0, TIMEOUT);
-    shooterMotor.configNominalOutputReverse(0, TIMEOUT);
-    shooterMotor.configPeakOutputForward(1, TIMEOUT);
-    shooterMotor.configPeakOutputReverse(-1, TIMEOUT);
-    shooterMotor.setIdleMode(IdleMode.kBrake);
+    shooterMotor.setIdleMode(IdleMode.kCoast);
     shooterMotor.setInverted(false);
-
-    shooterMotor.setSoftLimit(SoftLimitDirection.kForward, TIMEOUT);
-    shooterMotor.setSoftLimit(SoftLimitDirection.kReverse, TIMEOUT);
-    shooterMotor.setSoftLimit(SoftLimitDirection.kForward, TIMEOUT);
-    shooterMotor.setSoftLimit(SoftLimitDirection.kReverse, TIMEOUT);
-
     
   }
 
@@ -50,6 +35,17 @@ public class Shooter extends SubsystemBase {
     shooterMotor.set(speed);
   }
 
+  public void stopShooter() {
+    shooterMotor.set(0);
+  }
+
+  public double getShooterSpeed() {
+    return shooterMotor.get();
+  }
+
+  public RelativeEncoder getEncoder() {
+    return shooterMotor.getEncoder();
+  }
 
   public void extendPiston() {
     shooterSolenoid.set(true);
@@ -64,9 +60,6 @@ public class Shooter extends SubsystemBase {
   }
 
 
-
-
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -78,7 +71,8 @@ public class Shooter extends SubsystemBase {
   
     public final Logging.LoggingContext loggingContext = new Logging.LoggingContext(this.getClass()) {
       protected void addAll() {
-          add("Piston State", getPistonState());;
+          add("Piston State", getPistonState());
+          add("Shooter Speed", getShooterSpeed());
       }
   };
   

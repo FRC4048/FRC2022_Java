@@ -5,18 +5,18 @@
 package frc.robot;
 
 /** Add your docs here. */
-interface Constants2022Test {
+public interface Constants2022Test {
     //Global Constant
     public static final boolean ENABLE_DEBUG = true;
 
     //CAN ID
     public static final int PDP_CAN_ID = 0;
-    public static final int MOTOR_LEFT1_ID = 41;
-    public static final int MOTOR_LEFT2_ID = 42;
-    public static final int MOTOR_RIGHT1_ID = 3;
-    public static final int MOTOR_RIGHT2_ID = 4;
+    public static final int MOTOR_LEFT1_ID = 3;
+    public static final int MOTOR_LEFT2_ID = 4;
+    public static final int MOTOR_RIGHT1_ID = 5;
+    public static final int MOTOR_RIGHT2_ID = 2;
     public static final int PCM_CAN_ID = 20;
-    public static final int SHOOTER_MOTOR_ID = 3;
+    public static final int SHOOTER_MOTOR_ID = 11;
 
     //PDP
     public static final int PDP_DRIVE_L1 = 13;
