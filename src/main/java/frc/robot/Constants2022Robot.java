@@ -29,9 +29,13 @@ public final class Constants2022Robot {
     public static final int INTAKE_SOLENOID_1 = 0;
     public static final int INTAKE_SOLENOID_2 = 3;
 
-    //Joystick ID
+    //Joystick and Controller ID
     public static final int LEFT_JOYSTICK_ID = 0;
     public static final int RIGHT_JOYSTICK_ID = 1;
+    public static final int XBOX_A_BUTTON = 1;
+    public static final int XBOX_B_BUTTON = 2;
+    public static final int XBOX_X_BUTTON = 3;
+    public static final int XBOX_Y_BUTTON = 4;
 
     //Motor Speeds
     public static final double INTAKE_MOTOR_SPEED = 1;

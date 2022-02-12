@@ -10,8 +10,10 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.commands.Drive;
+import frc.robot.commands.intakecommands.IntakeSequence;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -26,8 +28,12 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+
+  private  XboxController xboxController = new XboxController(2);
+
   private static Joystick joyLeft = new Joystick(Constants2022Robot.LEFT_JOYSTICK_ID);
   private static Joystick joyRight = new Joystick(Constants2022Robot.RIGHT_JOYSTICK_ID);
+  private  JoystickButton buttonA = new JoystickButton(xboxController, Constants2022Robot.XBOX_A_BUTTON);
 
   private final DriveTrain driveTrain = new DriveTrain();
 
@@ -49,7 +55,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    buttonA.whenPressed(new IntakeSequence(intakeSubsystem));
+  }
 
   public IntakeSubsystem getIntakeSubsystem() {
     return intakeSubsystem;
