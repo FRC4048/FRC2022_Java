@@ -32,16 +32,15 @@ public class RobotContainer {
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   
 
-  private Joystick controller = new Joystick(2);
+  private Joystick controller = new Joystick(Constants.JOYSTICK_CONTROLLER);
   
-
-
   public AutoChooser autoChooser = new AutoChooser();
 
   private JoystickButton xBoxLeftStick = new JoystickButton(controller, Constants.XBOX_LEFT_STICK_PRESS);
 
-
   TurretSubsystem turretSubsystem; 
+  
+  
   XboxController xBoxController = new XboxController(3); 
   private TurretCommand turretCommand = new TurretCommand(turretSubsystem, xBoxController);
 
@@ -52,6 +51,9 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     autoChooser.initialize();
+
+    turretSubsystem.setTurret(2);
+
   }
 
   /**

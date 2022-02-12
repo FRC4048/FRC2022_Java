@@ -13,6 +13,7 @@ public class TurretCommand extends CommandBase {
     private XboxController xboxController;
 
 
+
     public TurretCommand(TurretSubsystem turretSubsystem, XboxController xboxController) {
         addRequirements(turretSubsystem);
         this.turretSubsystem = turretSubsystem;
@@ -24,7 +25,18 @@ public class TurretCommand extends CommandBase {
 
     @Override
     public void execute() {
-      turretSubsystem.setTurret((xboxController.getLeftX() * Constants.TURRETSPIN_SPEED));
+      //turretSubsystem.setTurret((xboxController.getLeftX() * Constants.TURRETSPIN_SPEED));
+      turretSubsystem.setTurret(2);
+      if (turretSubsystem.getLeftSwitch()){
+          System.out.println("reversed pressed");
+      }
+
+      if(turretSubsystem.getRightSwitch()){
+          System.out.println("forward pressed ");
+      }
+
+
+      
     }
 
     @Override
