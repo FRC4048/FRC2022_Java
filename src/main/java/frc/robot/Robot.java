@@ -105,4 +105,8 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
     diagnostics.refresh();
   }
+
+  public static Diagnostics getDiagnostics() {
+    return diagnostics;
+  }
 }
