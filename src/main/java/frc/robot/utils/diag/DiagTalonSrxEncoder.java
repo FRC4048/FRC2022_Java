@@ -12,31 +12,23 @@ public class DiagTalonSrxEncoder extends DiagDistanceTraveled {
         super(name, requiredTravel);
     }
 
-    @Override
-    protected int getCurrentValue() {
-        return 0;
-    }
-
-    /***
-     * The following code is commented out since the WPI_TalonSRX has a build issue (It is using
-     * Sendable from the wrong package).
-     *
-     private WPI_TalonSRX talonSRX;
-    /**
-     * Constructor
-     *
-     * @param name            - the name of the unit. Will be used on the Shuffleboard
-     * @param requiredTravel  - the required difference between the initial position to qualify for success
-     * @param talonSRX         - the encoder instance to test
-     * /
+    private WPI_TalonSRX talonSRX;
+    
+    /*
+    Constructor
+     
+    @param name            - the name of the unit. Will be used on the Shuffleboard
+    @param requiredTravel  - the required difference between the initial position to qualify for success
+    @param talonSRX         - the encoder instance to test
+    */
     public DiagTalonSrxEncoder(String name, int requiredTravel, WPI_TalonSRX talonSRX) {
         super(name, requiredTravel);
         this.talonSRX = talonSRX;
         reset();
     }
+
     @Override
     protected int getCurrentValue() {
-        return talonSRX.getSelectedSensorPosition();
+        return (int)talonSRX.getSelectedSensorPosition();
     }
-    ***/
 }
