@@ -1,5 +1,6 @@
 package frc.robot.commands.intakecommands;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -41,7 +42,7 @@ private double initTime;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (!intakeSubsystem.getIntakeSensor() || (Timer.getFPGATimestamp() - initTime) > Constants.RAISED_INTAKE_TIMEOUT) {
+    if (!intakeSubsystem.getIntakeSensor() || (Timer.getFPGATimestamp() - initTime) >= Constants.RAISED_INTAKE_TIMEOUT) {
         return true;
     }
     return false;
