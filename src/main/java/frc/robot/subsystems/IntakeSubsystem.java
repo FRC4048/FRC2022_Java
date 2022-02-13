@@ -12,6 +12,9 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.utils.diag.DiagOpticalSensor;
+import frc.robot.utils.diag.DiagTalonSrxEncoder;
 
 public class IntakeSubsystem extends SubsystemBase {
   private WPI_TalonSRX intakeMotor;
@@ -34,6 +37,8 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.configPeakOutputForward(1, TIMEOUT);
     intakeMotor.configPeakOutputReverse(-1, TIMEOUT);
     intakeMotor.setNeutralMode(NeutralMode.Brake);
+
+    Robot.getDiagnostics().addDiagnosable(new DiagOpticalSensor("IntakeSensor", intakeSensor));
   }
 
   @Override
