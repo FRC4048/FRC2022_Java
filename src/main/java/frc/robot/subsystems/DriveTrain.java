@@ -7,6 +7,9 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.SmartShuffleboard;
+import frc.robot.utils.diag.DiagEncoder;
+import frc.robot.utils.diag.DiagSparkMaxEncoder;
+import frc.robot.Robot;
 import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
@@ -42,6 +45,9 @@ public class DriveTrain extends SubsystemBase {
         left2.setIdleMode(IdleMode.kBrake);
         right1.setIdleMode(IdleMode.kBrake);
         right2.setIdleMode(IdleMode.kBrake);
+
+        Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Left Drive Encoder", 10, left1));
+        Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Right Drive Encoder", 10, right1));
     }
 
     public void drive(double speedLeft, double speedRight, boolean isSquared) {

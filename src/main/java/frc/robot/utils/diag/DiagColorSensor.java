@@ -7,13 +7,12 @@
 
 package frc.robot.utils.diag;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.utils.ColorSensor;
-import frc.robot.utils.ColorSensor.ColorValue;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Add your docs here.
@@ -39,11 +38,11 @@ public class DiagColorSensor implements Diagnosable {
 
     @Override
     public void refresh() {
-        ColorValue colorValue = colorsensor.getColor();
+        ColorSensor.ColorValue colorValue = colorsensor.getColor();
         colorMap.put(colorValue, true);
-        boolean allColors = colorMap.get(ColorValue.RED) && colorMap.get(ColorValue.BLUE) 
-                            && colorMap.get(ColorValue.GREEN) && colorMap.get(ColorValue.YELLOW) 
-                            && colorMap.get(ColorValue.UNKNOWN);
+        boolean allColors = colorMap.get(ColorSensor.ColorValue.RED) && colorMap.get(ColorSensor.ColorValue.BLUE)
+                            && colorMap.get(ColorSensor.ColorValue.GREEN) && colorMap.get(ColorSensor.ColorValue.YELLOW)
+                            && colorMap.get(ColorSensor.ColorValue.UNKNOWN);
         if (networkTableEntry != null) {
             networkTableEntry.setBoolean(allColors);
         }
@@ -51,11 +50,10 @@ public class DiagColorSensor implements Diagnosable {
 
     @Override
     public void reset() {
-        colorMap.put(ColorValue.RED, false);
-        colorMap.put(ColorValue.GREEN, false);
-        colorMap.put(ColorValue.BLUE, false);
-        colorMap.put(ColorValue.YELLOW, false);
-        colorMap.put(ColorValue.UNKNOWN, false);
+        colorMap.put(ColorSensor.ColorValue.RED, false);
+        colorMap.put(ColorSensor.ColorValue.GREEN, false);
+        colorMap.put(ColorSensor.ColorValue.BLUE, false);
+        colorMap.put(ColorSensor.ColorValue.YELLOW, false);
+        colorMap.put(ColorSensor.ColorValue.UNKNOWN, false);
     }
-
 }
