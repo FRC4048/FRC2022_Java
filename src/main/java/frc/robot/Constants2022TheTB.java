@@ -5,19 +5,19 @@
 package frc.robot;
 
 public interface Constants2022TheTB {
-  /** Creates a new Constants2022TheTB. */
 
   //Global Constant
   public static final boolean ENABLE_DEBUG = true;
 
   //CAN ID
   public static final int PDP_CAN_ID = 0;
-  public static final int MOTOR_LEFT1_ID = 55;
-  public static final int MOTOR_LEFT2_ID = 56;
-  public static final int MOTOR_RIGHT1_ID = 57;
-  public static final int MOTOR_RIGHT2_ID = 58;
+  public static final int DRIVE_LEFT1_ID = 55;
+  public static final int DRIVE_LEFT2_ID = 56;
+  public static final int DRIVE_RIGHT1_ID = 57;
+  public static final int DRIVE_RIGHT2_ID = 58;
   public static final int PCM_CAN_ID = 20;
   public static final int SHOOTER_MOTOR_ID = 11;
+  public static final int INTAKE_MOTOR_ID = 10;
 
   //PDP
   public static final int PDP_DRIVE_L1 = 13;
@@ -26,15 +26,23 @@ public interface Constants2022TheTB {
   public static final int PDP_DRIVE_R2 = 1;
 
   //DIO
+  public static final int INTAKE_SENSOR_ID = 0;
 
   //Relay
 
   //PCM
   public static final int SHOOTER_PISTON_ID = 3;
-  
+  public static final int INTAKE_SOLENOID_1 = 0;
+  public static final int INTAKE_SOLENOID_2 = 3;
+
   //DRIVETRAIN CONSTANTS
 
   //SHOOTER CONSTANTS
+
+  // Intake
+  public static final double INTAKE_MOTOR_SPEED = 1.0;
+  public static final int RAISED_INTAKE_TIMEOUT = 3;
+  public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
 
   //OI
   public static final int XBOX_A_BUTTON = 1;

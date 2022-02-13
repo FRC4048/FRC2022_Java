@@ -18,10 +18,10 @@ public class DriveTrain extends SubsystemBase {
     private RelativeEncoder rightEncoder;
 
     public DriveTrain(){
-        left1 = new CANSparkMax(Constants.MOTOR_LEFT1_ID, MotorType.kBrushless);
-        left2 = new CANSparkMax(Constants.MOTOR_LEFT2_ID, MotorType.kBrushless);
-        right1 = new CANSparkMax(Constants.MOTOR_RIGHT1_ID, MotorType.kBrushless);
-        right2 = new CANSparkMax(Constants.MOTOR_RIGHT2_ID, MotorType.kBrushless);
+        left1 = new CANSparkMax(Constants.DRIVE_LEFT1_ID, MotorType.kBrushless);
+        left2 = new CANSparkMax(Constants.DRIVE_LEFT2_ID, MotorType.kBrushless);
+        right1 = new CANSparkMax(Constants.DRIVE_RIGHT1_ID, MotorType.kBrushless);
+        right2 = new CANSparkMax(Constants.DRIVE_RIGHT2_ID, MotorType.kBrushless);
 
         left1.restoreFactoryDefaults();
         left2.restoreFactoryDefaults();

@@ -12,6 +12,10 @@ import edu.wpi.first.wpilibj.Joystick;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.AutoChooser.AutoCommand;
+import frc.robot.commands.intakecommands.DeployIntakeCommand;
+import frc.robot.commands.intakecommands.DropBallCommand;
+import frc.robot.commands.intakecommands.IntakeBallCommand;
+import frc.robot.commands.intakecommands.RaiseIntakeCommand;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.commands.Drive;
 import frc.robot.commands.ShooterCommands.TogglePiston;
@@ -38,13 +42,9 @@ public class RobotContainer {
   private static Joystick controller = new Joystick(Constants.CONTROLLER_ID);
   private XboxController xboxController = new XboxController(Constants.CONTROLLER_ID);
 
-
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-  
-
   private final DriveTrain driveTrain = new DriveTrain();
   private final Shooter shooterSubsystem = new Shooter();
-
   private final PowerDistribution m_PowerDistPanel = new PowerDistribution();
 
   public AutoChooser autoChooser = new AutoChooser();
@@ -55,7 +55,7 @@ public class RobotContainer {
   public RobotContainer() {
     autoChooser.addOptions();
     driveTrain.setDefaultCommand(new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getY()));
-    
+
     // Configure the button bindings
     configureButtonBindings();
     autoChooser.initialize();
@@ -72,10 +72,6 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
-    
-  SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new TogglePiston(shooterSubsystem));
-  SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
   }
 
   public IntakeSubsystem getIntakeSubsystem() {
@@ -91,5 +87,17 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return driveCommand;
+  }
+
+  public void installCommandsOnShuffleboard() {
+    if (Constants.ENABLE_DEBUG) {
+      SmartShuffleboard.putCommand("Intake", "Deploy Intake", new DeployIntakeCommand(getIntakeSubsystem()));
+      SmartShuffleboard.putCommand("Intake", "Raise Intake", new RaiseIntakeCommand(getIntakeSubsystem()));
+      SmartShuffleboard.putCommand("Intake", "Intake Ball", new IntakeBallCommand(getIntakeSubsystem()));
+      SmartShuffleboard.putCommand("Intake", "Drop Ball", new DropBallCommand(getIntakeSubsystem()));
+
+      SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new TogglePiston(shooterSubsystem));
+      SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
+    }
   }
 } 
