@@ -4,16 +4,15 @@
 
 package frc.robot.commands.ShooterCommands;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
-public class TogglePiston extends CommandBase {
-  /** Creates a new TogglePiston. */
-  private Shooter shooterSubsytem;
-  public TogglePiston(Shooter shooterSubsystem) {
+public class ExtendShooterPiston extends CommandBase {
+  /** Creates a new RaisePiston. */
+  Shooter shooterSubsystem;
+  public ExtendShooterPiston(Shooter shooterSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.shooterSubsytem = shooterSubsystem;
+    this.shooterSubsystem = shooterSubsystem;
   }
 
   // Called when the command is initially scheduled.
@@ -23,11 +22,7 @@ public class TogglePiston extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(shooterSubsytem.getPistonState() == true) {
-      shooterSubsytem.retractPiston();
-    } else {
-      shooterSubsytem.extendPiston();
-    }
+    shooterSubsystem.extendPiston();
   }
 
   // Called once the command ends or is interrupted.

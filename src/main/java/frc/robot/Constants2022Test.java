@@ -7,33 +7,38 @@ package frc.robot;
 /** Add your docs here. */
 public interface Constants2022Test {
     //Global Constant
-    public static final boolean ENABLE_DEBUG = true;
+    public static final boolean ENABLE_DEBUG = false;
 
     //CAN ID
     public static final int PDP_CAN_ID = 0;
-    public static final int MOTOR_LEFT1_ID = 3;
-    public static final int MOTOR_LEFT2_ID = 4;
-    public static final int MOTOR_RIGHT1_ID = 5;
-    public static final int MOTOR_RIGHT2_ID = 2;
+    public static final int MOTOR_LEFT1_ID = 1;
+    public static final int MOTOR_LEFT2_ID = 2;
+    public static final int MOTOR_RIGHT1_ID = 3;
+    public static final int MOTOR_RIGHT2_ID = 4;
+    public static final int INTAKE_SENSOR_ID = 0;
+    public static final int INTAKE_MOTOR_ID = 10;
     public static final int PCM_CAN_ID = 20;
-    public static final int SHOOTER_MOTOR_ID = 11;
+    public static final int SHOOTER_MOTOR_ID = 5; //Placeholder
 
     //PDP
-    public static final int PDP_DRIVE_L1 = 13;
-    public static final int PDP_DRIVE_L2 = 15;
-    public static final int PDP_DRIVE_R1 = 0;
-    public static final int PDP_DRIVE_R2 = 1;
+    public static final int PDP_DRIVE_L1 = 13; //Placeholder
+    public static final int PDP_DRIVE_L2 = 15; //Placeholder
+    public static final int PDP_DRIVE_R1 = 0; //Placeholder
+    public static final int PDP_DRIVE_R2 = 1; //Placeholder
 
     //DIO
 
     //Relay
 
     //PCM
-    public static final int SHOOTER_PISTON_ID = 3;
+    public static final int SHOOTER_PISTON_ID = 3; //Placeholder
+    public static final int INTAKE_SOLENOID_1 = 0;
+    public static final int INTAKE_SOLENOID_2 = 3;
     
     //DRIVETRAIN CONSTANTS
 
     //SHOOTER CONSTANTS
+    public static final double SHOOTER_SPEED = 0.5;
 
     //OI
     public static final int XBOX_A_BUTTON = 1;
@@ -48,6 +53,14 @@ public interface Constants2022Test {
     public static final int XBOX_RIGHT_STICK_PRESS = 10;
     public static final int LEFT_JOYSTICK_ID = 0;
     public static final int RIGHT_JOYSTICK_ID = 1;
+
     public static final int CONTROLLER_ID = 2;
 
+
+    //Motor Speeds
+    public static final double INTAKE_MOTOR_SPEED = 1;
+
+    //Timeouts
+    public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
+    public static final int RAISED_INTAKE_TIMEOUT = 3;
 }

@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants2022Robot;
+import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
   private WPI_TalonSRX intakeMotor;
@@ -22,10 +22,10 @@ public class IntakeSubsystem extends SubsystemBase {
   
   /** Creates a new ExampleSubsystem. */
   public IntakeSubsystem() {
-      intakeMotor = new WPI_TalonSRX(Constants2022Robot.INTAKE_MOTOR_ID);
-    piston1 = new Solenoid(Constants2022Robot.PCM_ID, PneumaticsModuleType.CTREPCM, Constants2022Robot.INTAKE_SOLENOID_1);
-    piston2 = new Solenoid(Constants2022Robot.PCM_ID, PneumaticsModuleType.CTREPCM, Constants2022Robot.INTAKE_SOLENOID_2);
-    intakeSensor = new DigitalInput(Constants2022Robot.INTAKE_SENSOR_ID);
+      intakeMotor = new WPI_TalonSRX(Constants.INTAKE_MOTOR_ID);
+    piston1 = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.INTAKE_SOLENOID_1);
+    piston2 = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.INTAKE_SOLENOID_2);
+    intakeSensor = new DigitalInput(Constants.INTAKE_SENSOR_ID);
 
     int TIMEOUT = 100;
 

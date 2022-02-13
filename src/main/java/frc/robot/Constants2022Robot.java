@@ -13,7 +13,7 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public interface Constants2022Robot {
-        //Global Constant
+    //Global Constant
     public static final boolean ENABLE_DEBUG = false;
 
     //CAN ID
@@ -22,7 +22,8 @@ public interface Constants2022Robot {
     public static final int MOTOR_LEFT2_ID = 2;
     public static final int MOTOR_RIGHT1_ID = 3;
     public static final int MOTOR_RIGHT2_ID = 4;
-
+    public static final int INTAKE_SENSOR_ID = 0;
+    public static final int INTAKE_MOTOR_ID = 10;
     public static final int PCM_CAN_ID = 20;
     public static final int SHOOTER_MOTOR_ID = 5; //Placeholder
 
@@ -36,21 +37,15 @@ public interface Constants2022Robot {
 
     //Relay
 
-    public static final int INTAKE_SENSOR_ID = 0;
-    public static final int INTAKE_MOTOR_ID = 10;
-    public static final int PCM_ID = 20;
-
-    //PCM Channels
-    public static final int INTAKE_SOLENOID_1 = 0;
-    public static final int INTAKE_SOLENOID_2 = 3;
-
-
     //PCM
     public static final int SHOOTER_PISTON_ID = 3; //Placeholder
+    public static final int INTAKE_SOLENOID_1 = 0;
+    public static final int INTAKE_SOLENOID_2 = 3;
     
     //DRIVETRAIN CONSTANTS
 
     //SHOOTER CONSTANTS
+    public static final double SHOOTER_SPEED = 0.5;
 
     //OI
     public static final int XBOX_A_BUTTON = 1;
