@@ -117,6 +117,7 @@ public class Robot extends TimedRobot {
 
   public static Diagnostics getDiagnostics() {
     return diagnostics;
+  }
 
   public RobotContainer getRobotContainer(){
     return m_robotContainer;
