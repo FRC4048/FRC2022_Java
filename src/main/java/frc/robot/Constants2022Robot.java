@@ -69,4 +69,5 @@ public interface Constants2022Robot {
     public static final double INTAKE_MOTOR_SPEED = 1.0;
     public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
     public static final int RAISED_INTAKE_TIMEOUT = 3;
+    public static final double INTAKE_BUFFER = 1.0;
 }
