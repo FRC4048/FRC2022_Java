@@ -41,7 +41,7 @@ public class RobotContainer {
   private static Joystick joyLeft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private static Joystick joyRight = new Joystick(Constants.RIGHT_JOYSTICK_ID);
   private XboxController xboxController = new XboxController(Constants.CONTROLLER_ID);
-  private  JoystickButton buttonA = new JoystickButton(xboxController, Constants2022Robot.XBOX_A_BUTTON);
+  private  JoystickButton buttonA = new JoystickButton(xboxController, Constants.XBOX_A_BUTTON);
 
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   private final DriveTrain driveTrain = new DriveTrain();

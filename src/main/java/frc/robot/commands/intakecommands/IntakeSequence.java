@@ -1,6 +1,8 @@
 package frc.robot.commands.intakecommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
+import frc.robot.commands.WaitCommand;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeSequence extends SequentialCommandGroup {
@@ -18,6 +20,7 @@ public class IntakeSequence extends SequentialCommandGroup {
         new DeployIntakeCommand(intakeSubsystem),
         new IntakeBallCommand(intakeSubsystem),
         new RaiseIntakeCommand(intakeSubsystem),
+        new WaitCommand(Constants.INTAKE_BUFFER),
         new DropBallCommand(intakeSubsystem)
     );
   }
