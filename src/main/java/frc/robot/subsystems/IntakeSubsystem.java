@@ -38,7 +38,12 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.configPeakOutputReverse(-1, TIMEOUT);
     intakeMotor.setNeutralMode(NeutralMode.Brake);
 
-    Robot.getDiagnostics().addDiagnosable(new DiagOpticalSensor("IntakeSensor", intakeSensor));
+    if (Robot.getDiagnostics() != null) {
+      Robot.getDiagnostics().addDiagnosable(new DiagOpticalSensor("IntakeSensor", intakeSensor));
+    }
+    else {
+      System.out.print("h");
+    }
   }
 
   @Override

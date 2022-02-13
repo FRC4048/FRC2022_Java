@@ -11,10 +11,10 @@ public interface Constants2022TheTB {
 
   //CAN ID
   public static final int PDP_CAN_ID = 0;
-  public static final int DRIVE_LEFT1_ID = 55;
-  public static final int DRIVE_LEFT2_ID = 56;
-  public static final int DRIVE_RIGHT1_ID = 57;
-  public static final int DRIVE_RIGHT2_ID = 58;
+  public static final int DRIVE_LEFT1_ID = 45;
+  public static final int DRIVE_LEFT2_ID = 44;
+  public static final int DRIVE_RIGHT1_ID = 41;
+  public static final int DRIVE_RIGHT2_ID = 42;
   public static final int PCM_CAN_ID = 20;
   public static final int SHOOTER_MOTOR_ID = 11;
   public static final int INTAKE_MOTOR_ID = 10;
@@ -31,7 +31,7 @@ public interface Constants2022TheTB {
   //Relay
 
   //PCM
-  public static final int SHOOTER_PISTON_ID = 3;
+  public static final int SHOOTER_PISTON_ID = 4; //placeholder
   public static final int INTAKE_SOLENOID_1 = 0;
   public static final int INTAKE_SOLENOID_2 = 3;
 
