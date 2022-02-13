@@ -1,6 +1,6 @@
 package frc.robot.commands.intakecommands;
 
-import frc.robot.Constants2022Robot;
+import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -30,7 +30,7 @@ private double initTime;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      intakeSubsystem.spinMotor(Constants2022Robot.INTAKE_MOTOR_SPEED);
+      intakeSubsystem.spinMotor(Constants.INTAKE_MOTOR_SPEED);
   }
 
   // Called once the command ends or is interrupted.
@@ -42,7 +42,7 @@ private double initTime;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (intakeSubsystem.getIntakeSensor() || (Timer.getFPGATimestamp() - initTime) > Constants2022Robot.DEPLOYED_INTAKE_TIMEOUT) {
+    if (intakeSubsystem.getIntakeSensor() || (Timer.getFPGATimestamp() - initTime) > Constants.DEPLOYED_INTAKE_TIMEOUT) {
         return true;
     }
     return false;

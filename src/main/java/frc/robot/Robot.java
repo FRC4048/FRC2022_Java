@@ -38,6 +38,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     diagnostics = new Diagnostics();
+    m_robotContainer.installCommandsOnShuffleboard();
   }
 
   /**
@@ -90,10 +91,6 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    SmartShuffleboard.putCommand("Intake", "Deploy Intake", new DeployIntakeCommand(m_robotContainer.getIntakeSubsystem()));
-    SmartShuffleboard.putCommand("Intake", "Raise Intake", new RaiseIntakeCommand(m_robotContainer.getIntakeSubsystem()));
-    SmartShuffleboard.putCommand("Intake", "Intake Ball", new IntakeBallCommand(m_robotContainer.getIntakeSubsystem()));
-    SmartShuffleboard.putCommand("Intake", "Drop Ball", new DropBallCommand(m_robotContainer.getIntakeSubsystem()));
   }
 
   /** This function is called periodically during operator control. */
