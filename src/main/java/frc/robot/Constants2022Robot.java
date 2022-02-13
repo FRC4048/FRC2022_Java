@@ -21,9 +21,23 @@ public final class Constants2022Robot {
     public static final int MOTOR_LEFT2_ID = 2;
     public static final int MOTOR_RIGHT1_ID = 3;
     public static final int MOTOR_RIGHT2_ID = 4;
+    public static final int INTAKE_SENSOR_ID = 0;
+    public static final int INTAKE_MOTOR_ID = 10;
+    public static final int PCM_ID = 20;
+
+    //PCM Channels
+    public static final int INTAKE_SOLENOID_1 = 0;
+    public static final int INTAKE_SOLENOID_2 = 3;
 
     //Joystick ID
     public static final int LEFT_JOYSTICK_ID = 0;
     public static final int RIGHT_JOYSTICK_ID = 1;
+
+    //Motor Speeds
+    public static final double INTAKE_MOTOR_SPEED = 1;
+
+    //Timeouts
+    public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
+    public static final int RAISED_INTAKE_TIMEOUT = 3;
 
 }
