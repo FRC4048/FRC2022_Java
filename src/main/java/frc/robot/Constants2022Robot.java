@@ -75,4 +75,5 @@ public interface Constants2022Robot {
     double targetHeight = 19.8;
     double cameraAngle = 18.7;
 
+    public static final double INTAKE_BUFFER = 1.0;
 }
