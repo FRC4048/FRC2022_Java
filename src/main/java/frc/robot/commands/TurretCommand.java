@@ -1,20 +1,21 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.XboxController;
+import java.util.function.DoubleSupplier;
+
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.TurretSubsystem;
-import frc.robot.utils.SmartShuffleboard;
 
 public class TurretCommand extends CommandBase {
-    private TurretSubsystem turretSubsystem;
-    private XboxController xboxController;
+    private TurretSubsystem turretSubsystem;        
+    private DoubleSupplier joystickInput;
 
-    public TurretCommand(TurretSubsystem turretSubsystem, XboxController xboxController) {
+    public TurretCommand(TurretSubsystem turretSubsystem, DoubleSupplier joystickXAxis) {
+        joystickInput=joystickXAxis;
         addRequirements(turretSubsystem);
         this.turretSubsystem = turretSubsystem;
-        this.xboxController = xboxController;
+      
     }
     @Override
     public void initialize() {
@@ -22,7 +23,8 @@ public class TurretCommand extends CommandBase {
 
     @Override
     public void execute() {
-      turretSubsystem.setTurret((xboxController.getLeftX() * Constants.TURRETSPIN_SPEED));
+        //dont know if the input should be negative
+      turretSubsystem.setTurret((joystickInput.getAsDouble() * Constants.TURRETSPIN_SPEED));
     }
 
     @Override
@@ -32,7 +34,7 @@ public class TurretCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false; //TODO: figure out the actual logic for when command will stop
+        return false;
 
     }
 
