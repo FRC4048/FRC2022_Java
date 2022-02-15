@@ -26,6 +26,7 @@ public interface Constants2022Robot {
     //    public static final int DRIVE_RIGHT1_ID = 3;
     //    public static final int DRIVE_RIGHT2_ID = 4;
     //    public static final int INTAKE_MOTOR_ID = 10;
+    //    public static final int turretMotorID = 10;
 
     //    public static final int PCM_CAN_ID = 20;
     //    public static final int SHOOTER_MOTOR_ID = 5; //Placeholder
@@ -49,6 +50,9 @@ public interface Constants2022Robot {
     //DRIVETRAIN CONSTANTS
 
     //SHOOTER CONSTANTS
+
+    //Turret CONSTANTS
+    public static final double TURRETSPIN_SPEED = 0.5;
 
     //OI
     public static final int XBOX_A_BUTTON = 1;
