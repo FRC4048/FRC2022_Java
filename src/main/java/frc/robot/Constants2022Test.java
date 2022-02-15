@@ -49,4 +49,8 @@ public interface Constants2022Test {
     public static final int RIGHT_JOYSTICK_ID = 1;
     public static final int CONTROLLER_ID = 2;
 
+    //Limelight Settings
+    double cameraHeight = 20.9;
+    double targetHeight = 19.8;
+    double cameraAngle = 18.7;
 }

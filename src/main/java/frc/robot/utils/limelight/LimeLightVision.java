@@ -85,16 +85,20 @@ public class LimeLightVision {
         return new CameraAngles(tx.getDouble(0.0), ty.getDouble(0.0));
     }
 
-    public void setLedOn() {
+    public static void setLedOn() {
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(LED_ON);
     }
 
-    public void setLedOff() {
+    public static void setLedOff() {
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(LED_OFF);
     }
 
     public void setLedBlink() {
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(LED_BLINK);
+    }
+    
+    public static void setPipeline(int pipelineMode) {
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipelineMode);
     }
 
     /**

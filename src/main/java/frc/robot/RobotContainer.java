@@ -18,11 +18,18 @@ import frc.robot.commands.intakecommands.IntakeBallCommand;
 import frc.robot.commands.intakecommands.RaiseIntakeCommand;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.commands.Drive;
-import frc.robot.commands.ShooterCommands.TogglePiston;
+import frc.robot.commands.Miscellaneous.SetLEDOff;
+import frc.robot.commands.Miscellaneous.SetLEDOn;
+import frc.robot.commands.Miscellaneous.SetPipeline0;
+import frc.robot.commands.Miscellaneous.SetPipeline1;
+import frc.robot.commands.ShooterCommands.ToggleShooterPiston;
+import frc.robot.commands.ShooterCommands.RetractShooterPiston;
+import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
 import frc.robot.commands.ShooterCommands.ToggleShooterMotor;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
 import frc.robot.utils.SmartShuffleboard;
+import frc.robot.utils.limelight.LimeLightVision;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -46,10 +53,11 @@ public class RobotContainer {
   private final DriveTrain driveTrain = new DriveTrain();
   private final Shooter shooterSubsystem = new Shooter();
   private final PowerDistribution m_PowerDistPanel = new PowerDistribution();
-
+  
   public AutoChooser autoChooser = new AutoChooser();
 
   private final Drive driveCommand = new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getY());
+  private final LimeLightVision limeLight = new LimeLightVision(20.9, 80.8, 20.7);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -74,6 +82,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
+      SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
+      SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
+      SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
   }
 
   public IntakeSubsystem getIntakeSubsystem() {
@@ -98,8 +110,12 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Intake", "Intake Ball", new IntakeBallCommand(getIntakeSubsystem()));
       SmartShuffleboard.putCommand("Intake", "Drop Ball", new DropBallCommand(getIntakeSubsystem()));
 
-      SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new TogglePiston(shooterSubsystem));
-      SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
+      
+
+      SmartShuffleboard.putCommand("Miscellaneous", "Set LED Off", new SetLEDOff());
+      SmartShuffleboard.putCommand("Miscellaneous", "Set LED On", new SetLEDOn());
+      SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline 0", new SetPipeline0());
+      SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline 1", new SetPipeline1());
     }
   }
 } 

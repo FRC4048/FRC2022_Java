@@ -69,4 +69,10 @@ public interface Constants2022Robot {
     public static final double INTAKE_MOTOR_SPEED = 1.0;
     public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
     public static final int RAISED_INTAKE_TIMEOUT = 3;
+
+    //Limelight Settings
+    double cameraHeight = 20.9;
+    double targetHeight = 19.8;
+    double cameraAngle = 18.7;
+
 }
