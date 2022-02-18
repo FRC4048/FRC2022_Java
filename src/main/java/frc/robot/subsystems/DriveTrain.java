@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.ADIS16470_IMU;
 
 public class DriveTrain extends SubsystemBase {
   private WPI_TalonSRX left1;
@@ -24,7 +25,7 @@ public class DriveTrain extends SubsystemBase {
   private Encoder leftEncoder;
   private Encoder rightEncoder;
   // private AHRS navX;
-  private PigeonIMU gyro;
+  private ADIS16470_IMU gyro;
   private Solenoid gearSolenoid;
 
   /**
@@ -35,6 +36,8 @@ public class DriveTrain extends SubsystemBase {
     left2 = new WPI_TalonSRX(3);
     right1 = new WPI_TalonSRX(7);
     right2 = new WPI_TalonSRX(8);
+
+    gyro = new ADIS16470_IMU();
 
     // navX = new AHRS(I2C.Port.kMXP);
     left2.set(ControlMode.Follower, 6);
@@ -66,5 +69,13 @@ public class DriveTrain extends SubsystemBase {
     //The joysticks are inverted so inverting this makes it drive correctly.
     left1.set(ControlMode.PercentOutput, speedLeft);
     right1.set(ControlMode.PercentOutput, speedRight);
+  }
+
+  public double getAngle() {
+    return -gyro.getAngle();
+  }
+
+  public ADIS16470_IMU getGyro(){
+    return gyro;
   }
 }
