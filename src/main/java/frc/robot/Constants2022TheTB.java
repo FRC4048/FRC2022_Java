@@ -18,7 +18,7 @@ public interface Constants2022TheTB {
   public static final int PCM_CAN_ID = 20;
   public static final int SHOOTER_MOTOR_ID = 11;
   public static final int INTAKE_MOTOR_ID = 10;
-  public static final int turretMotorID = 12; //Don't know if this is right
+  public static final int TURRET_MOTOR_ID = 12; //Don't know if this is right
 
   //PDP
   public static final int PDP_DRIVE_L1 = 13;
@@ -47,7 +47,7 @@ public interface Constants2022TheTB {
   public static final double INTAKE_BUFFER = 1.0;
 
   //Turret
-  public static final double TURRETSPIN_SPEED = 0.5;
+  public static final double TURRETSPIN_SCALEFACTOR = 0.5;
 
   //OI
   public static final int XBOX_A_BUTTON = 1;
@@ -63,4 +63,5 @@ public interface Constants2022TheTB {
   public static final int LEFT_JOYSTICK_ID = 0;
   public static final int RIGHT_JOYSTICK_ID = 1;
   public static final int CONTROLLER_ID = 2;
+  
 }

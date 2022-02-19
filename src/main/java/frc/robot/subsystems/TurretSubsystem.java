@@ -11,7 +11,7 @@ public class TurretSubsystem extends SubsystemBase {
     private WPI_TalonSRX turretMotor;
 
     public TurretSubsystem(){
-       turretMotor = new WPI_TalonSRX(Constants.turretMotorID); 
+       turretMotor = new WPI_TalonSRX(Constants.TURRET_MOTOR_ID); 
        turretMotor.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
        turretMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     }

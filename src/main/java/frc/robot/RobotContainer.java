@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import java.util.concurrent.PriorityBlockingQueue;
 
 import edu.wpi.first.wpilibj.GenericHID;
 
@@ -44,6 +43,7 @@ public class RobotContainer {
 
   private static Joystick joyLeft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private static Joystick joyRight = new Joystick(Constants.RIGHT_JOYSTICK_ID);
+
   private XboxController xboxController = new XboxController(Constants.CONTROLLER_ID);
   private  JoystickButton buttonA = new JoystickButton(xboxController, Constants.XBOX_A_BUTTON);
 
@@ -63,7 +63,7 @@ public class RobotContainer {
   public RobotContainer() {
     autoChooser.addOptions();
     driveTrain.setDefaultCommand(new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getY()));
-    turretSubsystem.setDefaultCommand(new TurretCommand(turretSubsystem, () -> joyLeft.getX()));
+    turretSubsystem.setDefaultCommand(turretCommand);
 
     // Configure the button bindings
     configureButtonBindings();

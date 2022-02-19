@@ -24,7 +24,7 @@ public class TurretCommand extends CommandBase {
     @Override
     public void execute() {
         //dont know if the input should be negative
-      turretSubsystem.setTurret((joystickInput.getAsDouble() * Constants.TURRETSPIN_SPEED));
+      turretSubsystem.setTurret((joystickInput.getAsDouble() * Constants.TURRETSPIN_SCALEFACTOR));
     }
 
     @Override
