@@ -8,10 +8,13 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 import com.ctre.phoenix.sensors.PigeonIMUConfiguration;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants2022Robot;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.Constants2022Test;
 import frc.robot.utils.diag.DiagPigeon;
+import frc.robot.utils.diag.DiagEncoder;
+import frc.robot.utils.diag.DiagSparkMaxEncoder;
+import frc.robot.Robot;
+import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
     public CANSparkMax left1;
@@ -23,10 +26,10 @@ public class DriveTrain extends SubsystemBase {
     private PigeonIMU gyro;
 
     public DriveTrain(){
-        left1 = new CANSparkMax(Constants2022Test.MOTOR_LEFT1_ID, MotorType.kBrushless);
-        left2 = new CANSparkMax(Constants2022Test.MOTOR_LEFT2_ID, MotorType.kBrushless);
-        right1 = new CANSparkMax(Constants2022Robot.MOTOR_RIGHT1_ID, MotorType.kBrushless);
-        right2 = new CANSparkMax(Constants2022Robot.MOTOR_RIGHT2_ID, MotorType.kBrushless);
+        left1 = new CANSparkMax(Constants.DRIVE_LEFT1_ID, MotorType.kBrushless);
+        left2 = new CANSparkMax(Constants.DRIVE_LEFT2_ID, MotorType.kBrushless);
+        right1 = new CANSparkMax(Constants.DRIVE_RIGHT1_ID, MotorType.kBrushless);
+        right2 = new CANSparkMax(Constants.DRIVE_RIGHT2_ID, MotorType.kBrushless);
 
         left1.restoreFactoryDefaults();
         left2.restoreFactoryDefaults();
@@ -50,6 +53,8 @@ public class DriveTrain extends SubsystemBase {
 
         gyro = new PigeonIMU(Constants2022Test.PIGEON_CAN_ID);
         resetGyro();
+        Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Left Drive Encoder", 10, left1));
+        Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Right Drive Encoder", 10, right1));
     }
 
     public void drive(double speedLeft, double speedRight, boolean isSquared) {
@@ -82,7 +87,7 @@ public class DriveTrain extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        if (Constants2022Robot.ENABLE_DEBUG) {
+        if (Constants.ENABLE_DEBUG) {
             SmartShuffleboard.put("Drive", "Encoders", "L", getLeftEncoder());
             SmartShuffleboard.put("Drive", "Encoders", "R", getRightEncoder());
             SmartShuffleboard.put("Drive", "Gyro", "Gyro", getAngle());
