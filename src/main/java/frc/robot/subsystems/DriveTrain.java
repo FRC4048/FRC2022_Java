@@ -48,7 +48,7 @@ public class DriveTrain extends SubsystemBase {
         right1.setIdleMode(IdleMode.kBrake);
         right2.setIdleMode(IdleMode.kBrake);
 
-        gyro = new PigeonIMU(Constants2022Robot.PIGEON_CAN_ID);
+        gyro = new PigeonIMU(Constants2022Test.PIGEON_CAN_ID);
         resetGyro();
     }
 
@@ -85,6 +85,7 @@ public class DriveTrain extends SubsystemBase {
         if (Constants2022Robot.ENABLE_DEBUG) {
             SmartShuffleboard.put("Drive", "Encoders", "L", getLeftEncoder());
             SmartShuffleboard.put("Drive", "Encoders", "R", getRightEncoder());
+            SmartShuffleboard.put("Drive", "Gyro", "Gyro", getAngle());
          }
     }
 
