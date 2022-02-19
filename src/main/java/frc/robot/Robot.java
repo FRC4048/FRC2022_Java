@@ -7,12 +7,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.intakecommands.DeployIntakeCommand;
-import frc.robot.commands.intakecommands.DropBallCommand;
-import frc.robot.commands.intakecommands.IntakeBallCommand;
-import frc.robot.commands.intakecommands.RaiseIntakeCommand;
-import frc.robot.commands.Drive;
-import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.Diagnostics;
 
 /**
@@ -36,8 +30,9 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
     diagnostics = new Diagnostics();
+    m_robotContainer = new RobotContainer();
+    
     m_robotContainer.installCommandsOnShuffleboard();
   }
 

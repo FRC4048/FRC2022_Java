@@ -1,16 +1,16 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.sensors.PigeonIMU;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.SmartShuffleboard;
-import frc.robot.utils.diag.DiagEncoder;
-import frc.robot.utils.diag.DiagSparkMaxEncoder;
-import frc.robot.Robot;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.utils.SmartShuffleboard;
+import frc.robot.utils.diag.DiagSparkMaxEncoder;
 
 public class DriveTrain extends SubsystemBase {
     public CANSparkMax left1;
@@ -19,6 +19,7 @@ public class DriveTrain extends SubsystemBase {
     private CANSparkMax right2;
     private RelativeEncoder leftEncoder;
     private RelativeEncoder rightEncoder;
+    private PigeonIMU gyro;
 
     public DriveTrain(){
         left1 = new CANSparkMax(Constants.DRIVE_LEFT1_ID, MotorType.kBrushless);
@@ -46,6 +47,8 @@ public class DriveTrain extends SubsystemBase {
         right1.setIdleMode(IdleMode.kBrake);
         right2.setIdleMode(IdleMode.kBrake);
 
+        gyro = new PigeonIMU(Constants.PIGEON_CAN_ID);
+        resetGyro();
         Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Left Drive Encoder", 10, left1));
         Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Right Drive Encoder", 10, right1));
     }
@@ -61,12 +64,29 @@ public class DriveTrain extends SubsystemBase {
           right1.set(speedRight);
     }
 
+      /**
+   * Resets the Gyro
+   */
+    public void resetGyro() {
+        gyro.setFusedHeading(0);
+    }
+
+      /**
+   * Gets the angle of the robot
+   * 
+   * @return angle of robot between -180-180
+   */
+    public double getAngle() {
+        return Math.IEEEremainder(gyro.getFusedHeading(), 360);
+    }
+
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
         if (Constants.ENABLE_DEBUG) {
             SmartShuffleboard.put("Drive", "Encoders", "L", getLeftEncoder());
             SmartShuffleboard.put("Drive", "Encoders", "R", getRightEncoder());
+            SmartShuffleboard.put("Drive", "Gyro", "Gyro", getAngle());
          }
     }
 

@@ -50,6 +50,9 @@ public interface Constants2022Robot {
 
     //SHOOTER CONSTANTS
 
+    public static final int PIGEON_CAN_ID = 7;
+
+    //Joystick ID
     //OI
     public static final int XBOX_A_BUTTON = 1;
     public static final int XBOX_B_BUTTON = 2;
