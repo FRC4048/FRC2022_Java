@@ -1,20 +1,16 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.sensors.PigeonIMU;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.ctre.phoenix.sensors.PigeonIMU;
-import com.ctre.phoenix.sensors.PigeonIMUConfiguration;
+import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.SmartShuffleboard;
-import frc.robot.Constants2022Test;
-import frc.robot.utils.diag.DiagPigeon;
-import frc.robot.utils.diag.DiagEncoder;
-import frc.robot.utils.diag.DiagSparkMaxEncoder;
-import frc.robot.Robot;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.utils.SmartShuffleboard;
+import frc.robot.utils.diag.DiagSparkMaxEncoder;
 
 public class DriveTrain extends SubsystemBase {
     public CANSparkMax left1;
@@ -51,7 +47,7 @@ public class DriveTrain extends SubsystemBase {
         right1.setIdleMode(IdleMode.kBrake);
         right2.setIdleMode(IdleMode.kBrake);
 
-        gyro = new PigeonIMU(Constants2022Test.PIGEON_CAN_ID);
+        gyro = new PigeonIMU(Constants.PIGEON_CAN_ID);
         resetGyro();
         Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Left Drive Encoder", 10, left1));
         Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Right Drive Encoder", 10, right1));
