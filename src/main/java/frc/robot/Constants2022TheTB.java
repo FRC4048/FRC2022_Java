@@ -16,7 +16,7 @@ public interface Constants2022TheTB {
   public static final int DRIVE_RIGHT1_ID = 44;
   public static final int DRIVE_RIGHT2_ID = 45;
   public static final int PCM_CAN_ID = 20;
-  public static final int SHOOTER_MOTOR_ID = 42;
+  public static final int SHOOTER_MOTOR_ID = 40;
   public static final int INTAKE_MOTOR_ID = 10;
 
   //PDP

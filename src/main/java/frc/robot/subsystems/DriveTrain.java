@@ -22,29 +22,29 @@ public class DriveTrain extends SubsystemBase {
 
     public DriveTrain(){
         left1 = new CANSparkMax(Constants.DRIVE_LEFT1_ID, MotorType.kBrushless);
-        //left2 = new CANSparkMax(Constants.DRIVE_LEFT2_ID, MotorType.kBrushless);
+        left2 = new CANSparkMax(Constants.DRIVE_LEFT2_ID, MotorType.kBrushless);
         right1 = new CANSparkMax(Constants.DRIVE_RIGHT1_ID, MotorType.kBrushless);
-        //right2 = new CANSparkMax(Constants.DRIVE_RIGHT2_ID, MotorType.kBrushless);
+        right2 = new CANSparkMax(Constants.DRIVE_RIGHT2_ID, MotorType.kBrushless);
 
         left1.restoreFactoryDefaults();
-        //left2.restoreFactoryDefaults();
+        left2.restoreFactoryDefaults();
 
         right1.restoreFactoryDefaults();
-        //right2.restoreFactoryDefaults();
+        right2.restoreFactoryDefaults();
 
         leftEncoder = left1.getEncoder();
         rightEncoder = right1.getEncoder();
 
-        //left2.follow(left1);
-        //right2.follow(right1);
+        left2.follow(left1);
+        right2.follow(right1);
 
         left1.setInverted(true);
-        //left2.setInverted(true);
+        left2.setInverted(true);
 
         left1.setIdleMode(IdleMode.kBrake);
-        //left2.setIdleMode(IdleMode.kBrake);
+        left2.setIdleMode(IdleMode.kBrake);
         right1.setIdleMode(IdleMode.kBrake);
-        //right2.setIdleMode(IdleMode.kBrake);
+        right2.setIdleMode(IdleMode.kBrake);
 
         Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Left Drive Encoder", 10, left1));
         Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Right Drive Encoder", 10, right1));
