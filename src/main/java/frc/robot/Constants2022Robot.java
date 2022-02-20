@@ -26,6 +26,7 @@ public interface Constants2022Robot {
     //    public static final int DRIVE_RIGHT1_ID = 3;
     //    public static final int DRIVE_RIGHT2_ID = 4;
     //    public static final int INTAKE_MOTOR_ID = 10;
+    //    public static final int TURRET_MOTOR_ID = 10;
 
     //    public static final int PCM_CAN_ID = 20;
     //    public static final int SHOOTER_MOTOR_ID = 5; //Placeholder
@@ -50,6 +51,15 @@ public interface Constants2022Robot {
 
     //SHOOTER CONSTANTS
 
+
+    //Turret CONSTANTS
+    public static final double TURRETSPIN_SCALEFACTOR = 0.5;
+
+
+    public static final int PIGEON_CAN_ID = 7;
+
+    //Joystick ID
+
     //OI
     public static final int XBOX_A_BUTTON = 1;
     public static final int XBOX_B_BUTTON = 2;
@@ -64,10 +74,18 @@ public interface Constants2022Robot {
     public static final int LEFT_JOYSTICK_ID = 0;
     public static final int RIGHT_JOYSTICK_ID = 1;
     public static final int CONTROLLER_ID = 2;
+   
 
     //Intake
     public static final double INTAKE_MOTOR_SPEED = 1.0;
     public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
     public static final int RAISED_INTAKE_TIMEOUT = 3;
+
+    //Limelight Settings
+    public static final double CAMERA_HEIGHT = 38.0;
+    public static final double TARGET_HEIGHT = 104.0;
+    //cameraAngle is a placeholder value
+    public static final double CAMERA_ANGLE = 18.7;
+
     public static final double INTAKE_BUFFER = 1.0;
 }
