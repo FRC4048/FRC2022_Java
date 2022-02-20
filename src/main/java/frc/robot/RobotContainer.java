@@ -27,6 +27,15 @@ import frc.robot.commands.Drive;
 
 import frc.robot.commands.intakecommands.IntakeSequence;
 import frc.robot.commands.intakecommands.RaiseIntakeCommand;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.commands.Drive;
+import frc.robot.commands.ShooterCommands.ToggleShooterPiston;
+import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
+import frc.robot.commands.ShooterCommands.RetractShooterPiston;
+import frc.robot.commands.ShooterCommands.RotateShooterMotor;
+import frc.robot.commands.intakecommands.IntakeSequence;
+import frc.robot.commands.ShooterCommands.ToggleShooterMotor;
+
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Shooter;
@@ -95,6 +104,13 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+
+    SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
+    SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
+    SmartShuffleboard.putCommand("Shooter", "Start Shooter Motor", new RotateShooterMotor(shooterSubsystem, Constants.SHOOTER_SPEED));
+    SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
+    SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
+    
     buttonA.whenPressed(new IntakeSequence(intakeSubsystem));
   }
 
@@ -124,6 +140,8 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Intake", "Intake Ball", new IntakeBallCommand(getIntakeSubsystem()));
       SmartShuffleboard.putCommand("Intake", "Drop Ball", new DropBallCommand(getIntakeSubsystem()));
 
+      SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
+      
       SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
 
       SmartShuffleboard.putCommand("Miscellaneous", "Set LED Off", new SetLEDOff());
