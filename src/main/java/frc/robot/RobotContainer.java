@@ -57,7 +57,7 @@ public class RobotContainer {
   
 
   private final Drive driveCommand = new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getY());
-  private final TurretCommand turretCommand= new TurretCommand(turretSubsystem, () -> joyLeft.getX());
+  private final TurretCommand turretCommand= new TurretCommand(turretSubsystem, () -> xboxController.getLeftX());
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
