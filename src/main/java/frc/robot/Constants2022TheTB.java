@@ -61,8 +61,8 @@ public interface Constants2022TheTB {
   public static final int CONTROLLER_ID = 2;
 
   //Limelight Settings
-  double cameraHeight = 38.0;
-  double targetHeight = 104.0;
-  //cameraAngle is a placeholdervalue
-  double cameraAngle = 18.7;
+  public static final double CAMERA_HEIGHT = 38.0;
+  public static final double TARGET_HEIGHT = 104.0;
+  //cameraAngle is a placeholder value
+  public static final double CAMERA_ANGLE = 18.7;
 }

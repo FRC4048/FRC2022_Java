@@ -55,7 +55,7 @@ public class RobotContainer {
   public AutoChooser autoChooser = new AutoChooser();
 
   private final Drive driveCommand = new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getY());
-  private final LimeLightVision limeLight = new LimeLightVision(Constants.cameraHeight, Constants.targetHeight, Constants.cameraAngle);
+  private final LimeLightVision limeLight = new LimeLightVision(Constants.CAMERA_HEIGHT, Constants.TARGET_HEIGHT, Constants.CAMERA_ANGLE);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
