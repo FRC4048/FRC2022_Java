@@ -27,6 +27,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.subsystems.Hood;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.limelight.LimeLightVision;
 
@@ -52,7 +53,7 @@ public class RobotContainer {
   private final DriveTrain driveTrain = new DriveTrain();
   private final Shooter shooterSubsystem = new Shooter();
   private final PowerDistribution m_PowerDistPanel = new PowerDistribution();
-  
+  private final Hood hood = new Hood();
   private final TurretSubsystem turretSubsystem= new TurretSubsystem(); 
 
   public AutoChooser autoChooser = new AutoChooser();
