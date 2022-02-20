@@ -5,6 +5,7 @@
 package frc.robot.commands.Miscellaneous;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 import frc.robot.utils.limelight.LimeLightVision;
 
 public class SetLEDOff extends CommandBase {
@@ -20,7 +21,7 @@ public class SetLEDOff extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    LimeLightVision.setLedOff();
+    Robot.getRobotContainer().getLimeLight().setLedOff();
   }
 
 

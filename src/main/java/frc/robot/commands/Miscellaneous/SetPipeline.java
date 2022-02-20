@@ -5,11 +5,14 @@
 package frc.robot.commands.Miscellaneous;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 import frc.robot.utils.limelight.LimeLightVision;
 
-public class SetPipeline1 extends CommandBase {
-  /** Creates a new SetPipeline1. */
-  public SetPipeline1() {
+public class SetPipeline extends CommandBase {
+  private int pipeline;
+  /** Creates a new SetPipeline0. */
+  public SetPipeline(int pipeline) {
+    this.pipeline = pipeline;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -20,7 +23,7 @@ public class SetPipeline1 extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    LimeLightVision.setPipeline(1);
+    Robot.getRobotContainer().getLimeLight().setPipeline(pipeline);
   }
 
   // Called once the command ends or is interrupted.
