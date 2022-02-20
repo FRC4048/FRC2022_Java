@@ -126,6 +126,16 @@ public class LimeLightVision {
         double sidewaysDistance = forwardDistance * Math.tan(Math.toRadians(angleX));
 
         return new CameraDistance(forwardDistance, sidewaysDistance);
-    }
+    } 
 
+    public double calcDirectDistanceToTarget (double angleY){
+        double h = (targetHeight - cameraHeight)/Math.sin(Math.toRadians(cameraAngle+angleY));
+        return h;
+    } 
+
+    public double calcHorizontalDistanceToTarget (double angleY){
+		/*Assumes y offset from camera is in degrees*/
+        double horizontal = (targetHeight - cameraHeight)/Math.tan(Math.toRadians(cameraAngle+angleY));  
+		return horizontal;
+    } 
 }
