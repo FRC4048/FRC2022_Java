@@ -18,7 +18,6 @@ public interface Constants2022Test {
     public static final int DRIVE_RIGHT2_ID = 2;
     public static final int PCM_CAN_ID = 20;
     public static final int SHOOTER_MOTOR_ID = 5; //Placeholder
-    public static final int SHOOTER_MOTOR_ID = 11;
     public static final int TURRET_MOTOR_ID = 10;
 
     //PDP
