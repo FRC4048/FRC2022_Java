@@ -12,13 +12,17 @@ public interface Constants2022TheTB {
   //CAN ID
   public static final int PDP_CAN_ID = 0;
 
-  public static final int INTAKE_MOTOR_ID = 10;
+  public static final int DRIVE_LEFT1_ID = 44;
+  public static final int DRIVE_LEFT2_ID = 45;
+  public static final int DRIVE_RIGHT1_ID = 42;
+  public static final int DRIVE_RIGHT2_ID = 41;
+
   public static final int PCM_CAN_ID = 20;
-  public static final int DRIVE_LEFT1_ID = 55;
-  public static final int DRIVE_LEFT2_ID = 56;
-  public static final int DRIVE_RIGHT1_ID = 57;
-  public static final int DRIVE_RIGHT2_ID = 58;
-  public static final int SHOOTER_MOTOR_ID = 11;
+  public static final int SHOOTER_MOTOR_ID = 40;
+  public static final int INTAKE_MOTOR_ID = 10;
+  public static final int TURRET_MOTOR_ID = 12; //Don't know if this is right
+  
+  public static final int PIGEON_CAN_ID = 7;
 
   //PDP
   public static final int PDP_DRIVE_L1 = 13; //Placeholder
@@ -32,10 +36,10 @@ public interface Constants2022TheTB {
   //Relay
 
   //PCM
-  public static final int SHOOTER_PISTON_ID = 3;
+  public static final int SHOOTER_PISTON_ID = 4; //placeholder
   public static final int INTAKE_SOLENOID_1 = 0;
-  public static final int INTAKE_SOLENOID_2 = 3;
-  
+  public static final int INTAKE_SOLENOID_2 = 1;
+
   //DRIVETRAIN CONSTANTS
 
   //SHOOTER CONSTANTS
@@ -43,6 +47,9 @@ public interface Constants2022TheTB {
 
   // Intake
   public static final double INTAKE_BUFFER = 1.0;
+
+  //Turret
+  public static final double TURRETSPIN_SCALEFACTOR = 0.5;
 
   //OI
   public static final int XBOX_A_BUTTON = 1;
@@ -60,7 +67,6 @@ public interface Constants2022TheTB {
 
   public static final int CONTROLLER_ID = 2;
 
-
   //Motor Speeds
   public static final double INTAKE_MOTOR_SPEED = 1;
 
@@ -68,4 +74,9 @@ public interface Constants2022TheTB {
   public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
   public static final int RAISED_INTAKE_TIMEOUT = 3;
   public static final int SHOOTER_TIMEOUT = 1;
+
+  //Limelight Settings
+  public static final double CAMERA_HEIGHT = 38.0;
+  public static final double TARGET_HEIGHT = 104.0;
+  public static final double CAMERA_ANGLE = 18.7;   //cameraAngle is a placeholder value
 }
