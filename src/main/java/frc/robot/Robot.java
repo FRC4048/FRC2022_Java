@@ -32,7 +32,6 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     diagnostics = new Diagnostics();
     m_robotContainer = new RobotContainer();
-    
     m_robotContainer.installCommandsOnShuffleboard();
   }
 
