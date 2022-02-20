@@ -22,6 +22,7 @@ import frc.robot.commands.intakecommands.DeployIntakeCommand;
 import frc.robot.commands.intakecommands.DropBallCommand;
 import frc.robot.commands.intakecommands.IntakeBallCommand;
 import frc.robot.commands.intakecommands.IntakeSequence;
+import frc.robot.commands.intakecommands.ManuallyRunIntakeMotor;
 import frc.robot.commands.intakecommands.RaiseIntakeCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -47,6 +48,8 @@ public class RobotContainer {
 
   private XboxController xboxController = new XboxController(Constants.CONTROLLER_ID);
   private  JoystickButton buttonA = new JoystickButton(xboxController, Constants.XBOX_A_BUTTON);
+  private  JoystickButton buttonB = new JoystickButton(xboxController, Constants.XBOX_B_BUTTON);
+
 
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   private final DriveTrain driveTrain = new DriveTrain();
@@ -87,6 +90,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     buttonA.whenPressed(new IntakeSequence(intakeSubsystem));
+    buttonB.whenPressed(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED));
+    buttonB.whenReleased(new ManuallyRunIntakeMotor(intakeSubsystem, 0));
   }
 
   public IntakeSubsystem getIntakeSubsystem() {
