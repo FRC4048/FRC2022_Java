@@ -71,8 +71,8 @@ public interface Constants2022Robot {
     public static final int RAISED_INTAKE_TIMEOUT = 3;
 
     //Limelight Settings
-    double cameraHeight = 20.9;
-    double targetHeight = 19.8;
+    double cameraHeight = 38.0;
+    double targetHeight = 104.0;
     double cameraAngle = 18.7;
 
     public static final double INTAKE_BUFFER = 1.0;
