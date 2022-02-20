@@ -130,6 +130,8 @@ public class LimeLightVision {
     } 
 
     public double calcHorizontalDistanceToTarget (double angleY){
-        double horizontal = (targetHeight - cameraHeight)/Math.tan(Math.toRadians(cameraAngle+angleY)); /*Assumes y offset from camera is in degrees*/        return horizontal;
+		/*Assumes y offset from camera is in degrees*/
+        double horizontal = (targetHeight - cameraHeight)/Math.tan(Math.toRadians(cameraAngle+angleY));  
+		return horizontal;
     } 
 }
