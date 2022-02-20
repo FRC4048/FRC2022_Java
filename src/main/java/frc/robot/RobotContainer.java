@@ -21,7 +21,6 @@ import frc.robot.commands.ShooterCommands.ToggleShooterPiston;
 import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
 import frc.robot.commands.ShooterCommands.RetractShooterPiston;
 import frc.robot.commands.ShooterCommands.RotateShooterMotor;
-import frc.robot.commands.ShooterCommands.StopShooterMotor;
 import frc.robot.commands.intakecommands.IntakeSequence;
 import frc.robot.commands.ShooterCommands.ToggleShooterMotor;
 import frc.robot.subsystems.DriveTrain;
@@ -83,7 +82,6 @@ public class RobotContainer {
     SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
     SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
     SmartShuffleboard.putCommand("Shooter", "Start Shooter Motor", new RotateShooterMotor(shooterSubsystem, Constants.SHOOTER_SPEED));
-    SmartShuffleboard.putCommand("Shooter", "Stop Shooter Motor", new StopShooterMotor(shooterSubsystem));
     SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
     SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
     

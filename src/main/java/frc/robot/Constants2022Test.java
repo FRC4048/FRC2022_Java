@@ -6,7 +6,7 @@ package frc.robot;
 
 public interface Constants2022Test {
     //Global Constant
-    public static final boolean ENABLE_DEBUG = false;
+    public static final boolean ENABLE_DEBUG = true;
 
     //CAN ID
     public static final int PDP_CAN_ID = 0;
