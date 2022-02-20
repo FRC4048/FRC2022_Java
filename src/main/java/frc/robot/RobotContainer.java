@@ -4,16 +4,21 @@
 
 package frc.robot;
 
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
 import frc.robot.commands.Drive;
 import frc.robot.commands.TurnDegrees;
 import frc.robot.commands.ShooterCommands.TogglePiston;
 import frc.robot.commands.ShooterCommands.ToggleShooterMotor;
+import frc.robot.commands.TurretCommand;
+import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.commands.intakecommands.DeployIntakeCommand;
 import frc.robot.commands.intakecommands.DropBallCommand;
 import frc.robot.commands.intakecommands.IntakeBallCommand;
@@ -38,6 +43,7 @@ public class RobotContainer {
 
   private static Joystick joyLeft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private static Joystick joyRight = new Joystick(Constants.RIGHT_JOYSTICK_ID);
+
   private XboxController xboxController = new XboxController(Constants.CONTROLLER_ID);
   private  JoystickButton buttonA = new JoystickButton(xboxController, Constants.XBOX_A_BUTTON);
 
@@ -45,15 +51,19 @@ public class RobotContainer {
   private final DriveTrain driveTrain = new DriveTrain();
   private final Shooter shooterSubsystem = new Shooter();
   private final PowerDistribution m_PowerDistPanel = new PowerDistribution();
+  private final TurretSubsystem turretSubsystem= new TurretSubsystem(); 
 
   public AutoChooser autoChooser = new AutoChooser();
+  
 
   private final Drive driveCommand = new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getY());
+  private final TurretCommand turretCommand= new TurretCommand(turretSubsystem, () -> xboxController.getLeftX());
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     autoChooser.addOptions();
     driveTrain.setDefaultCommand(new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getY()));
+    turretSubsystem.setDefaultCommand(turretCommand);
 
     // Configure the button bindings
     configureButtonBindings();
