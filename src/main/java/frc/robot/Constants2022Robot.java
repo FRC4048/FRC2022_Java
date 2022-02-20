@@ -51,8 +51,14 @@ public interface Constants2022Robot {
 
     //SHOOTER CONSTANTS
 
+
     //Turret CONSTANTS
     public static final double TURRETSPIN_SCALEFACTOR = 0.5;
+
+
+    public static final int PIGEON_CAN_ID = 7;
+
+    //Joystick ID
 
     //OI
     public static final int XBOX_A_BUTTON = 1;

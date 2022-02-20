@@ -6,28 +6,28 @@ package frc.robot;
 
 
 import edu.wpi.first.wpilibj.GenericHID;
-
-import edu.wpi.first.wpilibj.PowerDistribution;
-
 import edu.wpi.first.wpilibj.Joystick;
-
+import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
+
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
+import frc.robot.commands.Drive;
+import frc.robot.commands.TurnDegrees;
+import frc.robot.commands.ShooterCommands.TogglePiston;
+import frc.robot.commands.ShooterCommands.ToggleShooterMotor;
 import frc.robot.commands.TurretCommand;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.commands.intakecommands.DeployIntakeCommand;
 import frc.robot.commands.intakecommands.DropBallCommand;
 import frc.robot.commands.intakecommands.IntakeBallCommand;
-import frc.robot.commands.intakecommands.RaiseIntakeCommand;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.commands.Drive;
 import frc.robot.commands.intakecommands.IntakeSequence;
-import frc.robot.commands.ShooterCommands.TogglePiston;
-import frc.robot.commands.ShooterCommands.ToggleShooterMotor;
+import frc.robot.commands.intakecommands.RaiseIntakeCommand;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Shooter;
 import frc.robot.utils.SmartShuffleboard;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -69,7 +69,7 @@ public class RobotContainer {
     configureButtonBindings();
     autoChooser.initialize();
 
-  
+    
   }
 
   public PowerDistribution getPowerDistPanel(){
@@ -110,6 +110,7 @@ public class RobotContainer {
 
       SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new TogglePiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
+      SmartShuffleboard.putCommand("Turn", "Turn Degrees", new TurnDegrees(driveTrain, 90));
     }
   }
 } 
