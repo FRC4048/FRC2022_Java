@@ -58,7 +58,7 @@ public class RobotContainer {
 
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   private final DriveTrain driveTrain = new DriveTrain();
-  //private final Shooter shooterSubsystem = new Shooter();
+  private final Shooter shooterSubsystem = new Shooter();
   private final PowerDistribution m_PowerDistPanel = new PowerDistribution();
   
   private final TurretSubsystem turretSubsystem= new TurretSubsystem(); 
