@@ -1,0 +1,42 @@
+package frc.robot.commands;
+
+import java.util.function.DoubleSupplier;
+
+
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.subsystems.TurretSubsystem;
+
+public class TurretCommand extends CommandBase {
+    private TurretSubsystem turretSubsystem;        
+    private DoubleSupplier joystickInput;
+
+    public TurretCommand(TurretSubsystem turretSubsystem, DoubleSupplier joystickXAxis) {
+        joystickInput=joystickXAxis;
+        addRequirements(turretSubsystem);
+        this.turretSubsystem = turretSubsystem;
+      
+    }
+    @Override
+    public void initialize() {
+    }
+
+    @Override
+    public void execute() {
+        //dont know if the input should be negative
+      turretSubsystem.setTurret((joystickInput.getAsDouble() * Constants.TURRETSPIN_SCALEFACTOR));
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        turretSubsystem.stopTurret();
+    }
+
+    @Override
+    public boolean isFinished() {
+        return false;
+
+    }
+
+
+  }

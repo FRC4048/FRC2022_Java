@@ -18,6 +18,8 @@ public interface Constants2022Test {
     public static final int DRIVE_RIGHT2_ID = 2;
     public static final int PCM_CAN_ID = 20;
     public static final int SHOOTER_MOTOR_ID = 5; //Placeholder
+    public static final int SHOOTER_MOTOR_ID = 11;
+    public static final int TURRET_MOTOR_ID = 10;
 
     //PDP
     public static final int PDP_DRIVE_L1 = 13; //Placeholder
@@ -40,6 +42,9 @@ public interface Constants2022Test {
     //SHOOTER CONSTANTS
     public static final double SHOOTER_SPEED = 0.5;
 
+    //Turret CONSTANTS
+    public static final double TURRETSPIN_SCALEFACTOR = 0.5;
+
     //OI
     public static final int XBOX_A_BUTTON = 1;
     public static final int XBOX_B_BUTTON = 2;
@@ -56,11 +61,16 @@ public interface Constants2022Test {
 
     public static final int CONTROLLER_ID = 2;
 
-
     //Motor Speeds
     public static final double INTAKE_MOTOR_SPEED = 1;
 
     //Timeouts
     public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
     public static final int RAISED_INTAKE_TIMEOUT = 3;
+  
+    //Limelight Settings
+    public static final double CAMERA_HEIGHT = 20.9;
+    public static final double TARGET_HEIGHT = 19.8;
+    //cameraAngle is a placeholder value
+    public static final double CAMERA_ANGLE = 18.7;
 }
