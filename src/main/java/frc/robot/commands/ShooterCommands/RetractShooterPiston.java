@@ -9,7 +9,7 @@ import frc.robot.subsystems.Shooter;
 
 public class RetractShooterPiston extends CommandBase {
   /** Creates a new RetractPiston. */
-  Shooter shooterSubystem;
+  private Shooter shooterSubystem;
   public RetractShooterPiston(Shooter shooterSubystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooterSubystem = shooterSubystem;

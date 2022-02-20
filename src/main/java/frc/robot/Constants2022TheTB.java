@@ -7,12 +7,11 @@ package frc.robot;
 public interface Constants2022TheTB {
 
   //Global Constant
-  public static final boolean ENABLE_DEBUG = false;
+  public static final boolean ENABLE_DEBUG = true;
 
   //CAN ID
   public static final int PDP_CAN_ID = 0;
 
-  public static final int INTAKE_SENSOR_ID = 0;
   public static final int INTAKE_MOTOR_ID = 10;
   public static final int PCM_CAN_ID = 20;
   public static final int DRIVE_LEFT1_ID = 55;
@@ -43,9 +42,6 @@ public interface Constants2022TheTB {
   public static final double SHOOTER_SPEED = 0.5;
 
   // Intake
-  public static final double INTAKE_MOTOR_SPEED = 1.0;
-  public static final int RAISED_INTAKE_TIMEOUT = 3;
-  public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
   public static final double INTAKE_BUFFER = 1.0;
 
   //OI
@@ -71,4 +67,5 @@ public interface Constants2022TheTB {
   //Timeouts
   public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
   public static final int RAISED_INTAKE_TIMEOUT = 3;
+  public static final int SHOOTER_TIMEOUT = 1;
 }

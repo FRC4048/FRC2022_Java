@@ -9,7 +9,7 @@ import frc.robot.subsystems.Shooter;
 
 public class ToggleShooterMotor extends CommandBase {
   /** Creates a new SpinShooter. */
-  Shooter shooterSubsystem;
+  private Shooter shooterSubsystem;
   public ToggleShooterMotor(Shooter shooterSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooterSubsystem = shooterSubsystem;

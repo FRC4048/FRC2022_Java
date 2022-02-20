@@ -9,7 +9,7 @@ import frc.robot.subsystems.Shooter;
 
 public class ExtendShooterPiston extends CommandBase {
   /** Creates a new RaisePiston. */
-  Shooter shooterSubsystem;
+  private Shooter shooterSubsystem;
   public ExtendShooterPiston(Shooter shooterSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooterSubsystem = shooterSubsystem;

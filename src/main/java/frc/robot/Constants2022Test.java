@@ -11,7 +11,6 @@ public interface Constants2022Test {
     //CAN ID
     public static final int PDP_CAN_ID = 0;
 
-    public static final int INTAKE_SENSOR_ID = 0;
     public static final int INTAKE_MOTOR_ID = 10;
     public static final int DRIVE_LEFT1_ID = 3;
     public static final int DRIVE_LEFT2_ID = 4;
@@ -27,6 +26,7 @@ public interface Constants2022Test {
     public static final int PDP_DRIVE_R2 = 1; //Placeholder
 
     //DIO
+    public static final int INTAKE_SENSOR_ID = 0;
 
     //Relay
 
