@@ -7,12 +7,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.intakecommands.DeployIntakeCommand;
-import frc.robot.commands.intakecommands.DropBallCommand;
-import frc.robot.commands.intakecommands.IntakeBallCommand;
-import frc.robot.commands.intakecommands.RaiseIntakeCommand;
-import frc.robot.commands.Drive;
-import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.Diagnostics;
 
 /**
@@ -24,7 +18,7 @@ import frc.robot.utils.diag.Diagnostics;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-  private RobotContainer m_robotContainer;
+  private static RobotContainer m_robotContainer;
   private static Diagnostics diagnostics;
 
 
@@ -118,7 +112,7 @@ public class Robot extends TimedRobot {
     return diagnostics;
   }
 
-  public RobotContainer getRobotContainer(){
+  public static RobotContainer getRobotContainer(){
     return m_robotContainer;
 
   }

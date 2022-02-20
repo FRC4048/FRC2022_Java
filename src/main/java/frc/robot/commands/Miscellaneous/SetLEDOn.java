@@ -2,32 +2,28 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.ShooterCommands;
+package frc.robot.commands.Miscellaneous;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.Robot;
+import frc.robot.utils.limelight.LimeLightVision;
 
-public class TogglePiston extends CommandBase {
-  /** Creates a new TogglePiston. */
-  private Shooter shooterSubsytem;
-  public TogglePiston(Shooter shooterSubsystem) {
+public class SetLEDOn extends CommandBase {
+  /** Creates a new TrunOnLimelight. */
+  public SetLEDOn() {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.shooterSubsytem = shooterSubsystem;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+   
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(shooterSubsytem.getPistonState() == true) {
-      shooterSubsytem.retractPiston();
-    } else {
-      shooterSubsytem.extendPiston();
-    }
+    Robot.getRobotContainer().getLimeLight().setLedOn();
   }
 
   // Called once the command ends or is interrupted.
