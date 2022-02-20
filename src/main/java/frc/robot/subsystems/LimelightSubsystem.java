@@ -20,7 +20,7 @@ public class LimelightSubsystem extends SubsystemBase {
   public void periodic() {
     if (vision.getCameraAngles() != null) {
       SmartShuffleboard.put("Limelight", "Y Offset", vision.getCameraAngles().getTy());
-      SmartShuffleboard.put("Limelight", "Camera Distance", vision.getHorizontalDistanceToTarget(vision.getCameraAngles().getTy()));
+      SmartShuffleboard.put("Limelight", "Camera Distance", vision.calcHorizontalDistanceToTarget(vision.getCameraAngles().getTy()));
     }
     // This method will be called once per scheduler run
   }
