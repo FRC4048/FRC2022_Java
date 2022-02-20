@@ -54,4 +54,9 @@ public interface Constants2022Test {
     public static final int CONTROLLER_ID = 2;
     
 
+    //Limelight Settings
+    public static final double CAMERA_HEIGHT = 20.9;
+    public static final double TARGET_HEIGHT = 19.8;
+    //cameraAngle is a placeholder value
+    public static final double CAMERA_ANGLE = 18.7;
 }

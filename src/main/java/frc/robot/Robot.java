@@ -18,7 +18,7 @@ import frc.robot.utils.diag.Diagnostics;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-  private RobotContainer m_robotContainer;
+  private static RobotContainer m_robotContainer;
   private static Diagnostics diagnostics;
 
 
@@ -111,7 +111,7 @@ public class Robot extends TimedRobot {
     return diagnostics;
   }
 
-  public RobotContainer getRobotContainer(){
+  public static RobotContainer getRobotContainer(){
     return m_robotContainer;
 
   }

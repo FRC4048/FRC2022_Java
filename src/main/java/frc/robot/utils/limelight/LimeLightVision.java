@@ -96,6 +96,10 @@ public class LimeLightVision {
     public void setLedBlink() {
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(LED_BLINK);
     }
+    
+    public void setPipeline(int pipelineMode) {
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipelineMode);
+    }
 
     /**
      * The Limelight camera has 3 streaming modes if a second USB camera is plugged in.
