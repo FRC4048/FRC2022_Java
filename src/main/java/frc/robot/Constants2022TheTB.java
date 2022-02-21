@@ -12,23 +12,23 @@ public interface Constants2022TheTB {
   //CAN ID
   public static final int PDP_CAN_ID = 0;
 
-  public static final int DRIVE_LEFT1_ID = 44;
-  public static final int DRIVE_LEFT2_ID = 45;
-  public static final int DRIVE_RIGHT1_ID = 42;
-  public static final int DRIVE_RIGHT2_ID = 41;
+  public static final int DRIVE_LEFT1_ID = 40;
+  public static final int DRIVE_LEFT2_ID = 39;
+  public static final int DRIVE_RIGHT1_ID = 38;
+  public static final int DRIVE_RIGHT2_ID = 37;
 
   public static final int PCM_CAN_ID = 20;
-  public static final int SHOOTER_MOTOR_ID = 40;
+  public static final int SHOOTER_MOTOR_ID = 42;
   public static final int INTAKE_MOTOR_ID = 10;
   public static final int TURRET_MOTOR_ID = 12; //Don't know if this is right
   
   public static final int PIGEON_CAN_ID = 7;
 
   //PDP
-  public static final int PDP_DRIVE_L1 = 13; //Placeholder
-  public static final int PDP_DRIVE_L2 = 15; //Placeholder
-  public static final int PDP_DRIVE_R1 = 0; //Placeholder
-  public static final int PDP_DRIVE_R2 = 1; //Placeholder
+  public static final int PDP_DRIVE_L1 = 2; 
+  public static final int PDP_DRIVE_L2 = 13; 
+  public static final int PDP_DRIVE_R1 = 1; 
+  public static final int PDP_DRIVE_R2 = 14; 
 
   //DIO
   public static final int INTAKE_SENSOR_ID = 0;
@@ -36,9 +36,9 @@ public interface Constants2022TheTB {
   //Relay
 
   //PCM
-  public static final int SHOOTER_PISTON_ID = 4; //placeholder
+  public static final int SHOOTER_PISTON_ID = 7; //placeholder
   public static final int INTAKE_SOLENOID_1 = 0;
-  public static final int INTAKE_SOLENOID_2 = 1;
+  public static final int INTAKE_SOLENOID_2 = 6;
 
   //DRIVETRAIN CONSTANTS
 
