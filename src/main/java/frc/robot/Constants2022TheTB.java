@@ -22,6 +22,8 @@ public interface Constants2022TheTB {
   public static final int INTAKE_MOTOR_ID = 10;
   public static final int TURRET_MOTOR_ID = 12; //Don't know if this is right
 
+  
+
   //PDP
   public static final int PDP_DRIVE_L1 = 13;
   public static final int PDP_DRIVE_L2 = 15;
@@ -51,6 +53,10 @@ public interface Constants2022TheTB {
   //Turret
   public static final double TURRETSPIN_SCALEFACTOR = 0.5;
 
+  //Hood
+  public static final double HOOD_MOTOR_SPEED = 0.75;
+  public static final int HOOD_MOTOR_ID = 10;
+
   //OI
   public static final int XBOX_A_BUTTON = 1;
   public static final int XBOX_B_BUTTON = 2;
@@ -73,4 +79,6 @@ public interface Constants2022TheTB {
   public static final double CAMERA_ANGLE = 18.7;
   //Pigeon
   public static final int PIGEON_CAN_ID = 7;
+
+  
 }
