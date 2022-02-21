@@ -7,10 +7,10 @@ package frc.robot.commands.ShooterCommands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
-public class ToggleShooterMotor extends CommandBase {
-  /** Creates a new SpinShooter. */
+public class ExtendShooterPiston extends CommandBase {
+  /** Creates a new RaisePiston. */
   private Shooter shooterSubsystem;
-  public ToggleShooterMotor(Shooter shooterSubsystem) {
+  public ExtendShooterPiston(Shooter shooterSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooterSubsystem = shooterSubsystem;
   }
@@ -22,11 +22,7 @@ public class ToggleShooterMotor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (shooterSubsystem.getEncoder().getVelocity() == 0) {
-      shooterSubsystem.setShooterSpeed(1);
-    } else {
-      shooterSubsystem.stopShooter();
-    }
+    shooterSubsystem.extendPiston();
   }
 
   // Called once the command ends or is interrupted.

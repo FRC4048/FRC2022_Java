@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class IntakeBallCommand extends CommandBase {
-private IntakeSubsystem intakeSubsystem;
-private double initTime;
+  private IntakeSubsystem intakeSubsystem;
+  private double initTime;
 
   /**
    * Creates a new ExampleCommand.

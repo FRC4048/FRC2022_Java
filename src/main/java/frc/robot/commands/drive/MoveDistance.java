@@ -13,7 +13,7 @@ import frc.robot.commands.Drive;
 
 /** An example command that uses an example subsystem. */
 public class MoveDistance extends CommandBase {
-  private final DriveTrain m_DriveTrain;
+  private final DriveTrain driveTrain;
   private double encoder;
   private double speed;
   private double distanceInches;
@@ -27,40 +27,40 @@ public class MoveDistance extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public MoveDistance(DriveTrain subsystem,double inputSpeed, double inputDistance) {
-    distanceInches=inputDistance;
-    speed=inputSpeed;
-    m_DriveTrain = subsystem;
+  public MoveDistance(DriveTrain driveTrain, double speed, double distanceInches) {
+    this.distanceInches = distanceInches;
+    this.speed = speed;
+    this.driveTrain = driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(driveTrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    encoder= m_DriveTrain.getLeftEncoder();
+    encoder = driveTrain.getLeftEncoder();
   
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_DriveTrain.drive(speed, speed, true);
+    driveTrain.drive(speed, speed, true);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_DriveTrain.drive(0, 0, false);
+    driveTrain.drive(0, 0, false);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if((encoderPerInch*distanceInches)<(m_DriveTrain.getLeftEncoder()-encoder)){
+    if ((encoderPerInch * distanceInches) < (driveTrain.getLeftEncoder() - encoder)) {
       return true;
     }
-    else{
+    else {
       return false;
     }
   }
