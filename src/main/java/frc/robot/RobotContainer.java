@@ -13,10 +13,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Drive;
 import frc.robot.commands.TurnDegrees;
-import frc.robot.commands.TurretCommand;
+import frc.robot.commands.TurretManualCommand;
 import frc.robot.commands.Miscellaneous.SetLEDOff;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
 import frc.robot.commands.Miscellaneous.SetPipeline;
+import frc.robot.commands.ShooterCommands.ManuallyMoveHood;
 import frc.robot.commands.ShooterCommands.ToggleShooterMotor;
 import frc.robot.commands.intakecommands.DeployIntakeCommand;
 import frc.robot.commands.intakecommands.DropBallCommand;
@@ -41,6 +42,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.subsystems.Hood;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.limelight.LimeLightVision;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -72,7 +74,7 @@ public class RobotContainer {
   private final DriveTrain driveTrain = new DriveTrain();
   private final Shooter shooterSubsystem = new Shooter();
   private final PowerDistribution m_PowerDistPanel = new PowerDistribution();
-  
+  private final Hood hood = new Hood();
   private final TurretSubsystem turretSubsystem= new TurretSubsystem(); 
 
   public AutoChooser autoChooser = new AutoChooser();
@@ -80,7 +82,8 @@ public class RobotContainer {
 
   private final Drive driveCommand = new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getY());
   private final LimeLightVision limeLight = new LimeLightVision(Constants.CAMERA_HEIGHT, Constants.TARGET_HEIGHT, Constants.CAMERA_ANGLE);
-  private final TurretCommand turretCommand= new TurretCommand(turretSubsystem, () -> xboxController.getLeftX());
+  private final TurretManualCommand turretCommand= new TurretManualCommand(turretSubsystem, () -> xboxController.getLeftX());
+  private final ManuallyMoveHood hoodCommand = new ManuallyMoveHood(hood, () -> xboxController.getRightY());
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -88,6 +91,7 @@ public class RobotContainer {
     autoChooser.addOptions();
     driveTrain.setDefaultCommand(new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getY()));
     turretSubsystem.setDefaultCommand(turretCommand);
+    hood.setDefaultCommand(hoodCommand);
 
     // Configure the button bindings
     configureButtonBindings();
