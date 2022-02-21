@@ -29,7 +29,7 @@ public interface Constants2022Robot {
     public static final int TURRET_MOTOR_ID = 1;
     public static final int PCM_CAN_ID = 20;
     public static final int TURRET_HOOD_CAN_ID = 12;
-    //public static final int SHOOTER_MOTOR_ID = 1;
+    public static final int SHOOTER_MOTOR_ID = 1; //temp
     public static final int RIGHT_CLIMBER_ID = 7;
     public static final int LEFT_CLIMBER_ID = 2;
 
@@ -40,7 +40,7 @@ public interface Constants2022Robot {
     public static final int PDP_DRIVE_R2 = 14; 
 
     //DIO
-    //    public static final int INTAKE_SENSOR_ID = 0;
+    public static final int INTAKE_SENSOR_ID = 0; //temp
 
     //Relay
 
