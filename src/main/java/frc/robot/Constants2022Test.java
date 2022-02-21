@@ -33,7 +33,9 @@ public interface Constants2022Test {
     
     //DRIVETRAIN CONSTANTS
 
-    //SHOOTER CONSTANTS
+    //Shooter
+    public static final double SHOOTER_CLOCKWISE_SPEED = 0.5;
+    public static final double SHOOTER_COUNTERCLOCKWISE_SPEED = -0.5;
 
     //Turret CONSTANTS
     public static final double TURRETSPIN_SCALEFACTOR = 0.5;
