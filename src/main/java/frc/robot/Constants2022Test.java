@@ -38,6 +38,12 @@ public interface Constants2022Test {
     //Turret CONSTANTS
     public static final double TURRETSPIN_SCALEFACTOR = 0.5;
 
+    //Hood
+    public static final double HOOD_MOTOR_SPEED = 0.75;
+    public static final int HOOD_MOTOR_ID = 10;
+    public static final double HOOD_AUTO_MOTOR_SPEED = 0.5;
+    public static final double HOOD_AUTO_LIMIT = 2;
+
     //OI
     public static final int XBOX_A_BUTTON = 1;
     public static final int XBOX_B_BUTTON = 2;

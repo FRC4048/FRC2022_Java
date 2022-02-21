@@ -7,6 +7,7 @@ package frc.robot.commands;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Hood;
 
 public class HoodAutoCommand extends CommandBase {
@@ -29,10 +30,10 @@ public class HoodAutoCommand extends CommandBase {
   @Override
   public void execute() {
     if (verticalOffset.getAsDouble() >= 0) {
-      hoodSubsystem.setHood(.5);
+      hoodSubsystem.setHood(Constants.HOOD_AUTO_MOTOR_SPEED);
     }
     else {
-      hoodSubsystem.setHood(-.5);
+      hoodSubsystem.setHood(-Constants.HOOD_AUTO_MOTOR_SPEED);
     } 
   }
 
@@ -45,6 +46,6 @@ public class HoodAutoCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return verticalOffset.getAsDouble() < 2 && verticalOffset.getAsDouble() > -2;
+    return Math.abs(verticalOffset.getAsDouble()) < Constants.HOOD_AUTO_LIMIT;
   }
 }
