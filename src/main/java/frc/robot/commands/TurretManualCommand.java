@@ -7,11 +7,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.TurretSubsystem;
 
-public class TurretCommand extends CommandBase {
+public class TurretManualCommand extends CommandBase {
     private TurretSubsystem turretSubsystem;        
     private DoubleSupplier joystickInput;
 
-    public TurretCommand(TurretSubsystem turretSubsystem, DoubleSupplier joystickXAxis) {
+    public TurretManualCommand(TurretSubsystem turretSubsystem, DoubleSupplier joystickXAxis) {
         joystickInput=joystickXAxis;
         addRequirements(turretSubsystem);
         this.turretSubsystem = turretSubsystem;
