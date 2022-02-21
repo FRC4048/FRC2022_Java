@@ -43,6 +43,7 @@ public interface Constants2022Test {
     public static final int HOOD_MOTOR_ID = 10;
     public static final double HOOD_AUTO_MOTOR_SPEED = 0.5;
     public static final double HOOD_AUTO_LIMIT = 2;
+    public static final double HOOD_JOYSTICK_THRESHOLD = 0.2;
 
     //OI
     public static final int XBOX_A_BUTTON = 1;

@@ -22,7 +22,7 @@ public class ManuallyMoveHood extends CommandBase {
     }
 
     public void execute() {
-        if(Math.abs(rightJoystickY.getAsDouble()) < 0.2){
+        if(Math.abs(rightJoystickY.getAsDouble()) < Constants.HOOD_JOYSTICK_THRESHOLD){
             hood.setHood(0);
         }
         hood.setHood(rightJoystickY.getAsDouble()*Constants.HOOD_MOTOR_SPEED);
