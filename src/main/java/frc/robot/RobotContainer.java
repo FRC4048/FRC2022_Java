@@ -74,8 +74,6 @@ public class RobotContainer {
   private final DriveTrain driveTrain = new DriveTrain();
   private final Shooter shooterSubsystem = new Shooter();
   private final PowerDistribution m_PowerDistPanel = new PowerDistribution();
-
-  //private final Compressor test = new Compressor(PneumaticsModuleType.CTREPCM);
   
   private final TurretSubsystem turretSubsystem= new TurretSubsystem(); 
 
@@ -91,7 +89,7 @@ public class RobotContainer {
   public RobotContainer() {
     autoChooser.addOptions();
     driveTrain.setDefaultCommand(new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getY()));
-    //turretSubsystem.setDefaultCommand(turretCommand);
+    turretSubsystem.setDefaultCommand(turretCommand);
 
     // Configure the button bindings
     configureButtonBindings();
