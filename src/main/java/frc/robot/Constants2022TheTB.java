@@ -12,10 +12,10 @@ public interface Constants2022TheTB {
   //CAN ID
   public static final int PDP_CAN_ID = 0;
 
-  public static final int DRIVE_LEFT1_ID = 40;
-  public static final int DRIVE_LEFT2_ID = 39;
-  public static final int DRIVE_RIGHT1_ID = 38;
-  public static final int DRIVE_RIGHT2_ID = 37;
+  public static final int DRIVE_LEFT1_ID = 44;
+  public static final int DRIVE_LEFT2_ID = 45;
+  public static final int DRIVE_RIGHT1_ID = 42;
+  public static final int DRIVE_RIGHT2_ID = 41;
 
   public static final int PCM_CAN_ID = 20;
   public static final int SHOOTER_MOTOR_ID = 42;
@@ -25,10 +25,10 @@ public interface Constants2022TheTB {
   public static final int PIGEON_CAN_ID = 7;
 
   //PDP
-  public static final int PDP_DRIVE_L1 = 2; 
-  public static final int PDP_DRIVE_L2 = 13; 
-  public static final int PDP_DRIVE_R1 = 1; 
-  public static final int PDP_DRIVE_R2 = 14; 
+  public static final int PDP_DRIVE_L1 = 13; 
+  public static final int PDP_DRIVE_L2 = 15; 
+  public static final int PDP_DRIVE_R1 = 0; 
+  public static final int PDP_DRIVE_R2 = 1; 
 
   //DIO
   public static final int INTAKE_SENSOR_ID = 0;
