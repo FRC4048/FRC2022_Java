@@ -4,12 +4,21 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Hood;
 
 public class HoodAutoCommand extends CommandBase {
   /** Creates a new HoodAuto. */
-  public HoodAutoCommand() {
+  private Hood hoodSubsystem;
+  private DoubleSupplier verticalOffset;
+
+  public HoodAutoCommand(Hood hoodSubsystem, DoubleSupplier verticalOffset) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.hoodSubsystem = hoodSubsystem;
+    this.verticalOffset = verticalOffset;
+    addRequirements(hoodSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -18,15 +27,24 @@ public class HoodAutoCommand extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    if (verticalOffset.getAsDouble() >= 0) {
+      hoodSubsystem.setHood(.5);
+    }
+    else {
+      hoodSubsystem.setHood(-.5);
+    } 
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    hoodSubsystem.stopHood();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return verticalOffset.getAsDouble() < 2 && verticalOffset.getAsDouble() > -2;
   }
 }

@@ -16,12 +16,12 @@ public class Hood extends SubsystemBase {
        hoodMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     }
 
-    public void setTurret(double speed){
+    public void setHood(double speed){
         hoodMotor.set(speed);
     }
 
-    public void stopTurret(double speed){
-        hoodMotor.set(speed);
+    public void stopHood(){
+        hoodMotor.set(0);
     }
 
     public boolean getRightSwitch(){
@@ -32,9 +32,7 @@ public class Hood extends SubsystemBase {
         return hoodMotor.getSensorCollection().isFwdLimitSwitchClosed();
     }
 
-
-
-
+    
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
