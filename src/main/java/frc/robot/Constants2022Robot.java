@@ -82,6 +82,10 @@ public interface Constants2022Robot {
     public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
     public static final int RAISED_INTAKE_TIMEOUT = 3;
 
+    //Shooter
+    public static final double SHOOTER_CLOCKWISE_SPEED = 0.5;
+    public static final double SHOOTER_COUNTERCLOCKWISE_SPEED = -0.5;
+
     //Limelight Settings
     public static final double CAMERA_HEIGHT = 38.0;
     public static final double TARGET_HEIGHT = 104.0;
