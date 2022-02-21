@@ -42,9 +42,10 @@ public interface Constants2022TheTB {
 
   //DRIVETRAIN CONSTANTS
 
-  //SHOOTER CONSTANTS
-  public static final double SHOOTER_SPEED = 0.5;
-
+  //Shooter
+  public static final double SHOOTER_CLOCKWISE_SPEED = 0.5;
+  public static final double SHOOTER_COUNTERCLOCKWISE_SPEED = -0.5;
+  
   // Intake
   public static final double INTAKE_BUFFER = 1.0;
 
