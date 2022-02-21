@@ -42,14 +42,15 @@ public interface Constants2022Robot {
 
     //Relay
 
-    //PCM Channels
-    //    public static final int INTAKE_SOLENOID_1 = 0;
-    //    public static final int INTAKE_SOLENOID_2 = 3;
-    //    public static final int SHOOTER_PISTON_ID = 3; //Placeholder
+    //PCM
+    public static final int SHOOTER_PISTON_ID = 3; //Placeholder
+    public static final int INTAKE_SOLENOID_1 = 0;
+    public static final int INTAKE_SOLENOID_2 = 3;
     
     //DRIVETRAIN CONSTANTS
 
     //SHOOTER CONSTANTS
+    public static final double SHOOTER_SPEED = 0.5;
 
 
     //Turret CONSTANTS
