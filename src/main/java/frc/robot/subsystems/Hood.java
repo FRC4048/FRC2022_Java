@@ -32,6 +32,14 @@ public class Hood extends SubsystemBase {
         return hoodMotor.getSensorCollection().isFwdLimitSwitchClosed();
     }
 
+    public double calcPosition(double distance) {
+        //ofeys funny math goes here ty kyle <3
+        return 0;
+    }
+
+    public double getEncoder(){
+        return hoodMotor.getSelectedSensorPosition();
+    }
     
     @Override
     public void periodic() {

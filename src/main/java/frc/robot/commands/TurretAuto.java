@@ -4,18 +4,19 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.utils.limelight.LimeLightVision;
 
 public class TurretAuto extends CommandBase {
     private TurretSubsystem turretSubsystem;      
     //offset 
-    private DoubleSupplier horizontalOffset;
+    private LimeLightVision vision;
     private boolean positive;
     //Possibly switch these two around
     // private double clockwise = 0.5;    // now in constants
     // private double counterClockwise = -0.5;   // now in constants
 
-    public TurretAuto(TurretSubsystem turretSubsystem, DoubleSupplier horizontalOffset) {
-        this.horizontalOffset = horizontalOffset;
+    public TurretAuto(TurretSubsystem turretSubsystem, LimeLightVision vision) {
+        this.vision = vision;
         addRequirements(turretSubsystem);
         this.turretSubsystem = turretSubsystem;
       
@@ -23,7 +24,7 @@ public class TurretAuto extends CommandBase {
     @Override
     public void initialize() {
        
-        if (horizontalOffset.getAsDouble()>=0) {
+        if (vision.getCameraAngles().getTx()>=0) {
             positive = true;
         }
         else {
@@ -50,7 +51,7 @@ public class TurretAuto extends CommandBase {
     @Override
     public boolean isFinished() {
         if (positive){
-            if (horizontalOffset.getAsDouble()<=0) {
+            if (vision.getCameraAngles().getTx()<=0) {
                 return true;
             }
             else {
@@ -58,7 +59,7 @@ public class TurretAuto extends CommandBase {
             }
         }
         else{
-            if (horizontalOffset.getAsDouble()>=0) {
+            if (vision.getCameraAngles().getTx()>=0) {
                 return true;
             }
             else {
