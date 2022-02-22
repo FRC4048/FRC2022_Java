@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.limelight.LimeLightVision;
 
 public class AutoTargetSequence extends SequentialCommandGroup {
@@ -28,6 +29,7 @@ public class AutoTargetSequence extends SequentialCommandGroup {
       new TurretAuto(turretSubsystem, vision),
       new HoodAutoCommand(hoodSubsystem, vision)
     );
+    SmartShuffleboard.put("Shooter", "Data", "Can Shoot", true);
   }
 
   // Called when the command is initially scheduled.

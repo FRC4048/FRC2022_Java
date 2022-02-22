@@ -5,12 +5,15 @@
 package frc.robot;
 
 
+import java.util.Set;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.AutoTargetSequence;
 import frc.robot.commands.Drive;
 import frc.robot.commands.TurnDegrees;
 import frc.robot.commands.TurretManualCommand;
@@ -68,6 +71,7 @@ public class RobotContainer {
   private  JoystickButton buttonB = new JoystickButton(xboxController, Constants.XBOX_B_BUTTON);
 
 
+
   private final LimelightSubsystem limeLightVision = new LimelightSubsystem();
 
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
@@ -85,6 +89,8 @@ public class RobotContainer {
   private final TurretManualCommand turretCommand= new TurretManualCommand(turretSubsystem, () -> xboxController.getLeftX());
   private final ManuallyMoveHood hoodCommand = new ManuallyMoveHood(hood, () -> xboxController.getRightY());
 
+  public boolean canShoot = false;
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -97,7 +103,6 @@ public class RobotContainer {
     configureButtonBindings();
     autoChooser.initialize();
 
-    
   }
 
   public PowerDistribution getPowerDistPanel(){
@@ -117,7 +122,9 @@ public class RobotContainer {
     SmartShuffleboard.putCommand("Shooter", "Start Shooter Motor", new RotateShooterMotor(shooterSubsystem, Constants.SHOOTER_CLOCKWISE_SPEED));
     SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
     SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
+    SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence());
     
+
     buttonA.whenPressed(new IntakeSequence(intakeSubsystem));
     buttonB.whenPressed(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED));
     buttonB.whenReleased(new ManuallyRunIntakeMotor(intakeSubsystem, 0));
