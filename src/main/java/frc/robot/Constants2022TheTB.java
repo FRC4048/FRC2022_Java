@@ -88,11 +88,5 @@ public interface Constants2022TheTB {
   //Limelight Settings
   public static final double CAMERA_HEIGHT = 38.0;
   public static final double TARGET_HEIGHT = 104.0;
-
-  //cameraAngle is a placeholder value
-  public static final double CAMERA_ANGLE = 18.7;
-  //Pigeon
-  public static final int PIGEON_CAN_ID = 7;
-
   public static final double CAMERA_ANGLE = 18.7;   //cameraAngle is a placeholder value
 }
