@@ -10,20 +10,18 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
 import frc.robot.commands.ShooterCommands.RetractShooterPiston;
+import frc.robot.commands.ShooterCommands.RotateShooterMotor;
 import frc.robot.subsystems.Shooter;
 import frc.robot.utils.SmartShuffleboard;
 
-public class PistonSequence extends SequentialCommandGroup {
+public class ShootSequence extends ParallelCommandGroup {
   private Shooter shooter;
   /** Creates a new PistonSequence. */
-  public PistonSequence() {
+  public ShootSequence() {
     addCommands(
-      new WaitCommand(Constants.SHOOTER_SPINUP_DELAY),
-      new ExtendShooterPiston(shooter),
-      new WaitCommand(Constants.PISTON_DELAY),
-      new RetractShooterPiston(shooter)
+      new RotateShooterMotor(shooter, Constants.SHOOTER_CLOCKWISE_SPEED),
+      new PistonSequence()
     );
-    SmartShuffleboard.put("Shooter", "Data", "Can Shoot", false);
   }
 
   // Called when the command is initially scheduled.
