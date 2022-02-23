@@ -13,6 +13,8 @@ public class ExtendShooterPiston extends CommandBase {
   public ExtendShooterPiston(Shooter shooterSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooterSubsystem = shooterSubsystem;
+    addRequirements(shooterSubsystem);
+
   }
 
   // Called when the command is initially scheduled.

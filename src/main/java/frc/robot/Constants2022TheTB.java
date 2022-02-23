@@ -16,13 +16,16 @@ public interface Constants2022TheTB {
   public static final int DRIVE_LEFT2_ID = 45;
   public static final int DRIVE_RIGHT1_ID = 42;
   public static final int DRIVE_RIGHT2_ID = 41;
-
   public static final int PCM_CAN_ID = 20;
   public static final int SHOOTER_MOTOR_ID = 42;
   public static final int INTAKE_MOTOR_ID = 10;
   public static final int TURRET_MOTOR_ID = 12; //Don't know if this is right
-  
   public static final int PIGEON_CAN_ID = 7;
+  public static final int CLIMBER_RIGHT_WINCH_ID = 1;
+  public static final int CLIMBER_LEFT_WINCH_ID = 2;
+  public static final int CLIMBER_RIGHT_MOTOR_ID = 3;
+  public static final int CLIMBER_LEFT_MOTOR_ID = 4;
+
 
   //PDP
   public static final int PDP_DRIVE_L1 = 13; 
@@ -32,6 +35,9 @@ public interface Constants2022TheTB {
 
   //DIO
   public static final int INTAKE_SENSOR_ID = 0;
+  public static final int CLIMBER_LEFT_SENSOR_ID = 1;
+  public static final int CLIMBER_RIGHT_SENSOR_ID = 2;
+
 
   //Relay
 
@@ -39,6 +45,8 @@ public interface Constants2022TheTB {
   public static final int SHOOTER_PISTON_ID = 7; //placeholder
   public static final int INTAKE_SOLENOID_1 = 0;
   public static final int INTAKE_SOLENOID_2 = 6;
+  public static final int CLIMBER_RIGHT_PISTON_ID = 5;
+  public static final int CLIMBER_LEFT_PISTON_ID = 4;
 
   //DRIVETRAIN CONSTANTS
 
@@ -51,6 +59,12 @@ public interface Constants2022TheTB {
 
   //Turret
   public static final double TURRETSPIN_SCALEFACTOR = 0.5;
+
+  //Climber
+  public static final double CLIMBER_ARM_SPEED = 0.75;
+  public static final double CLIMBER_WINCH_SPEED = 0.75;
+  public static final double CLIMBER_TIMEOUT = 10;
+  public static final double CLIMBER_TICKS_PER_INCH = 520/360; //TODO FIND TPI
 
   //OI
   public static final int XBOX_A_BUTTON = 1;

@@ -9,10 +9,12 @@ import frc.robot.subsystems.Shooter;
 
 public class RetractShooterPiston extends CommandBase {
   /** Creates a new RetractPiston. */
-  private Shooter shooterSubystem;
-  public RetractShooterPiston(Shooter shooterSubystem) {
+  private Shooter shooterSubsystem;
+  public RetractShooterPiston(Shooter shooterSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.shooterSubystem = shooterSubystem;
+    this.shooterSubsystem = shooterSubsystem;
+    addRequirements(shooterSubsystem);
+
   }
 
   // Called when the command is initially scheduled.
@@ -22,7 +24,7 @@ public class RetractShooterPiston extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterSubystem.retractPiston();
+    shooterSubsystem.retractPiston();
   }
 
   // Called once the command ends or is interrupted.

@@ -58,6 +58,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
+  private boolean manualOverride = false;
+
   private static Joystick joyLeft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private static Joystick joyRight = new Joystick(Constants.RIGHT_JOYSTICK_ID);
 
@@ -100,6 +102,24 @@ public class RobotContainer {
     return m_PowerDistPanel;
   }
 
+  public static void doRumble() {
+    joyLeft.setRumble(GenericHID.RumbleType.kLeftRumble, 1);
+		joyRight.setRumble(GenericHID.RumbleType.kRightRumble, 1);
+  }
+
+  public void stopRumble() {
+    joyLeft.setRumble(GenericHID.RumbleType.kLeftRumble, 0);
+    joyRight.setRumble(GenericHID.RumbleType.kRightRumble, 0);
+  }
+
+  public void setManualOverride(boolean mode) {
+    manualOverride = mode;
+  }
+
+  public boolean getManualOverride() {
+    return manualOverride;
+  }
+
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
@@ -137,6 +157,7 @@ public class RobotContainer {
   public LimeLightVision getLimeLight() {
     return limeLight;
   }
+  
 
   public void installCommandsOnShuffleboard() {
     if (Constants.ENABLE_DEBUG) {
