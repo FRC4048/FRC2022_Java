@@ -18,11 +18,10 @@ public interface Constants2022TheTB {
   public static final int DRIVE_RIGHT2_ID = 41;
 
   public static final int PCM_CAN_ID = 20;
-  public static final int SHOOTER_MOTOR_ID = 42;
+  public static final int SHOOTER_MOTOR_ID = 40;
   public static final int INTAKE_MOTOR_ID = 10;
   public static final int TURRET_MOTOR_ID = 12; //Don't know if this is right
   
-  public static final int PIGEON_CAN_ID = 7;
 
   
 
@@ -90,5 +89,9 @@ public interface Constants2022TheTB {
   //Limelight Settings
   public static final double CAMERA_HEIGHT = 38.0;
   public static final double TARGET_HEIGHT = 104.0;
-  public static final double CAMERA_ANGLE = 18.7;   //cameraAngle is a placeholder value
+
+  //cameraAngle is a placeholder value
+  public static final double CAMERA_ANGLE = 18.7;
+  //Pigeon
+  public static final int PIGEON_CAN_ID = 7;
 }

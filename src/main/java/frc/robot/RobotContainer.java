@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AutoTargetSequence;
 import frc.robot.commands.Drive;
 import frc.robot.commands.ShootSequence;
+import frc.robot.commands.PistonSequence;
 import frc.robot.commands.TurnDegrees;
 import frc.robot.commands.TurretManualCommand;
 import frc.robot.commands.Miscellaneous.SetLEDOff;
@@ -57,12 +58,13 @@ public class RobotContainer {
   private static Joystick joyRight = new Joystick(Constants.RIGHT_JOYSTICK_ID);
 
   private XboxController xboxController = new XboxController(Constants.CONTROLLER_ID);
-  private  JoystickButton buttonA = new JoystickButton(xboxController, Constants.XBOX_A_BUTTON);
-  private  JoystickButton buttonB = new JoystickButton(xboxController, Constants.XBOX_B_BUTTON);
+  private JoystickButton buttonA = new JoystickButton(xboxController, Constants.XBOX_A_BUTTON);
+  private JoystickButton buttonB = new JoystickButton(xboxController, Constants.XBOX_B_BUTTON);
+  private JoystickButton buttonX = new JoystickButton(xboxController, Constants.XBOX_X_BUTTON);
+  private JoystickButton rightBumper = new JoystickButton(xboxController, Constants.XBOX_RIGHT_BUMPER);
+  private JoystickButton leftBumper = new JoystickButton(xboxController, Constants.XBOX_LEFT_BUMPER);
   private Trigger rightTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
   private Trigger leftTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
-
-
 
 
   private final LimelightSubsystem limeLightVision = new LimelightSubsystem();
@@ -123,6 +125,10 @@ public class RobotContainer {
     buttonB.whenReleased(new ManuallyRunIntakeMotor(intakeSubsystem, 0));
     rightTrigger.whenActive(new ShootSequence());
     leftTrigger.whenActive(new AutoTargetSequence());
+    buttonX.whenPressed(new AutoTargetSequence());
+    rightBumper.whenPressed(new PistonSequence());
+    leftBumper.whenPressed(new ToggleShooterMotor(shooterSubsystem));
+    leftBumper.whenReleased(new ToggleShooterMotor(shooterSubsystem));
   }
 
   public IntakeSubsystem getIntakeSubsystem() {

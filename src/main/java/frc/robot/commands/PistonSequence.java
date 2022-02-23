@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
+import frc.robot.commands.Miscellaneous.SetLEDOff;
 import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
 import frc.robot.commands.ShooterCommands.RetractShooterPiston;
 import frc.robot.subsystems.Shooter;
@@ -20,8 +21,9 @@ public class PistonSequence extends SequentialCommandGroup {
     addCommands(
       new WaitCommand(Constants.SHOOTER_SPINUP_DELAY),
       new ExtendShooterPiston(shooter),
-      new WaitCommand(Constants.PISTON_DELAY),
-      new RetractShooterPiston(shooter)
+new WaitCommand(Constants.PISTON_DELAY),
+      new RetractShooterPiston(shooter),
+      new SetLEDOff()
     );
     SmartShuffleboard.put("Shooter", "Data", "Can Shoot", false);
   }

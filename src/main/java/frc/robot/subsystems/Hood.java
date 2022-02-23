@@ -1,11 +1,15 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.led.ColorFlowAnimation.Direction;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.utils.diag.DiagTalonSrxEncoder;
+import frc.robot.utils.diag.DiagTalonSrxSwitch;
 
 public class Hood extends SubsystemBase {
     private WPI_TalonSRX hoodMotor;
@@ -14,6 +18,10 @@ public class Hood extends SubsystemBase {
        hoodMotor = new WPI_TalonSRX(Constants.HOOD_MOTOR_ID); 
        hoodMotor.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
        hoodMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+
+       Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Hood Encoder", 100, hoodMotor));
+       Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Hood Forward Switch", hoodMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
+       Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Hood Reverse Switch", hoodMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
     }
 
     public void setHood(double speed){
@@ -33,7 +41,7 @@ public class Hood extends SubsystemBase {
     }
 
     public double calcPosition(double distance) {
-        //ofeys funny math goes here ty kyle <3
+        //THIS IS A PLACEHOLDER METHOD FOR THE TABLES TO GO IN
         return 0;
     }
 
