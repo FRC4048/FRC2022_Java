@@ -138,4 +138,5 @@ public class LimeLightVision {
         double horizontal = (targetHeight - cameraHeight)/Math.tan(Math.toRadians(cameraAngle+angleY));  
 		return horizontal;
     } 
+    
 }

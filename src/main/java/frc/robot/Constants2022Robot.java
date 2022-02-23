@@ -20,40 +20,50 @@ public interface Constants2022Robot {
     // ONCE THE HARDWARE IS DELIVERED< ALL THESE NEED TO BE DEFINED AND TESTED
 
     //CAN ID
-    //    public static final int PDP_CAN_ID = 0;
-    //    public static final int DRIVE_LEFT1_ID = 1;
-    //    public static final int DRIVE_LEFT2_ID = 2;
-    //    public static final int DRIVE_RIGHT1_ID = 3;
-    //    public static final int DRIVE_RIGHT2_ID = 4;
-    //    public static final int INTAKE_MOTOR_ID = 10;
-    //    public static final int TURRET_MOTOR_ID = 10;
-
-    //    public static final int PCM_CAN_ID = 20;
-    //    public static final int SHOOTER_MOTOR_ID = 5; //Placeholder
+    public static final int PDP_CAN_ID = 0;
+    public static final int DRIVE_LEFT1_ID = 40;
+    public static final int DRIVE_LEFT2_ID = 39;
+    public static final int DRIVE_RIGHT1_ID = 38;
+    public static final int DRIVE_RIGHT2_ID = 37;
+    public static final int INTAKE_MOTOR_ID = 9;
+    public static final int TURRET_MOTOR_ID = 1;
+    public static final int PCM_CAN_ID = 20;
+    public static final int TURRET_HOOD_CAN_ID = 12;
+    public static final int SHOOTER_MOTOR_ID = 1; //temp
+    public static final int RIGHT_CLIMBER_ID = 7;
+    public static final int LEFT_CLIMBER_ID = 2;
 
     //PDP
-    //    public static final int PDP_DRIVE_L1 = 13; //Placeholder
-    //    public static final int PDP_DRIVE_L2 = 15; //Placeholder
-    //    public static final int PDP_DRIVE_R1 = 0; //Placeholder
-    //    public static final int PDP_DRIVE_R2 = 1; //Placeholder
+    public static final int PDP_DRIVE_L1 = 2; 
+    public static final int PDP_DRIVE_L2 = 13; 
+    public static final int PDP_DRIVE_R1 = 1; 
+    public static final int PDP_DRIVE_R2 = 14; 
 
     //DIO
-    //    public static final int INTAKE_SENSOR_ID = 0;
+    public static final int INTAKE_SENSOR_ID = 0; //temp
 
     //Relay
 
-    //PCM Channels
-    //    public static final int INTAKE_SOLENOID_1 = 0;
-    //    public static final int INTAKE_SOLENOID_2 = 3;
-    //    public static final int SHOOTER_PISTON_ID = 3; //Placeholder
+    //PCM
+    public static final int SHOOTER_PISTON_ID = 3; //Placeholder
+    public static final int INTAKE_SOLENOID_1 = 0;
+    public static final int INTAKE_SOLENOID_2 = 3;
     
     //DRIVETRAIN CONSTANTS
 
     //SHOOTER CONSTANTS
+    public static final double SHOOTER_SPEED = 0.5;
 
 
     //Turret CONSTANTS
     public static final double TURRETSPIN_SCALEFACTOR = 0.5;
+
+    //Hood
+    public static final double HOOD_MOTOR_SPEED = 0.75;
+    public static final int HOOD_MOTOR_ID = 10;
+    public static final double HOOD_AUTO_MOTOR_SPEED = 0.5;
+    public static final double HOOD_AUTO_LIMIT = 2;
+    public static final double HOOD_JOYSTICK_THRESHOLD = 0.2;
 
 
     public static final int PIGEON_CAN_ID = 7;
@@ -80,6 +90,10 @@ public interface Constants2022Robot {
     public static final double INTAKE_MOTOR_SPEED = 1.0;
     public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
     public static final int RAISED_INTAKE_TIMEOUT = 3;
+
+    //Shooter
+    public static final double SHOOTER_CLOCKWISE_SPEED = 0.5;
+    public static final double SHOOTER_COUNTERCLOCKWISE_SPEED = -0.5;
 
     //Limelight Settings
     public static final double CAMERA_HEIGHT = 38.0;
