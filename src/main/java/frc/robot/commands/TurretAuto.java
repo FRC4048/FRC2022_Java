@@ -22,12 +22,13 @@ public class TurretAuto extends CommandBase {
     }
     @Override
     public void initialize() {
-       
-        if (horizontalOffset.getAsDouble()>=0) {
-            positive = true;
-        }
-        else {
-            positive = false;
+       if (horizontalOffset!=null){
+            if (horizontalOffset.getAsDouble()>=0) {
+                positive = true;
+            }
+            else {
+                positive = false;
+            }
         }
     }
 
