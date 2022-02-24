@@ -17,36 +17,27 @@ import frc.robot.commands.TurretManualCommand;
 import frc.robot.commands.Miscellaneous.SetLEDOff;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
 import frc.robot.commands.Miscellaneous.SetPipeline;
+import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
 import frc.robot.commands.ShooterCommands.ManuallyMoveHood;
+import frc.robot.commands.ShooterCommands.RetractShooterPiston;
+import frc.robot.commands.ShooterCommands.RotateShooterMotor;
 import frc.robot.commands.ShooterCommands.ToggleShooterMotor;
+import frc.robot.commands.ShooterCommands.ToggleShooterPiston;
 import frc.robot.commands.intakecommands.DeployIntakeCommand;
 import frc.robot.commands.intakecommands.DropBallCommand;
 import frc.robot.commands.intakecommands.IntakeBallCommand;
-
-import frc.robot.subsystems.LimelightSubsystem;
-import frc.robot.commands.Drive;
-
 import frc.robot.commands.intakecommands.IntakeSequence;
 import frc.robot.commands.intakecommands.ManuallyRunIntakeMotor;
+import frc.robot.commands.intakecommands.ManuallyToggleIntake;
 import frc.robot.commands.intakecommands.RaiseIntakeCommand;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.commands.Drive;
-import frc.robot.commands.ShooterCommands.ToggleShooterPiston;
-import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
-import frc.robot.commands.ShooterCommands.RetractShooterPiston;
-import frc.robot.commands.ShooterCommands.RotateShooterMotor;
-import frc.robot.commands.intakecommands.IntakeSequence;
-import frc.robot.commands.ShooterCommands.ToggleShooterMotor;
-
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TurretSubsystem;
-import frc.robot.subsystems.Hood;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.limelight.LimeLightVision;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -66,7 +57,7 @@ public class RobotContainer {
   private XboxController xboxController = new XboxController(Constants.CONTROLLER_ID);
   private  JoystickButton buttonA = new JoystickButton(xboxController, Constants.XBOX_A_BUTTON);
   private  JoystickButton buttonB = new JoystickButton(xboxController, Constants.XBOX_B_BUTTON);
-
+  private JoystickButton bumperRight = new JoystickButton(xboxController, Constants.XBOX_RIGHT_BUMPER);
 
   private final LimelightSubsystem limeLightVision = new LimelightSubsystem();
 
@@ -121,6 +112,7 @@ public class RobotContainer {
     buttonA.whenPressed(new IntakeSequence(intakeSubsystem));
     buttonB.whenPressed(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED));
     buttonB.whenReleased(new ManuallyRunIntakeMotor(intakeSubsystem, 0));
+    bumperRight.whenReleased(new ManuallyToggleIntake(getIntakeSubsystem()));
   }
 
   public IntakeSubsystem getIntakeSubsystem() {
@@ -150,7 +142,6 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Intake", "Drop Ball", new DropBallCommand(getIntakeSubsystem()));
 
       SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
-      
       SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
 
       SmartShuffleboard.putCommand("Miscellaneous", "Set LED Off", new SetLEDOff());
