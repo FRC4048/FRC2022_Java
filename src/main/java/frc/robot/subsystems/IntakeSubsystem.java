@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.DiagOpticalSensor;
 import frc.robot.utils.diag.DiagTalonSrxEncoder;
 
@@ -20,7 +21,8 @@ public class IntakeSubsystem extends SubsystemBase {
   private WPI_TalonSRX intakeMotor;
   private Solenoid piston1;
   private Solenoid piston2;
-  private DigitalInput intakeSensor;
+  private DigitalInput intakeSensor1;
+  private DigitalInput intakeSensor2;
 
 
   /** Creates a new ExampleSubsystem. */
@@ -28,7 +30,8 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor = new WPI_TalonSRX(Constants.INTAKE_MOTOR_ID);
     piston1 = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.INTAKE_SOLENOID_1);
     piston2 = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.INTAKE_SOLENOID_2);
-    intakeSensor = new DigitalInput(Constants.INTAKE_SENSOR_ID);
+    intakeSensor1 = new DigitalInput(Constants.INTAKE_SENSOR_ID_1);
+    intakeSensor2 = new DigitalInput(Constants.INTAKE_SENSOR_ID_2);
 
     int TIMEOUT = 100;
 
@@ -38,12 +41,17 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.configPeakOutputReverse(-1, TIMEOUT);
     intakeMotor.setNeutralMode(NeutralMode.Brake);
     
-    Robot.getDiagnostics().addDiagnosable(new DiagOpticalSensor("IntakeSensor", intakeSensor));
+    Robot.getDiagnostics().addDiagnosable(new DiagOpticalSensor("IntakeSensor1", intakeSensor1));
+    Robot.getDiagnostics().addDiagnosable(new DiagOpticalSensor("IntakeSensor2", intakeSensor2));
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    if(Constants.ENABLE_DEBUG) {
+      SmartShuffleboard.put("Intake Sensors", "intake sensor 1", intakeSensor1.get());
+      SmartShuffleboard.put("Intake Sensors", "intake sensor 2", intakeSensor2.get());
+    }
   }
 
   public void deployPiston() {
@@ -60,8 +68,12 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.set(speed);
   }
 
-  public boolean getIntakeSensor() {
-    return !intakeSensor.get();
+  public boolean getIntakeSensor1() {
+    return !intakeSensor1.get();
+  }
+
+  public boolean getIntakeSensor2() {
+    return !intakeSensor2.get();
   }
 
   @Override

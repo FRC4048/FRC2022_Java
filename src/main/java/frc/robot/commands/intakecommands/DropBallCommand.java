@@ -42,7 +42,7 @@ private double initTime;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (!intakeSubsystem.getIntakeSensor() || (Timer.getFPGATimestamp() - initTime) >= Constants.RAISED_INTAKE_TIMEOUT) {
+    if (!intakeSubsystem.getIntakeSensor1() || !intakeSubsystem.getIntakeSensor2() || (Timer.getFPGATimestamp() - initTime) >= Constants.RAISED_INTAKE_TIMEOUT) {
         return true;
     }
     return false;
