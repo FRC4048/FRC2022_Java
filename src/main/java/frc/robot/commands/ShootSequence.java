@@ -11,16 +11,16 @@ import frc.robot.Constants;
 import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
 import frc.robot.commands.ShooterCommands.RetractShooterPiston;
 import frc.robot.commands.ShooterCommands.RotateShooterMotor;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Shooter;
 import frc.robot.utils.SmartShuffleboard;
 
 public class ShootSequence extends ParallelCommandGroup {
-  private Shooter shooter;
   /** Creates a new PistonSequence. */
-  public ShootSequence() {
+  public ShootSequence(IntakeSubsystem intakeSubsystem, Shooter shooter) {
     addCommands(
       new RotateShooterMotor(shooter, Constants.SHOOTER_CLOCKWISE_SPEED),
-      new PistonSequence()
+      new PistonSequence(intakeSubsystem, shooter)
     );
   }
 

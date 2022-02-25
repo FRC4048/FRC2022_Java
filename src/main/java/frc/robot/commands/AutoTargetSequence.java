@@ -14,12 +14,9 @@ import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.limelight.LimeLightVision;
 
 public class AutoTargetSequence extends SequentialCommandGroup {
-  private TurretSubsystem turretSubsystem;
-  private LimeLightVision vision;
-  private Hood hoodSubsystem;
 
   /** Creates a new AutoTargetSequence. */
-  public AutoTargetSequence() {
+  public AutoTargetSequence(TurretSubsystem turretSubsystem, LimeLightVision vision, Hood hoodSubsystem) {
     turretSubsystem = new TurretSubsystem();
     vision = new LimeLightVision(38, 104, 30);
 

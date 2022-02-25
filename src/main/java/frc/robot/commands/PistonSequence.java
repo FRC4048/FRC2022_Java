@@ -8,22 +8,27 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.commands.Miscellaneous.SetLEDOff;
 import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
 import frc.robot.commands.ShooterCommands.RetractShooterPiston;
+import frc.robot.commands.intakecommands.DropBallCommand;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Shooter;
 import frc.robot.utils.SmartShuffleboard;
 
 public class PistonSequence extends SequentialCommandGroup {
-  private Shooter shooter;
   /** Creates a new PistonSequence. */
-  public PistonSequence() {
+  public PistonSequence(IntakeSubsystem intakeSubsystem, Shooter shooter) {
+    addRequirements(intakeSubsystem);
+
     addCommands(
       new WaitCommand(Constants.SHOOTER_SPINUP_DELAY),
       new ExtendShooterPiston(shooter),
-new WaitCommand(Constants.PISTON_DELAY),
+      new WaitCommand(Constants.PISTON_DELAY),
       new RetractShooterPiston(shooter),
-      new SetLEDOff()
+      new SetLEDOff(),
+      new DropBallCommand(intakeSubsystem)
     );
     SmartShuffleboard.put("Shooter", "Data", "Can Shoot", false);
   }
