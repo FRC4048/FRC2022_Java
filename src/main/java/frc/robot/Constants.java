@@ -17,7 +17,7 @@ package frc.robot;
  */
 
 
-public interface Constants extends Constants2022TheTB {
+public interface Constants extends Constants2022TheTB, GameConstants {
     // Nothing actually goes in here. All the real constants reside in one of the interfaces that this
     // interface extends.
 
