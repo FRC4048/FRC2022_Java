@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-public interface Constants2022DriveC {
+public interface Constants2022DriveC extends GameConstants {
 
   //Global Constant
   public static final boolean ENABLE_DEBUG = true;
