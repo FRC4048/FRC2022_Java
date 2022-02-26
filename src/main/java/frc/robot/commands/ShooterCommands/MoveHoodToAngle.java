@@ -8,6 +8,7 @@ public class MoveHoodToAngle extends CommandBase {
     private Hood hood;
     private double angle;
     private boolean moveDown;
+    private boolean atAngle = false;
     
 
     public MoveHoodToAngle(Hood hood,double angle) {
@@ -18,23 +19,31 @@ public class MoveHoodToAngle extends CommandBase {
 
     public void initialize() {
         if (hood.getPotentiometer() > angle){
+            if (hood.getPotentiometer() - angle < 1) {
+                atAngle = true;
+            }
             moveDown = true;
         }
         else {
+            if (hood.getPotentiometer() - angle > -1) {
+                atAngle = true;
+            }
             moveDown = false;
-        }
-    }
-
-    public void execute() {
-        if (moveDown == true){
-            hood.setHood(Constants.HOOD_MOTOR_SPEED);
-        }
-        else {
-            hood.setHood(Constants.HOOD_MOTOR_SPEED * -1);
         }
         
     }
 
+    public void execute() {
+        if (atAngle == false){
+            if (moveDown == true){
+                hood.setHood(Constants.HOOD_MOTOR_SPEED);
+            }
+            else {
+                hood.setHood(Constants.HOOD_MOTOR_SPEED * -1);
+            }
+        }
+    }
+        
     @Override
     public void end(boolean interrupted) {
         hood.setHood(0);
@@ -42,6 +51,9 @@ public class MoveHoodToAngle extends CommandBase {
 
     @Override
     public boolean isFinished() {
+        if (atAngle = true) {
+            return true;
+        }
         if (moveDown == true) {
             if (hood.getPotentiometer() <= angle) {
                 return true;
