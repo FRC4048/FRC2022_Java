@@ -42,6 +42,7 @@ public interface Constants2022Robot {
     //DIO
     public static final int INTAKE_SENSOR_ID_1 = 0; //temp
     public static final int INTAKE_SENSOR_ID_2 = 1;
+    public static final int HOOD_POTENTIOMETER = 8;
 
     //Relay
 
@@ -64,7 +65,7 @@ public interface Constants2022Robot {
 
     //Hood
     public static final double HOOD_MOTOR_SPEED = 0.75;
-    public static final int HOOD_MOTOR_ID = 10;
+    public static final int HOOD_MOTOR_ID = 8;
     public static final double HOOD_AUTO_MOTOR_SPEED = 0.5;
     public static final double HOOD_AUTO_LIMIT = 2;
     public static final double HOOD_JOYSTICK_THRESHOLD = 0.2;
