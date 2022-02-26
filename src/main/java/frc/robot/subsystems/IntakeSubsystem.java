@@ -15,7 +15,6 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.DiagOpticalSensor;
-import frc.robot.utils.diag.DiagTalonSrxEncoder;
 
 public class IntakeSubsystem extends SubsystemBase {
   private WPI_TalonSRX intakeMotor;
@@ -23,7 +22,6 @@ public class IntakeSubsystem extends SubsystemBase {
   private Solenoid piston2;
   private DigitalInput intakeSensor1;
   private DigitalInput intakeSensor2;
-
 
   /** Creates a new ExampleSubsystem. */
   public IntakeSubsystem() {
@@ -40,7 +38,7 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.configPeakOutputForward(1, TIMEOUT);
     intakeMotor.configPeakOutputReverse(-1, TIMEOUT);
     intakeMotor.setNeutralMode(NeutralMode.Brake);
-    
+
     Robot.getDiagnostics().addDiagnosable(new DiagOpticalSensor("IntakeSensor1", intakeSensor1));
     Robot.getDiagnostics().addDiagnosable(new DiagOpticalSensor("IntakeSensor2", intakeSensor2));
   }
@@ -48,7 +46,7 @@ public class IntakeSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if(Constants.ENABLE_DEBUG) {
+    if (Constants.ENABLE_DEBUG) {
       SmartShuffleboard.put("Intake Sensors", "intake sensor 1", intakeSensor1.get());
       SmartShuffleboard.put("Intake Sensors", "intake sensor 2", intakeSensor2.get());
     }
@@ -68,12 +66,16 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.set(speed);
   }
 
+  public boolean isBallInIntake() {
+    return !intakeSensor1.get() || !intakeSensor2.get();
+  }
+
   public boolean getIntakeSensor1() {
-    return !intakeSensor1.get();
+    return intakeSensor1.get();
   }
 
   public boolean getIntakeSensor2() {
-    return !intakeSensor2.get();
+    return intakeSensor2.get();
   }
 
   @Override

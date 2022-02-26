@@ -1,14 +1,13 @@
 package frc.robot.commands.intakecommands;
 
-import frc.robot.Constants;
-import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.IntakeSubsystem;
 
 public class DropBallCommand extends CommandBase {
-private IntakeSubsystem intakeSubsystem;
-private double initTime;
+  private IntakeSubsystem intakeSubsystem;
+  private double initTime;
 
   /**
    * Creates a new ExampleCommand.
@@ -30,7 +29,7 @@ private double initTime;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      intakeSubsystem.spinMotor(Constants.INTAKE_MOTOR_SPEED);
+    intakeSubsystem.spinMotor(Constants.INTAKE_MOTOR_SPEED);
   }
 
   // Called once the command ends or is interrupted.
@@ -42,10 +41,9 @@ private double initTime;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (!intakeSubsystem.getIntakeSensor1() || !intakeSubsystem.getIntakeSensor2() || (Timer.getFPGATimestamp() - initTime) >= Constants.RAISED_INTAKE_TIMEOUT) {
-        return true;
+    if (!intakeSubsystem.isBallInIntake() || (Timer.getFPGATimestamp() - initTime) >= Constants.RAISED_INTAKE_TIMEOUT) {
+      return true;
     }
     return false;
   }
 }
-
