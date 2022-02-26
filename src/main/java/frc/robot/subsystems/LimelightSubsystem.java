@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.limelight.LimeLightVision;
 
@@ -12,8 +13,13 @@ public class LimelightSubsystem extends SubsystemBase {
   /** Creates a new LimelightSubsystem. */
   
   LimeLightVision vision;
+
   public LimelightSubsystem() {
-    vision = new LimeLightVision(38, 104, 30);
+    vision = new LimeLightVision(Constants.CAMERA_HEIGHT, Constants.TARGET_HEIGHT, Constants.CAMERA_ANGLE);
+  }
+
+  public LimeLightVision getLimeLightVision() {
+    return vision;
   }
 
   @Override

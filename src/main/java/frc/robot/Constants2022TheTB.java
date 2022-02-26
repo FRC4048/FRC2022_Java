@@ -32,7 +32,8 @@ public interface Constants2022TheTB {
   public static final int PDP_DRIVE_R2 = 1; 
 
   //DIO
-  public static final int INTAKE_SENSOR_ID = 0;
+  public static final int INTAKE_SENSOR_ID_1 = 0; //temp
+  public static final int INTAKE_SENSOR_ID_2 = 1; //temp
 
   //Relay
 
@@ -46,6 +47,8 @@ public interface Constants2022TheTB {
   //Shooter
   public static final double SHOOTER_CLOCKWISE_SPEED = 0.5;
   public static final double SHOOTER_COUNTERCLOCKWISE_SPEED = -0.5;
+  public static final double PISTON_DELAY = 0.5;
+  public static final double SHOOTER_SPINUP_DELAY = 1;
   
   // Intake
   public static final double INTAKE_BUFFER = 1.0;

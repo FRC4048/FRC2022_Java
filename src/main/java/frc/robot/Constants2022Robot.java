@@ -14,7 +14,7 @@ package frc.robot;
  */
 public interface Constants2022Robot {
     //Global Constant
-    public static final boolean ENABLE_DEBUG = false;
+    public static final boolean ENABLE_DEBUG = true;
 
     // THE CONSTANTS IN THIS INTERFACE ARE ALL COMMENTED OUT BECAUSE WE DON'T HAVE A ROBOT YET.
     // ONCE THE HARDWARE IS DELIVERED< ALL THESE NEED TO BE DEFINED AND TESTED
@@ -40,12 +40,13 @@ public interface Constants2022Robot {
     public static final int PDP_DRIVE_R2 = 14; 
 
     //DIO
-    public static final int INTAKE_SENSOR_ID = 0; //temp
+    public static final int INTAKE_SENSOR_ID_1 = 0; //temp
+    public static final int INTAKE_SENSOR_ID_2 = 1;
 
     //Relay
 
     //PCM
-    public static final int SHOOTER_PISTON_ID = 3; //Placeholder
+    public static final int SHOOTER_PISTON_ID = 2; //Placeholder
     public static final int INTAKE_SOLENOID_1 = 0;
     public static final int INTAKE_SOLENOID_2 = 3;
     
@@ -53,6 +54,9 @@ public interface Constants2022Robot {
 
     //SHOOTER CONSTANTS
     public static final double SHOOTER_SPEED = 0.5;
+    public static final double SHOOTER_TIMEOUT = 0.1;
+    public static final double PISTON_DELAY = 0.5;
+    public static final double SHOOTER_SPINUP_DELAY = 1;
 
 
     //Turret CONSTANTS

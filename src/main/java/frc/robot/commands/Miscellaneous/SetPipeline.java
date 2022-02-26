@@ -6,10 +6,10 @@ package frc.robot.commands.Miscellaneous;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.utils.limelight.LimeLightVision;
 
 public class SetPipeline extends CommandBase {
   private int pipeline;
+  
   /** Creates a new SetPipeline0. */
   public SetPipeline(int pipeline) {
     this.pipeline = pipeline;
