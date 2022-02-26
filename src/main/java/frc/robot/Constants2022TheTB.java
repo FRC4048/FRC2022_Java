@@ -32,7 +32,8 @@ public interface Constants2022TheTB {
   public static final int PDP_DRIVE_R2 = 1; 
 
   //DIO
-  public static final int INTAKE_SENSOR_ID = 0;
+  public static final int INTAKE_SENSOR_ID_1 = 0; //temp
+  public static final int INTAKE_SENSOR_ID_2 = 1; //temp
 
   //Relay
 

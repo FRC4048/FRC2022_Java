@@ -24,13 +24,13 @@ public class IntakeBallCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      initTime = Timer.getFPGATimestamp();
+    initTime = Timer.getFPGATimestamp();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      intakeSubsystem.spinMotor(Constants.INTAKE_MOTOR_SPEED);
+    intakeSubsystem.spinMotor(Constants.INTAKE_MOTOR_SPEED);
   }
 
   // Called once the command ends or is interrupted.
@@ -42,8 +42,8 @@ public class IntakeBallCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (intakeSubsystem.getIntakeSensor() || (Timer.getFPGATimestamp() - initTime) >= Constants.DEPLOYED_INTAKE_TIMEOUT) {
-        return true;
+    if (intakeSubsystem.isBallInIntake() || (Timer.getFPGATimestamp() - initTime) >= Constants.DEPLOYED_INTAKE_TIMEOUT) {
+      return true;
     }
     return false;
   }
