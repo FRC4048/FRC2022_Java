@@ -117,16 +117,16 @@ public class RobotContainer {
     SmartShuffleboard.putCommand("Shooter", "Start Shooter Motor", new RotateShooterMotor(shooterSubsystem, Constants.SHOOTER_CLOCKWISE_SPEED));
     SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
     SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
-    SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence());
+    SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence(turretSubsystem, limeLight, hood));
     
 
     buttonA.whenPressed(new IntakeSequence(intakeSubsystem));
     buttonB.whenPressed(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED));
     buttonB.whenReleased(new ManuallyRunIntakeMotor(intakeSubsystem, 0));
-    rightTrigger.whenActive(new ShootSequence());
-    leftTrigger.whenActive(new AutoTargetSequence());
-    buttonX.whenPressed(new AutoTargetSequence());
-    rightBumper.whenPressed(new PistonSequence());
+    rightTrigger.whenActive(new ShootSequence(intakeSubsystem, shooterSubsystem));
+    leftTrigger.whenActive(new AutoTargetSequence(turretSubsystem, limeLight, hood));
+    buttonX.whenPressed(new AutoTargetSequence(turretSubsystem, limeLight, hood));
+    rightBumper.whenPressed(new PistonSequence(intakeSubsystem, shooterSubsystem));
     leftBumper.whenPressed(new ToggleShooterMotor(shooterSubsystem));
     leftBumper.whenReleased(new ToggleShooterMotor(shooterSubsystem));
   }
