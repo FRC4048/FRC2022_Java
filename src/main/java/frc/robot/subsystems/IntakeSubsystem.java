@@ -15,6 +15,7 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.utils.diag.DiagOpticalSensor;
 import frc.robot.utils.diag.DiagTalonSrxEncoder;
+import frc.robot.utils.logging.Logging;
 
 public class IntakeSubsystem extends SubsystemBase {
   private WPI_TalonSRX intakeMotor;
@@ -64,8 +65,23 @@ public class IntakeSubsystem extends SubsystemBase {
     return !intakeSensor.get();
   }
 
+  public boolean getPiston1State(){
+    return piston1.get();
+  }
+
+  public boolean getPiston2State(){
+    return piston2.get();
+  }
+
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
   }
+
+  public final Logging.LoggingContext loggingContext = new Logging.LoggingContext(this.getClass()) {
+    protected void addAll() {
+        add("Piston 1 State", getPiston1State());
+        add("Piston 2 State", getPiston2State());
+    }
+  };
 }

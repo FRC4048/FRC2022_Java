@@ -4,10 +4,14 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.EnableLogging;
+import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.Diagnostics;
+import frc.robot.utils.logging.Logging;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -21,6 +25,7 @@ public class Robot extends TimedRobot {
   private static RobotContainer m_robotContainer;
   private static Diagnostics diagnostics;
 
+  private static boolean isLogging = false;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -49,11 +54,19 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+
+    SmartShuffleboard.putCommand("Driver", "Enable Logging", new EnableLogging());
+
+    if (isLogging) {
+      Logging.instance().writeAllData();
+    }
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    Logging.instance().traceMessage(Logging.MessageLevel.INFORMATION, "-----------DISABLED----------");
+  }
 
   @Override
   public void disabledPeriodic() {
@@ -67,6 +80,17 @@ public class Robot extends TimedRobot {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
+    Logging.instance().traceMessage(Logging.MessageLevel.INFORMATION, "-----------AUTO INIT----------");
+    Logging.instance().writeAllTitles();
+    // schedule the autonomous command (example)
+    final StringBuilder gameInfo = new StringBuilder();
+              gameInfo.append("Match Number=");
+		          gameInfo.append(DriverStation.getMatchNumber());
+		          gameInfo.append(", Alliance Color=");
+		          gameInfo.append(DriverStation.getAlliance().toString());
+		          gameInfo.append(", Match Type=");
+		          gameInfo.append(DriverStation.getMatchType().toString());
+    Logging.instance().traceMessage(Logging.MessageLevel.INFORMATION, gameInfo.toString());
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
@@ -83,6 +107,8 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+    Logging.instance().traceMessage(Logging.MessageLevel.INFORMATION, "-----------TELEOP INIT----------");
+    Logging.instance().writeAllTitles();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
@@ -114,7 +140,10 @@ public class Robot extends TimedRobot {
 
   public static RobotContainer getRobotContainer(){
     return m_robotContainer;
+  }
 
+  public static void setIsLogging(boolean isLog) {
+    isLogging = isLog;
   }
 }
 
