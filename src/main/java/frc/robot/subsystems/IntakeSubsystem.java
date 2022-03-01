@@ -55,26 +55,10 @@ public class IntakeSubsystem extends SubsystemBase {
     piston1.set(false);
     piston2.set(false);
   }
-
-  public boolean getPistonState(Solenoid piston) {
-    return piston.get();
-  }
-
+  
   public void togglePiston() {
-    //Is there a way to make this more efficient?
-    
-    if (getPistonState(piston1) == true) {
-      piston1.set(false);
-    }
-    else {
-      piston1.set(true);
-    }
-    if (getPistonState(piston2) == true) {
-      piston2.set(false);
-    }
-    else {
-      piston2.set(true);
-    }
+  piston1.set(!piston1.get());
+  piston2.set(!piston2.get());
   }
 
   public void spinMotor(double speed) {
