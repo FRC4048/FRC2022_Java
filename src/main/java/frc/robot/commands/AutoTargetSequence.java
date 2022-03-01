@@ -14,8 +14,9 @@ import frc.robot.utils.limelight.LimeLightVision;
 public class AutoTargetSequence extends SequentialCommandGroup {
 
   /** Creates a new AutoTargetSequence. */
+  private TurretSubsystem turretSubsystem;
   public AutoTargetSequence(TurretSubsystem turretSubsystem, LimeLightVision vision, Hood hoodSubsystem) {
-    turretSubsystem = new TurretSubsystem();
+    this.turretSubsystem = turretSubsystem;
     vision = new LimeLightVision(38, 104, 30);
 
     // Use addRequirements() here to declare subsystem dependencies.
