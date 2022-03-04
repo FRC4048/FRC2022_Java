@@ -1,8 +1,5 @@
 package frc.robot.subsystems;
 
-import java.security.cert.PolicyNode;
-
-import com.ctre.phoenix.led.ColorFlowAnimation.Direction;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -23,7 +20,7 @@ public class Hood extends SubsystemBase {
        hoodMotor = new WPI_TalonSRX(Constants.HOOD_MOTOR_ID); 
        hoodMotor.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
        hoodMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-       potentiometer = new AnalogPotentiometer(0,180,0);
+       potentiometer = new AnalogPotentiometer(Constants.HOOD_POTENTIOMETER,180,0);
 
        Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Hood Encoder", 100, hoodMotor));
        Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Hood Forward Switch", hoodMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));

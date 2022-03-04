@@ -42,7 +42,7 @@ public interface Constants2022Robot {
     //DIO
     public static final int INTAKE_SENSOR_ID_1 = 0; //temp
     public static final int INTAKE_SENSOR_ID_2 = 1;
-    public static final int HOOD_POTENTIOMETER = 8;
+    public static final int HOOD_POTENTIOMETER = 7;
 
     //Relay
 

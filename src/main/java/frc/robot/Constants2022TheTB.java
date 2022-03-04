@@ -19,8 +19,8 @@ public interface Constants2022TheTB {
 
   public static final int PCM_CAN_ID = 20;
   public static final int SHOOTER_MOTOR_ID = 46;
-  public static final int INTAKE_MOTOR_ID = 10;
-  public static final int TURRET_MOTOR_ID = 12; //Don't know if this is right
+  public static final int INTAKE_MOTOR_ID = 12;
+  public static final int TURRET_MOTOR_ID = 13; //Don't know if this is right
   
 
   
@@ -34,7 +34,7 @@ public interface Constants2022TheTB {
   //DIO
   public static final int INTAKE_SENSOR_ID_1 = 0; //temp
   public static final int INTAKE_SENSOR_ID_2 = 1; //temp
-  public static final int HOOD_POTENTIOMETER = 8;
+  public static final int HOOD_POTENTIOMETER = 7;
 
   //Relay
 
@@ -59,7 +59,7 @@ public interface Constants2022TheTB {
 
   //Hood
   public static final double HOOD_MOTOR_SPEED = 0.75;
-  public static final int HOOD_MOTOR_ID = 8;
+  public static final int HOOD_MOTOR_ID = 10;
   public static final double HOOD_AUTO_MOTOR_SPEED = 0.5;
   public static final double HOOD_AUTO_LIMIT = 2;
   public static final double HOOD_JOYSTICK_THRESHOLD = 0.2;

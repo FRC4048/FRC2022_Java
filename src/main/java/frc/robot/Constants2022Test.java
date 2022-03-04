@@ -28,7 +28,7 @@ public interface Constants2022Test {
 
     //DIO
     public static final int INTAKE_SENSOR_ID = 0;
-    public static final int HOOD_POTENTIOMETER = 8;
+    public static final int HOOD_POTENTIOMETER = 7;
 
     //Relay
 

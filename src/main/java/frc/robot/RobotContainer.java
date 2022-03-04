@@ -24,6 +24,7 @@ import frc.robot.commands.Miscellaneous.SetPipeline;
 import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
 import frc.robot.commands.ShooterCommands.ManuallyMoveHood;
 import frc.robot.commands.ShooterCommands.MoveHoodDown;
+import frc.robot.commands.ShooterCommands.MoveHoodToAngle;
 import frc.robot.commands.ShooterCommands.MoveHoodUp;
 import frc.robot.commands.ShooterCommands.RetractShooterPiston;
 import frc.robot.commands.ShooterCommands.RotateShooterMotor;

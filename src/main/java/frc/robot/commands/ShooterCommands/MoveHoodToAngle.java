@@ -20,7 +20,7 @@ public class MoveHoodToAngle extends CommandBase {
     public void initialize() {
         if (hood.getPotentiometer() > angle){
             if (hood.getPotentiometer() - angle < 1) {
-                atAngle = true;
+                atAngle = false;
             }
             moveDown = true;
         }
@@ -51,9 +51,7 @@ public class MoveHoodToAngle extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if (atAngle = true) {
-            return true;
-        }
+        
         if (moveDown == true) {
             if (hood.getPotentiometer() <= angle) {
                 return true;
