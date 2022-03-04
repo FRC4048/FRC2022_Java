@@ -49,6 +49,7 @@ public interface Constants2022TheTB {
   public static final double SHOOTER_COUNTERCLOCKWISE_SPEED = -0.5;
   public static final double PISTON_DELAY = 0.5;
   public static final double SHOOTER_SPINUP_DELAY = 1;
+  public static final double RUMBLE_STRENGTH = 0.5;
   
   // Intake
   public static final double INTAKE_BUFFER = 1.0;

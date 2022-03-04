@@ -4,7 +4,10 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.TurretSubsystem;
@@ -14,7 +17,7 @@ import frc.robot.utils.limelight.LimeLightVision;
 public class AutoTargetSequence extends SequentialCommandGroup {
 
   /** Creates a new AutoTargetSequence. */
-  public AutoTargetSequence(TurretSubsystem turretSubsystem, LimeLightVision vision, Hood hoodSubsystem) {
+  public AutoTargetSequence(TurretSubsystem turretSubsystem, LimeLightVision vision, Hood hoodSubsystem, XboxController xboxController) {
     turretSubsystem = new TurretSubsystem();
     vision = new LimeLightVision(38, 104, 30);
 
@@ -25,6 +28,7 @@ public class AutoTargetSequence extends SequentialCommandGroup {
       new HoodAutoCommand(hoodSubsystem, vision)
     );
     SmartShuffleboard.put("Shooter", "Data", "Can Shoot", true);
+    xboxController.setRumble(GenericHID.RumbleType.kRightRumble, Constants.RUMBLE_STRENGTH);
   }
 
   // Called when the command is initially scheduled.

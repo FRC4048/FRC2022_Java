@@ -74,7 +74,7 @@ public class RobotContainer {
   private final Shooter shooterSubsystem = new Shooter();
   private final PowerDistribution m_PowerDistPanel = new PowerDistribution();
   private final Hood hood = new Hood();
-  private final TurretSubsystem turretSubsystem= new TurretSubsystem(); 
+  private final TurretSubsystem turretSubsystem = new TurretSubsystem(); 
 
   public AutoChooser autoChooser = new AutoChooser();
 
@@ -115,16 +115,16 @@ public class RobotContainer {
     SmartShuffleboard.putCommand("Shooter", "Start Shooter Motor", new RotateShooterMotor(shooterSubsystem, Constants.SHOOTER_CLOCKWISE_SPEED));
     SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
     SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
-    SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
+    SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood, xboxController));
     
 
     buttonA.whenPressed(new IntakeSequence(intakeSubsystem));
     buttonB.whenPressed(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED));
     buttonB.whenReleased(new ManuallyRunIntakeMotor(intakeSubsystem, 0));
-    rightTrigger.whenActive(new ShootSequence(intakeSubsystem, shooterSubsystem));
-    leftTrigger.whenActive(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
-    buttonX.whenPressed(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
-    rightBumper.whenPressed(new PistonSequence(intakeSubsystem, shooterSubsystem));
+    rightTrigger.whenActive(new ShootSequence(intakeSubsystem, shooterSubsystem, xboxController));
+    leftTrigger.whenActive(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood, xboxController));
+    buttonX.whenPressed(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood, xboxController));
+    rightBumper.whenPressed(new PistonSequence(intakeSubsystem, shooterSubsystem, xboxController));
     leftBumper.whenPressed(new ToggleShooterMotor(shooterSubsystem));
     leftBumper.whenReleased(new ToggleShooterMotor(shooterSubsystem));
   }

@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.ShooterCommands.RotateShooterMotor;
@@ -12,11 +13,12 @@ import frc.robot.subsystems.Shooter;
 
 public class ShootSequence extends ParallelCommandGroup {
   /** Creates a new PistonSequence. */
-  public ShootSequence(IntakeSubsystem intakeSubsystem, Shooter shooter) {
+  public ShootSequence(IntakeSubsystem intakeSubsystem, Shooter shooter, XboxController xboxcontroller) {
     addCommands(
       new RotateShooterMotor(shooter, Constants.SHOOTER_CLOCKWISE_SPEED),
-      new PistonSequence(intakeSubsystem, shooter)
+      new PistonSequence(intakeSubsystem, shooter, xboxcontroller)
     );
+
   }
 
   // Called when the command is initially scheduled.

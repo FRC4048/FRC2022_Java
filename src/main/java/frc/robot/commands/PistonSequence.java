@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -19,9 +21,9 @@ import frc.robot.utils.SmartShuffleboard;
 
 public class PistonSequence extends SequentialCommandGroup {
   /** Creates a new PistonSequence. */
-  public PistonSequence(IntakeSubsystem intakeSubsystem, Shooter shooter) {
+  public PistonSequence(IntakeSubsystem intakeSubsystem, Shooter shooter, XboxController xboxController) {
     addRequirements(intakeSubsystem);
-
+    xboxController.setRumble(GenericHID.RumbleType.kRightRumble, 0);
     addCommands(
       new WaitCommand(Constants.SHOOTER_SPINUP_DELAY),
       new ExtendShooterPiston(shooter),

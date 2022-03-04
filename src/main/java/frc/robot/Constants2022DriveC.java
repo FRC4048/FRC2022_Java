@@ -40,6 +40,7 @@ public interface Constants2022DriveC {
   //SHOOTER CONSTANTS
   public static final double PISTON_DELAY = 0.5;
   public static final double SHOOTER_SPINUP_DELAY = 1;
+  public static final double RUMBLE_STRENGTH = 0.5;
 
   // Intake
   public static final double INTAKE_MOTOR_SPEED = 1.0;

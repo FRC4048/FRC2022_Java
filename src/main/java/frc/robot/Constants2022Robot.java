@@ -57,6 +57,7 @@ public interface Constants2022Robot {
     public static final double SHOOTER_TIMEOUT = 0.1;
     public static final double PISTON_DELAY = 0.5;
     public static final double SHOOTER_SPINUP_DELAY = 1;
+    public static final double RUMBLE_STRENGTH = 0.5;
 
 
     //Turret CONSTANTS
