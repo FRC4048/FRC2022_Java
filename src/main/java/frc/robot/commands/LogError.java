@@ -17,6 +17,7 @@ public class LogError extends CommandBase {
   @Override
   public void initialize() {
     Logging.instance().traceMessage(Logging.MessageLevel.INFORMATION, "-----------ERROR----------");
+    Logging.instance().writeAllTitles();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -42,7 +42,6 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.limelight.LimeLightVision;
-import frc.robot.utils.logging.Logging;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -65,9 +64,12 @@ public class RobotContainer {
   private JoystickButton buttonX = new JoystickButton(xboxController, Constants.XBOX_X_BUTTON);
   private JoystickButton rightBumper = new JoystickButton(xboxController, Constants.XBOX_RIGHT_BUMPER);
   private JoystickButton leftBumper = new JoystickButton(xboxController, Constants.XBOX_LEFT_BUMPER);
+  private JoystickButton startButton = new JoystickButton(xboxController, Constants.XBOX_START_BUTTON);
   private Trigger rightTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
   private Trigger leftTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
-  private JoystickButton startButton = new JoystickButton(xboxController, Constants.XBOX_START_BUTTON);
+
+
+  private final LimelightSubsystem limeLightVision = new LimelightSubsystem();
 
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   private final DriveTrain driveTrain = new DriveTrain();
