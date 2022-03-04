@@ -12,7 +12,7 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public interface Constants2022Robot {
+public interface Constants2022Robot extends GameConstants {
     //Global Constant
     public static final boolean ENABLE_DEBUG = true;
 
@@ -32,6 +32,8 @@ public interface Constants2022Robot {
     public static final int SHOOTER_MOTOR_ID = 1; //temp
     public static final int RIGHT_CLIMBER_ID = 7;
     public static final int LEFT_CLIMBER_ID = 2;
+    public static final int HOOD_MOTOR_ID = 8;
+
 
     //PDP
     public static final int PDP_DRIVE_L1 = 2; 
@@ -53,58 +55,9 @@ public interface Constants2022Robot {
     
     //DRIVETRAIN CONSTANTS
 
-    //SHOOTER CONSTANTS
-    public static final double SHOOTER_SPEED = 0.5;
-    public static final double SHOOTER_TIMEOUT = 0.1;
-    public static final double PISTON_DELAY = 0.5;
-    public static final double SHOOTER_SPINUP_DELAY = 1;
-
-
-    //Turret CONSTANTS
-    public static final double TURRETSPIN_SCALEFACTOR = 0.5;
-
-    //Hood
-    public static final double HOOD_MOTOR_SPEED = 0.75;
-    public static final int HOOD_MOTOR_ID = 8;
-    public static final double HOOD_AUTO_MOTOR_SPEED = 0.5;
-    public static final double HOOD_AUTO_LIMIT = 2;
-    public static final double HOOD_JOYSTICK_THRESHOLD = 0.2;
 
 
     public static final int PIGEON_CAN_ID = 7;
 
-    //Joystick ID
-
-    //OI
-    public static final int XBOX_A_BUTTON = 1;
-    public static final int XBOX_B_BUTTON = 2;
-    public static final int XBOX_X_BUTTON = 3;
-    public static final int XBOX_Y_BUTTON = 4;
-    public static final int XBOX_LEFT_BUMPER = 5;
-    public static final int XBOX_RIGHT_BUMPER = 6;
-    public static final int XBOX_BACK_BUTTON = 7;
-    public static final int XBOX_START_BUTTON = 8;
-    public static final int XBOX_LEFT_STICK_PRESS = 9;
-    public static final int XBOX_RIGHT_STICK_PRESS = 10;
-    public static final int LEFT_JOYSTICK_ID = 0;
-    public static final int RIGHT_JOYSTICK_ID = 1;
-    public static final int CONTROLLER_ID = 2;
-   
-
-    //Intake
-    public static final double INTAKE_MOTOR_SPEED = 1.0;
-    public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
-    public static final int RAISED_INTAKE_TIMEOUT = 3;
-
-    //Shooter
-    public static final double SHOOTER_CLOCKWISE_SPEED = 0.5;
-    public static final double SHOOTER_COUNTERCLOCKWISE_SPEED = -0.5;
-
-    //Limelight Settings
-    public static final double CAMERA_HEIGHT = 38.0;
-    public static final double TARGET_HEIGHT = 104.0;
-    //cameraAngle is a placeholder value
-    public static final double CAMERA_ANGLE = 18.7;
-
-    public static final double INTAKE_BUFFER = 1.0;
+    
 }

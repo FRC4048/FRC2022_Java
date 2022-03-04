@@ -91,7 +91,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     autoChooser.addOptions();
-    driveTrain.setDefaultCommand(new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getY()));
+    driveTrain.setDefaultCommand(driveCommand);
     turretSubsystem.setDefaultCommand(turretCommand);
     hood.setDefaultCommand(hoodCommand);
 
@@ -147,8 +147,7 @@ public class RobotContainer {
    */
 
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return driveCommand;
+    return autoChooser.getAutonomousCommand(autoChooser.getPosition() , autoChooser.getAction());
   }
 
   public void installCommandsOnShuffleboard() {
