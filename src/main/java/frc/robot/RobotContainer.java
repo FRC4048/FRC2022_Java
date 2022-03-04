@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AutoTargetSequence;
 import frc.robot.commands.Drive;
+import frc.robot.commands.LogError;
 import frc.robot.commands.ShootSequence;
 import frc.robot.commands.PistonSequence;
 import frc.robot.commands.TurnDegrees;
@@ -41,6 +42,7 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.limelight.LimeLightVision;
+import frc.robot.utils.logging.Logging;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -65,9 +67,7 @@ public class RobotContainer {
   private JoystickButton leftBumper = new JoystickButton(xboxController, Constants.XBOX_LEFT_BUMPER);
   private Trigger rightTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
   private Trigger leftTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
-
-
-  private final LimelightSubsystem limeLightVision = new LimelightSubsystem();
+  private JoystickButton startButton = new JoystickButton(xboxController, Constants.XBOX_START_BUTTON);
 
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   private final DriveTrain driveTrain = new DriveTrain();
@@ -129,6 +129,7 @@ public class RobotContainer {
     rightBumper.whenPressed(new PistonSequence(intakeSubsystem, shooterSubsystem));
     leftBumper.whenPressed(new ToggleShooterMotor(shooterSubsystem));
     leftBumper.whenReleased(new ToggleShooterMotor(shooterSubsystem));
+    startButton.whenPressed(new LogError());
   }
 
   public IntakeSubsystem getIntakeSubsystem() {
