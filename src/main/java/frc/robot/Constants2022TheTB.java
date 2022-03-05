@@ -19,7 +19,7 @@ public interface Constants2022TheTB extends GameConstants {
 
   public static final int PCM_CAN_ID = 20;
   public static final int SHOOTER_MOTOR_ID = 40;
-  public static final int INTAKE_MOTOR_ID = 10;
+  public static final int INTAKE_MOTOR_ID = 5;
   public static final int TURRET_MOTOR_ID = 12; //Don't know if this is right
   public static final int HOOD_MOTOR_ID = 10;
   

@@ -59,8 +59,9 @@ public class RobotContainer {
   private static Joystick joyRight = new Joystick(Constants.RIGHT_JOYSTICK_ID);
 
   private XboxController xboxController = new XboxController(Constants.CONTROLLER_ID);
-  private  JoystickButton buttonA = new JoystickButton(xboxController, Constants.XBOX_A_BUTTON);
-  private  JoystickButton buttonB = new JoystickButton(xboxController, Constants.XBOX_B_BUTTON);
+  private JoystickButton buttonA = new JoystickButton(xboxController, Constants.XBOX_A_BUTTON);
+  private JoystickButton buttonB = new JoystickButton(xboxController, Constants.XBOX_B_BUTTON);
+  private JoystickButton buttonY = new JoystickButton(xboxController, Constants.XBOX_Y_BUTTON);
   
   private JoystickButton buttonX = new JoystickButton(xboxController, Constants.XBOX_X_BUTTON);
   private JoystickButton rightBumper = new JoystickButton(xboxController, Constants.XBOX_RIGHT_BUMPER);
@@ -113,6 +114,7 @@ public class RobotContainer {
     buttonA.whenPressed(new IntakeSequence(intakeSubsystem));
     buttonB.whenPressed(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED));
     buttonB.whenReleased(new ManuallyRunIntakeMotor(intakeSubsystem, 0));
+    buttonY.whenPressed(new ManuallyToggleIntake(intakeSubsystem));
 
     rightTrigger.whenActive(new ShootSequence(intakeSubsystem, shooterSubsystem));
     leftTrigger.whenActive(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
