@@ -13,8 +13,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AutoTargetSequence;
+import frc.robot.commands.DoubleSolenoidForward;
+import frc.robot.commands.DoubleSolenoidOff;
+import frc.robot.commands.DoubleSolenoidReverse;
 import frc.robot.commands.Drive;
+import frc.robot.commands.NORUMBLE;
 import frc.robot.commands.PistonSequence;
+import frc.robot.commands.RUMBLE;
 import frc.robot.commands.ShootSequence;
 import frc.robot.commands.TurnDegrees;
 import frc.robot.commands.TurretManualCommand;
@@ -61,6 +66,7 @@ public class RobotContainer {
   private JoystickButton buttonA = new JoystickButton(xboxController, Constants.XBOX_A_BUTTON);
   private JoystickButton buttonB = new JoystickButton(xboxController, Constants.XBOX_B_BUTTON);
   private JoystickButton buttonX = new JoystickButton(xboxController, Constants.XBOX_X_BUTTON);
+  private JoystickButton buttonY = new JoystickButton(xboxController, Constants.XBOX_X_BUTTON);
   private JoystickButton rightBumper = new JoystickButton(xboxController, Constants.XBOX_RIGHT_BUMPER);
   private JoystickButton leftBumper = new JoystickButton(xboxController, Constants.XBOX_LEFT_BUMPER);
   private Trigger rightTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
@@ -127,6 +133,8 @@ public class RobotContainer {
     rightBumper.whenPressed(new PistonSequence(intakeSubsystem, shooterSubsystem, xboxController));
     leftBumper.whenPressed(new ToggleShooterMotor(shooterSubsystem));
     leftBumper.whenReleased(new ToggleShooterMotor(shooterSubsystem));
+    buttonY.whenPressed(new RUMBLE(xboxController));
+    buttonY.whenReleased(new NORUMBLE(xboxController));
   }
 
   public IntakeSubsystem getIntakeSubsystem() {
@@ -164,6 +172,10 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline to 0", new SetPipeline(0));
       SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline to 1", new SetPipeline(1));
       SmartShuffleboard.putCommand("Turn", "Turn Degrees", new TurnDegrees(driveTrain, 90));
+
+      SmartShuffleboard.putCommand("Intake", "Double Solenoid Forward", new DoubleSolenoidForward(getIntakeSubsystem()));
+      SmartShuffleboard.putCommand("Intake", "Double Solenoid Reverse", new DoubleSolenoidReverse(getIntakeSubsystem()));
+      SmartShuffleboard.putCommand("Intake", "Double Solenoid Off", new DoubleSolenoidOff(getIntakeSubsystem()));
     }
   }
 } 

@@ -8,8 +8,10 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -20,6 +22,7 @@ public class IntakeSubsystem extends SubsystemBase {
   private WPI_TalonSRX intakeMotor;
   private Solenoid piston1;
   private Solenoid piston2;
+  private DoubleSolenoid doubleSolenoid;
   private DigitalInput intakeSensor1;
   private DigitalInput intakeSensor2;
 
@@ -28,6 +31,7 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor = new WPI_TalonSRX(Constants.INTAKE_MOTOR_ID);
     piston1 = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.INTAKE_SOLENOID_1);
     piston2 = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.INTAKE_SOLENOID_2);
+    doubleSolenoid = new DoubleSolenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, 0, 1);
     intakeSensor1 = new DigitalInput(Constants.INTAKE_SENSOR_ID_1);
     intakeSensor2 = new DigitalInput(Constants.INTAKE_SENSOR_ID_2);
 
@@ -61,6 +65,20 @@ public class IntakeSubsystem extends SubsystemBase {
     piston1.set(false);
     piston2.set(false);
   }
+
+
+  public void doubleSolenoidForward() {
+    doubleSolenoid.set(Value.kForward);
+  }
+
+  public void doubleSolenoidReverse() {
+    doubleSolenoid.set(Value.kReverse);
+  }
+
+  public void doubleSolenoidOff() {
+    doubleSolenoid.set(Value.kOff);
+  }
+
 
   public void spinMotor(double speed) {
     intakeMotor.set(speed);

@@ -18,8 +18,6 @@ public class AutoTargetSequence extends SequentialCommandGroup {
 
   /** Creates a new AutoTargetSequence. */
   public AutoTargetSequence(TurretSubsystem turretSubsystem, LimeLightVision vision, Hood hoodSubsystem, XboxController xboxController) {
-    turretSubsystem = new TurretSubsystem();
-    vision = new LimeLightVision(38, 104, 30);
 
     // Use addRequirements() here to declare subsystem dependencies.
     addCommands(

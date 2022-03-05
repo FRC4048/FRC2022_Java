@@ -39,7 +39,7 @@ public interface Constants2022TheTB {
 
   //PCM
   public static final int SHOOTER_PISTON_ID = 7; //placeholder
-  public static final int INTAKE_SOLENOID_1 = 0;
+  public static final int INTAKE_SOLENOID_1 = 2;
   public static final int INTAKE_SOLENOID_2 = 6;
 
   //DRIVETRAIN CONSTANTS
@@ -78,7 +78,7 @@ public interface Constants2022TheTB {
   public static final int LEFT_JOYSTICK_ID = 0;
   public static final int RIGHT_JOYSTICK_ID = 1;
 
-  public static final int CONTROLLER_ID = 2;
+  public static final int CONTROLLER_ID = 0;
 
   //Motor Speeds
   public static final double INTAKE_MOTOR_SPEED = 1;
