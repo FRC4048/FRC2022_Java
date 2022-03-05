@@ -32,6 +32,7 @@ import frc.robot.commands.intakecommands.DropBallCommand;
 import frc.robot.commands.intakecommands.IntakeBallCommand;
 import frc.robot.commands.intakecommands.IntakeSequence;
 import frc.robot.commands.intakecommands.ManuallyRunIntakeMotor;
+import frc.robot.commands.intakecommands.ManuallyToggleIntake;
 import frc.robot.commands.intakecommands.RaiseIntakeCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
@@ -58,14 +59,14 @@ public class RobotContainer {
   private static Joystick joyRight = new Joystick(Constants.RIGHT_JOYSTICK_ID);
 
   private XboxController xboxController = new XboxController(Constants.CONTROLLER_ID);
-  private JoystickButton buttonA = new JoystickButton(xboxController, Constants.XBOX_A_BUTTON);
-  private JoystickButton buttonB = new JoystickButton(xboxController, Constants.XBOX_B_BUTTON);
+  private  JoystickButton buttonA = new JoystickButton(xboxController, Constants.XBOX_A_BUTTON);
+  private  JoystickButton buttonB = new JoystickButton(xboxController, Constants.XBOX_B_BUTTON);
+  
   private JoystickButton buttonX = new JoystickButton(xboxController, Constants.XBOX_X_BUTTON);
   private JoystickButton rightBumper = new JoystickButton(xboxController, Constants.XBOX_RIGHT_BUMPER);
   private JoystickButton leftBumper = new JoystickButton(xboxController, Constants.XBOX_LEFT_BUMPER);
   private Trigger rightTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
   private Trigger leftTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
-
 
   private final LimelightSubsystem limeLightVision = new LimelightSubsystem();
 
@@ -112,6 +113,7 @@ public class RobotContainer {
     buttonA.whenPressed(new IntakeSequence(intakeSubsystem));
     buttonB.whenPressed(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED));
     buttonB.whenReleased(new ManuallyRunIntakeMotor(intakeSubsystem, 0));
+
     rightTrigger.whenActive(new ShootSequence(intakeSubsystem, shooterSubsystem));
     leftTrigger.whenActive(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
     buttonX.whenPressed(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
@@ -163,8 +165,7 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline to 0", new SetPipeline(0));
       SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline to 1", new SetPipeline(1));
       SmartShuffleboard.putCommand("Turn", "Turn Degrees", new TurnDegrees(driveTrain, 90));
-
-      
+ 
     }
   }
 } 
