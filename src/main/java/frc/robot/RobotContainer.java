@@ -153,6 +153,9 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Intake", "Raise Intake", new RaiseIntakeCommand(getIntakeSubsystem()));
       SmartShuffleboard.putCommand("Intake", "Intake Ball", new IntakeBallCommand(getIntakeSubsystem()));
       SmartShuffleboard.putCommand("Intake", "Drop Ball", new DropBallCommand(getIntakeSubsystem()));
+      
+      SmartShuffleboard.putCommand("Shooter", "Rotate Turret Left", new TurretManualCommand(turretSubsystem, () -> -.5));
+      SmartShuffleboard.putCommand("Shooter", "Rotate Turret Right", new TurretManualCommand(turretSubsystem, () -> .5));
 
       SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
       
