@@ -11,7 +11,11 @@ import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.AutoTargetSequence;
 import frc.robot.commands.Drive;
+import frc.robot.commands.PistonSequence;
+import frc.robot.commands.ShootSequence;
 import frc.robot.commands.TurnDegrees;
 import frc.robot.commands.TurretManualCommand;
 import frc.robot.commands.Miscellaneous.SetLEDOff;
@@ -57,7 +61,12 @@ public class RobotContainer {
   private XboxController xboxController = new XboxController(Constants.CONTROLLER_ID);
   private  JoystickButton buttonA = new JoystickButton(xboxController, Constants.XBOX_A_BUTTON);
   private  JoystickButton buttonB = new JoystickButton(xboxController, Constants.XBOX_B_BUTTON);
-  private JoystickButton bumperRight = new JoystickButton(xboxController, Constants.XBOX_RIGHT_BUMPER);
+  
+  private JoystickButton buttonX = new JoystickButton(xboxController, Constants.XBOX_X_BUTTON);
+  private JoystickButton rightBumper = new JoystickButton(xboxController, Constants.XBOX_RIGHT_BUMPER);
+  private JoystickButton leftBumper = new JoystickButton(xboxController, Constants.XBOX_LEFT_BUMPER);
+  private Trigger rightTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
+  private Trigger leftTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
 
   private final LimelightSubsystem limeLightVision = new LimelightSubsystem();
 
@@ -69,18 +78,18 @@ public class RobotContainer {
   private final TurretSubsystem turretSubsystem= new TurretSubsystem(); 
 
   public AutoChooser autoChooser = new AutoChooser();
-  
 
   private final Drive driveCommand = new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getY());
-  private final LimeLightVision limeLight = new LimeLightVision(Constants.CAMERA_HEIGHT, Constants.TARGET_HEIGHT, Constants.CAMERA_ANGLE);
   private final TurretManualCommand turretCommand= new TurretManualCommand(turretSubsystem, () -> xboxController.getLeftX());
   private final ManuallyMoveHood hoodCommand = new ManuallyMoveHood(hood, () -> xboxController.getRightY());
+
+  public boolean canShoot = false;
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     autoChooser.addOptions();
-    driveTrain.setDefaultCommand(new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getY()));
+    driveTrain.setDefaultCommand(driveCommand);
     turretSubsystem.setDefaultCommand(turretCommand);
     hood.setDefaultCommand(hoodCommand);
 
@@ -88,7 +97,6 @@ public class RobotContainer {
     configureButtonBindings();
     autoChooser.initialize();
 
-    
   }
 
   public PowerDistribution getPowerDistPanel(){
@@ -102,21 +110,24 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
-    SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
-    SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
-    SmartShuffleboard.putCommand("Shooter", "Start Shooter Motor", new RotateShooterMotor(shooterSubsystem, Constants.SHOOTER_CLOCKWISE_SPEED));
-    SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
-    SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
-    
     buttonA.whenPressed(new IntakeSequence(intakeSubsystem));
     buttonB.whenPressed(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED));
     buttonB.whenReleased(new ManuallyRunIntakeMotor(intakeSubsystem, 0));
-    bumperRight.whenReleased(new ManuallyToggleIntake(getIntakeSubsystem()));
+
+    rightTrigger.whenActive(new ShootSequence(intakeSubsystem, shooterSubsystem));
+    leftTrigger.whenActive(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
+    buttonX.whenPressed(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
+    rightBumper.whenPressed(new PistonSequence(intakeSubsystem, shooterSubsystem));
+    leftBumper.whenPressed(new ToggleShooterMotor(shooterSubsystem));
+    leftBumper.whenReleased(new ToggleShooterMotor(shooterSubsystem));
   }
 
   public IntakeSubsystem getIntakeSubsystem() {
     return intakeSubsystem;
+  }
+
+  public LimeLightVision getLimeLight() {
+    return limeLightVision.getLimeLightVision();
   }
 
   /**
@@ -126,12 +137,12 @@ public class RobotContainer {
    */
 
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return driveCommand;
+    return autoChooser.getAutonomousCommand(autoChooser.getPosition() , autoChooser.getAction());
   }
 
-  public LimeLightVision getLimeLight() {
-    return limeLight;
+  public void installDriverShuffleboard() {
+    SmartShuffleboard.putCommand("Driver", "Camera Detection", new SetPipeline(Constants.LIMELIGHT_TARGET_DETECTION));
+    SmartShuffleboard.putCommand("Driver", "Camera Streaming", new SetPipeline(Constants.LIMELIGHT_STREAMING));
   }
 
   public void installCommandsOnShuffleboard() {
@@ -143,12 +154,18 @@ public class RobotContainer {
 
       SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
+      SmartShuffleboard.putCommand("Shooter", "Start Shooter Motor", new RotateShooterMotor(shooterSubsystem, Constants.SHOOTER_CLOCKWISE_SPEED));
+      SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
+      SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
+      SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
+
 
       SmartShuffleboard.putCommand("Miscellaneous", "Set LED Off", new SetLEDOff());
       SmartShuffleboard.putCommand("Miscellaneous", "Set LED On", new SetLEDOn());
       SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline to 0", new SetPipeline(0));
       SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline to 1", new SetPipeline(1));
       SmartShuffleboard.putCommand("Turn", "Turn Degrees", new TurnDegrees(driveTrain, 90));
+ 
     }
   }
 } 
