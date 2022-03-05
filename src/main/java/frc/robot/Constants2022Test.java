@@ -37,6 +37,9 @@ public interface Constants2022Test extends GameConstants {
     public static final int SHOOTER_PISTON_ID = 3; //Placeholder
     public static final int INTAKE_SOLENOID_1 = 0;
     public static final int INTAKE_SOLENOID_2 = 3;  
+
+    // Elevator
+    public static final int ELEVATOR_PISON_ID = 3;
     
     //Pigeon
     public static final int PIGEON_CAN_ID = 7;

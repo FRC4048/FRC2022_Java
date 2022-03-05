@@ -37,7 +37,10 @@ public interface Constants2022DriveC extends GameConstants {
   //PCM
   public static final int SHOOTER_PISTON_ID = 3;
   public static final int INTAKE_SOLENOID_1 = 0;
-  public static final int INTAKE_SOLENOID_2 = 3;
+  public static final int INTAKE_SOLENOID_2 = 4;
+
+  // Elevator
+  public static final int ELEVATOR_PISON_ID = 3;
 
   //DRIVETRAIN CONSTANTS
 
@@ -50,6 +53,7 @@ public interface Constants2022DriveC extends GameConstants {
   public static final int RAISED_INTAKE_TIMEOUT = 3;
   public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
   public static final double INTAKE_BUFFER = 1.0;
+
 
   //OI
   public static final int XBOX_A_BUTTON = 1;
