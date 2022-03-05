@@ -139,8 +139,8 @@ public class RobotContainer {
   }
 
   public void installDriverShuffleboard() {
-    SmartShuffleboard.putCommand("Driver", "Camera Detection", new SetPipeline(1));
-    SmartShuffleboard.putCommand("Driver", "Camera Streaming", new SetPipeline(0));
+    SmartShuffleboard.putCommand("Driver", "Camera Detection", new SetPipeline(Constants.LIMELIGHT_TARGET_DETECTION));
+    SmartShuffleboard.putCommand("Driver", "Camera Streaming", new SetPipeline(Constants.LIMELIGHT_STREAMING));
   }
 
   public void installCommandsOnShuffleboard() {

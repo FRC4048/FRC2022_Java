@@ -65,5 +65,10 @@ public interface Constants2022DriveC extends GameConstants {
   public static final int LEFT_JOYSTICK_ID = 0;
   public static final int RIGHT_JOYSTICK_ID = 1;
   public static final int CONTROLLER_ID = 2;
+
+
+  // LIMELIGHT
+  public static final int LIMELIGHT_TARGET_DETECTION = 1;
+  public static final int LIMELIGHT_STREAMING = 0;
 }
 
