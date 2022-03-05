@@ -40,4 +40,8 @@ public interface Constants2022Test extends GameConstants {
     
     //Pigeon
     public static final int PIGEON_CAN_ID = 7;
+
+    // LIMELIGHT
+    public static final int LIMELIGHT_TARGET_DETECTION = 1;
+    public static final int LIMELIGHT_STREAMING = 0;   
 }

@@ -138,6 +138,11 @@ public class RobotContainer {
     return autoChooser.getAutonomousCommand(autoChooser.getPosition() , autoChooser.getAction());
   }
 
+  public void installDriverShuffleboard() {
+    SmartShuffleboard.putCommand("Driver", "Camera Detection", new SetPipeline(Constants.LIMELIGHT_TARGET_DETECTION));
+    SmartShuffleboard.putCommand("Driver", "Camera Streaming", new SetPipeline(Constants.LIMELIGHT_STREAMING));
+  }
+
   public void installCommandsOnShuffleboard() {
     if (Constants.ENABLE_DEBUG) {
       SmartShuffleboard.putCommand("Intake", "Deploy Intake", new DeployIntakeCommand(getIntakeSubsystem()));
