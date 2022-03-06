@@ -22,8 +22,8 @@ public class MoveClimberParallelSequence extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new LogCommandWrapper(new MoveClimberArm(climberArmSubsystem, speed)),
-      new LogCommandWrapper(new MoveClimberWinch(climberWinchSubsystem, speed, length))
+     // new LogCommandWrapper(new MoveClimberArm(climberArmSubsystem, speed)),
+      //new LogCommandWrapper(new MoveClimberWinch(climberWinchSubsystem, speed, length))
     );
   }
 }

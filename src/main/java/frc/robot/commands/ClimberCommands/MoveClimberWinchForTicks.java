@@ -9,19 +9,16 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Climber.ClimberWinchSubsystem;
 
-public class MoveClimberWinch extends CommandBase {
+public class MoveClimberWinchForTicks extends CommandBase {
   /** Creates a new MoveClimberWinch. */
   ClimberWinchSubsystem climberWinchSubsystem;
   private double initTime;
-  private double ticksToTurn;
-  private double leftEncoderValue;
-  private double rightEncoderValue;
   private double speed;
+  private double ticks;
 
-  public MoveClimberWinch(ClimberWinchSubsystem climberWinchSubsystem, double speed, double length) {
+  public MoveClimberWinchForTicks(ClimberWinchSubsystem climberWinchSubsystem, double speed, int ticks) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.climberWinchSubsystem = climberWinchSubsystem;
-    this.ticksToTurn = length * Constants.CLIMBER_TICKS_PER_INCH;
     addRequirements(climberWinchSubsystem);
 
   }
@@ -29,8 +26,6 @@ public class MoveClimberWinch extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    leftEncoderValue = climberWinchSubsystem.getLeftEncoder();
-    rightEncoderValue = climberWinchSubsystem.getRightEncoder();
     climberWinchSubsystem.setRightWinchSpeed(speed);
     climberWinchSubsystem.setLeftWinchSpeed(speed);
     initTime = Timer.getFPGATimestamp();
@@ -40,12 +35,13 @@ public class MoveClimberWinch extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (climberWinchSubsystem.getLeftWinchVoltage() > 20 || Math.abs(climberWinchSubsystem.getLeftEncoder() - leftEncoderValue) > Math.abs(ticksToTurn)) {
-      climberWinchSubsystem.stopLeftWinch();
+    if (climberWinchSubsystem.getRightEncoder() > ticks) {
+      climberWinchSubsystem.setRightWinchSpeed(0);
     }
-    if (climberWinchSubsystem.getRightWinchVoltage() > 20 || Math.abs(climberWinchSubsystem.getRightEncoder() - rightEncoderValue) > Math.abs(ticksToTurn)) {
-      climberWinchSubsystem.stopRightWinch();
+    if (climberWinchSubsystem.getLeftEncoder() > ticks) {
+      climberWinchSubsystem.setRightWinchSpeed(0);
     }
+
   }
 
   // Called once the command ends or is interrupted.
@@ -55,6 +51,6 @@ public class MoveClimberWinch extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (climberWinchSubsystem.getLeftWinchVoltage() == 0 && climberWinchSubsystem.getRightWinchVoltage() == 0) || Timer.getFPGATimestamp() - initTime >= Constants.CLIMBER_TIMEOUT;
+    return (climberWinchSubsystem.getRightVolatage() == 0 && climberWinchSubsystem.getLeftVoltage() == 0) || initTime > Constants.CLIMBER_ARM_TIMEOUT;
   }
 }

@@ -14,6 +14,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Drive;
 import frc.robot.commands.TurnDegrees;
 import frc.robot.commands.TurretCommand;
+import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
+import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
+import frc.robot.commands.ClimberCommands.MoveClimberSolenoid;
 import frc.robot.commands.Miscellaneous.SetLEDOff;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
 import frc.robot.commands.Miscellaneous.SetPipeline;
@@ -41,6 +44,8 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.subsystems.Climber.ClimberArmSubsystem;
+import frc.robot.subsystems.Climber.ClimberWinchSubsystem;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.limelight.LimeLightVision;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -64,8 +69,15 @@ public class RobotContainer {
   private static Joystick joyRight = new Joystick(Constants.RIGHT_JOYSTICK_ID);
 
   private XboxController xboxController = new XboxController(Constants.CONTROLLER_ID);
+  private XboxController climberController = new XboxController(Constants.CONTROLLER_CLIMBER_ID);
   private  JoystickButton buttonA = new JoystickButton(xboxController, Constants.XBOX_A_BUTTON);
   private  JoystickButton buttonB = new JoystickButton(xboxController, Constants.XBOX_B_BUTTON);
+
+  //Climber Controller
+  private JoystickButton climberBumperLeft = new JoystickButton(climberController, Constants.XBOX_LEFT_BUMPER);
+  private JoystickButton climberBumperRight = new JoystickButton(climberController, Constants.XBOX_RIGHT_BUMPER);
+  private JoystickButton climberButtonA = new JoystickButton(climberController, Constants.XBOX_A_BUTTON);
+
 
 
   private final LimelightSubsystem limeLightVision = new LimelightSubsystem();
@@ -74,6 +86,8 @@ public class RobotContainer {
   private final DriveTrain driveTrain = new DriveTrain();
   private final Shooter shooterSubsystem = new Shooter();
   private final PowerDistribution m_PowerDistPanel = new PowerDistribution();
+  private final ClimberArmSubsystem climberArmSubsystem = new ClimberArmSubsystem();
+  private final ClimberWinchSubsystem climberWinchSubsystem = new ClimberWinchSubsystem();
   
   private final TurretSubsystem turretSubsystem= new TurretSubsystem(); 
 
@@ -90,6 +104,9 @@ public class RobotContainer {
     autoChooser.addOptions();
     driveTrain.setDefaultCommand(new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getY()));
     turretSubsystem.setDefaultCommand(turretCommand);
+    climberArmSubsystem.setDefaultCommand(new ManualMoveClimberArm(climberArmSubsystem, climberController));
+    climberWinchSubsystem.setDefaultCommand(new ManualMoveClimberWinch(climberWinchSubsystem, climberController));
+
 
     // Configure the button bindings
     configureButtonBindings();
@@ -137,6 +154,11 @@ public class RobotContainer {
     buttonA.whenPressed(new IntakeSequence(intakeSubsystem));
     buttonB.whenPressed(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED));
     buttonB.whenReleased(new ManuallyRunIntakeMotor(intakeSubsystem, 0));
+
+    //Climber
+    climberButtonA.whenPressed(new MoveClimberSolenoid(climberArmSubsystem));
+
+
   }
 
   public IntakeSubsystem getIntakeSubsystem() {

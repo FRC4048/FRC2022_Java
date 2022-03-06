@@ -11,7 +11,7 @@ public class MoveClimberSolenoid extends CommandBase {
   /** Creates a new MoveClimberSolenoid. */
   private ClimberArmSubsystem climberArmSubsystem;
   private boolean state;
-  public MoveClimberSolenoid(ClimberArmSubsystem climberArmSubsystem, boolean state) {
+  public MoveClimberSolenoid(ClimberArmSubsystem climberArmSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.climberArmSubsystem = climberArmSubsystem;
     this.state = state;
@@ -25,7 +25,7 @@ public class MoveClimberSolenoid extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climberArmSubsystem.movePiston(state);
+    climberArmSubsystem.movePiston(!climberArmSubsystem.getPistonState());
   }
 
   // Called once the command ends or is interrupted.

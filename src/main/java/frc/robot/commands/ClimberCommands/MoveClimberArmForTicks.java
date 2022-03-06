@@ -10,16 +10,19 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Climber.ClimberArmSubsystem;
+import frc.robot.utils.MotorUtils;
 
-public class MoveClimberArm extends CommandBase {
+public class MoveClimberArmForTicks extends CommandBase {
   /** Creates a new MoveClimberArm. */
-  ClimberArmSubsystem climberArmSubsystem;
+  private ClimberArmSubsystem climberArmSubsystem;
   private double initTime;
   private double speed;
+  private int ticks;
   
-  public MoveClimberArm(ClimberArmSubsystem climberArmSubsystem, double speed) {
+  public MoveClimberArmForTicks(ClimberArmSubsystem climberArmSubsystem, double speed, int ticks) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.climberArmSubsystem = climberArmSubsystem;
+    this.ticks = ticks;
     addRequirements(climberArmSubsystem);
 
   }
@@ -35,12 +38,13 @@ public class MoveClimberArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (climberArmSubsystem.getLeftArmVoltage() > 20) {
-      climberArmSubsystem.stopLeftArm();
+    if (climberArmSubsystem.getRightEncoder() > ticks) {
+      climberArmSubsystem.setRightArmSpeed(0);
     }
-    if (climberArmSubsystem.getRightArmVoltage() > 20) {
-      climberArmSubsystem.stopLeftArm();
+    if (climberArmSubsystem.getLeftEncoder() > ticks) {
+      climberArmSubsystem.setLeftArmSpeed(0);
     }
+    
   }
     
 
@@ -51,6 +55,6 @@ public class MoveClimberArm extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (climberArmSubsystem.getLeftArmVoltage() == 0 && climberArmSubsystem.getRightArmVoltage() == 0) || Timer.getFPGATimestamp() - initTime >= Constants.CLIMBER_TIMEOUT;
+    return (climberArmSubsystem.getLeftVoltage() == 0 && climberArmSubsystem.getRightVolatage() == 0) || initTime > Constants.CLIMBER_ARM_TIMEOUT;
   }
 }

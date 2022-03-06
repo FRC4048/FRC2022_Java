@@ -5,9 +5,10 @@
 package frc.robot.subsystems.Climber;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -23,9 +24,19 @@ public class ClimberArmSubsystem extends SubsystemBase {
     rightArm = new TalonSRX(Constants.CLIMBER_RIGHT_MOTOR_ID);
     leftPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_LEFT_PISTON_ID);
     rightPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_RIGHT_PISTON_ID);
+
+    leftArm.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    leftArm.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    rightArm.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    rightArm.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     
     leftArm.setNeutralMode(NeutralMode.Brake);
     leftArm.setNeutralMode(NeutralMode.Brake);
+  }
+
+  public void setSpeed(double speed) {
+    leftArm.set(ControlMode.PercentOutput, speed);
+    rightArm.set(ControlMode.PercentOutput, speed);
   }
 
   public void setLeftArmSpeed(double speed) {
@@ -33,7 +44,7 @@ public class ClimberArmSubsystem extends SubsystemBase {
   }
 
   public void setRightArmSpeed(double speed) {
-    rightArm.set(ControlMode.PercentOutput, speed);
+    rightArm.set(ControlMode.PercentOutput, speed);  
   }
 
   public void movePiston(boolean state) {
@@ -41,6 +52,14 @@ public class ClimberArmSubsystem extends SubsystemBase {
     rightPiston.set(state);
   }
 
+  public boolean getPistonState() {
+    return leftPiston.get();
+  }
+
+  public void stopArms() {
+    leftArm.set(ControlMode.PercentOutput, 0);
+    rightArm.set(ControlMode.PercentOutput, 0);
+  }
   public void stopLeftArm() {
     leftArm.set(ControlMode.PercentOutput, 0);
   }
@@ -49,21 +68,38 @@ public class ClimberArmSubsystem extends SubsystemBase {
     rightArm.set(ControlMode.PercentOutput, 0);
   }
 
-  public double getLeftArmVoltage() {
+  public double getLeftEncoder() {
+    return leftArm.getSelectedSensorPosition();
+  }
+
+  public double getRightEncoder() {
+    return rightArm.getSelectedSensorPosition();
+  }
+
+  public double getLeftVoltage() {
     return leftArm.getBusVoltage();
   }
 
-  public double getRightArmVoltage() {
+  public double getRightVolatage() {
     return rightArm.getBusVoltage();
   }
 
-  public void setLeftArmMode(NeutralMode mode) {
-    leftArm.setNeutralMode(mode);
+  public boolean getLeftTopSensor() {
+    return leftArm.getSensorCollection().isFwdLimitSwitchClosed();
   }
 
-  public void setRightArmMode(NeutralMode mode) {
-    rightArm.setNeutralMode(mode);
+  public boolean getLeftBotSensor() {
+    return leftArm.getSensorCollection().isRevLimitSwitchClosed();
   }
+
+  public boolean getRightTopSensor() {
+    return rightArm.getSensorCollection().isFwdLimitSwitchClosed();
+  }
+
+  public boolean getRightBotSensor() {
+    return leftArm.getSensorCollection().isRevLimitSwitchClosed();
+  }
+
 
 
   

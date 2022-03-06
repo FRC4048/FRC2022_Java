@@ -8,18 +8,26 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ClimberWinchSubsystem extends SubsystemBase {
   /** Creates a new ClimberWinchSubsystem. */
   private TalonSRX leftWinch, rightWinch;
+  private DigitalInput leftTopSwitch, leftBotSwitch, rightTopSwitch, rightBotSwitch;
   public ClimberWinchSubsystem() {
     leftWinch = new TalonSRX(Constants.CLIMBER_LEFT_WINCH_ID);
     rightWinch = new TalonSRX(Constants.CLIMBER_RIGHT_WINCH_ID);
 
     leftWinch.setNeutralMode(NeutralMode.Brake);
     rightWinch.setNeutralMode(NeutralMode.Brake);
+
+  }
+
+  public void setSpeed(double speed) {
+    leftWinch.set(ControlMode.PercentOutput, speed);
+    rightWinch.set(ControlMode.PercentOutput, speed);
   }
 
   public void setLeftWinchSpeed(double speed) {
@@ -46,12 +54,20 @@ public class ClimberWinchSubsystem extends SubsystemBase {
     return rightWinch.getSelectedSensorPosition();
   }
 
-  public double getLeftWinchVoltage() {
+  public double getLeftVoltage() {
     return leftWinch.getBusVoltage();
   }
 
-  public double getRightWinchVoltage() {
+  public double getRightVolatage() {
     return rightWinch.getBusVoltage();
+  }
+
+  public boolean getLeftSwitch() {
+    return true;
+  }
+
+  public boolean getRightSwitch() {
+    return true;
   }
 
   @Override

@@ -10,13 +10,14 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Climber.ClimberArmSubsystem;
 
 public class ManualMoveClimberArm extends CommandBase {
-  /** Creates a new ManualMoveClimberArm. */
+  /** Creates a new ManualMoveClimbArm. */
   private ClimberArmSubsystem climberArmSubsystem;
-  private XboxController xboxController;
-  public ManualMoveClimberArm(ClimberArmSubsystem climberArmSubsystem, XboxController xboxController) {
+  private XboxController climberController;
+  
+  public ManualMoveClimberArm(ClimberArmSubsystem climberArmSubsystem, XboxController climberController) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.climberArmSubsystem = climberArmSubsystem;
-    this.xboxController = xboxController;
+    this.climberController = climberController;
     addRequirements(climberArmSubsystem);
   }
 
@@ -27,20 +28,18 @@ public class ManualMoveClimberArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (climberArmSubsystem.getLeftArmVoltage() < 20) {
-      climberArmSubsystem.setLeftArmSpeed(xboxController.getLeftY() * Constants.CLIMBER_ARM_SPEED);
-    }
-    if (climberArmSubsystem.getRightArmVoltage() < 20) {
-      climberArmSubsystem.setRightArmSpeed(xboxController.getLeftY() * Constants.CLIMBER_ARM_SPEED);
+    if (climberController.getLeftY() > 0.75) {
+      climberArmSubsystem.setSpeed(Constants.CLIMBER_WINCH_SPEED);
+    } else if (climberController.getLeftY() < 0.75) {
+      climberArmSubsystem.setSpeed(-Constants.CLIMBER_WINCH_SPEED);
+    } else {
+      climberArmSubsystem.setSpeed(0);
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    climberArmSubsystem.stopRightArm();
-    climberArmSubsystem.stopLeftArm();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

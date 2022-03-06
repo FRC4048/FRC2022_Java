@@ -28,12 +28,15 @@ public class ManualMoveClimberWinch extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (climberWinchSubsystem.getLeftWinchVoltage() < 20) {
-      climberWinchSubsystem.setLeftWinchSpeed(xboxController.getLeftY() * Constants.CLIMBER_ARM_SPEED);
+    if (xboxController.getRightY() > 0.75) {
+      climberWinchSubsystem.setSpeed(Constants.CLIMBER_WINCH_SPEED);
+    } else if (xboxController.getRightY() < 0.75) {
+      climberWinchSubsystem.setSpeed(-Constants.CLIMBER_WINCH_SPEED);
+    } else {
+      climberWinchSubsystem.setSpeed(0);
     }
-    if (climberWinchSubsystem.getRightWinchVoltage() < 20) {
-      climberWinchSubsystem.setRightWinchSpeed(xboxController.getLeftY() * Constants.CLIMBER_ARM_SPEED);
-    }
+
+  
   }
 
   // Called once the command ends or is interrupted.
