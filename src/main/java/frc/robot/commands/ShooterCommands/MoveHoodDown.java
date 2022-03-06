@@ -33,7 +33,7 @@ public class MoveHoodDown extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if (startTimeMillis - System.currentTimeMillis() > 5000){
+        if (System.currentTimeMillis() - startTimeMillis > 5000){
             return true;
         }
         else {
