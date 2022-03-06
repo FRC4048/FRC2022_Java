@@ -13,15 +13,15 @@ public interface Constants2022TheTB extends GameConstants {
   public static final int PDP_CAN_ID = 0;
 
   public static final int DRIVE_LEFT1_ID = 44;
-  public static final int DRIVE_LEFT2_ID = 45;
+  public static final int DRIVE_LEFT2_ID = 41;
   public static final int DRIVE_RIGHT1_ID = 42;
-  public static final int DRIVE_RIGHT2_ID = 41;
+  public static final int DRIVE_RIGHT2_ID = 46;
 
   public static final int PCM_CAN_ID = 20;
-  public static final int SHOOTER_MOTOR_ID = 40;
+  public static final int SHOOTER_MOTOR_ID = 45;
   public static final int INTAKE_MOTOR_ID = 5;
   public static final int TURRET_MOTOR_ID = 12; //Don't know if this is right
-  public static final int HOOD_MOTOR_ID = 10;
+  public static final int HOOD_MOTOR_ID = 40;
 
   //PDP
   public static final int PDP_DRIVE_L1 = 13; 
@@ -41,7 +41,6 @@ public interface Constants2022TheTB extends GameConstants {
   public static final int INTAKE_SOLENOID_2 = 6;
 
   // Elevator
-  public static final int ELEVATOR_PISON_ID = 3;
 
   //DRIVETRAIN CONSTANTS
 

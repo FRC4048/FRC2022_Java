@@ -56,6 +56,9 @@ public interface Constants2022Robot extends GameConstants {
     
     //DRIVETRAIN CONSTANTS
 
+    //Shooter
+    public static final int SHOOTER_PISTON_WAIT = 2;
+
     public static final int PIGEON_CAN_ID = 7;
 
     // LIMELIGHT
