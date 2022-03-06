@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-public interface Constants2022TheTB {
+public interface Constants2022TheTB extends GameConstants {
 
   //Global Constant
   public static final boolean ENABLE_DEBUG = true;
@@ -20,12 +20,12 @@ public interface Constants2022TheTB {
   public static final int SHOOTER_MOTOR_ID = 48;
   public static final int INTAKE_MOTOR_ID = 10;
   public static final int TURRET_MOTOR_ID = 12; //Don't know if this is right
-  public static final int PIGEON_CAN_ID = 7;
   public static final int CLIMBER_RIGHT_WINCH_ID = 1;
   public static final int CLIMBER_LEFT_WINCH_ID = 2;
   public static final int CLIMBER_RIGHT_MOTOR_ID = 5;
   public static final int CLIMBER_LEFT_MOTOR_ID = 10;
 
+  public static final int HOOD_MOTOR_ID = 10;
 
   //PDP
   public static final int PDP_DRIVE_L1 = 13; 
@@ -34,7 +34,8 @@ public interface Constants2022TheTB {
   public static final int PDP_DRIVE_R2 = 1; 
 
   //DIO
-  public static final int INTAKE_SENSOR_ID = 0;
+  public static final int INTAKE_SENSOR_ID_1 = 0; //temp
+  public static final int INTAKE_SENSOR_ID_2 = 1; //temp
 
 
 
@@ -47,11 +48,11 @@ public interface Constants2022TheTB {
   public static final int CLIMBER_RIGHT_PISTON_ID = 6;
   public static final int CLIMBER_LEFT_PISTON_ID = 7;
 
+  // Elevator
+  public static final int ELEVATOR_PISON_ID = 3;
+
   //DRIVETRAIN CONSTANTS
 
-  //Shooter
-  public static final double SHOOTER_CLOCKWISE_SPEED = 0.5;
-  public static final double SHOOTER_COUNTERCLOCKWISE_SPEED = -0.5;
   
   // Intake
   public static final double INTAKE_BUFFER = 1.0;
@@ -94,9 +95,10 @@ public interface Constants2022TheTB {
   public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
   public static final int RAISED_INTAKE_TIMEOUT = 3;
   public static final int SHOOTER_TIMEOUT = 1;
+  //Pigeon
+  public static final int PIGEON_CAN_ID = 7;
 
-  //Limelight Settings
-  public static final double CAMERA_HEIGHT = 38.0;
-  public static final double TARGET_HEIGHT = 104.0;
-  public static final double CAMERA_ANGLE = 18.7;   //cameraAngle is a placeholder value
+  // LIMELIGHT
+  public static final int LIMELIGHT_TARGET_DETECTION = 1;
+  public static final int LIMELIGHT_STREAMING = 0;  
 }

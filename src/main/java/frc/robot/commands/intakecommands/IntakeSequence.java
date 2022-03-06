@@ -1,26 +1,23 @@
 package frc.robot.commands.intakecommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants;
 import frc.robot.commands.WaitCommand;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeSequence extends SequentialCommandGroup {
-  private IntakeSubsystem intakeSubsystem;
 
   /**
    * Creates a new IntakeCommand.
    */
   public IntakeSequence(IntakeSubsystem intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.intakeSubsystem = intakeSubsystem;
     addRequirements(intakeSubsystem);
 
     addCommands(
         new DeployIntakeCommand(intakeSubsystem),
         new IntakeBallCommand(intakeSubsystem),
         new RaiseIntakeCommand(intakeSubsystem),
-        new WaitCommand(Constants.INTAKE_BUFFER),
+        new WaitCommand(2),
         new DropBallCommand(intakeSubsystem)
     );
   }
