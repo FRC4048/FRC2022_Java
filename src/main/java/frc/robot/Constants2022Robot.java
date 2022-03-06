@@ -45,6 +45,10 @@ public interface Constants2022Robot extends GameConstants {
     public static final int INTAKE_SENSOR_ID_1 = 0; //temp
     public static final int INTAKE_SENSOR_ID_2 = 1;
 
+    
+    //AIO 
+    public static final int HOOD_POTENTIOMETER = 7;
+
     //Relay
 
     //PCM

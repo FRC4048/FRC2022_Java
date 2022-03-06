@@ -23,6 +23,9 @@ import frc.robot.commands.Miscellaneous.SetLEDOn;
 import frc.robot.commands.Miscellaneous.SetPipeline;
 import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
 import frc.robot.commands.ShooterCommands.ManuallyMoveHood;
+import frc.robot.commands.ShooterCommands.MoveHoodDown;
+import frc.robot.commands.ShooterCommands.MoveHoodToAngle;
+import frc.robot.commands.ShooterCommands.MoveHoodUp;
 import frc.robot.commands.ShooterCommands.RetractShooterPiston;
 import frc.robot.commands.ShooterCommands.RotateShooterMotor;
 import frc.robot.commands.ShooterCommands.ToggleShooterMotor;
@@ -167,6 +170,10 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline to 0", new SetPipeline(0));
       SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline to 1", new SetPipeline(1));
       SmartShuffleboard.putCommand("Turn", "Turn Degrees", new TurnDegrees(driveTrain, 90));
+
+      SmartShuffleboard.putCommand("Hood", "Move Hood Down", new MoveHoodDown(hood));
+      SmartShuffleboard.putCommand("Hood", "Move Hood Up", new MoveHoodUp(hood));
+      
  
     }
   }
