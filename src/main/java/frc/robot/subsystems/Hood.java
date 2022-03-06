@@ -20,7 +20,7 @@ public class Hood extends SubsystemBase {
        hoodMotor = new WPI_TalonSRX(Constants.HOOD_MOTOR_ID); 
        hoodMotor.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
        hoodMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-       potentiometer = new AnalogPotentiometer(Constants.HOOD_POTENTIOMETER,180,0);
+       potentiometer = new AnalogPotentiometer(Constants.HOOD_POTENTIOMETER, Constants.HOOD_RANGE_OF_MOTION , Constants.HOOD_STARTING_POINT);
 
        Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Hood Encoder", 100, hoodMotor));
        Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Hood Forward Switch", hoodMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));

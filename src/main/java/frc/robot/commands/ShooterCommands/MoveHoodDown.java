@@ -8,6 +8,7 @@ import frc.robot.subsystems.Hood;
 
 public class MoveHoodDown extends CommandBase {
     private Hood hood;
+    private double startTimeMillis;
     ;
     
 
@@ -18,7 +19,7 @@ public class MoveHoodDown extends CommandBase {
     }
 
     public void initialize() {
-
+        startTimeMillis = System.currentTimeMillis();
     }
 
     public void execute() {
@@ -32,6 +33,11 @@ public class MoveHoodDown extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        if (startTimeMillis - System.currentTimeMillis() > 5000){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
