@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AutoTargetSequence;
 import frc.robot.commands.Drive;
 import frc.robot.commands.PistonSequence;
-import frc.robot.commands.ShootSequence;
 import frc.robot.commands.TurnDegrees;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
@@ -110,7 +109,7 @@ public class RobotContainer {
     driveTrain.setDefaultCommand(driveCommand);
     turretSubsystem.setDefaultCommand(turretCommand);
     climberArmSubsystem.setDefaultCommand(new ManualMoveClimberArm(climberArmSubsystem, climberController));
-    climberWinchSubsystem.setDefaultCommand(new ManualMoveClimberWinch(climberWinchSubsystem, climberController));
+    //climberWinchSubsystem.setDefaultCommand(new ManualMoveClimberWinch(climberWinchSubsystem, climberController));
 
     hood.setDefaultCommand(hoodCommand);
 
@@ -159,7 +158,7 @@ public class RobotContainer {
 
     buttonY.whenPressed(new ManuallyToggleIntake(intakeSubsystem));
 
-    rightTrigger.whenActive(new ShootSequence(intakeSubsystem, shooterSubsystem));
+    
     leftTrigger.whenActive(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
     buttonX.whenPressed(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
     rightBumper.whenPressed(new PistonSequence(intakeSubsystem, shooterSubsystem));

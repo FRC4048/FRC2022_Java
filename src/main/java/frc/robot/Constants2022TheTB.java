@@ -18,14 +18,14 @@ public interface Constants2022TheTB extends GameConstants {
   public static final int DRIVE_RIGHT2_ID = 41;
   public static final int PCM_CAN_ID = 20;
   public static final int SHOOTER_MOTOR_ID = 48;
-  public static final int INTAKE_MOTOR_ID = 10;
+  public static final int INTAKE_MOTOR_ID = 4;
   public static final int TURRET_MOTOR_ID = 12; //Don't know if this is right
   public static final int CLIMBER_RIGHT_WINCH_ID = 1;
   public static final int CLIMBER_LEFT_WINCH_ID = 2;
   public static final int CLIMBER_RIGHT_MOTOR_ID = 5;
   public static final int CLIMBER_LEFT_MOTOR_ID = 10;
 
-  public static final int HOOD_MOTOR_ID = 10;
+  public static final int HOOD_MOTOR_ID = 9;
 
   //PDP
   public static final int PDP_DRIVE_L1 = 13; 
@@ -61,7 +61,7 @@ public interface Constants2022TheTB extends GameConstants {
   public static final double TURRETSPIN_SCALEFACTOR = 0.5;
 
   //Climber
-  public static final double CLIMBER_ARM_SPEED = 1;
+  public static final double CLIMBER_ARM_SPEED = .5;
   public static final double CLIMBER_WINCH_SPEED = 1;
   public static final double CLIMBER_MIN_ARM_SPEED = 0.8;
   public static final double CLIMBER_MIN_WINCH_SPEED = 0.8;

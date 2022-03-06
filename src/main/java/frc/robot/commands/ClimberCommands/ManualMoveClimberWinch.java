@@ -30,7 +30,7 @@ public class ManualMoveClimberWinch extends CommandBase {
   public void execute() {
     if (xboxController.getRightY() > 0.75) {
       climberWinchSubsystem.setSpeed(Constants.CLIMBER_WINCH_SPEED);
-    } else if (xboxController.getRightY() < 0.75) {
+    } else if (xboxController.getRightY() < -0.75) {
       climberWinchSubsystem.setSpeed(-Constants.CLIMBER_WINCH_SPEED);
     } else {
       climberWinchSubsystem.setSpeed(0);
