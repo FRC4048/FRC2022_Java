@@ -11,7 +11,7 @@ public class ExtendShooterPiston extends CommandBase {
   /** Creates a new RaisePiston. */
   private Shooter shooterSubsystem;
   public ExtendShooterPiston(Shooter shooterSubsystem) {
-    // Use addRequirements() here to declare subsystem dependencies.
+    // DO NOT add sybsystem requirement here, as it would get in the way of the motor command
     this.shooterSubsystem = shooterSubsystem;
   }
 

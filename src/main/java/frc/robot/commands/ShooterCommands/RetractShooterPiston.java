@@ -11,7 +11,7 @@ public class RetractShooterPiston extends CommandBase {
   /** Creates a new RetractPiston. */
   private Shooter shooterSubystem;
   public RetractShooterPiston(Shooter shooterSubystem) {
-    // Use addRequirements() here to declare subsystem dependencies.
+    // DO NOT add sybsystem requirement here, as it would get in the way of the motor command
     this.shooterSubystem = shooterSubystem;
   }
 
