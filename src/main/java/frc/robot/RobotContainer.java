@@ -5,8 +5,6 @@
 package frc.robot;
 
 
-import com.ctre.phoenix.led.ColorFlowAnimation.Direction;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
@@ -15,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AutoTargetSequence;
+import frc.robot.commands.CalibrateTurretEncoderSequence;
 import frc.robot.commands.Drive;
 import frc.robot.commands.MoveTurretDashboard;
 import frc.robot.commands.PistonSequence;
@@ -163,6 +162,7 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
       
       SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
+      SmartShuffleboard.putCommand("Shooter", "Calibrate Enocoder", new CalibrateTurretEncoderSequence(turretSubsystem));
 
       SmartShuffleboard.putCommand("Miscellaneous", "Set LED Off", new SetLEDOff());
       SmartShuffleboard.putCommand("Miscellaneous", "Set LED On", new SetLEDOn());
