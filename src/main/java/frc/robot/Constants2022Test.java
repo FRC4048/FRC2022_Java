@@ -31,13 +31,23 @@ public interface Constants2022Test extends GameConstants {
     public static final int INTAKE_SENSOR_ID_1 = 0; //temp
     public static final int INTAKE_SENSOR_ID_2 = 1;
 
+    //AIO 
+    public static final int HOOD_POTENTIOMETER = 7;
+
     //Relay
 
     //PCM
     public static final int SHOOTER_PISTON_ID = 3; //Placeholder
     public static final int INTAKE_SOLENOID_1 = 0;
-    public static final int INTAKE_SOLENOID_2 = 3;  
+    public static final int INTAKE_SOLENOID_2 = 4;  
+
+    // Elevator
+    public static final int ELEVATOR_PISON_ID = 3;
     
     //Pigeon
     public static final int PIGEON_CAN_ID = 7;
+
+    // LIMELIGHT
+    public static final int LIMELIGHT_TARGET_DETECTION = 1;
+    public static final int LIMELIGHT_STREAMING = 0;   
 }

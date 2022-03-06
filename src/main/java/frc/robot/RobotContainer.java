@@ -17,7 +17,6 @@ import frc.robot.commands.CalibrateTurretEncoderSequence;
 import frc.robot.commands.Drive;
 import frc.robot.commands.MoveTurretDashboard;
 import frc.robot.commands.PistonSequence;
-import frc.robot.commands.ShootSequence;
 import frc.robot.commands.TurnDegrees;
 import frc.robot.commands.TurretManualCommand;
 import frc.robot.commands.Miscellaneous.SetLEDOff;
@@ -25,8 +24,12 @@ import frc.robot.commands.Miscellaneous.SetLEDOn;
 import frc.robot.commands.Miscellaneous.SetPipeline;
 import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
 import frc.robot.commands.ShooterCommands.ManuallyMoveHood;
+import frc.robot.commands.ShooterCommands.MoveHoodDown;
+import frc.robot.commands.ShooterCommands.MoveHoodToAngle;
+import frc.robot.commands.ShooterCommands.MoveHoodUp;
 import frc.robot.commands.ShooterCommands.RetractShooterPiston;
 import frc.robot.commands.ShooterCommands.RotateShooterMotor;
+import frc.robot.commands.ShooterCommands.ShooterParallelSequeunce;
 import frc.robot.commands.ShooterCommands.ToggleShooterMotor;
 import frc.robot.commands.ShooterCommands.ToggleShooterPiston;
 import frc.robot.commands.intakecommands.DeployIntakeCommand;
@@ -34,6 +37,7 @@ import frc.robot.commands.intakecommands.DropBallCommand;
 import frc.robot.commands.intakecommands.IntakeBallCommand;
 import frc.robot.commands.intakecommands.IntakeSequence;
 import frc.robot.commands.intakecommands.ManuallyRunIntakeMotor;
+import frc.robot.commands.intakecommands.ManuallyToggleIntake;
 import frc.robot.commands.intakecommands.RaiseIntakeCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
@@ -62,12 +66,13 @@ public class RobotContainer {
   private XboxController xboxController = new XboxController(Constants.CONTROLLER_ID);
   private JoystickButton buttonA = new JoystickButton(xboxController, Constants.XBOX_A_BUTTON);
   private JoystickButton buttonB = new JoystickButton(xboxController, Constants.XBOX_B_BUTTON);
+  private JoystickButton buttonY = new JoystickButton(xboxController, Constants.XBOX_Y_BUTTON);
+  
   private JoystickButton buttonX = new JoystickButton(xboxController, Constants.XBOX_X_BUTTON);
   private JoystickButton rightBumper = new JoystickButton(xboxController, Constants.XBOX_RIGHT_BUMPER);
   private JoystickButton leftBumper = new JoystickButton(xboxController, Constants.XBOX_LEFT_BUMPER);
   private Trigger rightTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
   private Trigger leftTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
-
 
   private final LimelightSubsystem limeLightVision = new LimelightSubsystem();
 
@@ -111,19 +116,12 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
-    SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
-    SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
-    SmartShuffleboard.putCommand("Shooter", "Start Shooter Motor", new RotateShooterMotor(shooterSubsystem, Constants.SHOOTER_CLOCKWISE_SPEED));
-    SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
-    SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
-    SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
-    
-
     buttonA.whenPressed(new IntakeSequence(intakeSubsystem));
     buttonB.whenPressed(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED));
     buttonB.whenReleased(new ManuallyRunIntakeMotor(intakeSubsystem, 0));
-    rightTrigger.whenActive(new ShootSequence(intakeSubsystem, shooterSubsystem));
+    buttonY.whenPressed(new ManuallyToggleIntake(intakeSubsystem));
+
+    rightTrigger.whenActive(new ShooterParallelSequeunce(shooterSubsystem));
     leftTrigger.whenActive(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
     buttonX.whenPressed(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
     rightBumper.whenPressed(new PistonSequence(intakeSubsystem, shooterSubsystem));
@@ -149,6 +147,11 @@ public class RobotContainer {
     return autoChooser.getAutonomousCommand(autoChooser.getPosition() , autoChooser.getAction());
   }
 
+  public void installDriverShuffleboard() {
+    SmartShuffleboard.putCommand("Driver", "Camera Detection", new SetPipeline(Constants.LIMELIGHT_TARGET_DETECTION));
+    SmartShuffleboard.putCommand("Driver", "Camera Streaming", new SetPipeline(Constants.LIMELIGHT_STREAMING));
+  }
+
   public void installCommandsOnShuffleboard() {
     if (Constants.ENABLE_DEBUG) {
       SmartShuffleboard.putCommand("Intake", "Deploy Intake", new DeployIntakeCommand(getIntakeSubsystem()));
@@ -160,15 +163,25 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Shooter", "Rotate Turret Right", new MoveTurretDashboard(turretSubsystem, MoveTurretDashboard.Direction.RIGHT));
 
       SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
-      
       SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Calibrate Enocoder", new CalibrateTurretEncoderSequence(turretSubsystem));
+      SmartShuffleboard.putCommand("Shooter", "Start Shooter Motor", new RotateShooterMotor(shooterSubsystem, Constants.SHOOTER_CLOCKWISE_SPEED));
+      SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
+      SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
+      SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
+      SmartShuffleboard.putCommand("Shooter", "Shooter Sequence", new ShooterParallelSequeunce(shooterSubsystem));
 
       SmartShuffleboard.putCommand("Miscellaneous", "Set LED Off", new SetLEDOff());
       SmartShuffleboard.putCommand("Miscellaneous", "Set LED On", new SetLEDOn());
       SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline to 0", new SetPipeline(0));
       SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline to 1", new SetPipeline(1));
       SmartShuffleboard.putCommand("Turn", "Turn Degrees", new TurnDegrees(driveTrain, 90));
+
+
+      SmartShuffleboard.putCommand("Hood", "Move Hood Down", new MoveHoodDown(hood));
+      SmartShuffleboard.putCommand("Hood", "Move Hood Up", new MoveHoodUp(hood));
+
+ 
     }
   }
 } 
