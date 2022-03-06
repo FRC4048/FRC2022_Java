@@ -22,8 +22,8 @@ public class AutoTargetSequence extends SequentialCommandGroup {
     // Use addRequirements() here to declare subsystem dependencies.
     addCommands(
       new SetLEDOn(),
-      new TurretAuto(turretSubsystem, vision)
-      //new HoodAutoCommand(hoodSubsystem, vision)
+      new TurretAuto(turretSubsystem, vision),
+      new HoodAutoCommand(hoodSubsystem, vision)
     );
     SmartShuffleboard.put("Shooter", "Data", "Can Shoot", true);
   }
