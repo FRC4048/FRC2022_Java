@@ -41,7 +41,12 @@ public class RunTurretUntilLimitSwitch extends CommandBase {
       return true;
     }
     else {
-      return false;
+      if (turretSubsystem.getLeftSwitch()){
+        return true;
+      }
+      else{
+        return false;
+      }
     }
   }
 }
