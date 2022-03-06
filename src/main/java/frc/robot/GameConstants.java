@@ -23,7 +23,7 @@ public interface GameConstants {
   //Timeouts
   public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
   public static final int RAISED_INTAKE_TIMEOUT = 3;
-  public static final int SHOOTER_TIMEOUT = 1;
+  public static final int SHOOTER_TIMEOUT = 15;
 
   //Limelight Settings
   public static final double CAMERA_HEIGHT = 38.0;
