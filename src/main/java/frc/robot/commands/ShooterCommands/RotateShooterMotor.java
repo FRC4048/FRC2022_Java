@@ -8,8 +8,9 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
+import frc.robot.commands.LoggedCommand;
 
-public class RotateShooterMotor extends CommandBase {
+public class RotateShooterMotor extends LoggedCommand {
   /** Creates a new RotateShooterMotor. */
   private Shooter shooterSubsytem;
   private double speed;
@@ -25,23 +26,24 @@ public class RotateShooterMotor extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
+  public void loggedInitialize() {
     initTime = Timer.getFPGATimestamp();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
+  public void loggedExecute() {
     shooterSubsytem.setShooterSpeed(speed);
+    addLog(shooterSubsytem.getShooterSpeed());
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void loggedEnd(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
+  public boolean loggedIsFinished() {
     if (Timer.getFPGATimestamp() - initTime >= Constants.SHOOTER_TIMEOUT) {
       return true;
   }

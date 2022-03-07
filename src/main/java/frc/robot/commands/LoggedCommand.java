@@ -31,6 +31,18 @@ abstract public class LoggedCommand extends CommandBase {
 		Logging.instance().traceMessage(MessageLevel.INFORMATION, sb.toString(), requirements.toString(), text);
 	}
 
+	public void addLog(String text) {
+		log(text);
+	}
+
+	public void addLog(double value) {
+		log(Double.toString(value));
+	}
+
+	public void addLog(int value) {
+		log(Integer.toString(value));
+	}
+
 	@Override
 	final public boolean isFinished() {
 		final boolean result = loggedIsFinished();

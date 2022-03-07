@@ -6,9 +6,10 @@ package frc.robot.commands.Miscellaneous;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.commands.LoggedCommand;
 import frc.robot.utils.limelight.LimeLightVision;
 
-public class SetLEDOff extends CommandBase {
+public class SetLEDOff extends LoggedCommand {
   /** Creates a new SetLEDOff. */
   public SetLEDOff() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -16,22 +17,22 @@ public class SetLEDOff extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void loggedInitialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
+  public void loggedExecute() {
     Robot.getRobotContainer().getLimeLight().setLedOff();
   }
 
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void loggedEnd(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
+  public boolean loggedIsFinished() {
     return true;
   }
 }

@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.TurretSubsystem;
 
-public class TurretManualCommand extends LoggedCommand {
+public class TurretManualCommand extends CommandBase {
     private TurretSubsystem turretSubsystem;        
     private DoubleSupplier joystickInput;
 
@@ -18,22 +18,22 @@ public class TurretManualCommand extends LoggedCommand {
       
     }
     @Override
-    public void loggedInitialize() {
+    public void initialize() {
     }
 
     @Override
-    public void loggedExecute() {
+    public void execute() {
         //dont know if the input should be negative
       turretSubsystem.setTurret((joystickInput.getAsDouble() * Constants.TURRETSPIN_SCALEFACTOR));
     }
 
     @Override
-    public void loggedEnd(boolean interrupted) {
+    public void end(boolean interrupted) {
         turretSubsystem.stopTurret();
     }
 
     @Override
-    public boolean loggedIsFinished() {
+    public boolean isFinished() {
         return false;
 
     }

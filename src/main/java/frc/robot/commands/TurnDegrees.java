@@ -7,7 +7,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.utils.SmartShuffleboard;
 
 
-public class TurnDegrees extends CommandBase{
+public class TurnDegrees extends LoggedCommand{
     private final double ANGLE_THRESHOLD = 2;
     private final double MAX_SPEED = 0.5;
     private final double MIN_SPEED = 0.2;   
@@ -24,12 +24,14 @@ public class TurnDegrees extends CommandBase{
         this.driveTrain = driveTrain;
         this.requiredAngle = requiredAngle;
         addRequirements(driveTrain);
-
+        addLog(requiredAngle);
     }
-    public void initialize(){
+
+    public void loggedInitialize(){
       startTime  = Timer.getFPGATimestamp();
     }
-    public void execute(){
+
+    public void loggedExecute(){
         currAngle = driveTrain.getAngle();
         double angleError = requiredAngle-currAngle;
 
@@ -57,11 +59,11 @@ public class TurnDegrees extends CommandBase{
     }
     
     @Override
-    public void end(boolean interrupted){
+    public void loggedEnd(boolean interrupted){
         driveTrain.drive(0, 0, false);
     }
     @Override
-    public boolean isFinished(){
+    public boolean loggedIsFinished(){
       double elapsedTime = Timer.getFPGATimestamp() - startTime;
 
       return (Math.abs(currAngle - requiredAngle) <= ANGLE_THRESHOLD) || (elapsedTime >= MAXIMUM_TIME_S);

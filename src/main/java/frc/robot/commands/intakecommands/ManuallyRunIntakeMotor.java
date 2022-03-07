@@ -1,9 +1,10 @@
 package frc.robot.commands.intakecommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.commands.LoggedCommand;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class ManuallyRunIntakeMotor extends CommandBase {
+public class ManuallyRunIntakeMotor extends LoggedCommand {
     private IntakeSubsystem intakeSubsystem;
     private double motorSpeed;
 
@@ -12,17 +13,17 @@ public class ManuallyRunIntakeMotor extends CommandBase {
         this.motorSpeed = speed;
     }
     
-    public void initialize() {}
+    public void loggedInitialize() {}
 
-    public void execute() {
+    public void loggedExecute() {
         intakeSubsystem.spinMotor(motorSpeed);
     }
 
     @Override
-    public void end(boolean interrupted) {}
+    public void loggedEnd(boolean interrupted) {}
 
     @Override
-    public boolean isFinished(){
+    public boolean loggedIsFinished(){
         return true;
     }
 }
