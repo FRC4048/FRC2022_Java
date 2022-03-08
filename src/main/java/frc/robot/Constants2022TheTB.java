@@ -52,4 +52,10 @@ public interface Constants2022TheTB extends GameConstants {
   // LIMELIGHT
   public static final int LIMELIGHT_TARGET_DETECTION = 1;
   public static final int LIMELIGHT_STREAMING = 0;  
+
+  //Autonomus *All Placehoders so far
+  public static final double speed = 5;
+  public static final double distance_Inches = 6;
+  public static final int angle_Required = 20;
+
 }

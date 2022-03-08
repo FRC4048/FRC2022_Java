@@ -16,7 +16,7 @@ import frc.robot.commands.AutoTargetSequence;
 import frc.robot.commands.Drive;
 import frc.robot.commands.PistonSequence;
 import frc.robot.commands.ShootSequence;
-import frc.robot.commands.TurnDegrees;
+import frc.robot.commands.drive.TurnDegrees;
 import frc.robot.commands.TurretManualCommand;
 import frc.robot.commands.Miscellaneous.SetLEDOff;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
