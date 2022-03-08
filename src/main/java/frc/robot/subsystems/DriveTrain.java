@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.utils.SmartShuffleboard;
+import frc.robot.utils.diag.DiagPigeon;
 import frc.robot.utils.diag.DiagSparkMaxEncoder;
 
 public class DriveTrain extends SubsystemBase {
@@ -52,6 +53,7 @@ public class DriveTrain extends SubsystemBase {
         
         Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Left Drive Encoder", 10, left1));
         Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Right Drive Encoder", 10, right1));
+        Robot.getDiagnostics().addDiagnosable(new DiagPigeon("Pigeon", 10, gyro));
     }
 
     public void drive(double speedLeft, double speedRight, boolean isSquared) {

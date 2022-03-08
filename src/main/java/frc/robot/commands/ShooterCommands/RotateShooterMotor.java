@@ -39,7 +39,9 @@ public class RotateShooterMotor extends LoggedCommand {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void loggedEnd(boolean interrupted) {}
+  public void loggedEnd(boolean interrupted) {
+    shooterSubsytem.stopShooter();
+  }
 
   // Returns true when the command should end.
   @Override

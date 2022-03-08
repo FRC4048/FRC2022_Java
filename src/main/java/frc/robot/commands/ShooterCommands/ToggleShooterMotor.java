@@ -30,6 +30,8 @@ public class ToggleShooterMotor extends LoggedCommand {
     }
   }
 
+  
+
   // Called once the command ends or is interrupted.
   @Override
   public void loggedEnd(boolean interrupted) {}

@@ -43,7 +43,7 @@ public class IntakeBallCommand extends LoggedCommand {
   // Returns true when the command should end.
   @Override
   public boolean loggedIsFinished() {
-    if (intakeSubsystem.getIntakeSensor() || (Timer.getFPGATimestamp() - initTime) >= Constants.DEPLOYED_INTAKE_TIMEOUT) {
+    if (intakeSubsystem.isBallInIntake() || (Timer.getFPGATimestamp() - initTime) >= Constants.DEPLOYED_INTAKE_TIMEOUT) {
         return true;
     }
     return false;

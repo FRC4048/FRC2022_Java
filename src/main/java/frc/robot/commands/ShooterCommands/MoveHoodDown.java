@@ -6,27 +6,24 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Hood;
 
-public class ManuallyMoveHood extends CommandBase {
+public class MoveHoodDown extends CommandBase {
     private Hood hood;
-    private DoubleSupplier rightJoystickY;
+    private double startTimeMillis;
+    ;
     
 
-    public ManuallyMoveHood(Hood hood, DoubleSupplier rightJoystickY) {
+    public MoveHoodDown(Hood hood) {
         this.hood = hood;
-        this.rightJoystickY = rightJoystickY;
+        
         addRequirements(hood);
     }
 
     public void initialize() {
-
+        startTimeMillis = System.currentTimeMillis();
     }
 
     public void execute() {
-        
-        if(Math.abs(rightJoystickY.getAsDouble()) < Constants.HOOD_JOYSTICK_THRESHOLD){
-            hood.setHood(0);
-        }
-        hood.setHood(rightJoystickY.getAsDouble()*Constants.HOOD_MOTOR_SPEED);
+        hood.setHood(0.4);
     }
 
     @Override
@@ -36,6 +33,11 @@ public class ManuallyMoveHood extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        if (System.currentTimeMillis() - startTimeMillis > 5000){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

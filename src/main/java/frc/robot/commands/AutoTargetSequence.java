@@ -4,8 +4,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
 import frc.robot.subsystems.Hood;
@@ -16,7 +14,9 @@ import frc.robot.utils.limelight.LimeLightVision;
 public class AutoTargetSequence extends SequentialCommandGroup {
 
   /** Creates a new AutoTargetSequence. */
+  private TurretSubsystem turretSubsystem;
   public AutoTargetSequence(TurretSubsystem turretSubsystem, LimeLightVision vision, Hood hoodSubsystem) {
+    this.turretSubsystem = turretSubsystem;
     vision = new LimeLightVision(38, 104, 30);
 
     // Use addRequirements() here to declare subsystem dependencies.

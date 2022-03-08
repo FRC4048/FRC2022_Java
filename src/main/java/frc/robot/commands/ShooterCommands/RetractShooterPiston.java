@@ -10,10 +10,11 @@ import frc.robot.subsystems.Shooter;
 
 public class RetractShooterPiston extends LoggedCommand {
   /** Creates a new RetractPiston. */
-  private Shooter shooterSubystem;
-  public RetractShooterPiston(Shooter shooterSubystem) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    this.shooterSubystem = shooterSubystem;
+  private Shooter shooterSubsystem;
+  
+  public RetractShooterPiston(Shooter shooterSubsystem) {
+    // DO NOT add sybsystem requirement here, as it would get in the way of the motor command
+    this.shooterSubsystem = shooterSubsystem;
   }
 
   // Called when the command is initially scheduled.
@@ -23,7 +24,7 @@ public class RetractShooterPiston extends LoggedCommand {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void loggedExecute() {
-    shooterSubystem.retractPiston();
+    shooterSubsystem.retractPiston();
   }
 
   // Called once the command ends or is interrupted.

@@ -64,7 +64,8 @@ public class Shooter extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     if (Constants.ENABLE_DEBUG == true){
-      SmartShuffleboard.put("Shooter", "Data", "Piston State", getPistonState());
+      SmartShuffleboard.put("Shooter", "Data", "Piston State", getPistonState());;
+      SmartShuffleboard.put("Shooter", "Data", "Shooter RPM", getEncoder().getVelocity());
     }
   }
   

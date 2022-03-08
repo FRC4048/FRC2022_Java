@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-public interface Constants2022DriveC {
+public interface Constants2022DriveC extends GameConstants {
 
   //Global Constant
   public static final boolean ENABLE_DEBUG = true;
@@ -18,6 +18,9 @@ public interface Constants2022DriveC {
   public static final int PCM_CAN_ID = 20;
   public static final int SHOOTER_MOTOR_ID = 11;
   public static final int INTAKE_MOTOR_ID = 10;
+  public static final int TURRET_MOTOR_ID = 1;
+  public static final int PIGEON_CAN_ID = 7;
+  public static final int HOOD_MOTOR_ID = 8;
 
   //PDP
   public static final int PDP_DRIVE_L1 = 13;
@@ -26,14 +29,18 @@ public interface Constants2022DriveC {
   public static final int PDP_DRIVE_R2 = 1;
 
   //DIO
-  public static final int INTAKE_SENSOR_ID = 0;
+  public static final int INTAKE_SENSOR_ID_1 = 0; //temp
+  public static final int INTAKE_SENSOR_ID_2 = 1;
 
   //Relay
 
   //PCM
   public static final int SHOOTER_PISTON_ID = 3;
   public static final int INTAKE_SOLENOID_1 = 0;
-  public static final int INTAKE_SOLENOID_2 = 3;
+  public static final int INTAKE_SOLENOID_2 = 4;
+
+  // Elevator
+  public static final int ELEVATOR_PISON_ID = 3;
 
   //DRIVETRAIN CONSTANTS
 
@@ -46,6 +53,7 @@ public interface Constants2022DriveC {
   public static final int RAISED_INTAKE_TIMEOUT = 3;
   public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
   public static final double INTAKE_BUFFER = 1.0;
+
 
   //OI
   public static final int XBOX_A_BUTTON = 1;
@@ -61,5 +69,10 @@ public interface Constants2022DriveC {
   public static final int LEFT_JOYSTICK_ID = 0;
   public static final int RIGHT_JOYSTICK_ID = 1;
   public static final int CONTROLLER_ID = 2;
+
+
+  // LIMELIGHT
+  public static final int LIMELIGHT_TARGET_DETECTION = 1;
+  public static final int LIMELIGHT_STREAMING = 0;
 }
 
