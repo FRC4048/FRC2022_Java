@@ -34,7 +34,6 @@ public class RotateShooterMotor extends LoggedCommand {
   @Override
   public void loggedExecute() {
     shooterSubsytem.setShooterSpeed(speed);
-    addLog(shooterSubsytem.getShooterSpeed());
   }
 
   // Called once the command ends or is interrupted.

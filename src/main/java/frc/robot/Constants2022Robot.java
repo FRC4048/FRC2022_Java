@@ -67,4 +67,7 @@ public interface Constants2022Robot extends GameConstants {
     // LIMELIGHT
     public static final int LIMELIGHT_TARGET_DETECTION = 1;
     public static final int LIMELIGHT_STREAMING = 0;  
+
+    // SHOOTER MATH
+    public static final int HOOD_MARGIN_OF_ERROR = 1;
 }

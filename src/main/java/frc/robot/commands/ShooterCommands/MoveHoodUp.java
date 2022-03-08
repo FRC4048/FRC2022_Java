@@ -2,9 +2,10 @@ package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.commands.LoggedCommand;
 import frc.robot.subsystems.Hood;
 
-public class MoveHoodUp extends CommandBase {
+public class MoveHoodUp extends LoggedCommand {
     private Hood hood;
     private double startTimeMillis;
     ;
@@ -16,21 +17,21 @@ public class MoveHoodUp extends CommandBase {
         addRequirements(hood);
     }
 
-    public void initialize() {
+    public void loggedInitialize() {
         startTimeMillis = System.currentTimeMillis();
     }
 
-    public void execute() {
+    public void loggedExecute() {
         hood.setHood(-0.4);
     }
 
     @Override
-    public void end(boolean interrupted) {
+    public void loggedEnd(boolean interrupted) {
         hood.setHood(0);
     }
 
     @Override
-    public boolean isFinished() {
+    public boolean loggedIsFinished() {
         if (System.currentTimeMillis() - startTimeMillis > 5000){
             return true;
         }

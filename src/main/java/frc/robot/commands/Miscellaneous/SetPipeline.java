@@ -6,11 +6,8 @@ package frc.robot.commands.Miscellaneous;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-<<<<<<< HEAD
 import frc.robot.commands.LoggedCommand;
 import frc.robot.utils.limelight.LimeLightVision;
-=======
->>>>>>> 64884a24969aa88fcc00b1a256fa615ef4a8cfa2
 
 public class SetPipeline extends LoggedCommand {
   private int pipeline;

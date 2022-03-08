@@ -46,23 +46,28 @@ public class TurretAuto extends LoggedCommand {
 
     @Override
     public void loggedEnd(boolean interrupted) {
+        addLog(limeLight.getCameraAngles().getTx());
         turretSubsystem.stopTurret();
     }
 
     @Override
     public boolean loggedIsFinished() {
+
         if (limeLight.getCameraAngles() == null){
             return true;
         }
+
         else{
+
             if (positive){
-                if (limeLight.getCameraAngles().getTx()<=0) {
+                if (limeLight.getCameraAngles().getTx() <= 0) {
                     return true;
                 }
                 else {
                     return false;
                 }
             }
+
             else{
                 if (limeLight.getCameraAngles().getTx()>=0) {
                     return true;

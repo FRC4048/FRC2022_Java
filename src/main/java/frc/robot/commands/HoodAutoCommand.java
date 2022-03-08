@@ -44,12 +44,13 @@ public class HoodAutoCommand extends LoggedCommand {
   // Called once the command ends or is interrupted.
   @Override
   public void loggedEnd(boolean interrupted) {
+    addLog(hoodSubsystem.getPotentiometer() - target);
     hoodSubsystem.stopHood();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean loggedIsFinished() {
-    return (hoodSubsystem.getEncoder() - target < 20) && (hoodSubsystem.getEncoder() - target > -20);
+    return (hoodSubsystem.getPotentiometer() - target < Constants.HOOD_MARGIN_OF_ERROR) && (hoodSubsystem.getPotentiometer() - target > -Constants.HOOD_MARGIN_OF_ERROR);
   }
 }

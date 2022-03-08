@@ -18,8 +18,8 @@ public class ShooterParallelSequeunce extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new LogCommandWrapper(new RotateShooterMotor(shooterSubsystem, Constants.SHOOTER_CLOCKWISE_SPEED)),
-      new LogCommandWrapper(new ElevatorSequence(shooterSubsystem))
+      new RotateShooterMotor(shooterSubsystem, Constants.SHOOTER_CLOCKWISE_SPEED),
+      new ElevatorSequence(shooterSubsystem)
     );
   }
 }

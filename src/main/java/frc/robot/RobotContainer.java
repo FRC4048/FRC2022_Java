@@ -14,11 +14,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AutoTargetSequence;
 import frc.robot.commands.Drive;
-<<<<<<< HEAD
 import frc.robot.commands.LogError;
-import frc.robot.commands.ShootSequence;
-=======
->>>>>>> 64884a24969aa88fcc00b1a256fa615ef4a8cfa2
 import frc.robot.commands.PistonSequence;
 import frc.robot.commands.TurnDegrees;
 import frc.robot.commands.TurretManualCommand;
@@ -120,23 +116,14 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-<<<<<<< HEAD
 
     SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
     SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
     SmartShuffleboard.putCommand("Shooter", "Start Shooter Motor", new RotateShooterMotor(shooterSubsystem, Constants.SHOOTER_CLOCKWISE_SPEED));
     SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
     SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
-    SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence(turretSubsystem, limeLight, hood));
-    
+    SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
 
-    buttonA.whenPressed(new IntakeSequence(intakeSubsystem));
-    buttonB.whenPressed(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED));
-    buttonB.whenReleased(new ManuallyRunIntakeMotor(intakeSubsystem, 0));
-    rightTrigger.whenActive(new ShootSequence(intakeSubsystem, shooterSubsystem));
-    leftTrigger.whenActive(new AutoTargetSequence(turretSubsystem, limeLight, hood));
-    buttonX.whenPressed(new AutoTargetSequence(turretSubsystem, limeLight, hood));
-=======
     buttonA.whenPressed(new IntakeSequence(intakeSubsystem));
     buttonB.whenPressed(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED));
     buttonB.whenReleased(new ManuallyRunIntakeMotor(intakeSubsystem, 0));
@@ -145,7 +132,6 @@ public class RobotContainer {
     rightTrigger.whenActive(new ShooterParallelSequeunce(shooterSubsystem));
     leftTrigger.whenActive(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
     buttonX.whenPressed(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
->>>>>>> 64884a24969aa88fcc00b1a256fa615ef4a8cfa2
     rightBumper.whenPressed(new PistonSequence(intakeSubsystem, shooterSubsystem));
     leftBumper.whenPressed(new ToggleShooterMotor(shooterSubsystem));
     leftBumper.whenReleased(new ToggleShooterMotor(shooterSubsystem));
