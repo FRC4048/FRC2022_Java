@@ -4,6 +4,7 @@
 
 package frc.robot.commands.ClimberCommands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -12,58 +13,35 @@ import frc.robot.subsystems.Climber.ClimberArmSubsystem;
 public class AutoMoveClimberArm extends CommandBase {
   /** Creates a new ManualMoveClimberArm. */
   private ClimberArmSubsystem climberArmSubsystem;
-  private XboxController xboxController;
   private double encoderDifference;
+  private double direction;
+  private double initTime;
 
-  public AutoMoveClimberArm(ClimberArmSubsystem climberArmSubsystem, XboxController xboxController) {
+
+  public AutoMoveClimberArm(ClimberArmSubsystem climberArmSubsystem, int direction) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.climberArmSubsystem = climberArmSubsystem;
-    this.xboxController = xboxController;
+    this.direction = direction;
     addRequirements(climberArmSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    initTime = Timer.getFPGATimestamp();
+    climberArmSubsystem.setSpeed(Constants.CLIMBER_ARM_SPEED);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-/*
-    encoderDifference = Math.abs(climberArmSubsystem.getLeftEncoder()-climberArmSubsystem.getRightEncoder());
+    encoderDifference = Math.abs(climberArmSubsystem.getRightEncoder() - climberArmSubsystem.getLeftEncoder());
 
-    if (climberArmSubsystem.getLeftArmVoltage() < 20) {
-      if (Math.abs(climberArmSubsystem.getLeftEncoder()) > Math.abs(climberArmSubsystem.getRightEncoder())) {
-        if (xboxController.getLeftY() > 0.5) {
-          climberArmSubsystem.setLeftArmSpeed((Constants.CLIMBER_ARM_SPEED * (1-(encoderDifference/Constants.CLIMBER_MAX_ENCODER_DIFF*Constants.CLIMBER_MIN_ARM_SPEED))));
-        } else if (xboxController.getLeftY() < 0.5) {
-          climberArmSubsystem.setLeftArmSpeed(-1 * (Constants.CLIMBER_ARM_SPEED * (1-(encoderDifference/Constants.CLIMBER_MAX_ENCODER_DIFF*Constants.CLIMBER_MIN_ARM_SPEED))));
-        } else {
-          climberArmSubsystem.setLeftArmSpeed(0);
-        }
-      } else {
-        climberArmSubsystem.setLeftArmSpeed(Constants.CLIMBER_ARM_SPEED);
-      }  
-    } else {
-      climberArmSubsystem.setLeftArmSpeed(0);
+    if (climberArmSubsystem.getRightVolatage() != 0 || climberArmSubsystem.isRightStalled()) {
+      if (Math.abs(climberArmSubsystem.getRightEncoder()) > Math.abs(climberArmSubsystem.getLeftEncoder())+Constants.CLIMBER_MAX_ENCODER_DIFF) {
+        climberArmSubsystem.setRightArmSpeed(Constants.CLIMBER_ARM_SPEED * (1-(encoderDifference/Constants.CLIMBER_MAX_ENCODER_DIFF*Constants.CLIMBER_MIN_ARM_SPEED)));
+      }
     }
-
-    if (climberArmSubsystem.getRightArmVoltage() < 20) {
-      if (Math.abs(climberArmSubsystem.getRightEncoder()) > Math.abs(climberArmSubsystem.getLeftEncoder())) {
-        if (xboxController.getLeftY() > 0.5) {
-          climberArmSubsystem.setRightArmSpeed((Constants.CLIMBER_ARM_SPEED * (1-(encoderDifference/Constants.CLIMBER_MAX_ENCODER_DIFF*Constants.CLIMBER_MIN_ARM_SPEED))));
-        } else if (xboxController.getLeftY() < 0.5) {
-          climberArmSubsystem.setRightArmSpeed(-1 * (Constants.CLIMBER_ARM_SPEED * (1-(encoderDifference/Constants.CLIMBER_MAX_ENCODER_DIFF*Constants.CLIMBER_MIN_ARM_SPEED))));
-        } else {
-          climberArmSubsystem.setRightArmSpeed(0);
-        }
-      } else {
-        climberArmSubsystem.setRightArmSpeed(Constants.CLIMBER_ARM_SPEED);
-      }     
-    } else {
-      climberArmSubsystem.setRightArmSpeed(0);
-    }
-    */
   }
 
   // Called once the command ends or is interrupted.
@@ -76,6 +54,6 @@ public class AutoMoveClimberArm extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (climberArmSubsystem.getRightVolatage() == 0 && climberArmSubsystem.getLeftVoltage() == 0) || Timer.getFPGATimestamp() - initTime >= Constants.CLIMBER_ARM_TIMEOUT;
   }
 }

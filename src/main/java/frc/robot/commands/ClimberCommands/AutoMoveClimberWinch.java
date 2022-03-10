@@ -9,14 +9,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Climber.ClimberWinchSubsystem;
 
-public class MoveClimberWinchForTicks extends CommandBase {
+public class AutoMoveClimberWinch extends CommandBase {
   /** Creates a new MoveClimberWinch. */
   ClimberWinchSubsystem climberWinchSubsystem;
   private double initTime;
   private double speed;
   private double ticks;
 
-  public MoveClimberWinchForTicks(ClimberWinchSubsystem climberWinchSubsystem, double speed, int ticks) {
+  public AutoMoveClimberWinch(ClimberWinchSubsystem climberWinchSubsystem, double speed, int ticks) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.climberWinchSubsystem = climberWinchSubsystem;
     addRequirements(climberWinchSubsystem);

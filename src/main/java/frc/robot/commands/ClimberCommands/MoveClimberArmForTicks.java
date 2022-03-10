@@ -4,7 +4,6 @@
 
 package frc.robot.commands.ClimberCommands;
 
-import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -55,6 +54,7 @@ public class MoveClimberArmForTicks extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (climberArmSubsystem.getLeftVoltage() == 0 && climberArmSubsystem.getRightVolatage() == 0) || initTime > Constants.CLIMBER_ARM_TIMEOUT;
+   return true;
+  //return (climberArmSubsystem.getLeftVoltage() == 0 && climberArmSubsystem.getRightVolatage() == 0) || initTime > Constants.CLIMBER_ARM_TIMEOUT;
   }
 }

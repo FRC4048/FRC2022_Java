@@ -32,6 +32,10 @@ public interface Constants2022TheTB extends GameConstants {
   public static final int PDP_DRIVE_L2 = 15; 
   public static final int PDP_DRIVE_R1 = 0; 
   public static final int PDP_DRIVE_R2 = 1; 
+  public static final int PDP_CLIMBER_L_WINCH = 50;
+  public static final int PDP_CLIMBER_R_WINCH = 51;
+  public static final int PDP_CLIMBER_L_ARM = 52;
+  public static final int PDP_CLIMBER_R_ARM = 53;
 
   //DIO
   public static final int INTAKE_SENSOR_ID_1 = 0; //temp
@@ -45,8 +49,7 @@ public interface Constants2022TheTB extends GameConstants {
   public static final int SHOOTER_PISTON_ID = 2; //placeholder
   public static final int INTAKE_SOLENOID_1 = 0;
   public static final int INTAKE_SOLENOID_2 = 1;
-  public static final int CLIMBER_RIGHT_PISTON_ID = 6;
-  public static final int CLIMBER_LEFT_PISTON_ID = 7;
+  public static final int CLIMBER_PISTON_ID = 6;
 
   // Elevator
   public static final int ELEVATOR_PISON_ID = 3;

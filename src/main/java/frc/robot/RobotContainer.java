@@ -88,7 +88,7 @@ public class RobotContainer {
   private final DriveTrain driveTrain = new DriveTrain();
   private final Shooter shooterSubsystem = new Shooter();
   private final PowerDistribution m_PowerDistPanel = new PowerDistribution();
-  private final ClimberArmSubsystem climberArmSubsystem = new ClimberArmSubsystem();
+  private final ClimberArmSubsystem climberArmSubsystem = new ClimberArmSubsystem(m_PowerDistPanel);
   private final ClimberWinchSubsystem climberWinchSubsystem = new ClimberWinchSubsystem();
   
   private final Hood hood = new Hood();
@@ -109,7 +109,7 @@ public class RobotContainer {
     driveTrain.setDefaultCommand(driveCommand);
     turretSubsystem.setDefaultCommand(turretCommand);
     climberArmSubsystem.setDefaultCommand(new ManualMoveClimberArm(climberArmSubsystem, climberController));
-    //climberWinchSubsystem.setDefaultCommand(new ManualMoveClimberWinch(climberWinchSubsystem, climberController));
+    climberWinchSubsystem.setDefaultCommand(new ManualMoveClimberWinch(climberWinchSubsystem, climberController));
 
     hood.setDefaultCommand(hoodCommand);
 

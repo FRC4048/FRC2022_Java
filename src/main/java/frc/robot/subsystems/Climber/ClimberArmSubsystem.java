@@ -10,20 +10,25 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.utils.MotorUtils;
 
 public class ClimberArmSubsystem extends SubsystemBase {
   /** Creates a new ClimberArmSubsystem. */
   private TalonSRX leftArm, rightArm;
-  private Solenoid leftPiston, rightPiston;
+  private Solenoid climberPiston;
+  private MotorUtils leftMotorUtil, rightMotorUtil;
   
-  public ClimberArmSubsystem() {
+  public ClimberArmSubsystem(PowerDistribution m_PowerDistPanel) {
     leftArm = new TalonSRX(Constants.CLIMBER_LEFT_MOTOR_ID);
     rightArm = new TalonSRX(Constants.CLIMBER_RIGHT_MOTOR_ID);
-    leftPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_LEFT_PISTON_ID);
-    rightPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_RIGHT_PISTON_ID);
+    climberPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_PISTON_ID);
+
+    leftMotorUtil = new MotorUtils(Constants.PDP_CLIMBER_L_ARM, Constants.CLIMBER_V_LIMIT, Constants.CLIMBER_ARM_V_TIMEOUT, m_PowerDistPanel);
+    rightMotorUtil = new MotorUtils(Constants.PDP_CLIMBER_R_ARM, Constants.CLIMBER_V_LIMIT, Constants.CLIMBER_ARM_V_TIMEOUT, m_PowerDistPanel);
 
     leftArm.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     leftArm.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
@@ -48,12 +53,11 @@ public class ClimberArmSubsystem extends SubsystemBase {
   }
 
   public void movePiston(boolean state) {
-    leftPiston.set(state);
-    rightPiston.set(state);
+    climberPiston.set(state);
   }
 
   public boolean getPistonState() {
-    return leftPiston.get();
+    return climberPiston.get();
   }
 
   public void stopArms() {
@@ -74,6 +78,14 @@ public class ClimberArmSubsystem extends SubsystemBase {
 
   public double getRightEncoder() {
     return rightArm.getSelectedSensorPosition();
+  }
+
+  public boolean isLeftStalled() {
+    return leftMotorUtil.isStalled();
+  }
+
+  public boolean isRightStalled() {
+    return rightMotorUtil.isStalled();
   }
 
   public double getLeftVoltage() {

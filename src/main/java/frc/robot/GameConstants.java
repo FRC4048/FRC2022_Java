@@ -38,6 +38,10 @@ public interface GameConstants {
   public static final double HOOD_AUTO_LIMIT = 2;
   public static final double HOOD_JOYSTICK_THRESHOLD = 0.2;
 
+  //Climber
+  public static final double CLIMBER_V_LIMIT = 26;
+  public static final double CLIMBER_ARM_V_TIMEOUT = 0.3;
+
   //Shooter
   public static final double SHOOTER_CLOCKWISE_SPEED = 0.5;
   public static final double SHOOTER_COUNTERCLOCKWISE_SPEED = -0.5;
