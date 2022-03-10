@@ -7,6 +7,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 //import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.*;
 
@@ -89,11 +91,11 @@ public class AutoChooser {
 
 
 
-    /* Had to take this stuff out because there is not an AutoCommands class, could be reimplemented later
+    //Had to take this stuff out because there is not an AutoCommands class, could be reimplemented later
 
-    public AutoCommand getAutonomousCommand( Position p, Action a){
+    public Command getAutonomousCommand(Position p, Action a){
 
-        
+        /* TEMPORARY UNTIL AUTO COMMANDS IMPLEMENTED
         if (a == Action.ACTION_A){
             if (p == Position.LEFT){
                 return AutoCommand.A_LEFT;
@@ -126,6 +128,8 @@ public class AutoChooser {
             else if (p == Position.RIGHT){
                 return AutoCommand.C_RIGHT;
             }
-    }
+            
     */
+    return new WaitCommand(0);
+    }
 }

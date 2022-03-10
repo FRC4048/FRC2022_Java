@@ -8,6 +8,7 @@ public class ManuallyRunIntakeMotor extends CommandBase {
     private double motorSpeed;
 
     public ManuallyRunIntakeMotor(IntakeSubsystem intakeSubsystem, double speed) {
+        addRequirements(intakeSubsystem);
         this.intakeSubsystem = intakeSubsystem;
         this.motorSpeed = speed;
     }

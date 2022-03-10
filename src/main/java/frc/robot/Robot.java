@@ -33,6 +33,7 @@ public class Robot extends TimedRobot {
     diagnostics = new Diagnostics();
     m_robotContainer = new RobotContainer();
     m_robotContainer.installCommandsOnShuffleboard();
+    m_robotContainer.installDriverShuffleboard();
   }
 
   /**
