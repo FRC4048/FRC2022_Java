@@ -59,7 +59,6 @@ import frc.robot.utils.limelight.LimeLightVision;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
-  private boolean manualOverride = false;
 
   private static Joystick joyLeft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private static Joystick joyRight = new Joystick(Constants.RIGHT_JOYSTICK_ID);
@@ -69,9 +68,6 @@ public class RobotContainer {
   private  JoystickButton buttonA = new JoystickButton(xboxController, Constants.XBOX_A_BUTTON);
   private  JoystickButton buttonB = new JoystickButton(xboxController, Constants.XBOX_B_BUTTON);
 
-  //Climber Controller
-  private JoystickButton climberBumperLeft = new JoystickButton(climberController, Constants.XBOX_LEFT_BUMPER);
-  private JoystickButton climberBumperRight = new JoystickButton(climberController, Constants.XBOX_RIGHT_BUMPER);
   private JoystickButton climberButtonA = new JoystickButton(climberController, Constants.XBOX_A_BUTTON);
 
   private JoystickButton buttonY = new JoystickButton(xboxController, Constants.XBOX_Y_BUTTON);
@@ -133,13 +129,7 @@ public class RobotContainer {
     joyRight.setRumble(GenericHID.RumbleType.kRightRumble, 0);
   }
 
-  public void setManualOverride(boolean mode) {
-    manualOverride = mode;
-  }
 
-  public boolean getManualOverride() {
-    return manualOverride;
-  }
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
