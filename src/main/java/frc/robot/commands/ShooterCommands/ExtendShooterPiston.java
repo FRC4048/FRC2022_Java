@@ -13,7 +13,6 @@ public class ExtendShooterPiston extends CommandBase {
   public ExtendShooterPiston(Shooter shooterSubsystem) {
     // DO NOT add sybsystem requirement here, as it would get in the way of the motor command
     this.shooterSubsystem = shooterSubsystem;
-    addRequirements(shooterSubsystem);
 
   }
 

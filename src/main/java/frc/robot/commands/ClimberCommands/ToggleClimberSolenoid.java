@@ -7,11 +7,11 @@ package frc.robot.commands.ClimberCommands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber.ClimberArmSubsystem;
 
-public class MoveClimberSolenoid extends CommandBase {
+public class ToggleClimberSolenoid extends CommandBase {
   /** Creates a new MoveClimberSolenoid. */
   private ClimberArmSubsystem climberArmSubsystem;
   private boolean state;
-  public MoveClimberSolenoid(ClimberArmSubsystem climberArmSubsystem) {
+  public ToggleClimberSolenoid(ClimberArmSubsystem climberArmSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.climberArmSubsystem = climberArmSubsystem;
     this.state = state;

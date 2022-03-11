@@ -18,7 +18,7 @@ import frc.robot.commands.PistonSequence;
 import frc.robot.commands.TurnDegrees;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
-import frc.robot.commands.ClimberCommands.MoveClimberSolenoid;
+import frc.robot.commands.ClimberCommands.ToggleClimberSolenoid;
 import frc.robot.commands.TurretManualCommand;
 import frc.robot.commands.Miscellaneous.SetLEDOff;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
@@ -123,7 +123,8 @@ public class RobotContainer {
     return m_PowerDistPanel;
   }
 
-  public static void doRumble() {
+  /*
+  public void doRumble() {
     joyLeft.setRumble(GenericHID.RumbleType.kLeftRumble, 1);
 		joyRight.setRumble(GenericHID.RumbleType.kRightRumble, 1);
   }
@@ -132,6 +133,7 @@ public class RobotContainer {
     joyLeft.setRumble(GenericHID.RumbleType.kLeftRumble, 0);
     joyRight.setRumble(GenericHID.RumbleType.kRightRumble, 0);
   }
+  */
 
 
 
@@ -147,7 +149,7 @@ public class RobotContainer {
     buttonB.whenReleased(new ManuallyRunIntakeMotor(intakeSubsystem, 0));
 
 
-    climberButtonA.whenPressed(new MoveClimberSolenoid(climberArmSubsystem));
+    climberButtonA.whenPressed(new ToggleClimberSolenoid(climberArmSubsystem));
 
 
     buttonY.whenPressed(new ManuallyToggleIntake(intakeSubsystem));

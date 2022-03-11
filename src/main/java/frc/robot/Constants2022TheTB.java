@@ -15,7 +15,6 @@ public interface Constants2022TheTB extends GameConstants {
   public static final int DRIVE_LEFT1_ID = 44;
   public static final int DRIVE_LEFT2_ID = 41;
   public static final int DRIVE_RIGHT1_ID = 42;
-
   public static final int DRIVE_RIGHT2_ID = 41;
   public static final int PCM_CAN_ID = 20;
   public static final int SHOOTER_MOTOR_ID = 48;
@@ -51,7 +50,6 @@ public interface Constants2022TheTB extends GameConstants {
   public static final int HOOD_POTENTIOMETER = 7;
 
 
-
   //Relay
 
   //PCM
@@ -60,56 +58,9 @@ public interface Constants2022TheTB extends GameConstants {
   public static final int INTAKE_SOLENOID_2 = 1;
   public static final int CLIMBER_PISTON_ID = 6;
 
-  // Elevator
 
-  //DRIVETRAIN CONSTANTS
-
-  
-  // Intake
-  public static final double INTAKE_BUFFER = 1.0;
-
-  //Turret
-  public static final double TURRETSPIN_SCALEFACTOR = 0.5;
-
-  //Climber
-  public static final double CLIMBER_ARM_SPEED = .5;
-  public static final double CLIMBER_WINCH_SPEED = 1;
-  public static final double CLIMBER_MIN_ARM_SPEED = 0.8;
-  public static final double CLIMBER_MIN_WINCH_SPEED = 0.8;
-  public static final double CLIMBER_TIMEOUT = 10;
-  public static final double CLIMBER_MAX_ENCODER_DIFF = 1000;
-  public static final double CLIMBER_ARM_TIMEOUT = 10;
-  public static final double CLIMBER_WINCH_TIMEOUT = 10;
-
-
-  //OI
-  public static final int XBOX_A_BUTTON = 1;
-  public static final int XBOX_B_BUTTON = 2;
-  public static final int XBOX_X_BUTTON = 3;
-  public static final int XBOX_Y_BUTTON = 4;
-  public static final int XBOX_LEFT_BUMPER = 5;
-  public static final int XBOX_RIGHT_BUMPER = 6;
-  public static final int XBOX_BACK_BUTTON = 7;
-  public static final int XBOX_START_BUTTON = 8;
-  public static final int XBOX_LEFT_STICK_PRESS = 9;
-  public static final int XBOX_RIGHT_STICK_PRESS = 10;
-  public static final int LEFT_JOYSTICK_ID = 0;
-  public static final int RIGHT_JOYSTICK_ID = 1;
-
-  public static final int CONTROLLER_ID = 2;
-  public static final int CONTROLLER_CLIMBER_ID = 3;
-
-  //Motor Speeds
-  public static final double INTAKE_MOTOR_SPEED = 1;
-
-  //Timeouts
-  public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
-  public static final int RAISED_INTAKE_TIMEOUT = 3;
-  public static final int SHOOTER_TIMEOUT = 1;
   //Pigeon
   public static final int PIGEON_CAN_ID = 7;
 
-  // LIMELIGHT
-  public static final int LIMELIGHT_TARGET_DETECTION = 1;
-  public static final int LIMELIGHT_STREAMING = 0;  
+
 }

@@ -36,7 +36,7 @@ public class ClimberArmSubsystem extends SubsystemBase {
     rightArm.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     
     leftArm.setNeutralMode(NeutralMode.Brake);
-    leftArm.setNeutralMode(NeutralMode.Brake);
+    rightArm.setNeutralMode(NeutralMode.Brake);
   }
 
   public void setSpeed(double speed) {
@@ -119,10 +119,6 @@ public class ClimberArmSubsystem extends SubsystemBase {
   public boolean getRightBotSensor() {
     return leftArm.getSensorCollection().isRevLimitSwitchClosed();
   }
-
-
-
-  
   
   @Override
   public void periodic() {
