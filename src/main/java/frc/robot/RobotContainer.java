@@ -19,7 +19,6 @@ import frc.robot.commands.Miscellaneous.SetLEDOff;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
 import frc.robot.commands.Miscellaneous.SetPipeline;
 import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
-import frc.robot.commands.ShooterCommands.PistonSequence;
 import frc.robot.commands.ShooterCommands.RetractShooterPiston;
 import frc.robot.commands.ShooterCommands.RotateShooterMotor;
 import frc.robot.commands.ShooterCommands.ShooterParallelSequeunce;
@@ -118,8 +117,6 @@ public class RobotContainer {
 
     rightTrigger.whenActive(new ShooterParallelSequeunce(shooterSubsystem));
     leftTrigger.whenActive(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
-    buttonX.whenPressed(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
-    rightBumper.whenPressed(new PistonSequence(intakeSubsystem, shooterSubsystem));
     leftBumper.whenPressed(new ToggleShooterMotor(shooterSubsystem));
     leftBumper.whenReleased(new ToggleShooterMotor(shooterSubsystem));
   }
