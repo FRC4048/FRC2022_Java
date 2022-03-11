@@ -6,6 +6,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
+import frc.robot.commands.hoodcommmands.HoodAutoCommand;
+import frc.robot.commands.turretcommand.TurretAuto;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.utils.SmartShuffleboard;

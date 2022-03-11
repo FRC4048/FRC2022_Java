@@ -14,21 +14,18 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AutoTargetSequence;
 import frc.robot.commands.Drive;
-import frc.robot.commands.PistonSequence;
 import frc.robot.commands.TurnDegrees;
-import frc.robot.commands.TurretManualCommand;
 import frc.robot.commands.Miscellaneous.SetLEDOff;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
 import frc.robot.commands.Miscellaneous.SetPipeline;
 import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
-import frc.robot.commands.ShooterCommands.ManuallyMoveHood;
-import frc.robot.commands.ShooterCommands.MoveHoodDown;
-import frc.robot.commands.ShooterCommands.MoveHoodUp;
+import frc.robot.commands.ShooterCommands.PistonSequence;
 import frc.robot.commands.ShooterCommands.RetractShooterPiston;
 import frc.robot.commands.ShooterCommands.RotateShooterMotor;
 import frc.robot.commands.ShooterCommands.ShooterParallelSequeunce;
 import frc.robot.commands.ShooterCommands.ToggleShooterMotor;
 import frc.robot.commands.ShooterCommands.ToggleShooterPiston;
+import frc.robot.commands.hoodcommmands.ManuallyMoveHood;
 import frc.robot.commands.intakecommands.DeployIntakeCommand;
 import frc.robot.commands.intakecommands.DropBallCommand;
 import frc.robot.commands.intakecommands.IntakeBallCommand;
@@ -36,6 +33,7 @@ import frc.robot.commands.intakecommands.IntakeSequence;
 import frc.robot.commands.intakecommands.ManuallyRunIntakeMotor;
 import frc.robot.commands.intakecommands.ManuallyToggleIntake;
 import frc.robot.commands.intakecommands.RaiseIntakeCommand;
+import frc.robot.commands.turretcommand.TurretManualCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -169,12 +167,6 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline to 0", new SetPipeline(0));
       SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline to 1", new SetPipeline(1));
       SmartShuffleboard.putCommand("Turn", "Turn Degrees", new TurnDegrees(driveTrain, 90));
-
-
-      SmartShuffleboard.putCommand("Hood", "Move Hood Down", new MoveHoodDown(hood));
-      SmartShuffleboard.putCommand("Hood", "Move Hood Up", new MoveHoodUp(hood));
-
- 
     }
   }
 } 

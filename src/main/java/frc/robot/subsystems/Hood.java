@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.utils.SmartShuffleboard;
+import frc.robot.utils.diag.DiagPot;
 import frc.robot.utils.diag.DiagTalonSrxEncoder;
 import frc.robot.utils.diag.DiagTalonSrxSwitch;
 
@@ -22,6 +23,7 @@ public class Hood extends SubsystemBase {
        hoodMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
        potentiometer = new AnalogPotentiometer(Constants.HOOD_POTENTIOMETER, Constants.HOOD_RANGE_OF_MOTION , Constants.HOOD_STARTING_POINT);
 
+       Robot.getDiagnostics().addDiagnosable(new DiagPot("Hood Potentiometer", 0, 0.5, potentiometer));
        Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Hood Encoder", 100, hoodMotor));
        Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Hood Forward Switch", hoodMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
        Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Hood Reverse Switch", hoodMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));

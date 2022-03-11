@@ -1,9 +1,12 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.utils.diag.DiagTalonSrxEncoder;
 import frc.robot.utils.diag.DiagTalonSrxSwitch;
 
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
@@ -17,8 +20,9 @@ public class TurretSubsystem extends SubsystemBase {
        turretMotor.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
        turretMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 
-        Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Turret Forward Switch", turretMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
-        Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Turret Reverse Switch", turretMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
+       Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Turret Encoder", 10, turretMotor));
+       Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Turret Forward Switch", turretMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
+       Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Turret Reverse Switch", turretMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
     }
 
     public void setTurret(double speed){
@@ -29,6 +33,10 @@ public class TurretSubsystem extends SubsystemBase {
         turretMotor.set(0);
     }
 
+    public double getEncoder() {
+        return turretMotor.getSelectedSensorPosition();
+    }
+
     public boolean getRightSwitch(){
         return turretMotor.getSensorCollection().isRevLimitSwitchClosed();
     }
@@ -36,8 +44,6 @@ public class TurretSubsystem extends SubsystemBase {
     public boolean getLeftSwitch(){
         return turretMotor.getSensorCollection().isFwdLimitSwitchClosed();
     }
-
-
 
 
     @Override

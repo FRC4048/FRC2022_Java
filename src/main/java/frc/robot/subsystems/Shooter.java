@@ -13,7 +13,9 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.utils.SmartShuffleboard;
+import frc.robot.utils.diag.DiagSparkMaxEncoder;
 import frc.robot.utils.logging.Logging;
 
 public class Shooter extends SubsystemBase {
@@ -29,6 +31,7 @@ public class Shooter extends SubsystemBase {
     shooterMotor.setIdleMode(IdleMode.kCoast);
     shooterMotor.setInverted(false);
     
+    Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Shooter Encoder", 10, shooterMotor));
   }
 
   public void setShooterSpeed(double speed) {

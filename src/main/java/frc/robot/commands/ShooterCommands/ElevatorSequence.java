@@ -7,7 +7,9 @@ package frc.robot.commands.ShooterCommands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
+import frc.robot.commands.Miscellaneous.SetLEDOff;
 import frc.robot.subsystems.Shooter;
+import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.logging.LogCommandWrapper;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -22,7 +24,9 @@ public class ElevatorSequence extends SequentialCommandGroup {
       new LogCommandWrapper(new WaitCommand(Constants.SHOOTER_PISTON_WAIT)),
       new LogCommandWrapper(new ExtendShooterPiston(shooterSubsystem)), 
       new LogCommandWrapper(new WaitCommand(Constants.SHOOTER_PISTON_WAIT)),
-      new LogCommandWrapper(new RetractShooterPiston(shooterSubsystem))
+      new LogCommandWrapper(new RetractShooterPiston(shooterSubsystem)),
+      new LogCommandWrapper(new SetLEDOff())
     );
+    SmartShuffleboard.put("Shooter", "Data", "Can Shoot", false);
   }
 }
