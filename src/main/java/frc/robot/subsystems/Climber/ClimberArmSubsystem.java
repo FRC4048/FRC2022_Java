@@ -92,8 +92,16 @@ public class ClimberArmSubsystem extends SubsystemBase {
     return leftArm.getBusVoltage();
   }
 
-  public double getRightVolatage() {
+  public double getRightVoltage() {
     return rightArm.getBusVoltage();
+  }
+
+  public double getLeftVelocity() {
+    return leftArm.getActiveTrajectoryVelocity();
+  }
+
+  public double getRightVelocity() {
+    return rightArm.getActiveTrajectoryVelocity();
   }
 
   public boolean getLeftTopSensor() {

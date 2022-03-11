@@ -12,11 +12,11 @@ import frc.robot.subsystems.Climber.ClimberWinchSubsystem;
 public class ManualMoveClimberWinch extends CommandBase {
   /** Creates a new ManualMoveClimberWinch. */
   private ClimberWinchSubsystem climberWinchSubsystem;
-  private XboxController xboxController;
-  public ManualMoveClimberWinch(ClimberWinchSubsystem climberWinchSubsystem, XboxController xboxController) {
+  private XboxController climberController;
+  public ManualMoveClimberWinch(ClimberWinchSubsystem climberWinchSubsystem, XboxController climberController) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.climberWinchSubsystem = climberWinchSubsystem;
-    this.xboxController = xboxController;
+    this.climberController = climberController;
     addRequirements(climberWinchSubsystem);
 
   }
@@ -28,14 +28,24 @@ public class ManualMoveClimberWinch extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (xboxController.getRightY() > 0.75) {
-      climberWinchSubsystem.setSpeed(Constants.CLIMBER_WINCH_SPEED);
-    } else if (xboxController.getRightY() < -0.75) {
-      climberWinchSubsystem.setSpeed(-Constants.CLIMBER_WINCH_SPEED);
-    } else {
-      climberWinchSubsystem.setSpeed(0);
+    double rightSpeed = 0, leftSpeed = 0;
+    
+    if (climberController.getRightY() > 0.5) {
+      rightSpeed = Constants.CLIMBER_WINCH_SPEED;
+      leftSpeed = Constants.CLIMBER_WINCH_SPEED;
+    } else if (climberController.getRightY() < -0.5) {
+      rightSpeed = -Constants.CLIMBER_WINCH_SPEED;
+      leftSpeed = -Constants.CLIMBER_WINCH_SPEED;
     }
 
+    if (climberController.getRightTriggerAxis() > 0.5) {
+      rightSpeed *= Constants.CLIMBER_SLOW_WINCH_RATE; 
+    } else if (climberController.getLeftTriggerAxis() > 0.5) {
+      leftSpeed *= Constants.CLIMBER_SLOW_WINCH_RATE;
+    }
+
+    climberWinchSubsystem.setRightWinchSpeed(rightSpeed);
+    climberWinchSubsystem.setLeftWinchSpeed(leftSpeed);
   
   }
 

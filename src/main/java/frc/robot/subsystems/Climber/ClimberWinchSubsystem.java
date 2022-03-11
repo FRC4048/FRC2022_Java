@@ -5,6 +5,8 @@
 package frc.robot.subsystems.Climber;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -19,6 +21,11 @@ public class ClimberWinchSubsystem extends SubsystemBase {
   public ClimberWinchSubsystem() {
     leftWinch = new TalonSRX(Constants.CLIMBER_LEFT_WINCH_ID);
     rightWinch = new TalonSRX(Constants.CLIMBER_RIGHT_WINCH_ID);
+
+    leftWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    rightWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+
+
 
     leftWinch.setNeutralMode(NeutralMode.Brake);
     rightWinch.setNeutralMode(NeutralMode.Brake);
@@ -61,13 +68,21 @@ public class ClimberWinchSubsystem extends SubsystemBase {
   public double getRightVolatage() {
     return rightWinch.getBusVoltage();
   }
+  
+  public double getLeftVelocity() {
+    return leftWinch.getActiveTrajectoryVelocity();
+  }
+
+  public double getRightVelocity() {
+    return rightWinch.getActiveTrajectoryVelocity();
+  }
 
   public boolean getLeftSwitch() {
-    return true;
+    return leftWinch.getSensorCollection().isFwdLimitSwitchClosed();
   }
 
   public boolean getRightSwitch() {
-    return true;
+    return rightWinch.getSensorCollection().isFwdLimitSwitchClosed();
   }
 
   @Override

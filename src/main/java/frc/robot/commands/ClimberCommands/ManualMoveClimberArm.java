@@ -28,13 +28,24 @@ public class ManualMoveClimberArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    double rightSpeed = 0, leftSpeed = 0;
+    
     if (climberController.getLeftY() > 0.5) {
-      climberArmSubsystem.setSpeed(Constants.CLIMBER_WINCH_SPEED);
+      rightSpeed = Constants.CLIMBER_ARM_SPEED;
+      leftSpeed = Constants.CLIMBER_ARM_SPEED;
     } else if (climberController.getLeftY() < -0.5) {
-      climberArmSubsystem.setSpeed(-Constants.CLIMBER_WINCH_SPEED);
-    } else {
-      climberArmSubsystem.setSpeed(0);
+      rightSpeed = -Constants.CLIMBER_ARM_SPEED;
+      leftSpeed = -Constants.CLIMBER_ARM_SPEED;
     }
+
+    if (climberController.getRightBumperPressed()) {
+      rightSpeed *= Constants.CLIMBER_SLOW_ARM_RATE; 
+    } else if (climberController.getLeftBumperPressed()) {
+      leftSpeed *= Constants.CLIMBER_SLOW_ARM_RATE;
+    }
+
+    climberArmSubsystem.setRightArmSpeed(rightSpeed);
+    climberArmSubsystem.setLeftArmSpeed(leftSpeed);
   }
 
   // Called once the command ends or is interrupted.
