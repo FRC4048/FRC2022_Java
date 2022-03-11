@@ -13,8 +13,9 @@ public interface Constants2022TheTB extends GameConstants {
   public static final int PDP_CAN_ID = 0;
 
   public static final int DRIVE_LEFT1_ID = 44;
-  public static final int DRIVE_LEFT2_ID = 45;
+  public static final int DRIVE_LEFT2_ID = 41;
   public static final int DRIVE_RIGHT1_ID = 42;
+
   public static final int DRIVE_RIGHT2_ID = 41;
   public static final int PCM_CAN_ID = 20;
   public static final int SHOOTER_MOTOR_ID = 48;
@@ -26,6 +27,10 @@ public interface Constants2022TheTB extends GameConstants {
   public static final int CLIMBER_LEFT_MOTOR_ID = 10;
 
   public static final int HOOD_MOTOR_ID = 9;
+
+
+
+
 
   //PDP
   public static final int PDP_DRIVE_L1 = 13; 
@@ -40,6 +45,10 @@ public interface Constants2022TheTB extends GameConstants {
   //DIO
   public static final int INTAKE_SENSOR_ID_1 = 0; //temp
   public static final int INTAKE_SENSOR_ID_2 = 1; //temp
+ 
+
+  //AIO 
+  public static final int HOOD_POTENTIOMETER = 7;
 
 
 
@@ -52,7 +61,6 @@ public interface Constants2022TheTB extends GameConstants {
   public static final int CLIMBER_PISTON_ID = 6;
 
   // Elevator
-  public static final int ELEVATOR_PISON_ID = 3;
 
   //DRIVETRAIN CONSTANTS
 
