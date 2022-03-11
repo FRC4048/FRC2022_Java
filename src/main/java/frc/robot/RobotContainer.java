@@ -16,6 +16,9 @@ import frc.robot.commands.AutoTargetSequence;
 import frc.robot.commands.Drive;
 import frc.robot.commands.PistonSequence;
 import frc.robot.commands.TurnDegrees;
+import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
+import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
+import frc.robot.commands.ClimberCommands.ToggleClimberSolenoid;
 import frc.robot.commands.TurretManualCommand;
 import frc.robot.commands.Miscellaneous.SetLEDOff;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
@@ -43,6 +46,8 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.subsystems.Climber.ClimberArmSubsystem;
+import frc.robot.subsystems.Climber.ClimberWinchSubsystem;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.limelight.LimeLightVision;
 
@@ -58,12 +63,17 @@ import frc.robot.utils.limelight.LimeLightVision;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
+
   private static Joystick joyLeft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private static Joystick joyRight = new Joystick(Constants.RIGHT_JOYSTICK_ID);
 
   private XboxController xboxController = new XboxController(Constants.CONTROLLER_ID);
-  private JoystickButton buttonA = new JoystickButton(xboxController, Constants.XBOX_A_BUTTON);
-  private JoystickButton buttonB = new JoystickButton(xboxController, Constants.XBOX_B_BUTTON);
+  private XboxController climberController = new XboxController(Constants.CONTROLLER_CLIMBER_ID);
+  private  JoystickButton buttonA = new JoystickButton(xboxController, Constants.XBOX_A_BUTTON);
+  private  JoystickButton buttonB = new JoystickButton(xboxController, Constants.XBOX_B_BUTTON);
+
+  private JoystickButton climberButtonA = new JoystickButton(climberController, Constants.XBOX_A_BUTTON);
+
   private JoystickButton buttonY = new JoystickButton(xboxController, Constants.XBOX_Y_BUTTON);
   
   private JoystickButton buttonX = new JoystickButton(xboxController, Constants.XBOX_X_BUTTON);
@@ -78,6 +88,9 @@ public class RobotContainer {
   private final DriveTrain driveTrain = new DriveTrain();
   private final Shooter shooterSubsystem = new Shooter();
   private final PowerDistribution m_PowerDistPanel = new PowerDistribution();
+  private final ClimberArmSubsystem climberArmSubsystem = new ClimberArmSubsystem(m_PowerDistPanel);
+  private final ClimberWinchSubsystem climberWinchSubsystem = new ClimberWinchSubsystem();
+  
   private final Hood hood = new Hood();
   private final TurretSubsystem turretSubsystem= new TurretSubsystem(); 
 
@@ -95,6 +108,9 @@ public class RobotContainer {
     autoChooser.addOptions();
     driveTrain.setDefaultCommand(driveCommand);
     turretSubsystem.setDefaultCommand(turretCommand);
+    climberArmSubsystem.setDefaultCommand(new ManualMoveClimberArm(climberArmSubsystem, climberController));
+    climberWinchSubsystem.setDefaultCommand(new ManualMoveClimberWinch(climberWinchSubsystem, climberController));
+
     hood.setDefaultCommand(hoodCommand);
 
     // Configure the button bindings
@@ -107,6 +123,20 @@ public class RobotContainer {
     return m_PowerDistPanel;
   }
 
+  /*
+  public void doRumble() {
+    joyLeft.setRumble(GenericHID.RumbleType.kLeftRumble, 1);
+		joyRight.setRumble(GenericHID.RumbleType.kRightRumble, 1);
+  }
+
+  public void stopRumble() {
+    joyLeft.setRumble(GenericHID.RumbleType.kLeftRumble, 0);
+    joyRight.setRumble(GenericHID.RumbleType.kRightRumble, 0);
+  }
+  */
+
+
+
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
@@ -117,7 +147,13 @@ public class RobotContainer {
     buttonA.whenPressed(new IntakeSequence(intakeSubsystem));
     buttonB.whenPressed(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED));
     buttonB.whenReleased(new ManuallyRunIntakeMotor(intakeSubsystem, 0));
+
+
+    climberButtonA.whenPressed(new ToggleClimberSolenoid(climberArmSubsystem));
+
+
     buttonY.whenPressed(new ManuallyToggleIntake(intakeSubsystem));
+
 
     rightTrigger.whenActive(new ShooterParallelSequeunce(shooterSubsystem));
     leftTrigger.whenActive(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
@@ -149,6 +185,7 @@ public class RobotContainer {
     SmartShuffleboard.putCommand("Driver", "Camera Detection", new SetPipeline(Constants.LIMELIGHT_TARGET_DETECTION));
     SmartShuffleboard.putCommand("Driver", "Camera Streaming", new SetPipeline(Constants.LIMELIGHT_STREAMING));
   }
+  
 
   public void installCommandsOnShuffleboard() {
     if (Constants.ENABLE_DEBUG) {

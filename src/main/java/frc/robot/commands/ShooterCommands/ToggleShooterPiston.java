@@ -15,6 +15,8 @@ public class ToggleShooterPiston extends CommandBase {
   public ToggleShooterPiston(Shooter shooterSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooterSubsytem = shooterSubsystem;
+    addRequirements(shooterSubsystem);
+
   }
 
   // Called when the command is initially scheduled.
