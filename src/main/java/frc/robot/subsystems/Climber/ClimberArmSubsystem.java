@@ -23,8 +23,8 @@ public class ClimberArmSubsystem extends SubsystemBase {
   private MotorUtils leftMotorUtil, rightMotorUtil;
   
   public ClimberArmSubsystem(PowerDistribution m_PowerDistPanel) {
-    leftArm = new TalonSRX(Constants.CLIMBER_LEFT_MOTOR_ID);
-    rightArm = new TalonSRX(Constants.CLIMBER_RIGHT_MOTOR_ID);
+    leftArm = new TalonSRX(Constants.CLIMBER_LEFT_ARM_ID);
+    rightArm = new TalonSRX(Constants.CLIMBER_RIGHT_ARM_ID);
     climberPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_PISTON_ID);
 
     leftMotorUtil = new MotorUtils(Constants.PDP_CLIMBER_L_ARM, Constants.CLIMBER_V_LIMIT, Constants.CLIMBER_ARM_V_TIMEOUT, m_PowerDistPanel);

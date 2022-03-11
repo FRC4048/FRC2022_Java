@@ -33,8 +33,8 @@ public interface Constants2022Robot extends GameConstants {
     public static final int HOOD_MOTOR_ID = 8;
     public static final int CLIMBER_RIGHT_WINCH_ID = 70; //temp
     public static final int CLIMBER_LEFT_WINCH_ID = 71; //temp
-    public static final int CLIMBER_RIGHT_MOTOR_ID = 72; //temp
-    public static final int CLIMBER_LEFT_MOTOR_ID = 73; //temp
+    public static final int CLIMBER_RIGHT_ARM_ID = 72; //temp
+    public static final int CLIMBER_LEFT_ARM_ID = 73; //temp
 
 
     //PDP
