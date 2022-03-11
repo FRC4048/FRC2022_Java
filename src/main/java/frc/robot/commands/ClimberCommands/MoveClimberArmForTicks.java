@@ -20,6 +20,8 @@ public class MoveClimberArmForTicks extends CommandBase {
   
   public MoveClimberArmForTicks(ClimberArmSubsystem climberArmSubsystem, double speed, int ticks) {
     // Use addRequirements() here to declare subsystem dependencies.
+
+    //WORK IN PROGRESS
     this.climberArmSubsystem = climberArmSubsystem;
     this.ticks = ticks;
     addRequirements(climberArmSubsystem);

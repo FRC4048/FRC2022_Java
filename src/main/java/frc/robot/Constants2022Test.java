@@ -20,6 +20,10 @@ public interface Constants2022Test extends GameConstants {
     public static final int SHOOTER_MOTOR_ID = 5; //Placeholder
     public static final int TURRET_MOTOR_ID = 10;
     public static final int HOOD_MOTOR_ID = 10;
+    public static final int CLIMBER_RIGHT_WINCH_ID = 1;
+    public static final int CLIMBER_LEFT_WINCH_ID = 2;
+    public static final int CLIMBER_RIGHT_MOTOR_ID = 5;
+    public static final int CLIMBER_LEFT_MOTOR_ID = 10;
 
     //PDP
     public static final int PDP_DRIVE_L1 = 13; //Placeholder

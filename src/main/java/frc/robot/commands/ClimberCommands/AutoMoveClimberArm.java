@@ -35,14 +35,23 @@ public class AutoMoveClimberArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    /* WORK IN PROGRESS WILL BE DONE LATER
     encoderDifference = Math.abs(climberArmSubsystem.getRightEncoder() - climberArmSubsystem.getLeftEncoder());
 
-    if (climberArmSubsystem.getRightVolatage() != 0 || climberArmSubsystem.isRightStalled()) {
+    if (climberArmSubsystem.getRightVoltage() != 0 || climberArmSubsystem.isRightStalled()) {
       if (Math.abs(climberArmSubsystem.getRightEncoder()) > Math.abs(climberArmSubsystem.getLeftEncoder())+Constants.CLIMBER_MAX_ENCODER_DIFF) {
         climberArmSubsystem.setRightArmSpeed(Constants.CLIMBER_ARM_SPEED * (1-(encoderDifference/Constants.CLIMBER_MAX_ENCODER_DIFF*Constants.CLIMBER_MIN_ARM_SPEED)));
       }
     }
+
+    if (climberArmSubsystem.getLeftVoltage() != 0 || climberArmSubsystem.isLeftStalled()) {
+      if (Math.abs(climberArmSubsystem.getLeftEncoder()) > Math.abs(climberArmSubsystem.getRightEncoder())+Constants.CLIMBER_MAX_ENCODER_DIFF) {
+        climberArmSubsystem.setLeftArmSpeed(Constants.CLIMBER_ARM_SPEED * (1-(encoderDifference/Constants.CLIMBER_MAX_ENCODER_DIFF*Constants.CLIMBER_MIN_ARM_SPEED)));
+      }
+    }
+     */
   }
+ 
 
   // Called once the command ends or is interrupted.
   @Override
@@ -54,6 +63,6 @@ public class AutoMoveClimberArm extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (climberArmSubsystem.getRightVolatage() == 0 && climberArmSubsystem.getLeftVoltage() == 0) || Timer.getFPGATimestamp() - initTime >= Constants.CLIMBER_ARM_TIMEOUT;
+    return (climberArmSubsystem.getRightVoltage() == 0 && climberArmSubsystem.getLeftVoltage() == 0) || Timer.getFPGATimestamp() - initTime >= Constants.CLIMBER_ARM_TIMEOUT;
   }
 }
