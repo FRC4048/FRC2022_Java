@@ -51,5 +51,6 @@ public interface Constants2022Test extends GameConstants {
     //Pigeon
     public static final int PIGEON_CAN_ID = 7;
 
-    
+    // Limelight
+    public static final String LIMELIGHT_IP_ADDR = "10.40.48.34";
 }
