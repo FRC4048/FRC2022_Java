@@ -30,9 +30,11 @@ public interface Constants2022Robot extends GameConstants {
     public static final int PCM_CAN_ID = 20;
     public static final int TURRET_HOOD_CAN_ID = 12;
     public static final int SHOOTER_MOTOR_ID = 46;
-    public static final int RIGHT_CLIMBER_ID = 7;
-    public static final int LEFT_CLIMBER_ID = 2;
     public static final int HOOD_MOTOR_ID = 8;
+    public static final int CLIMBER_RIGHT_WINCH_ID = 70; //temp
+    public static final int CLIMBER_LEFT_WINCH_ID = 71; //temp
+    public static final int CLIMBER_RIGHT_ARM_ID = 72; //temp
+    public static final int CLIMBER_LEFT_ARM_ID = 73; //temp
 
 
     //PDP
@@ -64,7 +66,6 @@ public interface Constants2022Robot extends GameConstants {
 
     public static final int PIGEON_CAN_ID = 7;
 
-    // LIMELIGHT
-    public static final int LIMELIGHT_TARGET_DETECTION = 1;
-    public static final int LIMELIGHT_STREAMING = 0;  
+    // Limelight
+    public static final String LIMELIGHT_IP_ADDR = "10.40.48.33";
 }

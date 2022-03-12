@@ -11,16 +11,16 @@ import frc.robot.subsystems.Shooter;
 
 public class RotateShooterMotor extends CommandBase {
   /** Creates a new RotateShooterMotor. */
-  private Shooter shooterSubsytem;
+  private Shooter shooterSubsystem;
   private double speed;
   private double initTime;
 
-  public RotateShooterMotor(Shooter shooterSubsytem, double speed) {
+  public RotateShooterMotor(Shooter shooterSubsystem, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.shooterSubsytem = shooterSubsytem;
+    this.shooterSubsystem = shooterSubsystem;
     this.speed = speed;
 
-    addRequirements(shooterSubsytem);
+    addRequirements(shooterSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -32,13 +32,13 @@ public class RotateShooterMotor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterSubsytem.setShooterSpeed(speed);
+    shooterSubsystem.setShooterSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooterSubsytem.stopShooter();
+    shooterSubsystem.stopShooter();
   }
 
   // Returns true when the command should end.
