@@ -5,8 +5,6 @@
 package frc.robot;
 
 
-import com.ctre.phoenix.led.ColorFlowAnimation.Direction;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;

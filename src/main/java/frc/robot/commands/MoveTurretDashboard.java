@@ -1,11 +1,13 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.TurretSubsystem;
 
 public class MoveTurretDashboard extends CommandBase {
     private TurretSubsystem turretSubsystem;        
-    private double startTimeMillis;
+    private double startTime;
     public enum Direction {
         RIGHT,LEFT
     }
@@ -18,7 +20,7 @@ public class MoveTurretDashboard extends CommandBase {
     }
     @Override
     public void initialize() {
-        startTimeMillis = System.currentTimeMillis();
+        startTime = Timer.getFPGATimestamp();
     }
 
     @Override
@@ -42,7 +44,7 @@ public class MoveTurretDashboard extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if (System.currentTimeMillis() - startTimeMillis > 2000) {
+        if ((Timer.getFPGATimestamp() - startTime) >= Constants.TURRETSPIN_TIMEOUT) {
             return true;
         }
         else {
