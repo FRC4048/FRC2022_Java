@@ -7,7 +7,7 @@ package frc.robot.commands.ShooterCommands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.utils.logging.LogCommandWrapper;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -15,7 +15,7 @@ import frc.robot.utils.logging.LogCommandWrapper;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ShooterParallelSequeunce extends ParallelCommandGroup {
   /** Creates a new ShootSequence. */
-  public ShooterParallelSequeunce(Shooter shooterSubsystem, IntakeSubsystem intakeSubsystem) {
+  public ShooterParallelSequeunce(ShooterSubsystem shooterSubsystem, IntakeSubsystem intakeSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(

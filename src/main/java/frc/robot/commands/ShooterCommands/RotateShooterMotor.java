@@ -7,15 +7,15 @@ package frc.robot.commands.ShooterCommands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ShooterSubsystem;
 
 public class RotateShooterMotor extends CommandBase {
   /** Creates a new RotateShooterMotor. */
-  private Shooter shooterSubsystem;
+  private ShooterSubsystem shooterSubsystem;
   private double speed;
   private double initTime;
 
-  public RotateShooterMotor(Shooter shooterSubsystem, double speed) {
+  public RotateShooterMotor(ShooterSubsystem shooterSubsystem, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooterSubsystem = shooterSubsystem;
     this.speed = speed;

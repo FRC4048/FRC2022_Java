@@ -10,7 +10,7 @@ import frc.robot.Constants;
 import frc.robot.commands.Miscellaneous.SetPipeline;
 import frc.robot.commands.intakecommands.DropBallCommand;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.logging.LogCommandWrapper;
 
@@ -19,7 +19,7 @@ import frc.robot.utils.logging.LogCommandWrapper;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ElevatorSequence extends SequentialCommandGroup {
   /** Creates a new ElevatorSequence. */
-  public ElevatorSequence(Shooter shooterSubsystem, IntakeSubsystem intakeSubsystem) {
+  public ElevatorSequence(ShooterSubsystem shooterSubsystem, IntakeSubsystem intakeSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(

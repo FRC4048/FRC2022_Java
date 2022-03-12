@@ -44,7 +44,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.subsystems.Climber.ClimberArmSubsystem;
 import frc.robot.subsystems.Climber.ClimberWinchSubsystem;
@@ -86,7 +86,7 @@ public class RobotContainer {
 
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   private final DriveTrain driveTrain = new DriveTrain();
-  private final Shooter shooterSubsystem = new Shooter();
+  private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   private final PowerDistribution m_PowerDistPanel = new PowerDistribution();
   private final ClimberArmSubsystem climberArmSubsystem = new ClimberArmSubsystem(m_PowerDistPanel);
   private final ClimberWinchSubsystem climberWinchSubsystem = new ClimberWinchSubsystem();
