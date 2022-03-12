@@ -46,5 +46,8 @@ public interface Constants2022DriveC extends GameConstants {
   // Elevator
   public static final int ELEVATOR_PISON_ID = 3;
 
+  // Limelight
+  public static final String LIMELIGHT_IP_ADDR = "10.40.48.34";
+
 }
 

@@ -28,13 +28,11 @@ public interface GameConstants {
   
 
   //Limelight Settings
-  public static final double CAMERA_HEIGHT = 38.0;
+  public static final double CAMERA_HEIGHT = 38.5;
   public static final double TARGET_HEIGHT = 104.0;
   public static final int LIMELIGHT_TARGET_DETECTION = 1;
   public static final int LIMELIGHT_STREAMING = 0;
-
-  //cameraAngle is a placeholder value
-  public static final double CAMERA_ANGLE = 18.7;
+  public static final double CAMERA_ANGLE = 29.0;
 
   //Hood
   public static final double HOOD_MOTOR_SPEED = 0.75;
