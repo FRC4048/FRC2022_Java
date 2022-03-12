@@ -13,6 +13,8 @@ public class ToggleShooterMotor extends CommandBase {
   public ToggleShooterMotor(Shooter shooterSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooterSubsystem = shooterSubsystem;
+    addRequirements(shooterSubsystem);
+
   }
 
   // Called when the command is initially scheduled.
@@ -28,6 +30,8 @@ public class ToggleShooterMotor extends CommandBase {
       shooterSubsystem.stopShooter();
     }
   }
+
+  
 
   // Called once the command ends or is interrupted.
   @Override

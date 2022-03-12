@@ -61,6 +61,11 @@ public class IntakeSubsystem extends SubsystemBase {
     piston1.set(false);
     piston2.set(false);
   }
+  
+  public void togglePiston() {
+  piston1.set(!piston1.get());
+  piston2.set(!piston2.get());
+  }
 
   public void spinMotor(double speed) {
     intakeMotor.set(speed);
