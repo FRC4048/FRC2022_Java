@@ -47,7 +47,7 @@ public interface Constants2022DriveC extends GameConstants {
   public static final int INTAKE_SOLENOID_1 = 0;
   public static final int INTAKE_SOLENOID_2 = 4;
   public static final int CLIMBER_L_PISTON_ID = 6;
-  public static final int CLIMBER_R_PISTON_ID = 8;
+  public static final int CLIMBER_R_PISTON_ID = 7;
 
   // Elevator
   public static final int ELEVATOR_PISON_ID = 3;
