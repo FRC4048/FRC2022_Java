@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.DiagTalonSrxSwitch;
 
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
@@ -11,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 
 public class TurretSubsystem extends SubsystemBase {
     private WPI_TalonSRX turretMotor;
+    
 
     public TurretSubsystem(){
        turretMotor = new WPI_TalonSRX(Constants.TURRET_MOTOR_ID); 
@@ -37,12 +39,24 @@ public class TurretSubsystem extends SubsystemBase {
         return turretMotor.getSensorCollection().isFwdLimitSwitchClosed();
     }
 
+    public double getEncoder() {
+        return turretMotor.getSelectedSensorPosition();
+    }   
+
+    public void resetEncoder() {
+        turretMotor.setSelectedSensorPosition(0);
+    }
 
 
 
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
+        if (Constants.ENABLE_DEBUG == true) {
+            SmartShuffleboard.put("Shooter", "Turret Encoder", getEncoder());
+            SmartShuffleboard.put("Shooter", "Left Limit Switch", getLeftSwitch());
+            SmartShuffleboard.put("Shooter", "Right Limit Switch", getRightSwitch());
+        }
     }
 
     @Override

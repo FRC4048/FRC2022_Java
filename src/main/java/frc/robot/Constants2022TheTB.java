@@ -13,7 +13,7 @@ public interface Constants2022TheTB extends GameConstants {
   public static final int PDP_CAN_ID = 0;
 
   public static final int DRIVE_LEFT1_ID = 44;
-  public static final int DRIVE_LEFT2_ID = 41;
+  public static final int DRIVE_LEFT2_ID = 45;
   public static final int DRIVE_RIGHT1_ID = 42;
   public static final int DRIVE_RIGHT2_ID = 41;
   public static final int PCM_CAN_ID = 20;
@@ -63,5 +63,7 @@ public interface Constants2022TheTB extends GameConstants {
   //Pigeon
   public static final int PIGEON_CAN_ID = 7;
 
+  // Limelight
+  public static final String LIMELIGHT_IP_ADDR = "10.40.48.34";
 
 }

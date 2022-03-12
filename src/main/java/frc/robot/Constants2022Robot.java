@@ -68,7 +68,6 @@ public interface Constants2022Robot extends GameConstants {
 
     public static final int PIGEON_CAN_ID = 7;
 
-    // LIMELIGHT
-    public static final int LIMELIGHT_TARGET_DETECTION = 1;
-    public static final int LIMELIGHT_STREAMING = 0;  
+    // Limelight
+    public static final String LIMELIGHT_IP_ADDR = "10.40.48.33";
 }
