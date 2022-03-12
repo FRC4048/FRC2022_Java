@@ -40,6 +40,7 @@ import frc.robot.commands.intakecommands.IntakeSequence;
 import frc.robot.commands.intakecommands.ManuallyRunIntakeMotor;
 import frc.robot.commands.intakecommands.ManuallyToggleIntake;
 import frc.robot.commands.intakecommands.RaiseIntakeCommand;
+import frc.robot.commands.intakecommands.ReverseIntakeCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -193,6 +194,7 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Intake", "Raise Intake", new RaiseIntakeCommand(getIntakeSubsystem()));
       SmartShuffleboard.putCommand("Intake", "Intake Ball", new IntakeBallCommand(getIntakeSubsystem()));
       SmartShuffleboard.putCommand("Intake", "Drop Ball", new DropBallCommand(getIntakeSubsystem()));
+      SmartShuffleboard.putCommand("Intake", "Reverse Intake", new ReverseIntakeCommand(intakeSubsystem));
 
       SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
