@@ -64,12 +64,7 @@ public class MoveDistance extends CommandBase {
       return true;
     }
     else {
-      if ((Timer.getFPGATimestamp() - startTime) >= Constants.MOVEDISTANCE_TIMEOUT) {
-        return true;
-      }
-      else {
-        return false;
-      }
+      return ((Timer.getFPGATimestamp() - startTime) >= Constants.MOVEDISTANCE_TIMEOUT);
     }
   }
 }

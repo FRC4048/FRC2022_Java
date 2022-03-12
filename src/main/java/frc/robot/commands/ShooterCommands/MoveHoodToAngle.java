@@ -68,12 +68,8 @@ public class MoveHoodToAngle extends CommandBase {
                 return true;
             }
             else {
-                if ((Timer.getFPGATimestamp() - startTime) >= Constants.HOOD_MOTOR_TIMEOUT) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
+                return ((Timer.getFPGATimestamp() - startTime) >= Constants.HOOD_MOTOR_TIMEOUT);
+               
             }
         }
     }

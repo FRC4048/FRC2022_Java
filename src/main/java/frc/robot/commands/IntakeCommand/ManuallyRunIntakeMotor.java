@@ -31,11 +31,6 @@ public class ManuallyRunIntakeMotor extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        if ((Timer.getFPGATimestamp() - startTime) >=  Constants.INTAKE_MOTOR_TIMEOUT) {
-            return true;
-        } 
-        else {
-            return false;
-        }
+        return ((Timer.getFPGATimestamp() - startTime) >=  Constants.INTAKE_MOTOR_TIMEOUT);
     }
 }
