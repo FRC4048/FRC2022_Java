@@ -7,8 +7,10 @@ package frc.robot.commands.drive;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.Constants;
 import frc.robot.commands.Drive;
 
 /** An example command that uses an example subsystem. */
@@ -17,6 +19,7 @@ public class MoveDistance extends CommandBase {
   private double encoder;
   private double speed;
   private double distanceInches;
+  private double startTime;
   //Still need to assign this a value 1.0 is temporary
   private double encoderPerInch=1.0;
 
@@ -39,6 +42,7 @@ public class MoveDistance extends CommandBase {
   @Override
   public void initialize() {
     encoder = driveTrain.getLeftEncoder();
+    startTime = Timer.getFPGATimestamp();
   
   }
 
@@ -61,7 +65,12 @@ public class MoveDistance extends CommandBase {
       return true;
     }
     else {
-      return false;
+      if ((Timer.getFPGATimestamp() - startTime) >= Constants.MOVEDISTANCE_TIMEOUT) {
+        return true;
+      }
+      else {
+        return false;
+      }
     }
   }
 }
