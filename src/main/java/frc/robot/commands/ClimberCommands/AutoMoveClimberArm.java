@@ -35,7 +35,7 @@ public class AutoMoveClimberArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // WORK IN PROGRESS WILL BE DONE LATER
+    /* WORK IN PROGRESS WILL BE DONE LATER
     encoderDifference = Math.abs(climberArmSubsystem.getRightEncoder() - climberArmSubsystem.getLeftEncoder());
     double rightSpeed = Constants.CLIMBER_ARM_SPEED * direction, leftSpeed = Constants.CLIMBER_ARM_SPEED * direction;
 
@@ -54,6 +54,7 @@ public class AutoMoveClimberArm extends CommandBase {
 
     climberArmSubsystem.setRightArmSpeed(rightSpeed);
     climberArmSubsystem.setLeftArmSpeed(leftSpeed);
+    */
   }
  
 
