@@ -44,6 +44,8 @@ public interface Constants2022Test extends GameConstants {
     public static final int SHOOTER_PISTON_ID = 3; //Placeholder
     public static final int INTAKE_SOLENOID_1 = 0;
     public static final int INTAKE_SOLENOID_2 = 4;  
+    public static final int CLIMBER_L_PISTON_ID = 6;
+    public static final int CLIMBER_R_PISTON_ID = 8;
 
     // Elevator
     public static final int ELEVATOR_PISON_ID = 3;

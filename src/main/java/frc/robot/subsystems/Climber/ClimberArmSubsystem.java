@@ -54,11 +54,12 @@ public class ClimberArmSubsystem extends SubsystemBase {
   }
 
   public void movePiston(boolean state) {
-    climberPiston.set(state);
+    climberLPiston.set(state);
+    climberRPiston.set(state);
   }
 
   public boolean getPistonState() {
-    return climberPiston.get();
+    return climberLPiston.get();
   }
 
   public void stopArms() {
