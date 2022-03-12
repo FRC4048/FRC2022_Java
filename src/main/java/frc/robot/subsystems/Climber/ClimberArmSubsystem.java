@@ -19,13 +19,14 @@ import frc.robot.utils.MotorUtils;
 public class ClimberArmSubsystem extends SubsystemBase {
   /** Creates a new ClimberArmSubsystem. */
   private TalonSRX leftArm, rightArm;
-  private Solenoid climberPiston;
+  private Solenoid climberLPiston, climberRPiston;
   private MotorUtils leftMotorUtil, rightMotorUtil;
   
   public ClimberArmSubsystem(PowerDistribution m_PowerDistPanel) {
     leftArm = new TalonSRX(Constants.CLIMBER_LEFT_ARM_ID);
     rightArm = new TalonSRX(Constants.CLIMBER_RIGHT_ARM_ID);
-    climberPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_PISTON_ID);
+    climberLPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_L_PISTON_ID);
+    climberRPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_R_PISTON_ID);
 
     leftMotorUtil = new MotorUtils(Constants.PDP_CLIMBER_L_ARM, Constants.CLIMBER_V_LIMIT, Constants.CLIMBER_ARM_V_TIMEOUT, m_PowerDistPanel);
     rightMotorUtil = new MotorUtils(Constants.PDP_CLIMBER_R_ARM, Constants.CLIMBER_V_LIMIT, Constants.CLIMBER_ARM_V_TIMEOUT, m_PowerDistPanel);
