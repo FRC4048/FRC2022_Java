@@ -29,7 +29,7 @@ import frc.robot.commands.ShooterCommands.MoveHoodDown;
 import frc.robot.commands.ShooterCommands.MoveHoodToAngle;
 import frc.robot.commands.ShooterCommands.MoveHoodUp;
 import frc.robot.commands.ShooterCommands.RetractShooterPiston;
-import frc.robot.commands.ShooterCommands.RotateShooterMotor;
+import frc.robot.commands.ShooterCommands.MoveShooterMotor;
 import frc.robot.commands.ShooterCommands.ShooterParallelSequeunce;
 import frc.robot.commands.ShooterCommands.ToggleShooterMotor;
 import frc.robot.commands.ShooterCommands.ToggleShooterPiston;
@@ -198,7 +198,7 @@ public class RobotContainer {
 
       SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
-      SmartShuffleboard.putCommand("Shooter", "Start Shooter Motor", new RotateShooterMotor(shooterSubsystem, Constants.SHOOTER_CLOCKWISE_SPEED));
+      SmartShuffleboard.putCommand("Shooter", "Start Shooter Motor", new MoveShooterMotor(shooterSubsystem, Constants.SHOOTER_CLOCKWISE_SPEED));
       SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
