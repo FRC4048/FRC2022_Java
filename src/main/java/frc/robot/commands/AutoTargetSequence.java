@@ -25,7 +25,7 @@ public class AutoTargetSequence extends SequentialCommandGroup {
       new TurretAuto(turretSubsystem, vision),
       new HoodAutoCommand(hoodSubsystem, vision)
     );
-    SmartShuffleboard.put("Shooter", "Data", "Can Shoot", true);
+    SmartShuffleboard.put("Driver", "Data", "Can Shoot", true);
   }
 
   // Called when the command is initially scheduled.
