@@ -12,11 +12,12 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.Drive;
-import frc.robot.commands.TurnDegrees;
+import frc.robot.commands.ShooterCommands.AutoTargetSequence;
+import frc.robot.commands.AutonomousCommands.TurnDegrees;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.ToggleClimberSolenoid;
+import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.IntakeCommands.DeployIntakeCommand;
 import frc.robot.commands.IntakeCommands.DropBallCommand;
 import frc.robot.commands.IntakeCommands.IntakeBallCommand;
@@ -40,6 +41,8 @@ import frc.robot.commands.ShooterCommands.StartShooterMotor;
 import frc.robot.commands.ShooterCommands.ShooterParallelSequeunce;
 import frc.robot.commands.ShooterCommands.ToggleShooterMotor;
 import frc.robot.commands.ShooterCommands.ToggleShooterPiston;
+import frc.robot.commands.TurretCommands.CalibrateTurretEncoderSequence;
+import frc.robot.commands.TurretCommands.MoveTurretDashboard;
 import frc.robot.commands.TurretCommands.TurretManualCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
@@ -194,11 +197,16 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Intake", "Raise Intake", new RaiseIntakeCommand(getIntakeSubsystem()));
       SmartShuffleboard.putCommand("Intake", "Intake Ball", new IntakeBallCommand(getIntakeSubsystem()));
       SmartShuffleboard.putCommand("Intake", "Drop Ball", new DropBallCommand(getIntakeSubsystem()));
-      SmartShuffleboard.putCommand("Intake", "Reverse Intake", new ReverseIntakeCommand(intakeSubsystem));
+
+      
+      SmartShuffleboard.putCommand("Shooter", "Rotate Turret Left", new MoveTurretDashboard(turretSubsystem, MoveTurretDashboard.Direction.LEFT));
+      SmartShuffleboard.putCommand("Shooter", "Rotate Turret Right", new MoveTurretDashboard(turretSubsystem, MoveTurretDashboard.Direction.RIGHT));
 
       SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
+      SmartShuffleboard.putCommand("Shooter", "Calibrate Enocoder", new CalibrateTurretEncoderSequence(turretSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Start Shooter Motor", new StartShooterMotor(shooterSubsystem, Constants.SHOOTER_CLOCKWISE_SPEED));
+
       SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
