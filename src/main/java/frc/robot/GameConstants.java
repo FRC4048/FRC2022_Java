@@ -69,6 +69,7 @@ public interface GameConstants {
 
   //Turret
   public static final double TURRETSPIN_SCALEFACTOR = 0.5;
-  public static final double TURRETSPIN_TIMEOUT = 2;
+  public static final double TURRETSPIN_COMMAND_TIMEOUT = 2;
+  public static final double TURRETSPIN_TIMEOUT = 5;
   
 }

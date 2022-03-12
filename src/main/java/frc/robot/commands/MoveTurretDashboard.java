@@ -44,7 +44,7 @@ public class MoveTurretDashboard extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if ((Timer.getFPGATimestamp() - startTime) >= Constants.TURRETSPIN_TIMEOUT) {
+        if ((Timer.getFPGATimestamp() - startTime) >= Constants.TURRETSPIN_COMMAND_TIMEOUT) {
             return true;
         }
         else {
