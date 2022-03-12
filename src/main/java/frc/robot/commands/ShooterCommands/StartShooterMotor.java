@@ -9,13 +9,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class MoveShooterMotor extends CommandBase {
+public class StartShooterMotor extends CommandBase {
   /** Creates a new RotateShooterMotor. */
   private ShooterSubsystem shooterSubsystem;
   private double speed;
   private double initTime;
 
-  public MoveShooterMotor(ShooterSubsystem shooterSubsystem, double speed) {
+  public StartShooterMotor(ShooterSubsystem shooterSubsystem, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooterSubsystem = shooterSubsystem;
     this.speed = speed;
