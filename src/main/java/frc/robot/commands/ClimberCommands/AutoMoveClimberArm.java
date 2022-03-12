@@ -37,19 +37,24 @@ public class AutoMoveClimberArm extends CommandBase {
   public void execute() {
     /* WORK IN PROGRESS WILL BE DONE LATER
     encoderDifference = Math.abs(climberArmSubsystem.getRightEncoder() - climberArmSubsystem.getLeftEncoder());
+    double rightSpeed = Constants.CLIMBER_ARM_SPEED * direction, leftSpeed = Constants.CLIMBER_ARM_SPEED * direction;
 
-    if (climberArmSubsystem.getRightVoltage() != 0 || climberArmSubsystem.isRightStalled()) {
-      if (Math.abs(climberArmSubsystem.getRightEncoder()) > Math.abs(climberArmSubsystem.getLeftEncoder())+Constants.CLIMBER_MAX_ENCODER_DIFF) {
-        climberArmSubsystem.setRightArmSpeed(Constants.CLIMBER_ARM_SPEED * (1-(encoderDifference/Constants.CLIMBER_MAX_ENCODER_DIFF*Constants.CLIMBER_MIN_ARM_SPEED)));
-      }
+    if (climberArmSubsystem.getRightVelocity() < 1 || climberArmSubsystem.isRightStalled()) {
+      rightSpeed = 0;
+    }
+    if (climberArmSubsystem.getLeftVelocity() < 1 || climberArmSubsystem.isLeftStalled()) {
+      leftSpeed = 0;
     }
 
-    if (climberArmSubsystem.getLeftVoltage() != 0 || climberArmSubsystem.isLeftStalled()) {
-      if (Math.abs(climberArmSubsystem.getLeftEncoder()) > Math.abs(climberArmSubsystem.getRightEncoder())+Constants.CLIMBER_MAX_ENCODER_DIFF) {
-        climberArmSubsystem.setLeftArmSpeed(Constants.CLIMBER_ARM_SPEED * (1-(encoderDifference/Constants.CLIMBER_MAX_ENCODER_DIFF*Constants.CLIMBER_MIN_ARM_SPEED)));
-      }
+    if (Math.abs(climberArmSubsystem.getRightEncoder()) > Math.abs(climberArmSubsystem.getLeftEncoder())+Constants.CLIMBER_MAX_ENCODER_DIFF) {
+      rightSpeed *= (1-(encoderDifference/Constants.CLIMBER_MAX_ENCODER_DIFF*Constants.CLIMBER_MIN_ARM_SPEED));
+    } else if (Math.abs(climberArmSubsystem.getLeftEncoder()) > Math.abs(climberArmSubsystem.getRightEncoder())+Constants.CLIMBER_MAX_ENCODER_DIFF) {
+      leftSpeed *= (1-(encoderDifference/Constants.CLIMBER_MAX_ENCODER_DIFF*Constants.CLIMBER_MIN_ARM_SPEED));
     }
-     */
+
+    climberArmSubsystem.setRightArmSpeed(rightSpeed);
+    climberArmSubsystem.setLeftArmSpeed(leftSpeed);
+    */
   }
  
 

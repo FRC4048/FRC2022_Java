@@ -4,43 +4,49 @@
 
 package frc.robot.commands.ShooterCommands;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ToggleShooterPiston extends CommandBase {
-  /** Creates a new TogglePiston. */
-  private ShooterSubsystem shooterSubsytem;
+public class StartShooterMotor extends CommandBase {
+  /** Creates a new RotateShooterMotor. */
+  private ShooterSubsystem shooterSubsystem;
+  private double speed;
+  private double initTime;
 
-  public ToggleShooterPiston(ShooterSubsystem shooterSubsystem) {
+  public StartShooterMotor(ShooterSubsystem shooterSubsystem, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.shooterSubsytem = shooterSubsystem;
-    addRequirements(shooterSubsystem);
+    this.shooterSubsystem = shooterSubsystem;
+    this.speed = speed;
 
+    addRequirements(shooterSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-
-  public void initialize() {}
+  public void initialize() {
+    initTime = Timer.getFPGATimestamp();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(shooterSubsytem.getPistonState() == true) {
-      shooterSubsytem.retractPiston();
-    } else {
-      shooterSubsytem.extendPiston();
-    }
+    shooterSubsystem.setShooterSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    shooterSubsystem.stopShooter();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    if (Timer.getFPGATimestamp() - initTime >= Constants.SHOOTER_TIMEOUT) {
+      return true;
+  }
+    return false;
   }
 }

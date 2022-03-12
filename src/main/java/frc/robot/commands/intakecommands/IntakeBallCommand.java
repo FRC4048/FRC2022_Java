@@ -1,4 +1,4 @@
-package frc.robot.commands.intakecommands;
+package frc.robot.commands.IntakeCommands;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -42,9 +42,6 @@ public class IntakeBallCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (intakeSubsystem.isBallInIntake() || (Timer.getFPGATimestamp() - initTime) >= Constants.DEPLOYED_INTAKE_TIMEOUT) {
-      return true;
-    }
-    return false;
+    return (intakeSubsystem.isBallInIntake() || (Timer.getFPGATimestamp() - initTime) >= Constants.DEPLOYED_INTAKE_TIMEOUT);
   }
 }

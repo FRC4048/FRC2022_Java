@@ -2,25 +2,21 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.ShooterCommands;
+package frc.robot.commands.IntakeCommands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.IntakeSubsystem;
 
-public class RotateShooterMotor extends CommandBase {
-  /** Creates a new RotateShooterMotor. */
-  private Shooter shooterSubsystem;
-  private double speed;
+public class ReverseIntakeCommand extends CommandBase {
+  /** Creates a new ReverseIntakeCommand. */
+  private IntakeSubsystem intakeSubsystem;
   private double initTime;
-
-  public RotateShooterMotor(Shooter shooterSubsystem, double speed) {
+  public ReverseIntakeCommand(IntakeSubsystem intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.shooterSubsystem = shooterSubsystem;
-    this.speed = speed;
-
-    addRequirements(shooterSubsystem);
+    this.intakeSubsystem = intakeSubsystem;
+    addRequirements(intakeSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -32,21 +28,18 @@ public class RotateShooterMotor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterSubsystem.setShooterSpeed(speed);
+    intakeSubsystem.spinMotor(-Constants.INTAKE_MOTOR_SPEED);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooterSubsystem.stopShooter();
+    intakeSubsystem.spinMotor(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (Timer.getFPGATimestamp() - initTime >= Constants.SHOOTER_TIMEOUT) {
-      return true;
-  }
-    return false;
+    return (!intakeSubsystem.isBallInIntake() || (Timer.getFPGATimestamp() - initTime) >= Constants.DEPLOYED_INTAKE_TIMEOUT);
   }
 }
