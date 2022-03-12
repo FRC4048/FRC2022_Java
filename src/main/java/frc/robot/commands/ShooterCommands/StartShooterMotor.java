@@ -13,12 +13,13 @@ public class StartShooterMotor extends CommandBase {
   /** Creates a new RotateShooterMotor. */
   private ShooterSubsystem shooterSubsystem;
   private double speed;
-  private double initTime;
+  private double initTime, timeout;
 
-  public StartShooterMotor(ShooterSubsystem shooterSubsystem, double speed) {
+  public StartShooterMotor(ShooterSubsystem shooterSubsystem, double speed, double timeout) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooterSubsystem = shooterSubsystem;
     this.speed = speed;
+    this.timeout = timeout;
 
     addRequirements(shooterSubsystem);
   }
@@ -44,7 +45,7 @@ public class StartShooterMotor extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (Timer.getFPGATimestamp() - initTime >= Constants.SHOOTER_TIMEOUT) {
+    if (Timer.getFPGATimestamp() - initTime >= timeout) {
       return true;
   }
     return false;

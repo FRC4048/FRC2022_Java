@@ -1,47 +1,39 @@
-package frc.robot.commands.IntakeCommand;
+package frc.robot.commands.IntakeCommands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class DropBallCommand extends CommandBase {
+public class DeployIntakeCommand extends CommandBase {
   private IntakeSubsystem intakeSubsystem;
-  private double initTime;
 
   /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
+   * Creates a new IntakeCommand.
    */
-  public DropBallCommand(IntakeSubsystem intakeSubsystem) {
+  public DeployIntakeCommand(IntakeSubsystem intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intakeSubsystem);
     this.intakeSubsystem = intakeSubsystem;
+    addRequirements(intakeSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    initTime = Timer.getFPGATimestamp();
+    intakeSubsystem.deployPiston();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSubsystem.spinMotor(Constants.INTAKE_MOTOR_SPEED);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intakeSubsystem.spinMotor(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (!intakeSubsystem.isBallInIntake() || (Timer.getFPGATimestamp() - initTime) >= Constants.RAISED_INTAKE_TIMEOUT);
-
+    return true;
   }
 }
