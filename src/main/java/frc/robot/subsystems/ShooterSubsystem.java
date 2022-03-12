@@ -13,7 +13,10 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.utils.SmartShuffleboard;
+import frc.robot.utils.diag.DiagSparkMaxEncoder;
+import frc.robot.utils.diag.DiagTalonSrxEncoder;
 import frc.robot.utils.logging.Logging;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -27,6 +30,8 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterSolenoid = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.SHOOTER_PISTON_ID);
     shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_ID, MotorType.kBrushless);
     isRunning = false;
+
+    Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Shooter Encoder", 100, shooterMotor));
 
     shooterMotor.setIdleMode(IdleMode.kCoast);
     shooterMotor.setInverted(false);

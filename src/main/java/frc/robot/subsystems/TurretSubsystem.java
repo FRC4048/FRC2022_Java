@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.utils.SmartShuffleboard;
+import frc.robot.utils.diag.DiagTalonSrxEncoder;
 import frc.robot.utils.diag.DiagTalonSrxSwitch;
 
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
@@ -12,42 +13,40 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 
 public class TurretSubsystem extends SubsystemBase {
     private WPI_TalonSRX turretMotor;
-    
 
-    public TurretSubsystem(){
-       turretMotor = new WPI_TalonSRX(Constants.TURRET_MOTOR_ID); 
-       turretMotor.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-       turretMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    public TurretSubsystem() {
+        turretMotor = new WPI_TalonSRX(Constants.TURRET_MOTOR_ID);
+        turretMotor.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+        turretMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 
+        Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Turret  Encoder", 100, turretMotor));
         Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Turret Forward Switch", turretMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
         Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Turret Reverse Switch", turretMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
     }
 
-    public void setTurret(double speed){
+    public void setTurret(double speed) {
         turretMotor.set(speed);
     }
 
-    public void stopTurret(){
+    public void stopTurret() {
         turretMotor.set(0);
     }
 
-    public boolean getRightSwitch(){
+    public boolean getRightSwitch() {
         return turretMotor.getSensorCollection().isRevLimitSwitchClosed();
     }
 
-    public boolean getLeftSwitch(){
+    public boolean getLeftSwitch() {
         return turretMotor.getSensorCollection().isFwdLimitSwitchClosed();
     }
 
     public double getEncoder() {
         return turretMotor.getSelectedSensorPosition();
-    }   
+    }
 
     public void resetEncoder() {
         turretMotor.setSelectedSensorPosition(0);
     }
-
-
 
     @Override
     public void periodic() {
