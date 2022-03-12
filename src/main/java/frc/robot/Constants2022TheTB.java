@@ -57,6 +57,7 @@ public interface Constants2022TheTB extends GameConstants {
   public static final int INTAKE_SOLENOID_1 = 0;
   public static final int INTAKE_SOLENOID_2 = 1;
   public static final int CLIMBER_PISTON_ID = 6;
+  public static final int STOP_BALL_SOLENOID = 3;
 
 
   //Pigeon
