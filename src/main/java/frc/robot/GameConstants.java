@@ -21,14 +21,15 @@ public interface GameConstants {
   //Motor Speeds
   public static final double INTAKE_MOTOR_SPEED = 1;
 
-  //Drive
-  public static final double MOVEDISTANCE_TIMEOUT = 10;
-
   //Timeouts
   public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
   public static final int RAISED_INTAKE_TIMEOUT = 3;
   public static final int SHOOTER_TIMEOUT = 5;
-  
+  public static final double HOOD_MOTOR_TIMEOUT = 5;
+  public static final double TURRETSPIN_TIMEOUT = 5;
+  public static final double MOVEDISTANCE_TIMEOUT = 10;
+  public static final double INTAKE_MOTOR_TIMEOUT = 10;
+  public static final double TURRETSPIN_COMMAND_TIMEOUT = 2;
 
   //Limelight Settings
   public static final double CAMERA_HEIGHT = 38.5;
@@ -44,7 +45,7 @@ public interface GameConstants {
   public static final double HOOD_JOYSTICK_THRESHOLD = 0.2;
   public static final double HOOD_RANGE_OF_MOTION = 180; //temp value
   public static final double HOOD_STARTING_POINT = 0; //temp value
-  public static final double HOOD_MOTOR_TIMEOUT = 5;
+
 
   //Climber
   public static final double CLIMBER_V_LIMIT = 26;
@@ -69,11 +70,10 @@ public interface GameConstants {
   
   // Intake
   public static final double INTAKE_BUFFER = 1.0;
-  public static final double INTAKE_MOTOR_TIMEOUT = 10;
 
   //Turret
   public static final double TURRETSPIN_SCALEFACTOR = 0.5;
-  public static final double TURRETSPIN_COMMAND_TIMEOUT = 2;
-  public static final double TURRETSPIN_TIMEOUT = 5;
+
+
   
 }
