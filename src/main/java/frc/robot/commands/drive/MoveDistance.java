@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.Drive;
-import frc.robot.commands.LoggedCommand;
+import frc.robot.commands.LoggedCommandBase;
 
 /** An example command that uses an example subsystem. */
-public class MoveDistance extends LoggedCommand {
+public class MoveDistance extends LoggedCommandBase {
   private final DriveTrain driveTrain;
   private double encoder;
   private double speed;
@@ -38,26 +38,26 @@ public class MoveDistance extends LoggedCommand {
 
   // Called when the command is initially scheduled.
   @Override
-  public void loggedInitialize() {
+  public void initialize() {
     encoder = driveTrain.getLeftEncoder();
     addLog(distanceInches);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void loggedExecute() {
+  public void execute() {
     driveTrain.drive(speed, speed, true);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void loggedEnd(boolean interrupted) {
+  public void end(boolean interrupted) {
     driveTrain.drive(0, 0, false);
   }
 
   // Returns true when the command should end.
   @Override
-  public boolean loggedIsFinished() {
+  public boolean isFinished() {
     if ((encoderPerInch * distanceInches) < (driveTrain.getLeftEncoder() - encoder)) {
       return true;
     }
