@@ -19,13 +19,13 @@ public class AutoTargetSequence extends SequentialCommandGroup {
   private TurretSubsystem turretSubsystem;
   public AutoTargetSequence(TurretSubsystem turretSubsystem, LimeLightVision vision, Hood hoodSubsystem) {
     this.turretSubsystem = turretSubsystem;
-    vision = new LimeLightVision(38, 104, 30);
+//    vision = new LimeLightVision(38, 104, 30);
 
     // Use addRequirements() here to declare subsystem dependencies.
     addCommands(
-      new SetLEDOn(),
-      new TurretAuto(turretSubsystem, vision),
-      new HoodAutoCommand(hoodSubsystem, vision)
+//      new SetLEDOn(),
+      new TurretAuto(turretSubsystem, vision)
+//      new HoodAutoCommand(hoodSubsystem, vision)
     );
     SmartShuffleboard.put("Driver", "Data", "Can Shoot", true);
   }

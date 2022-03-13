@@ -36,10 +36,10 @@ public class TurretAuto extends CommandBase {
     @Override
     public void execute() {
         if (positive) {
-            turretSubsystem.setTurret(Constants.SHOOTER_CLOCKWISE_SPEED);
+            turretSubsystem.setTurret(Constants.TURRET_CLOCKWISE_SPEED);
         }
         else {
-            turretSubsystem.setTurret(Constants.SHOOTER_COUNTERCLOCKWISE_SPEED);
+            turretSubsystem.setTurret(Constants.TURRET_COUNTERCLOCKWISE_SPEED);
         } 
      
     }

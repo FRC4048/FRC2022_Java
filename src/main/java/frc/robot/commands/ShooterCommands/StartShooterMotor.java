@@ -47,7 +47,7 @@ public class StartShooterMotor extends CommandBase {
   public boolean isFinished() {
     if (Timer.getFPGATimestamp() - initTime >= timeout) {
       return true;
-  }
+    }
     return false;
   }
 }

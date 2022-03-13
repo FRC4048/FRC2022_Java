@@ -4,11 +4,10 @@
 
 package frc.robot.commands.HoodCommands;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Hood;
+import frc.robot.utils.limelight.CameraAngles;
 import frc.robot.utils.limelight.LimeLightVision;
 
 public class HoodAutoCommand extends CommandBase {
@@ -33,7 +32,11 @@ public class HoodAutoCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (vision.getCameraAngles().getTx() >= 0) {
+    CameraAngles angles = vision.getCameraAngles();
+    if (angles == null) {
+      return;
+    }
+    if (angles.getTx() >= 0) {
       hoodSubsystem.setHood(Constants.HOOD_AUTO_MOTOR_SPEED);
     }
     else {
