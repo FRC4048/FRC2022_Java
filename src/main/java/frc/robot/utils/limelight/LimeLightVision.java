@@ -9,8 +9,8 @@ public class LimeLightVision {
     public static final int LED_BLINK = 2;
     public static final int LED_OFF = 1;
 
-    private double cameraHeight;
-    private double targetHeight;
+    /** The relative height of the target to the camera, for trig calculations */
+    private double relativeHeight;
     private double cameraAngle;
 
     NetworkTable table;
@@ -29,8 +29,7 @@ public class LimeLightVision {
      * @param cameraAngle camera mounting angle, in degrees, where 0 is horizontal and down is negative
      */
     public LimeLightVision(double cameraHeight, double targetHeight, double cameraAngle) {
-        this.cameraHeight = cameraHeight;
-        this.targetHeight = targetHeight;
+        this.relativeHeight = targetHeight - cameraHeight;
         this.cameraAngle = cameraAngle;
         table = NetworkTableInstance.getDefault().getTable("limelight");
         tv = table.getEntry("tv");
@@ -44,8 +43,7 @@ public class LimeLightVision {
 
     // This method is required in order to allow tests to be written since NetworkTable is final and cannot be mocked
     LimeLightVision(boolean DO_NOT_USE_FOR_TESTING_ONLY, double cameraHeight, double targetHeight, double cameraAngle) {
-        this.cameraHeight = cameraHeight;
-        this.targetHeight = targetHeight;
+        this.relativeHeight = targetHeight - cameraHeight;
         this.cameraAngle = cameraAngle;
     }
 
@@ -66,7 +64,16 @@ public class LimeLightVision {
         double x = tx.getDouble(0.0);
         double y = ty.getDouble(0.0);
 
-        return calcCameraDistance(x, y, targetHeight, cameraHeight, cameraAngle);
+        return calcCameraDistance(x, y);
+    }
+
+    /**
+     * Return true if the limelight has a target
+     * 
+     * @return true if the camera has a target
+     */
+    public boolean hasTarget() {
+        return (tv.getDouble(0.0) > 0);
     }
 
     /**
@@ -121,21 +128,21 @@ public class LimeLightVision {
     /**
      * Internal utility to calculate the distances, in inches, from the camera based off of the viewed angles
      */
-    CameraDistance calcCameraDistance(double angleX, double angleY, double targetHeight, double cameraHeight, double cameraAngle) {
-        double forwardDistance = (targetHeight - cameraHeight) / Math.tan(Math.toRadians(cameraAngle + angleY));
+    private CameraDistance calcCameraDistance(double angleX, double angleY) {
+        double forwardDistance = (relativeHeight) / Math.tan(Math.toRadians(cameraAngle + angleY));
         double sidewaysDistance = forwardDistance * Math.tan(Math.toRadians(angleX));
 
         return new CameraDistance(forwardDistance, sidewaysDistance);
     } 
 
     public double calcDirectDistanceToTarget (double angleY){
-        double h = (targetHeight - cameraHeight)/Math.sin(Math.toRadians(cameraAngle+angleY));
+        double h = (relativeHeight)/Math.sin(Math.toRadians(cameraAngle+angleY));
         return h;
     } 
 
     public double calcHorizontalDistanceToTarget (double angleY){
 		/*Assumes y offset from camera is in degrees*/
-        double horizontal = (targetHeight - cameraHeight)/Math.tan(Math.toRadians(cameraAngle+angleY));  
+        double horizontal = (relativeHeight)/Math.tan(Math.toRadians(cameraAngle+angleY));  
 		return horizontal;
     } 
     

@@ -1,7 +1,8 @@
-package frc.robot.commands;
+package frc.robot.commands.DriveCommands;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
+import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.utils.SmartShuffleboard;
 

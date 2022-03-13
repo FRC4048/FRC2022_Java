@@ -7,21 +7,23 @@ package frc.robot.commands.ShooterCommands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.Shooter;
 import frc.robot.commands.LoggedCommandBase;
 
-public class RotateShooterMotor extends LoggedCommandBase {
+import frc.robot.subsystems.ShooterSubsystem;
+
+public class StartShooterMotor extends CommandBase {
   /** Creates a new RotateShooterMotor. */
-  private Shooter shooterSubsytem;
+  private ShooterSubsystem shooterSubsystem;
   private double speed;
-  private double initTime;
+  private double initTime, timeout;
 
-  public RotateShooterMotor(Shooter shooterSubsytem, double speed) {
+  public StartShooterMotor(ShooterSubsystem shooterSubsystem, double speed, double timeout) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.shooterSubsytem = shooterSubsytem;
+    this.shooterSubsystem = shooterSubsystem;
     this.speed = speed;
+    this.timeout = timeout;
 
-    addRequirements(shooterSubsytem);
+    addRequirements(shooterSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -33,19 +35,19 @@ public class RotateShooterMotor extends LoggedCommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterSubsytem.setShooterSpeed(speed);
+    shooterSubsystem.setShooterSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooterSubsytem.stopShooter();
+    shooterSubsystem.stopShooter();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (Timer.getFPGATimestamp() - initTime >= Constants.SHOOTER_TIMEOUT) {
+    if (Timer.getFPGATimestamp() - initTime >= timeout) {
       return true;
   }
     return false;

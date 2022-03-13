@@ -1,16 +1,16 @@
-package frc.robot.commands.intakecommands;
+package frc.robot.commands.IntakeCommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class DeployIntakeCommand extends LoggedCommandBase {
+public class RaiseIntakeCommand extends LoggedCommandBase {
   private IntakeSubsystem intakeSubsystem;
 
   /**
    * Creates a new IntakeCommand.
    */
-  public DeployIntakeCommand(IntakeSubsystem intakeSubsystem) {
+  public RaiseIntakeCommand(IntakeSubsystem intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intakeSubsystem = intakeSubsystem;
     addRequirements(intakeSubsystem);
@@ -19,7 +19,7 @@ public class DeployIntakeCommand extends LoggedCommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intakeSubsystem.deployPiston();
+    intakeSubsystem.retractPiston();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -38,3 +38,4 @@ public class DeployIntakeCommand extends LoggedCommandBase {
     return true;
   }
 }
+

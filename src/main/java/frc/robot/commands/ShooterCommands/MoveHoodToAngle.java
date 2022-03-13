@@ -1,5 +1,6 @@
 package frc.robot.commands.ShooterCommands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.commands.LoggedCommandBase;
@@ -10,6 +11,7 @@ public class MoveHoodToAngle extends LoggedCommandBase {
     private double angle;
     private boolean moveDown;
     private boolean atAngle = false;
+    private double startTime;
     
 
     public MoveHoodToAngle(Hood hood,double angle) {
@@ -20,7 +22,7 @@ public class MoveHoodToAngle extends LoggedCommandBase {
 
     public void initialize() {
         addLog(angle);
-
+        startTime = Timer.getFPGATimestamp();
         if (hood.getPotentiometer() > angle){
             if (hood.getPotentiometer() - angle < Constants.HOOD_MARGIN_OF_ERROR) {
                 atAngle = false;
@@ -68,7 +70,8 @@ public class MoveHoodToAngle extends LoggedCommandBase {
                 return true;
             }
             else {
-                return false;
+                return ((Timer.getFPGATimestamp() - startTime) >= Constants.HOOD_MOTOR_TIMEOUT);
+               
             }
         }
     }

@@ -1,4 +1,4 @@
-package frc.robot.commands.intakecommands;
+package frc.robot.commands.IntakeCommand;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.WaitCommand;
@@ -10,9 +10,10 @@ public class IntakeSequence extends SequentialCommandGroup {
   /**
    * Creates a new IntakeCommand.
    */
+  IntakeSubsystem intakeSubsystem;
   public IntakeSequence(IntakeSubsystem intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intakeSubsystem);
+    this.intakeSubsystem = intakeSubsystem;
 
     addCommands(
         new LogCommandWrapper(new DeployIntakeCommand(intakeSubsystem)),
@@ -38,8 +39,9 @@ public class IntakeSequence extends SequentialCommandGroup {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-      super.end(interrupted);
+  public void end(boolean interrupted) { 
+    new LogCommandWrapper(new RaiseIntakeCommand(intakeSubsystem));
+    super.end(interrupted);
   }
 }
 
