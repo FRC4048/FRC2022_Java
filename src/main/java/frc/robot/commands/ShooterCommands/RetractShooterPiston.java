@@ -5,14 +5,14 @@
 package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ShooterSubsystem;
 
 public class RetractShooterPiston extends CommandBase {
   /** Creates a new RetractPiston. */
-  private Shooter shooterSubystem;
-  public RetractShooterPiston(Shooter shooterSubystem) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    this.shooterSubystem = shooterSubystem;
+  private ShooterSubsystem shooterSubsystem;
+  public RetractShooterPiston(ShooterSubsystem shooterSubsystem) {
+    // DO NOT add sybsystem requirement here, as it would get in the way of the motor command
+    this.shooterSubsystem = shooterSubsystem;
   }
 
   // Called when the command is initially scheduled.
@@ -22,7 +22,7 @@ public class RetractShooterPiston extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterSubystem.retractPiston();
+    shooterSubsystem.retractPiston();
   }
 
   // Called once the command ends or is interrupted.

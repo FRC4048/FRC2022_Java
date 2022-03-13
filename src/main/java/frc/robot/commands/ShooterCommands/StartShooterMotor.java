@@ -9,35 +9,32 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ToggleShooterMotor extends CommandBase {
-  /** Creates a new SpinShooter. */
+public class StartShooterMotor extends CommandBase {
+  /** Creates a new RotateShooterMotor. */
   private ShooterSubsystem shooterSubsystem;
-  private double startTime;
-  public ToggleShooterMotor(ShooterSubsystem shooterSubsystem) {
+  private double speed;
+  private double initTime, timeout;
+
+  public StartShooterMotor(ShooterSubsystem shooterSubsystem, double speed, double timeout) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooterSubsystem = shooterSubsystem;
-    addRequirements(shooterSubsystem);
+    this.speed = speed;
+    this.timeout = timeout;
 
+    addRequirements(shooterSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooterSubsystem.setRunning(!shooterSubsystem.isRunning());
-    startTime = Timer.getFPGATimestamp();
+    initTime = Timer.getFPGATimestamp();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (shooterSubsystem.isRunning()) {
-      shooterSubsystem.setShooterSpeed(Constants.SHOOTER_CLOCKWISE_SPEED);
-    } else {
-      shooterSubsystem.stopShooter();
-    }
+    shooterSubsystem.setShooterSpeed(speed);
   }
-
-  
 
   // Called once the command ends or is interrupted.
   @Override
@@ -48,6 +45,9 @@ public class ToggleShooterMotor extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return((Timer.getFPGATimestamp() - startTime) >= Constants.SHOOTER_TIMEOUT);
+    if (Timer.getFPGATimestamp() - initTime >= timeout) {
+      return true;
+  }
+    return false;
   }
 }

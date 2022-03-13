@@ -5,14 +5,15 @@
 package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ShooterSubsystem;
 
 public class ExtendShooterPiston extends CommandBase {
   /** Creates a new RaisePiston. */
-  private Shooter shooterSubsystem;
-  public ExtendShooterPiston(Shooter shooterSubsystem) {
-    // Use addRequirements() here to declare subsystem dependencies.
+  private ShooterSubsystem shooterSubsystem;
+  public ExtendShooterPiston(ShooterSubsystem shooterSubsystem) {
+    // DO NOT add sybsystem requirement here, as it would get in the way of the motor command
     this.shooterSubsystem = shooterSubsystem;
+
   }
 
   // Called when the command is initially scheduled.

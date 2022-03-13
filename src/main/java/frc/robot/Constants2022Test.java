@@ -20,16 +20,27 @@ public interface Constants2022Test extends GameConstants {
     public static final int SHOOTER_MOTOR_ID = 5; //Placeholder
     public static final int TURRET_MOTOR_ID = 10;
     public static final int HOOD_MOTOR_ID = 10;
+    public static final int CLIMBER_RIGHT_WINCH_ID = 1;
+    public static final int CLIMBER_LEFT_WINCH_ID = 2;
+    public static final int CLIMBER_RIGHT_ARM_ID = 5;
+    public static final int CLIMBER_LEFT_ARM_ID = 10;
 
     //PDP
     public static final int PDP_DRIVE_L1 = 13; //Placeholder
     public static final int PDP_DRIVE_L2 = 15; //Placeholder
     public static final int PDP_DRIVE_R1 = 0; //Placeholder
     public static final int PDP_DRIVE_R2 = 1; //Placeholder
+    public static final int PDP_CLIMBER_L_WINCH = 50;
+    public static final int PDP_CLIMBER_R_WINCH = 51;
+    public static final int PDP_CLIMBER_L_ARM = 52;
+    public static final int PDP_CLIMBER_R_ARM = 53;
 
     //DIO
     public static final int INTAKE_SENSOR_ID_1 = 0; //temp
     public static final int INTAKE_SENSOR_ID_2 = 1;
+
+    //AIO 
+    public static final int HOOD_POTENTIOMETER = 7;
 
     //Relay
 
@@ -37,6 +48,8 @@ public interface Constants2022Test extends GameConstants {
     public static final int SHOOTER_PISTON_ID = 3; //Placeholder
     public static final int INTAKE_SOLENOID_1 = 0;
     public static final int INTAKE_SOLENOID_2 = 4;  
+    public static final int CLIMBER_L_PISTON_ID = 6;
+    public static final int CLIMBER_R_PISTON_ID = 7;
 
     // Elevator
     public static final int ELEVATOR_PISON_ID = 3;
@@ -44,7 +57,6 @@ public interface Constants2022Test extends GameConstants {
     //Pigeon
     public static final int PIGEON_CAN_ID = 7;
 
-    // LIMELIGHT
-    public static final int LIMELIGHT_TARGET_DETECTION = 1;
-    public static final int LIMELIGHT_STREAMING = 0;   
+    // Limelight
+    public static final String LIMELIGHT_IP_ADDR = "10.40.48.34";
 }
