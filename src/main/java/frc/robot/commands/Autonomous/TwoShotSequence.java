@@ -6,7 +6,6 @@ package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.AutoTargetSequence;
-import frc.robot.commands.SetShootingPosition;
 import frc.robot.commands.ShootSequence;
 import frc.robot.commands.drive.MoveDistance;
 import frc.robot.commands.intakecommands.IntakeSequence;
@@ -26,7 +25,7 @@ public class TwoShotSequence extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new SetShootingPosition(TurretSubsystem, TurretSpeed, HoodSubsystem, HoodSpeed),
+      //new SetShootingPosition(TurretSubsystem, TurretSpeed, HoodSubsystem, HoodSpeed),
       new ShootSequence(IntakeSubsystem, Shooter),
       new IntakeSequence(IntakeSubsystem),
       new MoveDistance(DriveTrain, DriveTrainSpeed, distanceInches),
