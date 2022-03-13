@@ -1,13 +1,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.utils.SmartShuffleboard;
 
 
-public class TurnDegrees extends LoggedCommand{
+public class TurnDegrees extends LoggedCommandBase{
     private final double ANGLE_THRESHOLD = 2;
     private final double MAX_SPEED = 0.5;
     private final double MIN_SPEED = 0.2;   
@@ -27,11 +26,11 @@ public class TurnDegrees extends LoggedCommand{
         addLog(requiredAngle);
     }
 
-    public void loggedInitialize(){
+    public void initialize(){
       startTime  = Timer.getFPGATimestamp();
     }
 
-    public void loggedExecute(){
+    public void execute(){
         currAngle = driveTrain.getAngle();
         double angleError = requiredAngle-currAngle;
 
@@ -59,11 +58,11 @@ public class TurnDegrees extends LoggedCommand{
     }
     
     @Override
-    public void loggedEnd(boolean interrupted){
+    public void end(boolean interrupted){
         driveTrain.drive(0, 0, false);
     }
     @Override
-    public boolean loggedIsFinished(){
+    public boolean isFinished(){
       double elapsedTime = Timer.getFPGATimestamp() - startTime;
 
       return (Math.abs(currAngle - requiredAngle) <= ANGLE_THRESHOLD) || (elapsedTime >= MAXIMUM_TIME_S);

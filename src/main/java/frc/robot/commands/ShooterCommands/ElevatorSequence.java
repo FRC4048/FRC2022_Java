@@ -19,10 +19,10 @@ public class ElevatorSequence extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new WaitCommand(Constants.SHOOTER_PISTON_WAIT),
-      new ExtendShooterPiston(shooterSubsystem), 
-      new WaitCommand(Constants.SHOOTER_PISTON_WAIT),
-      new RetractShooterPiston(shooterSubsystem)
+      new LogCommandWrapper(new WaitCommand(Constants.SHOOTER_PISTON_WAIT)),
+      new LogCommandWrapper(new ExtendShooterPiston(shooterSubsystem)), 
+      new LogCommandWrapper(new WaitCommand(Constants.SHOOTER_PISTON_WAIT)),
+      new LogCommandWrapper(new RetractShooterPiston(shooterSubsystem))
     );
   }
 }

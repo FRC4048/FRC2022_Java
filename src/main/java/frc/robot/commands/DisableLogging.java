@@ -7,9 +7,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
-public class EnableLogging extends CommandBase {
-  /** Creates a new EnableLogging. */
-  public EnableLogging() {
+public class DisableLogging extends CommandBase {
+  /** Creates a new DisableLogging. */
+  public DisableLogging() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -20,7 +20,7 @@ public class EnableLogging extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.setIsLogging(true);
+    Robot.setIsLogging(false);
   }
 
   // Called once the command ends or is interrupted.

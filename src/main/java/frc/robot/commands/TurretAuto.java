@@ -6,7 +6,7 @@ import frc.robot.Constants;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.utils.limelight.LimeLightVision;
 
-public class TurretAuto extends LoggedCommand {
+public class TurretAuto extends LoggedCommandBase {
     private TurretSubsystem turretSubsystem;      
     //offset 
     private LimeLightVision limeLight;
@@ -23,7 +23,7 @@ public class TurretAuto extends LoggedCommand {
     }
 
     @Override
-    public void loggedInitialize() {
+    public void initialize() {
        
         if (limeLight.getCameraAngles().getTx()>=0) {
             positive = true;
@@ -34,7 +34,7 @@ public class TurretAuto extends LoggedCommand {
     }
 
     @Override
-    public void loggedExecute() {
+    public void execute() {
         if (positive) {
             turretSubsystem.setTurret(Constants.SHOOTER_CLOCKWISE_SPEED);
         }
@@ -45,13 +45,13 @@ public class TurretAuto extends LoggedCommand {
     }
 
     @Override
-    public void loggedEnd(boolean interrupted) {
+    public void end(boolean interrupted) {
         addLog(limeLight.getCameraAngles().getTx());
         turretSubsystem.stopTurret();
     }
 
     @Override
-    public boolean loggedIsFinished() {
+    public boolean isFinished() {
 
         if (limeLight.getCameraAngles() == null){
             return true;

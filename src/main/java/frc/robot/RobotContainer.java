@@ -46,6 +46,7 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.limelight.LimeLightVision;
+import frc.robot.utils.logging.LogCommandWrapper;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -124,17 +125,17 @@ public class RobotContainer {
     SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
     SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
 
-    buttonA.whenPressed(new IntakeSequence(intakeSubsystem));
-    buttonB.whenPressed(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED));
-    buttonB.whenReleased(new ManuallyRunIntakeMotor(intakeSubsystem, 0));
-    buttonY.whenPressed(new ManuallyToggleIntake(intakeSubsystem));
+    buttonA.whenPressed(new LogCommandWrapper(new IntakeSequence(intakeSubsystem)));
+    buttonB.whenPressed(new LogCommandWrapper(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED)));
+    buttonB.whenReleased(new LogCommandWrapper(new ManuallyRunIntakeMotor(intakeSubsystem, 0)));
+    buttonY.whenPressed(new LogCommandWrapper(new ManuallyToggleIntake(intakeSubsystem)));
 
-    rightTrigger.whenActive(new ShooterParallelSequeunce(shooterSubsystem));
-    leftTrigger.whenActive(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
-    buttonX.whenPressed(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
-    rightBumper.whenPressed(new PistonSequence(intakeSubsystem, shooterSubsystem));
-    leftBumper.whenPressed(new ToggleShooterMotor(shooterSubsystem));
-    leftBumper.whenReleased(new ToggleShooterMotor(shooterSubsystem));
+    rightTrigger.whenActive(new LogCommandWrapper(new ShooterParallelSequeunce(shooterSubsystem)));
+    leftTrigger.whenActive(new LogCommandWrapper(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood)));
+    buttonX.whenPressed(new LogCommandWrapper(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood)));
+    rightBumper.whenPressed(new LogCommandWrapper(new PistonSequence(intakeSubsystem, shooterSubsystem)));
+    leftBumper.whenPressed(new LogCommandWrapper(new ToggleShooterMotor(shooterSubsystem)));
+    leftBumper.whenReleased(new LogCommandWrapper(new ToggleShooterMotor(shooterSubsystem)));
     startButton.whenPressed(new LogError());
   }
 

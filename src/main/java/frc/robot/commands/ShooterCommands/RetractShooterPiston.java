@@ -5,10 +5,10 @@
 package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.commands.LoggedCommand;
+import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.Shooter;
 
-public class RetractShooterPiston extends LoggedCommand {
+public class RetractShooterPiston extends LoggedCommandBase {
   /** Creates a new RetractPiston. */
   private Shooter shooterSubsystem;
   
@@ -19,21 +19,21 @@ public class RetractShooterPiston extends LoggedCommand {
 
   // Called when the command is initially scheduled.
   @Override
-  public void loggedInitialize() {}
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void loggedExecute() {
+  public void execute() {
     shooterSubsystem.retractPiston();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void loggedEnd(boolean interrupted) {}
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
-  public boolean loggedIsFinished() {
+  public boolean isFinished() {
     return true;
   }
 }
