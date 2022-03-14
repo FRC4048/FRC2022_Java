@@ -5,17 +5,22 @@
 package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.DriveCommands.MoveDistance;
-import frc.robot.subsystems.DriveTrain;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.TurretCommands.RunTurretUntilLimitSwitch;
+import frc.robot.subsystems.TurretSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class CrossTheLineSequence extends SequentialCommandGroup {
-  /** Creates a new CrossTheLineSequence. */
-  public CrossTheLineSequence(DriveTrain DriveTrain, double speed, double distanceInches) {
+public class AutoSetShootingPosition extends SequentialCommandGroup {
+  /** Creates a new AutoSetShootingPositionSequence. */
+  public AutoSetShootingPosition(TurretSubsystem TurretSubsystem, double speed, double Angle) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new MoveDistance(DriveTrain, speed, distanceInches));
+    addCommands(
+      new RunTurretUntilLimitSwitch(TurretSubsystem),
+      new WaitCommand(1),
+      new AutoSetTurretPosition(TurretSubsystem, speed, Angle)
+    );
   }
 }
