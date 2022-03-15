@@ -71,5 +71,6 @@ public interface GameConstants {
   public static final int TURRET_AUTO_BAD_READINGS_TRESHOLD = 5;
   public static final double TURRET_AUTO_ALIGN_TRESHOLD = 3; //change when testing
   public static final double TURRET_AUTO_TIMEOUT = 5;
+  public static final double TURRET_SPEED = 0.5;
   
 }
