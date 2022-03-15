@@ -11,9 +11,12 @@ public class ToggleBlockerPiston extends CommandBase {
   /** Creates a new ExtendBlockerPiston. */
   private ShooterSubsystem shooter;
 
-  public ToggleBlockerPiston(ShooterSubsystem shooter) {
+  private boolean desiredDirection = false;
+
+  public ToggleBlockerPiston(ShooterSubsystem shooter, boolean desiredDirection) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooter = shooter;
+    this.desiredDirection = desiredDirection;
   }
 
   // Called when the command is initially scheduled.
@@ -23,7 +26,7 @@ public class ToggleBlockerPiston extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.setBlockPiston();
+    shooter.setBlockPiston(desiredDirection);
   }
 
   // Called once the command ends or is interrupted.
