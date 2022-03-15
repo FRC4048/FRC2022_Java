@@ -57,8 +57,7 @@ public interface GameConstants {
   public static final double CLIMBER_WINCH_TIMEOUT = 10;
 
   //Shooter
-  public static final double SHOOTER_CLOCKWISE_SPEED = 0.5;
-  public static final double SHOOTER_COUNTERCLOCKWISE_SPEED = -0.5;
+  public static final double SHOOTER_SPEED = 0.5;
   public static final double PISTON_DELAY = 0.5;
   public static final double SHOOTER_SPINUP_DELAY = 1;
   public static final int SHOOTER_PISTON_WAIT = 1;
@@ -69,5 +68,8 @@ public interface GameConstants {
 
   //Turret
   public static final double TURRETSPIN_SCALEFACTOR = 0.5;
+  public static final int TURRET_AUTO_BAD_READINGS_TRESHOLD = 5;
+  public static final double TURRET_AUTO_ALIGN_TRESHOLD = 3; //change when testing
+  public static final double TURRET_AUTO_TIMEOUT = 5;
   
 }
