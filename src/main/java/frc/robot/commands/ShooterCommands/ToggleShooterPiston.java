@@ -4,7 +4,6 @@
 
 package frc.robot.commands.ShooterCommands;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -16,8 +15,6 @@ public class ToggleShooterPiston extends LoggedCommandBase {
   public ToggleShooterPiston(ShooterSubsystem shooterSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooterSubsytem = shooterSubsystem;
-    addRequirements(shooterSubsystem);
-
   }
 
   // Called when the command is initially scheduled.

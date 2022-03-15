@@ -24,7 +24,7 @@ public interface GameConstants {
   //Timeouts
   public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
   public static final int RAISED_INTAKE_TIMEOUT = 3;
-  public static final int SHOOTER_TIMEOUT = 5;
+  public static final int SHOOTER_TIMEOUT = 4;
   public static final double HOOD_MOTOR_TIMEOUT = 5;
   public static final double TURRETSPIN_TIMEOUT = 5;
   public static final double MOVEDISTANCE_TIMEOUT = 10;
