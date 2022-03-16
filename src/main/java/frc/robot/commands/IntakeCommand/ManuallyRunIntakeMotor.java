@@ -2,10 +2,11 @@ package frc.robot.commands.IntakeCommand;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.commands.LoggedCommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class ManuallyRunIntakeMotor extends CommandBase {
+public class ManuallyRunIntakeMotor extends LoggedCommandBase {
     private IntakeSubsystem intakeSubsystem;
     private double motorSpeed;
     private double startTime;

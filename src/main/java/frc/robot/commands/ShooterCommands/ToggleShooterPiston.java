@@ -6,9 +6,10 @@ package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ToggleShooterPiston extends CommandBase {
+public class ToggleShooterPiston extends LoggedCommandBase {
   /** Creates a new TogglePiston. */
   private ShooterSubsystem shooterSubsytem;
 

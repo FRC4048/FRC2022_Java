@@ -6,9 +6,10 @@ package frc.robot.commands.Miscellaneous;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.commands.LoggedCommandBase;
 import frc.robot.utils.limelight.LimeLightVision;
 
-public class SetLEDOff extends CommandBase {
+public class SetLEDOff extends LoggedCommandBase {
   /** Creates a new SetLEDOff. */
   public SetLEDOff() {
     // Use addRequirements() here to declare subsystem dependencies.

@@ -6,8 +6,10 @@ package frc.robot.commands.Miscellaneous;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.commands.LoggedCommandBase;
+import frc.robot.utils.limelight.LimeLightVision;
 
-public class SetPipeline extends CommandBase {
+public class SetPipeline extends LoggedCommandBase {
   private int pipeline;
   
   /** Creates a new SetPipeline0. */
@@ -18,7 +20,9 @@ public class SetPipeline extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    addLog(pipeline);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

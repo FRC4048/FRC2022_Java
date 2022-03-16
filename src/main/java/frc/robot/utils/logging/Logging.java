@@ -119,12 +119,12 @@ public class Logging {
 
     private final void writeData() {
       counter += 1;
-      if ((DriverStation.getInstance().isEnabled() && (counter % LOGGING_FREQ == 0)) || writeTitles) {
+      if ((DriverStation.isEnabled() && (counter % LOGGING_FREQ == 0)) || writeTitles) {
         final double now = Timer.getFPGATimestamp();
         sb.setLength(0);
         sb.append(df3.format(now));
         sb.append(COMMA);
-        if (DriverStation.getInstance().isDisabled())
+        if (DriverStation.isDisabled())
           sb.append(0);
         else
           sb.append(df3.format(now - startTime));
@@ -187,7 +187,7 @@ public class Logging {
     final StringBuilder sb = new StringBuilder();
     sb.append(df3.format(now));
     sb.append(COMMA);
-    if (DriverStation.getInstance().isDisabled())
+    if (DriverStation.isDisabled())
       sb.append(0);
     else
       sb.append(df3.format(now - startTime));

@@ -3,9 +3,10 @@ package frc.robot.commands.ShooterCommands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.Hood;
 
-public class MoveHoodToAngle extends CommandBase {
+public class MoveHoodToAngle extends LoggedCommandBase {
     private Hood hood;
     private double angle;
     private boolean moveDown;
@@ -20,15 +21,16 @@ public class MoveHoodToAngle extends CommandBase {
     }
 
     public void initialize() {
+        addLog(angle);
         startTime = Timer.getFPGATimestamp();
         if (hood.getPotentiometer() > angle){
-            if (hood.getPotentiometer() - angle < 1) {
+            if (hood.getPotentiometer() - angle < Constants.HOOD_MARGIN_OF_ERROR) {
                 atAngle = false;
             }
             moveDown = true;
         }
         else {
-            if (hood.getPotentiometer() - angle > -1) {
+            if (hood.getPotentiometer() - angle > -Constants.HOOD_MARGIN_OF_ERROR) {
                 atAngle = true;
             }
             moveDown = false;
@@ -42,19 +44,19 @@ public class MoveHoodToAngle extends CommandBase {
                 hood.setHood(Constants.HOOD_MOTOR_SPEED);
             }
             else {
-                hood.setHood(Constants.HOOD_MOTOR_SPEED * -1);
+                hood.setHood(-Constants.HOOD_MOTOR_SPEED);
             }
         }
     }
         
     @Override
     public void end(boolean interrupted) {
+        addLog(hood.getPotentiometer() - angle);
         hood.setHood(0);
     }
 
     @Override
     public boolean isFinished() {
-        
         if (moveDown == true) {
             if (hood.getPotentiometer() <= angle) {
                 return true;

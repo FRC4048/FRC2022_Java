@@ -12,7 +12,7 @@ public class TurretManualCommand extends CommandBase {
     private DoubleSupplier joystickInput;
 
     public TurretManualCommand(TurretSubsystem turretSubsystem, DoubleSupplier joystickXAxis) {
-        joystickInput=joystickXAxis;
+        joystickInput = joystickXAxis;
         addRequirements(turretSubsystem);
         this.turretSubsystem = turretSubsystem;
       
@@ -37,6 +37,4 @@ public class TurretManualCommand extends CommandBase {
         return false;
 
     }
-
-
-  }
+}
