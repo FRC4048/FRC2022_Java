@@ -31,7 +31,7 @@ public class ToggleShooterMotor extends CommandBase {
   @Override
   public void execute() {
     if (shooterSubsystem.isRunning()) {
-      shooterSubsystem.setShooterSpeed(Constants.SHOOTER_CLOCKWISE_SPEED);
+      shooterSubsystem.setShooterSpeed(Constants.SHOOTER_SPEED);
     } else {
       shooterSubsystem.stopShooter();
     }

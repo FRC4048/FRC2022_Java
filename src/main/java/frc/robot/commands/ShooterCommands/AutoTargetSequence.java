@@ -5,9 +5,9 @@
 package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.HoodCommands.HoodAutoCommand;
+import frc.robot.commands.AutoTargetParallel;
+import frc.robot.commands.WaitCommand;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
-import frc.robot.commands.TurretCommands.TurretAuto;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.utils.SmartShuffleboard;
