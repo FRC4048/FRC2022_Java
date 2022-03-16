@@ -1,12 +1,11 @@
-package frc.robot.commands.intakecommands;
+package frc.robot.commands.IntakeCommand;
 
-import frc.robot.Constants;
-import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.subsystems.IntakeSubsystem;
 
-/** An example command that uses an example subsystem. */
-public class IntakeBallCommand extends CommandBase {
+public class DropBallCommand extends CommandBase {
   private IntakeSubsystem intakeSubsystem;
   private double initTime;
 
@@ -15,7 +14,7 @@ public class IntakeBallCommand extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeBallCommand(IntakeSubsystem intakeSubsystem) {
+  public DropBallCommand(IntakeSubsystem intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intakeSubsystem);
     this.intakeSubsystem = intakeSubsystem;
@@ -42,9 +41,7 @@ public class IntakeBallCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (intakeSubsystem.isBallInIntake() || (Timer.getFPGATimestamp() - initTime) >= Constants.DEPLOYED_INTAKE_TIMEOUT) {
-      return true;
-    }
-    return false;
+    return (!intakeSubsystem.isBallInIntake() || (Timer.getFPGATimestamp() - initTime) >= Constants.RAISED_INTAKE_TIMEOUT);
+
   }
 }

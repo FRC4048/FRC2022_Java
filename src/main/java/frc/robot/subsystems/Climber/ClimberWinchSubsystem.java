@@ -8,25 +8,29 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.utils.diag.DiagTalonSrxEncoder;
+import frc.robot.utils.diag.DiagTalonSrxSwitch;
 
 public class ClimberWinchSubsystem extends SubsystemBase {
   /** Creates a new ClimberWinchSubsystem. */
-  private TalonSRX leftWinch, rightWinch;
-  private DigitalInput leftTopSwitch, leftBotSwitch, rightTopSwitch, rightBotSwitch;
+  private WPI_TalonSRX leftWinch, rightWinch;
   public ClimberWinchSubsystem() {
-    leftWinch = new TalonSRX(Constants.CLIMBER_LEFT_WINCH_ID);
-    rightWinch = new TalonSRX(Constants.CLIMBER_RIGHT_WINCH_ID);
+    leftWinch = new WPI_TalonSRX(Constants.CLIMBER_LEFT_WINCH_ID);
+    rightWinch = new WPI_TalonSRX(Constants.CLIMBER_RIGHT_WINCH_ID);
 
     leftWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     rightWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 
-
-
+    Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Left Winch Encoder", 100, leftWinch));
+    Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Right Winch Encoder", 100, rightWinch));
+    Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Left Winch Forward Switch", leftWinch, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
+    Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Right Winch Forward Switch", rightWinch, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
+  
     leftWinch.setNeutralMode(NeutralMode.Brake);
     rightWinch.setNeutralMode(NeutralMode.Brake);
 
