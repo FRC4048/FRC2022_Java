@@ -1,4 +1,4 @@
-package frc.robot.commands.ShooterCommands;
+package frc.robot.commands.HoodCommands;
 
 import java.util.function.DoubleSupplier;
 

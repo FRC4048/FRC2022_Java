@@ -17,6 +17,10 @@ import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.ToggleClimberSolenoid;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.DriveCommands.TurnDegrees;
+import frc.robot.commands.HoodCommands.HoodAutoCommand;
+import frc.robot.commands.HoodCommands.MoveHoodDown;
+import frc.robot.commands.HoodCommands.MoveHoodToAngle;
+import frc.robot.commands.HoodCommands.MoveHoodUp;
 import frc.robot.commands.IntakeCommand.DeployIntakeCommand;
 import frc.robot.commands.IntakeCommand.DropBallCommand;
 import frc.robot.commands.IntakeCommand.IntakeBallCommand;
@@ -31,8 +35,6 @@ import frc.robot.commands.ShooterCommands.AutoTargetSequence;
 import frc.robot.commands.ShooterCommands.ElevatorSequence;
 import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
 import frc.robot.commands.ShooterCommands.ManuallyMoveHood;
-import frc.robot.commands.ShooterCommands.MoveHoodDown;
-import frc.robot.commands.ShooterCommands.MoveHoodUp;
 import frc.robot.commands.ShooterCommands.RetractShooterPiston;
 import frc.robot.commands.ShooterCommands.ShooterParallelSequeunce;
 import frc.robot.commands.ShooterCommands.StartShooterMotor;
@@ -219,7 +221,11 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Hood", "Move Hood Down", new MoveHoodDown(hood));
       SmartShuffleboard.putCommand("Hood", "Move Hood Up", new MoveHoodUp(hood));
 
- 
+      SmartShuffleboard.putCommand("Hood", "Move to 106", new MoveHoodToAngle(hood, 106.0));
+      SmartShuffleboard.putCommand("Hood", "Move to 120", new MoveHoodToAngle(hood, 120.0));
+      SmartShuffleboard.putCommand("Hood", "Move to 130", new MoveHoodToAngle(hood, 130.0));
+
+      SmartShuffleboard.putCommand("Hood", "Auto", new HoodAutoCommand(hood, limeLightVision.getLimeLightVision()));
     }
   }
 } 
