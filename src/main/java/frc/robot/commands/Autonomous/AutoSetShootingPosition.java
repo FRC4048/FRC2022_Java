@@ -14,13 +14,13 @@ import frc.robot.subsystems.TurretSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoSetShootingPosition extends SequentialCommandGroup {
   /** Creates a new AutoSetShootingPositionSequence. */
-  public AutoSetShootingPosition(TurretSubsystem TurretSubsystem, double speed, double Angle) {
+  public AutoSetShootingPosition(TurretSubsystem turretSubsystem, double speed, double angle) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new RunTurretUntilLimitSwitch(TurretSubsystem),
+      new RunTurretUntilLimitSwitch(turretSubsystem),
       new WaitCommand(1),
-      new AutoSetTurretPosition(TurretSubsystem, speed, Angle)
+      new AutoSetTurretPosition(turretSubsystem, speed, angle)
     );
   }
 }

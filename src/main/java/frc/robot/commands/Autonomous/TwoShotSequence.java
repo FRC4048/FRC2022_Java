@@ -18,15 +18,15 @@ import frc.robot.subsystems.TurretSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class TwoShotSequence extends SequentialCommandGroup {
   /** Creates a new Autonomous. */
-  public TwoShotSequence(TurretSubsystem TurretSubsystem, double TurretSpeed, double Angle, IntakeSubsystem IntakeSubsystem, DriveTrain DriveTrain, double Speed, double DistanceInches, ShooterSubsystem ShooterSubsystem) {
+  public TwoShotSequence(TurretSubsystem turretSubsystem, double turretSpeed, double angle, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, double speed, double distanceInches, ShooterSubsystem shooterSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new AutoSetShootingPosition(TurretSubsystem, TurretSpeed, Angle),
-      new ShooterParallelSequeunce(ShooterSubsystem, IntakeSubsystem),
-      new IntakeSequence(IntakeSubsystem),
-      new MoveDistance(DriveTrain, Speed, DistanceInches),
-      new ShooterParallelSequeunce(ShooterSubsystem, IntakeSubsystem)
+      new AutoSetShootingPosition(turretSubsystem, turretSpeed, angle),
+      new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem),
+      new IntakeSequence(intakeSubsystem),
+      new MoveDistance(driveTrain, speed, distanceInches),
+      new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem)
     );
   }
 }

@@ -10,21 +10,21 @@ import frc.robot.subsystems.TurretSubsystem;
 /*Use after using the CalibrateTurretEncoderSequence */
 public class AutoSetTurretPosition extends CommandBase {
   /** Creates a new AutoSetTurretPosition. */
-  private TurretSubsystem TurretSubsystem;
+  private TurretSubsystem turretSubsystem;
   private double speed;
-  private double Angle;
-  public AutoSetTurretPosition(TurretSubsystem TurretSubsystem, double speed, double Angle) {
-    this.TurretSubsystem = TurretSubsystem;
+  private double angle;
+  public AutoSetTurretPosition(TurretSubsystem turretSubsystem, double speed, double angle) {
+    this.turretSubsystem = turretSubsystem;
     this.speed = speed;
-    this.Angle = Angle;
+    this.angle = angle;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    TurretSubsystem.resetEncoder();
-    TurretSubsystem.setTurret(speed);
+    turretSubsystem.resetEncoder();
+    turretSubsystem.setTurret(speed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -34,13 +34,13 @@ public class AutoSetTurretPosition extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    TurretSubsystem.stopTurret();
+    turretSubsystem.stopTurret();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (TurretSubsystem.getEncoder() == Angle) {
+    if (turretSubsystem.getEncoder() == angle) {
       return true;
     }
     else {

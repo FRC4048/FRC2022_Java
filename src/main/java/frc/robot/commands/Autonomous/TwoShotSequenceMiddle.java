@@ -5,6 +5,7 @@
 package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.commands.DriveCommands.MoveDistance;
 import frc.robot.commands.IntakeCommand.IntakeSequence;
 import frc.robot.commands.ShooterCommands.ShooterParallelSequeunce;
@@ -18,16 +19,16 @@ import frc.robot.subsystems.TurretSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class TwoShotSequenceMiddle extends SequentialCommandGroup {
   /** Creates a new TwoShotSequenceMiddle. */
-  public TwoShotSequenceMiddle(TurretSubsystem TurretSubsystem, double TurretSpeed, double Angle, IntakeSubsystem IntakeSubsystem, DriveTrain DriveTrain, double Speed, double DistanceInches, ShooterSubsystem ShooterSubsystem) {
+  public TwoShotSequenceMiddle(TurretSubsystem turretSubsystem, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, ShooterSubsystem shooterSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new AutoSetShootingPosition(TurretSubsystem, TurretSpeed, Angle),
-      new ShooterParallelSequeunce(ShooterSubsystem, IntakeSubsystem),
-      new IntakeSequence(IntakeSubsystem),
-      new MoveDistance(DriveTrain, Speed, DistanceInches),
-      new AutoSetShootingPosition(TurretSubsystem, TurretSpeed, Angle),
-      new ShooterParallelSequeunce(ShooterSubsystem, IntakeSubsystem)
+      new AutoSetShootingPosition(turretSubsystem, Constants.AUTO_TURRET_SPEED, Constants.AUTO_MIDDLE_TURRET_ANGLE_FIRST_SHOT),
+      new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem),
+      new IntakeSequence(intakeSubsystem),
+      new MoveDistance(driveTrain, Constants.AUTO_MOVE_SPEED, Constants.AUTO_DISTANCE_INCHES),
+      new AutoSetShootingPosition(turretSubsystem, Constants.AUTO_TURRET_SPEED, Constants.AUTO_MIDDLE_TURRET_ANGLE_SECOND_SHOT),
+      new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem)
     );
   }
 }

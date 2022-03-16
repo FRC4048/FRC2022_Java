@@ -12,6 +12,10 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.Autonomous.CrossTheLineSequence;
+import frc.robot.commands.Autonomous.DoNothingSequence;
+import frc.robot.commands.Autonomous.TwoShotSequence;
+import frc.robot.commands.Autonomous.TwoShotSequenceMiddle;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.ToggleClimberSolenoid;
@@ -219,7 +223,12 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Hood", "Move Hood Down", new MoveHoodDown(hood));
       SmartShuffleboard.putCommand("Hood", "Move Hood Up", new MoveHoodUp(hood));
 
- 
+      SmartShuffleboard.putCommand("Autonomous", "Two Shot Left", new TwoShotSequence(turretSubsystem, Constants.AUTO_TURRET_SPEED, Constants.AUTO_LEFT_TURRET_ANGLE, intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED, Constants.AUTO_DISTANCE_INCHES, shooterSubsystem));
+      SmartShuffleboard.putCommand("Autonomous", "Two Shot Right", new TwoShotSequence(turretSubsystem, Constants.AUTO_TURRET_SPEED, Constants.AUTO_RIGHT_TURRET_ANGLE, intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED, Constants.AUTO_DISTANCE_INCHES, shooterSubsystem));
+      SmartShuffleboard.putCommand("Autonomous", "Two Shot Middle", new TwoShotSequenceMiddle(turretSubsystem, intakeSubsystem, driveTrain, shooterSubsystem));
+      SmartShuffleboard.putCommand("Autonomous", "Cross Line", new CrossTheLineSequence(driveTrain));
+      SmartShuffleboard.putCommand("Autonomous", "Do Nothing", new DoNothingSequence());
+
     }
   }
 } 
