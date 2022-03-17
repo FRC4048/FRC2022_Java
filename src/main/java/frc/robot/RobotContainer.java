@@ -163,8 +163,8 @@ public class RobotContainer {
     leftTrigger.whenActive(new TurretAuto(turretSubsystem, limeLightVision.getLimeLightVision()));
     buttonX.whenPressed(new ToggleBlockerPiston(shooterSubsystem, !shooterSubsystem.getBlockState()));
     rightBumper.whenPressed(new ElevatorSequence(shooterSubsystem, intakeSubsystem));
-    leftBumper.whenPressed(new ToggleShooterMotor(shooterSubsystem));
-    leftBumper.whenReleased(new ToggleShooterMotor(shooterSubsystem));
+    leftBumper.whenPressed(new StartShooterMotor(shooterSubsystem, 1, 4));
+    //leftBumper.whenReleased(new ToggleShooterMotor(shooterSubsystem));
 
 
   }

@@ -8,7 +8,9 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -25,25 +27,42 @@ public class ShooterSubsystem extends SubsystemBase {
   private CANSparkMax shooterMotor;
   private boolean isRunning;
   private Solenoid blockPiston;
+  private SparkMaxPIDController shooterPID;
 
   public ShooterSubsystem() {
     //climberSolenoid = new Solenoid(Constants.PCM_CAN_ID, Constants.CLIMBER_PISTON_ID);
     shooterSolenoid = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.SHOOTER_PISTON_ID);
     shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_ID, MotorType.kBrushless);
     blockPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.STOP_SOLENOID_ID);
+    shooterPID = shooterMotor.getPIDController();
     isRunning = false;
 
-    SmartDashboard.putNumber("DesiredSpeed", .85);
+
+    SmartDashboard.putNumber("DesiredSpeed", 12000);
+
 
     Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Shooter Encoder", 100, shooterMotor));
 
     shooterMotor.setIdleMode(IdleMode.kCoast);
     shooterMotor.setInverted(false);
+
+    shooterPID.setP(Constants.SHOOTER_PID_P);
+    shooterPID.setI(Constants.SHOOTER_PID_I);
+    shooterPID.setD(Constants.SHOOTER_PID_D);
+    shooterPID.setIZone(Constants.SHOOTER_PID_IZ);
+    shooterPID.setFF(Constants.SHOOTER_PID_FF);
+    shooterPID.setOutputRange(Constants.SHOOTER_MIN_OUTPUT, Constants.SHOOTER_MAX_OUTPUT);
   }
 
   public void setShooterSpeed(double speed) {
     shooterMotor.set(speed);
   }
+
+  public void setShooterRPM(double rpm) {
+    shooterPID.setReference(rpm, CANSparkMax.ControlType.kVelocity);
+  } 
+
+  
 
   public void stopShooter() {
     shooterMotor.set(0);

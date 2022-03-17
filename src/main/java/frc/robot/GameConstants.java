@@ -24,7 +24,7 @@ public interface GameConstants {
   //Timeouts
   public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
   public static final int RAISED_INTAKE_TIMEOUT = 3;
-  public static final int SHOOTER_TIMEOUT = 4;
+  public static final int SHOOTER_TIMEOUT = 12;
   public static final double HOOD_MOTOR_TIMEOUT = 5;
   public static final double TURRETSPIN_TIMEOUT = 5;
   public static final double MOVEDISTANCE_TIMEOUT = 10;
@@ -67,6 +67,18 @@ public interface GameConstants {
   public static final double PISTON_DELAY = 0.5;
   public static final double SHOOTER_SPINUP_DELAY = 1;
   public static final int SHOOTER_PISTON_WAIT = 1;
+  public static final double SHOOTER_RPM = 12000;
+
+  //Shooter PID
+  public static final double SHOOTER_PID_P = 6e-5;
+  public static final double SHOOTER_PID_I = 0;
+  public static final double SHOOTER_PID_D = 6e-6;
+  public static final double SHOOTER_PID_IZ = 0; 
+  public static final double SHOOTER_PID_FF = 0.000015;
+  public static final double SHOOTER_MAX_OUTPUT = 1;
+  public static final double SHOOTER_MIN_OUTPUT = -1;
+
+
 
   // Turret
   public static final double TURRET_CLOCKWISE_SPEED = .5;
