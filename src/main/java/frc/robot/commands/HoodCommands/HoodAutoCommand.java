@@ -26,10 +26,10 @@ public class HoodAutoCommand extends CommandBase {
 
   static {
     angleLookupMap = new HashMap<>();
-    angleLookupMap.put(6, 10.0);
-    angleLookupMap.put(7, 110.0);
-    angleLookupMap.put(8, 115.0);
-    angleLookupMap.put(9, 120.0);
+    angleLookupMap.put(10, 70.0);
+    angleLookupMap.put(11, 72.0);
+    angleLookupMap.put(9, 68.0);
+    angleLookupMap.put(8, 65.0);
   }
 
   public HoodAutoCommand(Hood hoodSubsystem, LimeLightVision vision) {
@@ -58,7 +58,7 @@ public class HoodAutoCommand extends CommandBase {
   }
 
   private static Double calculateAngle(LimeLightVision vision) {
-    double tempDistance = vision.calcHorizontalDistanceToTarget(vision.getCameraAngles().getTy());
+    double tempDistance = vision.calcHorizontalDistanceToTarget(vision.getCameraAngles().getTy()) / 12;
     int distance = (int)Math.round(tempDistance);
     return angleLookupMap.get(distance);
   }
