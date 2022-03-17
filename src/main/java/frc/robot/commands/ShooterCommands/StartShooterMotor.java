@@ -34,15 +34,14 @@ public class StartShooterMotor extends CommandBase {
   public void initialize() {
     initTime = Timer.getFPGATimestamp();
 
-    this.speed = SmartDashboard.getNumber("DesiredSpeed", .8);
 //    shooterSubsystem.setShooterSpeed(desiredSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.speed = SmartDashboard.getNumber("DesiredSpeed", .8);
-    shooterSubsystem.setShooterSpeed(speed);
+    this.speed = SmartDashboard.getNumber("DesiredSpeed", 12000);
+    shooterSubsystem.setShooterRPM(speed);
   }
 
   // Called once the command ends or is interrupted.
