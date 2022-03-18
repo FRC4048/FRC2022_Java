@@ -11,6 +11,7 @@ public class TurretAuto extends CommandBase {
     //offset 
     private LimeLightVision limeLight;
     private boolean positive;
+    private double speed;
     //Adjust speed as necessary when testing
     // private double clockwise = 0.5;    // now in constants
     // private double counterClockwise = -0.5;   // now in constants
@@ -35,11 +36,12 @@ public class TurretAuto extends CommandBase {
 
     @Override
     public void execute() {
+        speed = Math.abs(limeLight.getCameraAngles().getTx())/Constants.TURRET_MAX_DIFFERENCE*(Constants.TURRET_MAX_SPEED-Constants.TURRET_MIN_SPEED)+Constants.TURRET_MIN_SPEED;
         if (positive) {
-            turretSubsystem.setTurret(Constants.SHOOTER_CLOCKWISE_SPEED);
+            turretSubsystem.setTurret(speed);
         }
         else {
-            turretSubsystem.setTurret(Constants.SHOOTER_COUNTERCLOCKWISE_SPEED);
+            turretSubsystem.setTurret(-speed);
         } 
      
     }
