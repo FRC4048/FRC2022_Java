@@ -6,7 +6,6 @@ package frc.robot.commands.HoodCommands;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -25,6 +24,8 @@ public class HoodAutoCommand extends CommandBase {
   private boolean done;
 
   static {
+    // Conversion Map from feet to degrees
+    // Placeholder
     angleLookupMap = new HashMap<>();
     angleLookupMap.put(10, 70.0);
     angleLookupMap.put(11, 72.0);
