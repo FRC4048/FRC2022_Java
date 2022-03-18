@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.LogError;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.ToggleClimberSolenoid;
@@ -53,6 +54,7 @@ import frc.robot.subsystems.Climber.ClimberArmSubsystem;
 import frc.robot.subsystems.Climber.ClimberWinchSubsystem;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.limelight.LimeLightVision;
+import frc.robot.utils.logging.LogCommandWrapper;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -82,6 +84,7 @@ public class RobotContainer {
   private JoystickButton buttonX = new JoystickButton(xboxController, Constants.XBOX_X_BUTTON);
   private JoystickButton rightBumper = new JoystickButton(xboxController, Constants.XBOX_RIGHT_BUMPER);
   private JoystickButton leftBumper = new JoystickButton(xboxController, Constants.XBOX_LEFT_BUMPER);
+  private JoystickButton startButton = new JoystickButton(xboxController, Constants.XBOX_START_BUTTON);
   private Trigger rightTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
   private Trigger leftTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
 
@@ -147,23 +150,26 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    buttonA.whenPressed(new IntakeSequence(intakeSubsystem));
-    buttonB.whenPressed(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED));
-    buttonB.whenReleased(new ManuallyRunIntakeMotor(intakeSubsystem, 0));
 
+    SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
+    SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
+    SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
+    SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
+    SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
+
+    buttonA.whenPressed(new LogCommandWrapper(new IntakeSequence(intakeSubsystem)));
+    buttonB.whenPressed(new LogCommandWrapper(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED)));
+    buttonB.whenReleased(new LogCommandWrapper(new ManuallyRunIntakeMotor(intakeSubsystem, 0)));
+    buttonY.whenPressed(new LogCommandWrapper(new ManuallyToggleIntake(intakeSubsystem)));
+
+    rightTrigger.whenActive(new LogCommandWrapper(new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem)));
+    leftTrigger.whenActive(new LogCommandWrapper(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood)));
+    buttonX.whenPressed(new LogCommandWrapper(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood)));
+    leftBumper.whenPressed(new LogCommandWrapper(new ToggleShooterMotor(shooterSubsystem)));
+    leftBumper.whenReleased(new LogCommandWrapper(new ToggleShooterMotor(shooterSubsystem)));
+    startButton.whenPressed(new LogError());
 
     climberButtonA.whenPressed(new ToggleClimberSolenoid(climberArmSubsystem));
-
-
-    buttonY.whenPressed(new ManuallyToggleIntake(intakeSubsystem));
-
-
-    rightTrigger.whenActive(new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem));
-    leftTrigger.whenActive(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
-    buttonX.whenPressed(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
-    rightBumper.whenPressed(new ElevatorSequence(shooterSubsystem, intakeSubsystem));
-    leftBumper.whenPressed(new ToggleShooterMotor(shooterSubsystem));
-    leftBumper.whenReleased(new ToggleShooterMotor(shooterSubsystem));
   }
 
   public IntakeSubsystem getIntakeSubsystem() {

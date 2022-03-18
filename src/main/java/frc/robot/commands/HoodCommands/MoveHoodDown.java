@@ -4,17 +4,15 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.Hood;
 
-public class MoveHoodDown extends CommandBase {
+public class MoveHoodDown extends LoggedCommandBase {
     private Hood hood;
     private double startTimeMillis;
-    ;
-    
 
     public MoveHoodDown(Hood hood) {
         this.hood = hood;
-        
         addRequirements(hood);
     }
 

@@ -2,9 +2,10 @@ package frc.robot.commands.HoodCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.Hood;
 
-public class MoveHoodUp extends CommandBase {
+public class MoveHoodUp extends LoggedCommandBase {
     private Hood hood;
     private double startTimeMillis;
     ;
@@ -12,7 +13,6 @@ public class MoveHoodUp extends CommandBase {
 
     public MoveHoodUp(Hood hood) {
         this.hood = hood;
-        
         addRequirements(hood);
     }
 

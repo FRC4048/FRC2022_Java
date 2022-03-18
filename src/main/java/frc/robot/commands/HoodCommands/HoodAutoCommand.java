@@ -11,11 +11,12 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants;
+import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.Hood;
 import frc.robot.utils.limelight.LimeLightVision;
 import frc.robot.utils.logging.LogCommandWrapper;
 
-public class HoodAutoCommand extends CommandBase {
+public class HoodAutoCommand extends LoggedCommandBase {
   /** Creates a new HoodAuto. */
   private static Map <Integer, Double> angleLookupMap;
   private Hood hoodSubsystem;

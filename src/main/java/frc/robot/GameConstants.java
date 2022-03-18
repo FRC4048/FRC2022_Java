@@ -76,6 +76,6 @@ public interface GameConstants {
   //Turret
   public static final double TURRETSPIN_SCALEFACTOR = 0.5;
 
-
-  
+  // SHOOTER MATH
+  public static final int HOOD_MARGIN_OF_ERROR = 1;
 }
