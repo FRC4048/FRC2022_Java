@@ -30,6 +30,7 @@ public interface GameConstants {
   public static final double MOVEDISTANCE_TIMEOUT = 10;
   public static final double INTAKE_MOTOR_TIMEOUT = 10;
   public static final double TURRETSPIN_COMMAND_TIMEOUT = 2;
+  public static final double HOOD_TARGET_TIMEOUT = 1;
 
   //Limelight Settings
   public static final double CAMERA_HEIGHT = 38.5;
@@ -40,11 +41,12 @@ public interface GameConstants {
 
   //Hood
   public static final double HOOD_MOTOR_SPEED = 0.75;
-  public static final double HOOD_AUTO_MOTOR_SPEED = 0.5;
+  public static final double HOOD_AUTO_MOTOR_SPEED = 0.75;
   public static final double HOOD_AUTO_LIMIT = 2;
   public static final double HOOD_JOYSTICK_THRESHOLD = 0.2;
   public static final double HOOD_RANGE_OF_MOTION = 180; //temp value
   public static final double HOOD_STARTING_POINT = 0; //temp value
+  public static final double HOOD_ERROR_THRESHOLD = .5;
 
 
   //Climber
