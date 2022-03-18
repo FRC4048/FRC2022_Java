@@ -15,7 +15,7 @@ public class TurretAuto extends CommandBase {
     // private double counterClockwise = -0.5; // now in constants
     // bad readings
     private int badReadings;
-
+    private double speed;
     private double initTime;
 
     public TurretAuto(TurretSubsystem turretSubsystem, LimeLightVision limeLight) {
@@ -33,8 +33,9 @@ public class TurretAuto extends CommandBase {
     @Override
     public void execute() {
         if (limeLight.getCameraAngles() != null) {
+            speed = Math.abs(limeLight.getCameraAngles().getTx())/Constants.TURRET_MAX_DIFFERENCE*(Constants.TURRET_SPEED-Constants.TURRET_MIN_SPEED)+Constants.TURRET_MIN_SPEED;
             badReadings = 0;
-            turretSubsystem.setTurret(Math.signum(limeLight.getCameraAngles().getTx()) * Constants.TURRET_SPEED);
+            turretSubsystem.setTurret(Math.signum(limeLight.getCameraAngles().getTx()) * speed);
         } else {
             badReadings++;
         }
