@@ -71,5 +71,8 @@ public interface GameConstants {
   public static final double TURRETSPIN_SCALEFACTOR = 0.5;
   public static final double TURRETSPIN_COMMAND_TIMEOUT = 2;
   public static final double TURRETSPIN_TIMEOUT = 5;
+  public static final double TURRET_MIN_SPEED = 0.2;
+  public static final double TURRET_MAX_SPEED = 0.9;
+  public static final double TURRET_MAX_DIFFERENCE = 1350;
   
 }
