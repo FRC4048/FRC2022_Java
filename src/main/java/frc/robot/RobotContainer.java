@@ -146,15 +146,12 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     buttonA.whenPressed(new IntakeSequence(intakeSubsystem));
+    buttonY.whenPressed(new ManuallyToggleIntake(intakeSubsystem));
     buttonB.whenPressed(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED));
     buttonB.whenReleased(new ManuallyRunIntakeMotor(intakeSubsystem, 0));
 
 
     climberButtonA.whenPressed(new ToggleClimberSolenoid(climberArmSubsystem));
-
-
-    buttonY.whenPressed(new ManuallyToggleIntake(intakeSubsystem));
-
 
     rightTrigger.whenActive(new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem));
     leftTrigger.whenActive(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));

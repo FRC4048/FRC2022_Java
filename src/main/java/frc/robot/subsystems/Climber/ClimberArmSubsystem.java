@@ -49,6 +49,8 @@ public class ClimberArmSubsystem extends SubsystemBase {
     
     leftArm.setNeutralMode(NeutralMode.Brake);
     rightArm.setNeutralMode(NeutralMode.Brake);
+
+    rightArm.setInverted(true);
   }
 
   public void setSpeed(double speed) {

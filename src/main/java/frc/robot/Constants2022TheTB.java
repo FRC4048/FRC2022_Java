@@ -14,10 +14,10 @@ public interface Constants2022TheTB extends GameConstants {
 
   public static final int DRIVE_LEFT1_ID = 44;
   public static final int DRIVE_LEFT2_ID = 45;
-  public static final int DRIVE_RIGHT1_ID = 42;
+  public static final int DRIVE_RIGHT1_ID = 48;
   public static final int DRIVE_RIGHT2_ID = 41;
   public static final int PCM_CAN_ID = 20;
-  public static final int SHOOTER_MOTOR_ID = 48;
+  public static final int SHOOTER_MOTOR_ID = 42;
   public static final int INTAKE_MOTOR_ID = 4;
   public static final int TURRET_MOTOR_ID = 12; //Don't know if this is right
   public static final int CLIMBER_RIGHT_WINCH_ID = 1;

@@ -9,6 +9,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,7 +17,6 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.DiagSparkMaxEncoder;
-import frc.robot.utils.diag.DiagTalonSrxEncoder;
 import frc.robot.utils.logging.Logging;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -24,12 +24,14 @@ public class ShooterSubsystem extends SubsystemBase {
   private Solenoid shooterSolenoid;
   private CANSparkMax shooterMotor;
   private boolean isRunning;
+  private NetworkTableEntry maxSpeed;
 
   public ShooterSubsystem() {
     //climberSolenoid = new Solenoid(Constants.PCM_CAN_ID, Constants.CLIMBER_PISTON_ID);
     shooterSolenoid = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.SHOOTER_PISTON_ID);
     shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_ID, MotorType.kBrushless);
     isRunning = false;
+    
 
     Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Shooter Encoder", 100, shooterMotor));
 
@@ -39,7 +41,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void setShooterSpeed(double speed) {
-    shooterMotor.set(speed);
+    shooterMotor.set(speed * maxSpeed.getDouble(1.0));
   }
 
   public void stopShooter() {
@@ -78,11 +80,13 @@ public class ShooterSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if (Constants.ENABLE_DEBUG == true){
+    if (Constants.ENABLE_DEBUG){
       SmartShuffleboard.put("Shooter", "Data", "Piston State", getPistonState());;
       SmartShuffleboard.put("Shooter", "Data", "Shooter RPM", getEncoder().getVelocity());
+
     }
   }
+
   
     public final Logging.LoggingContext loggingContext = new Logging.LoggingContext(this.getClass()) {
       protected void addAll() {
