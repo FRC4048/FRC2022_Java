@@ -16,6 +16,7 @@ public interface GameConstants {
   public static final int RIGHT_JOYSTICK_ID = 1;
 
   public static final int CONTROLLER_ID = 2;
+  public static final int CONTROLLER_CLIMBER_ID = 3;
 
   //Motor Speeds
   public static final double INTAKE_MOTOR_SPEED = 1;
@@ -24,13 +25,18 @@ public interface GameConstants {
   public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
   public static final int RAISED_INTAKE_TIMEOUT = 3;
   public static final int SHOOTER_TIMEOUT = 5;
+  public static final double HOOD_MOTOR_TIMEOUT = 5;
+  public static final double TURRETSPIN_TIMEOUT = 5;
+  public static final double MOVEDISTANCE_TIMEOUT = 10;
+  public static final double INTAKE_MOTOR_TIMEOUT = 10;
+  public static final double TURRETSPIN_COMMAND_TIMEOUT = 2;
 
   //Limelight Settings
-  public static final double CAMERA_HEIGHT = 38.0;
+  public static final double CAMERA_HEIGHT = 38.5;
   public static final double TARGET_HEIGHT = 104.0;
-
-  //cameraAngle is a placeholder value
-  public static final double CAMERA_ANGLE = 18.7;
+  public static final int LIMELIGHT_TARGET_DETECTION = 1;
+  public static final int LIMELIGHT_STREAMING = 0;
+  public static final double CAMERA_ANGLE = 29.0;
 
   //Hood
   public static final double HOOD_MOTOR_SPEED = 0.75;
@@ -39,6 +45,21 @@ public interface GameConstants {
   public static final double HOOD_JOYSTICK_THRESHOLD = 0.2;
   public static final double HOOD_RANGE_OF_MOTION = 180; //temp value
   public static final double HOOD_STARTING_POINT = 0; //temp value
+
+
+  //Climber
+  public static final double CLIMBER_V_LIMIT = 26;
+  public static final double CLIMBER_ARM_V_TIMEOUT = 0.3;
+  public static final double CLIMBER_SLOW_ARM_RATE = 0.75;
+  public static final double CLIMBER_SLOW_WINCH_RATE = 0.75;
+  public static final double CLIMBER_ARM_SPEED = .5;
+  public static final double CLIMBER_WINCH_SPEED = 1;
+  public static final double CLIMBER_MIN_ARM_SPEED = 0.8;
+  public static final double CLIMBER_MIN_WINCH_SPEED = 0.8;
+  public static final double CLIMBER_TIMEOUT = 10;
+  public static final double CLIMBER_MAX_ENCODER_DIFF = 1000;
+  public static final double CLIMBER_ARM_TIMEOUT = 10;
+  public static final double CLIMBER_WINCH_TIMEOUT = 10;
 
   //Shooter
   public static final double SHOOTER_CLOCKWISE_SPEED = 0.5;
@@ -52,4 +73,7 @@ public interface GameConstants {
 
   //Turret
   public static final double TURRETSPIN_SCALEFACTOR = 0.5;
+
+  // SHOOTER MATH
+  public static final int HOOD_MARGIN_OF_ERROR = 1;
 }

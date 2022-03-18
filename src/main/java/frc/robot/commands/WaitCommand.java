@@ -1,9 +1,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class WaitCommand extends CommandBase {
+public class WaitCommand extends LoggedCommandBase {
   private Timer timer = new Timer();
   private double duration;
 
@@ -13,7 +12,7 @@ public class WaitCommand extends CommandBase {
   public WaitCommand(double seconds) {
     // Use addRequirements() here to declare subsystem dependencies.
     duration = seconds;
-
+    addLog(seconds);
   }
 
   // Called when the command is initially scheduled.
@@ -22,6 +21,9 @@ public class WaitCommand extends CommandBase {
     timer.reset();
     timer.start();
   }
+
+  @Override
+  public void execute(){}
 
   // Called once the command ends or is interrupted.
   @Override

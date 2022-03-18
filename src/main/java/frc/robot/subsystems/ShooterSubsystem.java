@@ -13,18 +13,25 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.utils.SmartShuffleboard;
+import frc.robot.utils.diag.DiagSparkMaxEncoder;
+import frc.robot.utils.diag.DiagTalonSrxEncoder;
 import frc.robot.utils.logging.Logging;
 
-public class Shooter extends SubsystemBase {
+public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new ClimberElevatorSubsystem. */
   private Solenoid shooterSolenoid;
   private CANSparkMax shooterMotor;
+  private boolean isRunning;
 
-  public Shooter() {
+  public ShooterSubsystem() {
     //climberSolenoid = new Solenoid(Constants.PCM_CAN_ID, Constants.CLIMBER_PISTON_ID);
     shooterSolenoid = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.SHOOTER_PISTON_ID);
     shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_ID, MotorType.kBrushless);
+    isRunning = false;
+
+    Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Shooter Encoder", 100, shooterMotor));
 
     shooterMotor.setIdleMode(IdleMode.kCoast);
     shooterMotor.setInverted(false);
@@ -45,6 +52,14 @@ public class Shooter extends SubsystemBase {
 
   public RelativeEncoder getEncoder() {
     return shooterMotor.getEncoder();
+  }
+
+  public boolean isRunning() {
+    return isRunning;
+  }
+
+  public void setRunning(boolean state) {
+    isRunning = state;
   }
 
   public void extendPiston() {
@@ -69,11 +84,10 @@ public class Shooter extends SubsystemBase {
     }
   }
   
-    public final Logging.LoggingContext loggingContext = new Logging.LoggingContext(this.getClass()) {
+  public final Logging.LoggingContext loggingContext = new Logging.LoggingContext(this.getClass()) {
       protected void addAll() {
           add("Piston State", getPistonState());
           add("Shooter Speed", getShooterSpeed());
       }
   };
-  
 }

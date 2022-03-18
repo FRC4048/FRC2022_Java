@@ -2,17 +2,14 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.intakecommands;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.Robot;
 
-public class ManuallyToggleIntake extends CommandBase {
-private IntakeSubsystem intakeSubsystem;
-  /** Creates a new ToggleIntake. */
-  public ManuallyToggleIntake(IntakeSubsystem intakeSubsystem) {
-    this.intakeSubsystem=intakeSubsystem;
-    addRequirements(intakeSubsystem);
+public class EnableLogging extends CommandBase {
+  /** Creates a new EnableLogging. */
+  public EnableLogging() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -23,7 +20,7 @@ private IntakeSubsystem intakeSubsystem;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSubsystem.togglePiston();
+    Robot.setIsLogging(true);
   }
 
   // Called once the command ends or is interrupted.

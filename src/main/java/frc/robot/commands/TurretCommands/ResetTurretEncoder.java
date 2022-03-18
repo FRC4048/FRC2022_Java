@@ -1,19 +1,20 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+// the WPILib BSD license file in the root directory of this project.\
+package frc.robot.commands.TurretCommands;
 
-package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.commands.LoggedCommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.TurretSubsystem;
 
-public class RetractShooterPiston extends LoggedCommandBase {
-  /** Creates a new RetractPiston. */
-  private ShooterSubsystem shooterSubsystem;
-  public RetractShooterPiston(ShooterSubsystem shooterSubsystem) {
-    // DO NOT add sybsystem requirement here, as it would get in the way of the motor command
-    this.shooterSubsystem = shooterSubsystem;
+public class ResetTurretEncoder extends CommandBase {
+  
+  private TurretSubsystem turretSubsystem;
+  public ResetTurretEncoder(TurretSubsystem turretSubsystem) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    this.turretSubsystem = turretSubsystem;
   }
 
   // Called when the command is initially scheduled.
@@ -23,12 +24,14 @@ public class RetractShooterPiston extends LoggedCommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterSubsystem.retractPiston();
+    
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    turretSubsystem.resetEncoder();
+  }
 
   // Returns true when the command should end.
   @Override
