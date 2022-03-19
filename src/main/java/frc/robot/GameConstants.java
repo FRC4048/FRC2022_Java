@@ -22,9 +22,9 @@ public interface GameConstants {
   public static final double INTAKE_MOTOR_SPEED = 1;
 
   //Timeouts
-  public static final int DEPLOYED_INTAKE_TIMEOUT = 5;
+  public static final int DEPLOYED_INTAKE_TIMEOUT = 6;
   public static final int RAISED_INTAKE_TIMEOUT = 3;
-  public static final int SHOOTER_TIMEOUT = 12;
+  public static final int SHOOTER_TIMEOUT = 4;
   public static final double HOOD_MOTOR_TIMEOUT = 5;
   public static final double TURRETSPIN_TIMEOUT = 5;
   public static final double MOVEDISTANCE_TIMEOUT = 10;
@@ -88,6 +88,7 @@ public interface GameConstants {
 
   // Intake
   public static final double INTAKE_BUFFER = 1.0;
+  public static final double INTAKE_BALL_DETECTIONS_THRESHOLD = 5;
 
   //Turret
   public static final double TURRETSPIN_SCALEFACTOR = 0.5;
