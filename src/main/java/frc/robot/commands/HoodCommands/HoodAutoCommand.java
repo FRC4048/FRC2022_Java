@@ -26,13 +26,21 @@ public class HoodAutoCommand extends LoggedCommandBase {
   private boolean done;
 
   static {
-    // Conversion Map from feet to degrees
+    // Conversion Map from feet to pot ticks
     // Placeholder
     angleLookupMap = new HashMap<>();
-    angleLookupMap.put(10, 70.0);
-    angleLookupMap.put(11, 72.0);
-    angleLookupMap.put(9, 68.0);
-    angleLookupMap.put(8, 65.0);
+    angleLookupMap.put(5, 106.0);
+    angleLookupMap.put(6, 106.0);
+    angleLookupMap.put(7, 112.0);
+    angleLookupMap.put(8, 121.0);
+    angleLookupMap.put(9, 121.0);
+    angleLookupMap.put(10, 121.0);
+    angleLookupMap.put(11, 129.0);
+    angleLookupMap.put(12, 131.5);
+    angleLookupMap.put(13, 136.0);
+    angleLookupMap.put(14, 139.0);
+    angleLookupMap.put(15, 140.3);
+    angleLookupMap.put(16, 142.9);
   }
 
   public HoodAutoCommand(Hood hoodSubsystem, LimeLightVision vision) {

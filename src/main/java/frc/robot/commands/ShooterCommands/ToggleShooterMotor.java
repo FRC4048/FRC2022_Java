@@ -14,11 +14,13 @@ public class ToggleShooterMotor extends LoggedCommandBase {
   /** Creates a new SpinShooter. */
   private ShooterSubsystem shooterSubsystem;
   private double startTime;
-  public ToggleShooterMotor(ShooterSubsystem shooterSubsystem) {
+  private double rpm;
+
+  public ToggleShooterMotor(ShooterSubsystem shooterSubsystem, double rpm) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooterSubsystem = shooterSubsystem;
     addRequirements(shooterSubsystem);
-
+    this.rpm = rpm;
   }
 
   // Called when the command is initially scheduled.
@@ -32,7 +34,7 @@ public class ToggleShooterMotor extends LoggedCommandBase {
   @Override
   public void execute() {
     if (shooterSubsystem.isRunning()) {
-      shooterSubsystem.setShooterRPM(Constants.SHOOTER_RPM);
+      shooterSubsystem.setShooterRPM(rpm);
     } else {
       shooterSubsystem.stopShooter();
     }
@@ -49,6 +51,6 @@ public class ToggleShooterMotor extends LoggedCommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return((Timer.getFPGATimestamp() - startTime) >= Constants.SHOOTER_TIMEOUT);
+    return (Timer.getFPGATimestamp() - startTime) > Constants.SHOOTER_TIMEOUT;
   }
 }
