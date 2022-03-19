@@ -64,8 +64,7 @@ public interface GameConstants {
   public static final double CLIMBER_WINCH_TIMEOUT = 10;
 
   //Shooter
-  public static final double SHOOTER_CLOCKWISE_SPEED = 1;
-  public static final double SHOOTER_COUNTERCLOCKWISE_SPEED = -1;
+  public static final double SHOOTER_SPEED = 0.5;
   public static final double PISTON_DELAY = 0.5;
   public static final double SHOOTER_SPINUP_DELAY = 1;
   public static final int SHOOTER_PISTON_WAIT = 1;
@@ -75,7 +74,7 @@ public interface GameConstants {
   public static final double SHOOTER_PID_P = 6e-5;
   public static final double SHOOTER_PID_I = 0;
   public static final double SHOOTER_PID_D = 6e-6;
-  public static final double SHOOTER_PID_IZ = 0; 
+  public static final double SHOOTER_PID_IZ = 0;
   public static final double SHOOTER_PID_FF = 0.000015;
   public static final double SHOOTER_MAX_OUTPUT = 1;
   public static final double SHOOTER_MIN_OUTPUT = -1;
@@ -90,7 +89,13 @@ public interface GameConstants {
   public static final double INTAKE_BALL_DETECTIONS_THRESHOLD = 5;
 
   //Turret
-  public static final double TURRETSPIN_SCALEFACTOR = 0.5;
+  public static final double TURRETSPIN_SCALEFACTOR = 0.35;
+  public static final int TURRET_AUTO_BAD_READINGS_TRESHOLD = 5;
+  public static final double TURRET_AUTO_ALIGN_TRESHOLD = 0.2; //change when testing
+  public static final double TURRET_AUTO_TIMEOUT = 100;
+  public static final double TURRET_SPEED = 0.9;
+  public static final double TURRET_MIN_SPEED = 0.3;
+  public static final double TURRET_MAX_DIFFERENCE = 1350;
 
   // SHOOTER MATH
   public static final int HOOD_MARGIN_OF_ERROR = 1;
