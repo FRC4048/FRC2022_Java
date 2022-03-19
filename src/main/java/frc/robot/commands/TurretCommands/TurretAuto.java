@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.utils.limelight.CameraAngles;
 import frc.robot.utils.limelight.LimeLightVision;
 
 public class TurretAuto extends LoggedCommandBase {
@@ -20,7 +21,10 @@ public class TurretAuto extends LoggedCommandBase {
         this.limeLight = limeLight;
         addRequirements(turretSubsystem);
         this.turretSubsystem = turretSubsystem;
-        addLog(limeLight.getCameraAngles().getTx());
+        CameraAngles angles = limeLight.getCameraAngles();
+        if (angles != null) {
+            addLog(angles.getTx());
+        }
     }
 
     @Override

@@ -167,7 +167,6 @@ public class RobotContainer {
 
     rightTrigger.whenActive(new LogCommandWrapper(new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem, limeLightVision.getLimeLightVision())));
     leftTrigger.whenActive(new LogCommandWrapper(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood)));
-    buttonX.whenPressed(new LogCommandWrapper(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood)));
     leftBumper.whenPressed(new LogCommandWrapper(new ToggleShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM)));
     leftBumper.whenReleased(new LogCommandWrapper(new ToggleShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM)));
     startButton.whenPressed(new LogError());
