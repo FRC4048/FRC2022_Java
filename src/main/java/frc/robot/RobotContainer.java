@@ -95,7 +95,7 @@ public class RobotContainer {
   private JoystickButton leftBumper = new JoystickButton(xboxController, Constants.XBOX_LEFT_BUMPER);
   private JoystickButton startButton = new JoystickButton(xboxController, Constants.XBOX_START_BUTTON);
   private Trigger rightTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
-  private Trigger leftTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
+  private Trigger leftTrigger = new Trigger(() -> xboxController.getLeftTriggerAxis() > 0.5 );
 
   private final LimelightSubsystem limeLightVision = new LimelightSubsystem();
 

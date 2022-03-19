@@ -41,7 +41,7 @@ public interface GameConstants {
 
   //Hood
   public static final double HOOD_MOTOR_SPEED = 0.9;
-  public static final double HOOD_AUTO_MOTOR_SPEED = 0.75;
+  public static final double HOOD_AUTO_MOTOR_SPEED = 1;
   public static final double HOOD_AUTO_LIMIT = 2;
   public static final double HOOD_JOYSTICK_THRESHOLD = 0.2;
   public static final double HOOD_RANGE_OF_MOTION = 180; //temp value
@@ -93,9 +93,9 @@ public interface GameConstants {
   public static final int TURRET_AUTO_BAD_READINGS_TRESHOLD = 5;
   public static final double TURRET_AUTO_ALIGN_TRESHOLD = 0.2; //change when testing
   public static final double TURRET_AUTO_TIMEOUT = 100;
-  public static final double TURRET_SPEED = 0.9;
-  public static final double TURRET_MIN_SPEED = 0.3;
-  public static final double TURRET_MAX_DIFFERENCE = 1350;
+  public static final double TURRET_SPEED = 0.7;
+  public static final double TURRET_MIN_SPEED = 0.1;
+  public static final double TURRET_MAX_DIFFERENCE = 500;
 
   //Autonomous
   public static final double AUTO_TURRET_SPEED = 0.5;

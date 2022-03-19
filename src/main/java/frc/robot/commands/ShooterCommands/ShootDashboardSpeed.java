@@ -14,16 +14,15 @@ import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.utils.SmartShuffleboard;
 
-public class StartShooterMotor extends CommandBase {
+public class ShootDashboardSpeed extends CommandBase {
   /** Creates a new RotateShooterMotor. */
   private ShooterSubsystem shooterSubsystem;
   private double speed;
   private double initTime, timeout;
 
-  public StartShooterMotor(ShooterSubsystem shooterSubsystem, double speed, double timeout) {
+  public ShootDashboardSpeed(ShooterSubsystem shooterSubsystem, double timeout) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooterSubsystem = shooterSubsystem;
-    this.speed = speed;
     this.timeout = timeout;
 
     addRequirements(shooterSubsystem);
@@ -40,6 +39,7 @@ public class StartShooterMotor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    this.speed = SmartDashboard.getNumber("DesiredSpeed", 12000);
     shooterSubsystem.setShooterRPM(speed);
   }
 
