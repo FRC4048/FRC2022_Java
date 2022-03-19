@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants;
 import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.Hood;
+import frc.robot.utils.limelight.CameraAngles;
 import frc.robot.utils.limelight.LimeLightVision;
 import frc.robot.utils.logging.LogCommandWrapper;
 
