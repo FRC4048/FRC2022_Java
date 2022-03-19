@@ -11,21 +11,26 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.utils.MotorUtils;
 
 public class ClimberWinchSubsystem extends SubsystemBase {
   /** Creates a new ClimberWinchSubsystem. */
   private TalonSRX leftWinch, rightWinch;
-  private DigitalInput leftTopSwitch, leftBotSwitch, rightTopSwitch, rightBotSwitch;
-  public ClimberWinchSubsystem() {
+  private MotorUtils leftMotorContact, rightMotorContact, leftMotorStall, rightMotorStall;
+  public ClimberWinchSubsystem(PowerDistribution m_PowerDistPanel) {
     leftWinch = new TalonSRX(Constants.CLIMBER_LEFT_WINCH_ID);
     rightWinch = new TalonSRX(Constants.CLIMBER_RIGHT_WINCH_ID);
 
+    leftMotorContact = new MotorUtils(Constants.PDP_CLIMBER_L_ARM, Constants.WINCH_CONTACT_V, Constants.WINCH_CONTACT_V_TIMEOUT, m_PowerDistPanel);
+    rightMotorContact = new MotorUtils(Constants.PDP_CLIMBER_R_ARM, Constants.WINCH_CONTACT_V, Constants.WINCH_CONTACT_V_TIMEOUT, m_PowerDistPanel);
+    leftMotorStall = new MotorUtils(Constants.PDP_CLIMBER_L_ARM, Constants.WINCH_V_LIMIT, Constants.CLIMBER_WINCH_V_TIMEOUT, m_PowerDistPanel);
+    rightMotorStall = new MotorUtils(Constants.PDP_CLIMBER_R_ARM, Constants.WINCH_V_LIMIT, Constants.CLIMBER_WINCH_V_TIMEOUT, m_PowerDistPanel);
+
     leftWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     rightWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-
-
 
     leftWinch.setNeutralMode(NeutralMode.Brake);
     rightWinch.setNeutralMode(NeutralMode.Brake);
@@ -59,6 +64,22 @@ public class ClimberWinchSubsystem extends SubsystemBase {
 
   public double getRightEncoder() {
     return rightWinch.getSelectedSensorPosition();
+  }
+
+  public boolean isLeftBarContact() {
+    return leftMotorContact.isStalled();
+  }
+
+  public boolean isRightBarContact() {
+    return rightMotorContact.isStalled();
+  }
+
+  public boolean isLeftStalled() {
+    return leftMotorStall.isStalled();
+  }
+
+  public boolean isRightStalled() {
+    return rightMotorStall.isStalled();
   }
 
   public double getLeftVoltage() {

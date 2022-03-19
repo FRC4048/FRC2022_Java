@@ -13,12 +13,16 @@ public class AutoMoveClimberWinch extends CommandBase {
   /** Creates a new MoveClimberWinch. */
   ClimberWinchSubsystem climberWinchSubsystem;
   private double initTime;
-  private double speed;
-  private double ticks;
+  private double direction;
+  private double barContactTimeout;
+  boolean autoBalance;
 
-  public AutoMoveClimberWinch(ClimberWinchSubsystem climberWinchSubsystem, double speed, int ticks) {
+
+  public AutoMoveClimberWinch(ClimberWinchSubsystem climberWinchSubsystem, double direction, boolean autoBalance) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.climberWinchSubsystem = climberWinchSubsystem;
+    this.autoBalance = autoBalance;
+    this.direction = direction;
     addRequirements(climberWinchSubsystem);
 
   }
@@ -26,32 +30,39 @@ public class AutoMoveClimberWinch extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    climberWinchSubsystem.setRightWinchSpeed(speed);
-    climberWinchSubsystem.setLeftWinchSpeed(speed);
     initTime = Timer.getFPGATimestamp();
+    climberWinchSubsystem.setSpeed(Constants.CLIMBER_WINCH_SPEED * direction);
     
    }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    /* WORK IN PROGRESS
-    if (climberWinchSubsystem.getRightEncoder() > ticks) {
+    if (climberWinchSubsystem.isLeftStalled()) {
+      climberWinchSubsystem.setLeftWinchSpeed(0);
+    }
+
+    if (climberWinchSubsystem.isRightStalled()) {
       climberWinchSubsystem.setRightWinchSpeed(0);
     }
-    if (climberWinchSubsystem.getLeftEncoder() > ticks) {
-      climberWinchSubsystem.setRightWinchSpeed(0);
+
+    if (climberWinchSubsystem.isRightBarContact() != climberWinchSubsystem.isLeftBarContact()) {
+      barContactTimeout = Timer.getFPGATimestamp();
+    } else {
+      barContactTimeout = 0;
     }
-*/
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    climberWinchSubsystem.stopLeftWinch();
+    climberWinchSubsystem.stopRightWinch();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (climberWinchSubsystem.getRightVolatage() == 0 && climberWinchSubsystem.getLeftVoltage() == 0) || initTime > Constants.CLIMBER_ARM_TIMEOUT;
+    return (climberWinchSubsystem.getLeftSwitch() && climberWinchSubsystem.getRightSwitch()) || (Timer.getFPGATimestamp() - barContactTimeout > Constants.WINCH_CONTACT_TIMEOUT) || initTime > Constants.CLIMBER_ARM_TIMEOUT;
   }
 }

@@ -16,8 +16,11 @@ import frc.robot.commands.AutoTargetSequence;
 import frc.robot.commands.Drive;
 import frc.robot.commands.PistonSequence;
 import frc.robot.commands.TurnDegrees;
+import frc.robot.commands.ClimberCommands.ExtendClimberSequence;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
+import frc.robot.commands.ClimberCommands.RetractClimberSequence;
+import frc.robot.commands.ClimberCommands.RetractClimberSolenoid;
 import frc.robot.commands.ClimberCommands.ToggleClimberSolenoid;
 import frc.robot.commands.TurretManualCommand;
 import frc.robot.commands.Miscellaneous.SetLEDOff;
@@ -73,6 +76,7 @@ public class RobotContainer {
   private  JoystickButton buttonB = new JoystickButton(xboxController, Constants.XBOX_B_BUTTON);
 
   private JoystickButton climberButtonA = new JoystickButton(climberController, Constants.XBOX_A_BUTTON);
+  private JoystickButton climberButtonB = new JoystickButton(climberController, Constants.XBOX_B_BUTTON);
 
   private JoystickButton buttonY = new JoystickButton(xboxController, Constants.XBOX_Y_BUTTON);
   
@@ -89,7 +93,7 @@ public class RobotContainer {
   private final Shooter shooterSubsystem = new Shooter();
   private final PowerDistribution m_PowerDistPanel = new PowerDistribution();
   private final ClimberArmSubsystem climberArmSubsystem = new ClimberArmSubsystem(m_PowerDistPanel);
-  private final ClimberWinchSubsystem climberWinchSubsystem = new ClimberWinchSubsystem();
+  private final ClimberWinchSubsystem climberWinchSubsystem = new ClimberWinchSubsystem(m_PowerDistPanel);
   
   private final Hood hood = new Hood();
   private final TurretSubsystem turretSubsystem= new TurretSubsystem(); 
@@ -149,7 +153,8 @@ public class RobotContainer {
     buttonB.whenReleased(new ManuallyRunIntakeMotor(intakeSubsystem, 0));
 
 
-    climberButtonA.whenPressed(new ToggleClimberSolenoid(climberArmSubsystem));
+    climberButtonA.whenPressed(new ExtendClimberSequence(climberArmSubsystem, climberWinchSubsystem));
+    climberButtonB.whenPressed(new RetractClimberSequence(climberArmSubsystem, climberWinchSubsystem));
 
 
     buttonY.whenPressed(new ManuallyToggleIntake(intakeSubsystem));
