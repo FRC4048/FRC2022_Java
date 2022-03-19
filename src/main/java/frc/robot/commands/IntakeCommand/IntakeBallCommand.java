@@ -4,13 +4,15 @@ import frc.robot.Constants;
 import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class IntakeBallCommand extends LoggedCommandBase {
   private IntakeSubsystem intakeSubsystem;
   private double initTime;
-
+  private int ballDetections;
   /**
    * Creates a new ExampleCommand.
    *
@@ -32,6 +34,10 @@ public class IntakeBallCommand extends LoggedCommandBase {
   @Override
   public void execute() {
       intakeSubsystem.spinMotor(Constants.INTAKE_MOTOR_SPEED);
+    if (intakeSubsystem.isBallInIntake()) {
+      ballDetections++;
+    } else {ballDetections = 0;}
+    SmartDashboard.putNumber("Ball Detections", ballDetections);
   }
 
   // Called once the command ends or is interrupted.
@@ -43,6 +49,6 @@ public class IntakeBallCommand extends LoggedCommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (intakeSubsystem.isBallInIntake() || (Timer.getFPGATimestamp() - initTime) >= Constants.DEPLOYED_INTAKE_TIMEOUT);
+    return ((ballDetections >= 5) || (Timer.getFPGATimestamp() - initTime) >= Constants.DEPLOYED_INTAKE_TIMEOUT);
   }
 }

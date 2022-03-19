@@ -62,6 +62,8 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterPID.setReference(rpm, CANSparkMax.ControlType.kVelocity);
   } 
 
+  
+
   public void stopShooter() {
     shooterMotor.set(0);
   }
