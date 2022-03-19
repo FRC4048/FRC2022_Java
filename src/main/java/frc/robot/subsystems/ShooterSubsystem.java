@@ -113,11 +113,10 @@ public class ShooterSubsystem extends SubsystemBase {
     }
   }
   
-    public final Logging.LoggingContext loggingContext = new Logging.LoggingContext(this.getClass()) {
+  public final Logging.LoggingContext loggingContext = new Logging.LoggingContext(this.getClass()) {
       protected void addAll() {
           add("Piston State", getPistonState());
           add("Shooter Speed", getShooterSpeed());
       }
   };
-  
 }

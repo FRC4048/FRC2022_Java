@@ -5,9 +5,10 @@
 package frc.robot.commands.ClimberCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.Climber.ClimberArmSubsystem;
 
-public class ToggleClimberSolenoid extends CommandBase {
+public class ToggleClimberSolenoid extends LoggedCommandBase {
   /** Creates a new MoveClimberSolenoid. */
   private ClimberArmSubsystem climberArmSubsystem;
   private boolean state;

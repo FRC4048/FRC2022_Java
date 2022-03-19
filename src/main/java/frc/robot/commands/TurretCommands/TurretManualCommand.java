@@ -37,6 +37,4 @@ public class TurretManualCommand extends CommandBase {
         return false;
 
     }
-
-
-  }
+}

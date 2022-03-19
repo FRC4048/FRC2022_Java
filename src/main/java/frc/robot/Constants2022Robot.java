@@ -31,10 +31,10 @@ public interface Constants2022Robot extends GameConstants {
     public static final int TURRET_HOOD_CAN_ID = 10;
     public static final int SHOOTER_MOTOR_ID = 46;
     public static final int HOOD_MOTOR_ID = 10;
-    public static final int CLIMBER_RIGHT_WINCH_ID = 7; //temp
-    public static final int CLIMBER_LEFT_WINCH_ID = 1; //temp
-    public static final int CLIMBER_RIGHT_ARM_ID = 12; //temp
-    public static final int CLIMBER_LEFT_ARM_ID = 2; //temp
+    public static final int CLIMBER_RIGHT_WINCH_ID = 70; //temp
+    public static final int CLIMBER_LEFT_WINCH_ID = 71; //temp
+    public static final int CLIMBER_RIGHT_ARM_ID = 72; //temp
+    public static final int CLIMBER_LEFT_ARM_ID = 73; //temp
 
 
     //PDP
@@ -53,7 +53,7 @@ public interface Constants2022Robot extends GameConstants {
 
     
     //AIO 
-    public static final int HOOD_POTENTIOMETER = 7;
+    public static final int HOOD_POTENTIOMETER = 0;
 
     //Relay
 

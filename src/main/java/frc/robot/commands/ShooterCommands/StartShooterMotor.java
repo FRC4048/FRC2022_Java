@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.commands.LoggedCommandBase;
+
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.utils.SmartShuffleboard;
 

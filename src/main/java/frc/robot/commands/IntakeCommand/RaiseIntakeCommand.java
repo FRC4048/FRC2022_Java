@@ -1,9 +1,10 @@
 package frc.robot.commands.IntakeCommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class RaiseIntakeCommand extends CommandBase {
+public class RaiseIntakeCommand extends LoggedCommandBase {
   private IntakeSubsystem intakeSubsystem;
 
   /**
