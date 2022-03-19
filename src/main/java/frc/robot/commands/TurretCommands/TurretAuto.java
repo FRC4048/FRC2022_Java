@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.limelight.LimeLightVision;
 
 public class TurretAuto extends CommandBase {
@@ -39,6 +40,8 @@ public class TurretAuto extends CommandBase {
         } else {
             badReadings++;
         }
+        SmartShuffleboard.put("Shooter", "Turret Speed", speed);
+
     }
 
     @Override
