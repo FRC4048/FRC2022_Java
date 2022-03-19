@@ -34,6 +34,7 @@ import frc.robot.commands.ShooterCommands.MoveHoodUp;
 import frc.robot.commands.ShooterCommands.RetractShooterPiston;
 import frc.robot.commands.ShooterCommands.RotateShooterMotor;
 import frc.robot.commands.ShooterCommands.ShooterParallelSequeunce;
+import frc.robot.commands.ShooterCommands.TargetToSetLocation;
 import frc.robot.commands.ShooterCommands.ToggleShooterMotor;
 import frc.robot.commands.ShooterCommands.ToggleShooterPiston;
 import frc.robot.commands.intakecommands.DeployIntakeCommand;
@@ -72,8 +73,10 @@ public class RobotContainer {
 
   private XboxController xboxController = new XboxController(Constants.CONTROLLER_ID);
   private XboxController climberController = new XboxController(Constants.CONTROLLER_CLIMBER_ID);
-  private  JoystickButton buttonA = new JoystickButton(xboxController, Constants.XBOX_A_BUTTON);
-  private  JoystickButton buttonB = new JoystickButton(xboxController, Constants.XBOX_B_BUTTON);
+  private JoystickButton buttonA = new JoystickButton(xboxController, Constants.XBOX_A_BUTTON);
+  private JoystickButton buttonB = new JoystickButton(xboxController, Constants.XBOX_B_BUTTON);
+  private JoystickButton targetButton = new JoystickButton(xboxController, Constants.XBOX_START_BUTTON);
+  private JoystickButton manualShootButton = new JoystickButton(xboxController, Constants.XBOX_BACK_BUTTON);
 
   private JoystickButton climberButtonA = new JoystickButton(climberController, Constants.XBOX_A_BUTTON);
   private JoystickButton climberButtonB = new JoystickButton(climberController, Constants.XBOX_B_BUTTON);
@@ -155,6 +158,8 @@ public class RobotContainer {
 
     climberButtonA.whenPressed(new ExtendClimberSequence(climberArmSubsystem, climberWinchSubsystem));
     climberButtonB.whenPressed(new RetractClimberSequence(climberArmSubsystem, climberWinchSubsystem));
+    targetButton.whenPressed(new TargetToSetLocation(hood, turretSubsystem, Constants.MANUAL_HOOD_ANGLE));
+    manualShootButton.whenPressed(new RotateShooterMotor(shooterSubsystem, Constants.MANUAL_SHOOTER_SPEED));
 
 
     buttonY.whenPressed(new ManuallyToggleIntake(intakeSubsystem));
