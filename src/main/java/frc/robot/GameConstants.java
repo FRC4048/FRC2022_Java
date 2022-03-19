@@ -43,6 +43,7 @@ public interface GameConstants {
   public static final double HOOD_JOYSTICK_THRESHOLD = 0.2;
   public static final double HOOD_RANGE_OF_MOTION = 180; //temp value
   public static final double HOOD_STARTING_POINT = 0; //temp value
+  public static final int MANUAL_HOOD_ANGLE = 12;
 
   //Climber
   public static final double CLIMBER_V_LIMIT = 26;
@@ -69,6 +70,7 @@ public interface GameConstants {
   public static final double PISTON_DELAY = 0.5;
   public static final double SHOOTER_SPINUP_DELAY = 1;
   public static final int SHOOTER_PISTON_WAIT = 1;
+  public static final int MANUAL_SHOOTER_SPEED = 1;
   
   // Intake
   public static final double INTAKE_BUFFER = 1.0;
