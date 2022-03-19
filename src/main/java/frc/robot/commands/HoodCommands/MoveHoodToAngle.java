@@ -13,7 +13,7 @@ public class MoveHoodToAngle extends CommandBase {
 
     public MoveHoodToAngle(Hood hood, Double angle) {
         this.hood = hood;
-        target = angleToTicks(angle);        
+        //target = angleToTicks(angle);        
         addRequirements(hood);
     }
 
