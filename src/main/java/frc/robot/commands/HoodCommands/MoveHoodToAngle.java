@@ -7,13 +7,13 @@ import frc.robot.subsystems.Hood;
 
 public class MoveHoodToAngle extends CommandBase {
     private Hood hood;
-    private Double target;
+    private Double ticks;
     private double startTime;
     
 
-    public MoveHoodToAngle(Hood hood, Double angle) {
+    public MoveHoodToAngle(Hood hood, Double ticks) {
         this.hood = hood;
-        target = angleToTicks(angle);        
+        this.ticks = ticks;
         addRequirements(hood);
     }
 
@@ -22,7 +22,7 @@ public class MoveHoodToAngle extends CommandBase {
     }
 
     public void execute() {
-        double direction = Math.signum(hood.getPotentiometer() - target);
+        double direction = Math.signum(hood.getPotentiometer() - ticks);
         hood.setHood(Constants.HOOD_AUTO_MOTOR_SPEED * direction);
     }
         
@@ -33,8 +33,8 @@ public class MoveHoodToAngle extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return ((target == null) || 
-                (Math.abs(hood.getPotentiometer() - target) <= Constants.HOOD_ERROR_THRESHOLD) || 
+        return ((ticks == null) ||
+                (Math.abs(hood.getPotentiometer() - ticks) <= Constants.HOOD_ERROR_THRESHOLD) ||
                 ((Timer.getFPGATimestamp() - startTime) >= Constants.HOOD_MOTOR_TIMEOUT));
     }
 
