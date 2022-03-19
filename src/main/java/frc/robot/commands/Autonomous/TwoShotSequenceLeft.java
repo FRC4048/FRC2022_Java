@@ -5,6 +5,7 @@
 package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.commands.DriveCommands.MoveDistance;
 import frc.robot.commands.IntakeCommand.IntakeSequence;
 import frc.robot.commands.ShooterCommands.ShooterParallelSequeunce;
@@ -16,13 +17,13 @@ import frc.robot.subsystems.TurretSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class TwoShotSequence extends SequentialCommandGroup {
+public class TwoShotSequenceLeft extends SequentialCommandGroup {
   /** Creates a new Autonomous. */
-  public TwoShotSequence(TurretSubsystem turretSubsystem, double turretSpeed, double angle, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, double speed, double distanceInches, ShooterSubsystem shooterSubsystem) {
+  public TwoShotSequenceLeft(TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, double speed, double distanceInches, ShooterSubsystem shooterSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new AutoSetShootingPosition(turretSubsystem, turretSpeed, angle),
+      new AutoSetShootingPosition(turretSubsystem, turretSpeed, Constants.AUTO_LEFT_TURRET_ANGLE),
       new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem),
       new IntakeSequence(intakeSubsystem),
       new MoveDistance(driveTrain, speed, distanceInches),
