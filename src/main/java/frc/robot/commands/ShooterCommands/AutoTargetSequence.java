@@ -12,6 +12,7 @@ import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.limelight.LimeLightVision;
+import frc.robot.utils.logging.LogCommandWrapper;
 
 public class AutoTargetSequence extends SequentialCommandGroup {
 
@@ -19,13 +20,13 @@ public class AutoTargetSequence extends SequentialCommandGroup {
   private TurretSubsystem turretSubsystem;
   public AutoTargetSequence(TurretSubsystem turretSubsystem, LimeLightVision vision, Hood hoodSubsystem) {
     this.turretSubsystem = turretSubsystem;
-    vision = new LimeLightVision(38, 104, 30);
+//    vision = new LimeLightVision(38, 104, 30);
 
     // Use addRequirements() here to declare subsystem dependencies.
     addCommands(
-      new SetLEDOn(),
-      new TurretAuto(turretSubsystem, vision),
-      new HoodAutoCommand(hoodSubsystem, vision)
+      new LogCommandWrapper(new SetLEDOn()),
+      new LogCommandWrapper(new TurretAuto(turretSubsystem, vision)),
+      new LogCommandWrapper(new HoodAutoCommand(hoodSubsystem, vision))
     );
     SmartShuffleboard.put("Driver", "Data", "Can Shoot", true);
   }

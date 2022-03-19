@@ -3,10 +3,11 @@ package frc.robot.commands.TurretCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.utils.limelight.LimeLightVision;
 
-public class TurretAuto extends CommandBase {
+public class TurretAuto extends LoggedCommandBase {
     private TurretSubsystem turretSubsystem;      
     //offset 
     private LimeLightVision limeLight;
@@ -19,50 +20,55 @@ public class TurretAuto extends CommandBase {
         this.limeLight = limeLight;
         addRequirements(turretSubsystem);
         this.turretSubsystem = turretSubsystem;
-      
+        addLog(limeLight.getCameraAngles().getTx());
     }
+
     @Override
     public void initialize() {
-       if (limeLight.getCameraAngles()!=null){
-            if (limeLight.getCameraAngles().getTx()>=0) {
-                positive = true;
-            }
-            else {
-                positive = false;
-            }
+       
+        if (limeLight.getCameraAngles().getTx()>=0) {
+            positive = true;
+        }
+        else {
+            positive = false;
         }
     }
 
     @Override
     public void execute() {
         if (positive) {
-            turretSubsystem.setTurret(Constants.SHOOTER_CLOCKWISE_SPEED);
+            turretSubsystem.setTurret(Constants.TURRET_CLOCKWISE_SPEED);
         }
         else {
-            turretSubsystem.setTurret(Constants.SHOOTER_COUNTERCLOCKWISE_SPEED);
+            turretSubsystem.setTurret(Constants.TURRET_COUNTERCLOCKWISE_SPEED);
         } 
      
     }
 
     @Override
     public void end(boolean interrupted) {
+        addLog(limeLight.getCameraAngles().getTx());
         turretSubsystem.stopTurret();
     }
 
     @Override
     public boolean isFinished() {
+
         if (limeLight.getCameraAngles() == null){
             return true;
         }
+
         else{
+
             if (positive){
-                if (limeLight.getCameraAngles().getTx()<=0) {
+                if (limeLight.getCameraAngles().getTx() <= 0) {
                     return true;
                 }
                 else {
                     return false;
                 }
             }
+
             else{
                 if (limeLight.getCameraAngles().getTx()>=0) {
                     return true;
