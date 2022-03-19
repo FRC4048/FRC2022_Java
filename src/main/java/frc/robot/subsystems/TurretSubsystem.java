@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -13,6 +15,7 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 
 public class TurretSubsystem extends SubsystemBase {
     private WPI_TalonSRX turretMotor;
+    private PIDController turretPID = new PIDController(Constants.TURRET_kP, Constants.TURRET_kI, Constants.TURRET_kD);
 
     public TurretSubsystem() {
         turretMotor = new WPI_TalonSRX(Constants.TURRET_MOTOR_ID);
@@ -26,6 +29,10 @@ public class TurretSubsystem extends SubsystemBase {
 
     public void setTurret(double speed) {
         turretMotor.set(speed);
+    }
+
+    public void pidSetTurret(double error) {
+        turretMotor.set(-1 * turretPID.calculate(error, 0));
     }
 
     public void stopTurret() {
