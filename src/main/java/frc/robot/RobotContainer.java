@@ -43,6 +43,7 @@ import frc.robot.commands.ShooterCommands.ShooterParallelSequeunce;
 import frc.robot.commands.ShooterCommands.StartShooterMotor;
 import frc.robot.commands.ShooterCommands.ToggleShooterMotor;
 import frc.robot.commands.ShooterCommands.ToggleShooterPiston;
+import frc.robot.commands.ShooterCommands.VisionAutoShooter;
 import frc.robot.commands.TurretCommands.CalibrateTurretEncoderSequence;
 import frc.robot.commands.TurretCommands.MoveTurretDashboard;
 import frc.robot.commands.TurretCommands.TurretAuto;
@@ -155,7 +156,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
-    SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
+    SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM));
     SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
     SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
     SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
@@ -165,11 +166,11 @@ public class RobotContainer {
     buttonB.whenReleased(new LogCommandWrapper(new ManuallyRunIntakeMotor(intakeSubsystem, 0)));
     buttonY.whenPressed(new LogCommandWrapper(new ManuallyToggleIntake(intakeSubsystem)));
 
-    rightTrigger.whenActive(new LogCommandWrapper(new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem)));
+    rightTrigger.whenActive(new LogCommandWrapper(new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem, limeLightVision.getLimeLightVision())));
     leftTrigger.whenActive(new LogCommandWrapper(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood)));
     buttonX.whenPressed(new LogCommandWrapper(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood)));
-    leftBumper.whenPressed(new LogCommandWrapper(new ToggleShooterMotor(shooterSubsystem)));
-    leftBumper.whenReleased(new LogCommandWrapper(new ToggleShooterMotor(shooterSubsystem)));
+    leftBumper.whenPressed(new LogCommandWrapper(new ToggleShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM)));
+    leftBumper.whenReleased(new LogCommandWrapper(new ToggleShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM)));
     startButton.whenPressed(new LogError());
 
     climberButtonA.whenPressed(new ToggleClimberSolenoid(climberArmSubsystem));
@@ -210,17 +211,17 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Shooter", "Rotate Turret Right", new MoveTurretDashboard(turretSubsystem, MoveTurretDashboard.Direction.RIGHT));
 
       SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
-      SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem));
+      SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM));
       SmartShuffleboard.putCommand("Shooter", "Calibrate Enocoder", new CalibrateTurretEncoderSequence(turretSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Start Shooter Motor", new StartShooterMotor(shooterSubsystem, Constants.SHOOTER_CLOCKWISE_SPEED, Constants.SHOOTER_TIMEOUT));
 
       SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
-      SmartShuffleboard.putCommand("Shooter", "Shooter Sequence", new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem));
+      SmartShuffleboard.putCommand("Shooter", "Shooter Sequence", new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem, limeLightVision.getLimeLightVision()));
       SmartShuffleboard.putCommand("Block", "Extend Block", new ToggleBlockerPiston(shooterSubsystem, true));
       SmartShuffleboard.putCommand("Block", "Retract Block", new ToggleBlockerPiston(shooterSubsystem, false));
-
+      SmartShuffleboard.putCommand("Shooter", "Shoot on Vision", new VisionAutoShooter(limeLightVision.getLimeLightVision(), shooterSubsystem));
 
       SmartShuffleboard.putCommand("Miscellaneous", "Set LED Off", new SetLEDOff());
       SmartShuffleboard.putCommand("Miscellaneous", "Set LED On", new SetLEDOn());
