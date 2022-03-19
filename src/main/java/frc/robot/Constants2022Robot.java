@@ -26,7 +26,7 @@ public interface Constants2022Robot extends GameConstants {
     public static final int DRIVE_RIGHT1_ID = 38;
     public static final int DRIVE_RIGHT2_ID = 37;
     public static final int INTAKE_MOTOR_ID = 4;
-    public static final int TURRET_MOTOR_ID = 1;
+    public static final int TURRET_MOTOR_ID = 9;
     public static final int PCM_CAN_ID = 20;
     public static final int TURRET_HOOD_CAN_ID = 12;
     public static final int SHOOTER_MOTOR_ID = 46;

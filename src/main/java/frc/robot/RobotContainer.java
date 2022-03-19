@@ -100,7 +100,7 @@ public class RobotContainer {
   public AutoChooser autoChooser = new AutoChooser();
 
   private final Drive driveCommand = new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getY());
-  private final TurretManualCommand turretCommand= new TurretManualCommand(turretSubsystem, () -> xboxController.getLeftX());
+  private final TurretManualCommand turretCommand= new TurretManualCommand(turretSubsystem, () -> -xboxController.getLeftX());
   private final ManuallyMoveHood hoodCommand = new ManuallyMoveHood(hood, () -> xboxController.getRightY());
 
   public boolean canShoot = false;

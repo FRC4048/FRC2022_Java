@@ -36,7 +36,7 @@ public class TurretAuto extends CommandBase {
         if (limeLight.getCameraAngles() != null) {
             speed = Math.abs(limeLight.getCameraAngles().getTx())/Constants.TURRET_MAX_DIFFERENCE*(Constants.TURRET_SPEED-Constants.TURRET_MIN_SPEED)+Constants.TURRET_MIN_SPEED;
             badReadings = 0;
-            turretSubsystem.setTurret(Math.signum(limeLight.getCameraAngles().getTx()) * speed);
+            turretSubsystem.setTurret(-1 * Math.signum(limeLight.getCameraAngles().getTx()) * speed);
         } else {
             badReadings++;
         }

@@ -71,12 +71,12 @@ public interface GameConstants {
   public static final double INTAKE_BUFFER = 1.0;
 
   //Turret
-  public static final double TURRETSPIN_SCALEFACTOR = 0.5;
-  public static final int TURRET_AUTO_BAD_READINGS_TRESHOLD = 100;
+  public static final double TURRETSPIN_SCALEFACTOR = 0.35;
+  public static final int TURRET_AUTO_BAD_READINGS_TRESHOLD = 5;
   public static final double TURRET_AUTO_ALIGN_TRESHOLD = 0.2; //change when testing
   public static final double TURRET_AUTO_TIMEOUT = 100;
-  public static final double TURRET_SPEED = 0.5;
-  public static final double TURRET_MIN_SPEED = 0.1;
+  public static final double TURRET_SPEED = 0.9;
+  public static final double TURRET_MIN_SPEED = 0.3;
   public static final double TURRET_MAX_DIFFERENCE = 1350;
 
 
