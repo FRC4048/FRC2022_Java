@@ -48,6 +48,6 @@ public class ToggleShooterMotor extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return((Timer.getFPGATimestamp() - startTime) >= Constants.SHOOTER_TIMEOUT);
+    return((shooterSubsystem.getShooterSpeed() >= Constants.SHOOTER_RPM / 3) || ((Timer.getFPGATimestamp() - startTime) > Constants.SHOOTER_TIMEOUT));
   }
 }
