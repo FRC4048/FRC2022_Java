@@ -5,9 +5,14 @@
 package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.commands.LoggedCommandBase;
+
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.utils.SmartShuffleboard;
 
 public class StartShooterMotor extends CommandBase {
   /** Creates a new RotateShooterMotor. */
@@ -28,12 +33,15 @@ public class StartShooterMotor extends CommandBase {
   @Override
   public void initialize() {
     initTime = Timer.getFPGATimestamp();
+
+//    shooterSubsystem.setShooterSpeed(desiredSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterSubsystem.setShooterSpeed(speed);
+    this.speed = SmartDashboard.getNumber("DesiredSpeed", 12000);
+    shooterSubsystem.setShooterRPM(speed);
   }
 
   // Called once the command ends or is interrupted.
@@ -47,7 +55,7 @@ public class StartShooterMotor extends CommandBase {
   public boolean isFinished() {
     if (Timer.getFPGATimestamp() - initTime >= timeout) {
       return true;
-  }
+    }
     return false;
   }
 }

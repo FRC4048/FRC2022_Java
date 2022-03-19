@@ -6,10 +6,11 @@ package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.commands.LoggedCommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ToggleShooterMotor extends CommandBase {
+public class ToggleShooterMotor extends LoggedCommandBase {
   /** Creates a new SpinShooter. */
   private ShooterSubsystem shooterSubsystem;
   private double startTime;
@@ -31,7 +32,7 @@ public class ToggleShooterMotor extends CommandBase {
   @Override
   public void execute() {
     if (shooterSubsystem.isRunning()) {
-      shooterSubsystem.setShooterSpeed(Constants.SHOOTER_SPEED);
+      shooterSubsystem.setShooterRPM(Constants.SHOOTER_RPM);
     } else {
       shooterSubsystem.stopShooter();
     }

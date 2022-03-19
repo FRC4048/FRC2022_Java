@@ -28,13 +28,13 @@ public interface Constants2022Robot extends GameConstants {
     public static final int INTAKE_MOTOR_ID = 4;
     public static final int TURRET_MOTOR_ID = 9;
     public static final int PCM_CAN_ID = 20;
-    public static final int TURRET_HOOD_CAN_ID = 12;
+    public static final int TURRET_HOOD_CAN_ID = 10;
     public static final int SHOOTER_MOTOR_ID = 46;
-    public static final int HOOD_MOTOR_ID = 8;
-    public static final int CLIMBER_RIGHT_WINCH_ID = 70; //temp
-    public static final int CLIMBER_LEFT_WINCH_ID = 71; //temp
-    public static final int CLIMBER_RIGHT_ARM_ID = 72; //temp
-    public static final int CLIMBER_LEFT_ARM_ID = 73; //temp
+    public static final int HOOD_MOTOR_ID = 10;
+    public static final int CLIMBER_RIGHT_WINCH_ID = 7; //temp
+    public static final int CLIMBER_LEFT_WINCH_ID = 1; //temp
+    public static final int CLIMBER_RIGHT_ARM_ID = 12; //temp
+    public static final int CLIMBER_LEFT_ARM_ID = 2; //temp
 
 
     //PDP
@@ -53,16 +53,17 @@ public interface Constants2022Robot extends GameConstants {
 
     
     //AIO 
-    public static final int HOOD_POTENTIOMETER = 7;
+    public static final int HOOD_POTENTIOMETER = 0;
 
     //Relay
 
     //PCM
     public static final int SHOOTER_PISTON_ID = 0;
-    public static final int INTAKE_SOLENOID_1 = 1;
-    public static final int INTAKE_SOLENOID_2 = 2;
-    public static final int CLIMBER_L_PISTON_ID = 4;
-    public static final int CLIMBER_R_PISTON_ID = 5;
+    public static final int INTAKE_SOLENOID_1 = 3;
+    public static final int INTAKE_SOLENOID_2 = 6;
+    public static final int CLIMBER_L_PISTON_ID = 2;
+    public static final int CLIMBER_R_PISTON_ID = 7;
+    public static final int STOP_SOLENOID_ID = 1;   
 
     // Elevator
     

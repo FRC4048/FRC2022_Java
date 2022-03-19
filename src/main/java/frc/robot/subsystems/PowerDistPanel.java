@@ -25,7 +25,6 @@ public class PowerDistPanel extends SubsystemBase{
 
         @Override
         protected void addAll() {
-
             add("Total Voltage", pdp.getVoltage());
             add("Total Current", pdp.getTotalCurrent());
             add("Drive R1", pdp.getCurrent(Constants.PDP_DRIVE_R1));
