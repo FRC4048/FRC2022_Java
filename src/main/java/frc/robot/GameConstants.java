@@ -85,7 +85,6 @@ public interface GameConstants {
   // Turret
   public static final double TURRET_CLOCKWISE_SPEED = .5;
   public static final double TURRET_COUNTERCLOCKWISE_SPEED = -.5;
-
   // Intake
   public static final double INTAKE_BUFFER = 1.0;
   public static final double INTAKE_BALL_DETECTIONS_THRESHOLD = 5;
