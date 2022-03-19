@@ -7,6 +7,7 @@ package frc.robot.commands.ShooterCommands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
+import frc.robot.commands.ToggleBlockerPiston;
 import frc.robot.commands.IntakeCommand.DropBallCommand;
 import frc.robot.commands.Miscellaneous.SetPipeline;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -23,10 +24,12 @@ public class ElevatorSequence extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      new LogCommandWrapper(new ToggleBlockerPiston(shooterSubsystem, true)),
       new LogCommandWrapper(new WaitCommand(Constants.SHOOTER_PISTON_WAIT)),
       new LogCommandWrapper(new ExtendShooterPiston(shooterSubsystem)), 
       new LogCommandWrapper(new WaitCommand(Constants.SHOOTER_PISTON_WAIT)),
       new LogCommandWrapper(new RetractShooterPiston(shooterSubsystem)),
+      new LogCommandWrapper(new ToggleBlockerPiston(shooterSubsystem, false)),
       new LogCommandWrapper(new DropBallCommand(intakeSubsystem)),
       new LogCommandWrapper(new SetPipeline(Constants.LIMELIGHT_STREAMING))
     );
