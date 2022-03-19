@@ -37,6 +37,9 @@ public class DriveTrain extends SubsystemBase {
         leftEncoder = left1.getEncoder();
         rightEncoder = right1.getEncoder();
 
+        leftEncoder.setPositionConversionFactor(2);
+        rightEncoder.setPositionConversionFactor(2);
+
         left2.follow(left1);
         right2.follow(right1);
 
@@ -51,6 +54,7 @@ public class DriveTrain extends SubsystemBase {
         gyro = new PigeonIMU(Constants.PIGEON_CAN_ID);
         resetGyro();
         
+
         Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Left Drive Encoder", 10, left1));
         Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Right Drive Encoder", 10, right1));
         Robot.getDiagnostics().addDiagnosable(new DiagPigeon("Pigeon", 10, gyro));
