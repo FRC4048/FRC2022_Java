@@ -30,7 +30,6 @@ public class ElevatorSequence extends SequentialCommandGroup {
       new LogCommandWrapper(new WaitCommand(Constants.SHOOTER_PISTON_WAIT)),
       new LogCommandWrapper(new RetractShooterPiston(shooterSubsystem)),
       new LogCommandWrapper(new ToggleBlockerPiston(shooterSubsystem, false)),
-      new LogCommandWrapper(new DropBallCommand(intakeSubsystem)),
       new LogCommandWrapper(new SetPipeline(Constants.LIMELIGHT_STREAMING))
     );
     SmartShuffleboard.put("Driver", "Data", "Can Shoot", false);

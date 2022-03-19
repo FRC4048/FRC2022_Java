@@ -13,22 +13,22 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.utils.limelight.LimeLightVision;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class TwoShotSequenceMiddle extends SequentialCommandGroup {
   /** Creates a new TwoShotSequenceMiddle. */
-  public TwoShotSequenceMiddle(TurretSubsystem turretSubsystem, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, ShooterSubsystem shooterSubsystem) {
+  public TwoShotSequenceMiddle(TurretSubsystem turretSubsystem, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, ShooterSubsystem shooterSubsystem, LimeLightVision limeLightVision) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new AutoSetShootingPosition(turretSubsystem, Constants.AUTO_TURRET_SPEED, Constants.AUTO_MIDDLE_TURRET_ANGLE_FIRST_SHOT),
-      new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem),
+      new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem, limeLightVision, turretSubsystem, null),
       new IntakeSequence(intakeSubsystem),
       new MoveDistance(driveTrain, Constants.AUTO_MOVE_SPEED, Constants.AUTO_DISTANCE_INCHES),
-      new AutoSetShootingPosition(turretSubsystem, Constants.AUTO_TURRET_SPEED, Constants.AUTO_MIDDLE_TURRET_ANGLE_SECOND_SHOT),
-      new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem)
+      new AutoSetShootingPosition(turretSubsystem, Constants.AUTO_TURRET_SPEED, Constants.AUTO_TURRET_CENTER_ANGLE),
+      new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem, limeLightVision, turretSubsystem, null)
     );
   }
 }

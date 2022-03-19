@@ -17,6 +17,7 @@ public class RunTurretUntilLimitSwitch extends CommandBase {
 
   public RunTurretUntilLimitSwitch(TurretSubsystem turretSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(turretSubsystem);
     this.turretSubsystem = turretSubsystem;
   }
 
@@ -29,7 +30,7 @@ public class RunTurretUntilLimitSwitch extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    turretSubsystem.setTurret(-0.5);
+    turretSubsystem.setTurret(0.5);
   }
 
   // Called once the command ends or is interrupted.
@@ -42,16 +43,11 @@ public class RunTurretUntilLimitSwitch extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (turretSubsystem.getRightSwitch() || (Timer.getFPGATimestamp() - startTime) >= Constants.TURRETSPIN_TIMEOUT){
+    if (turretSubsystem.getLeftSwitch() || (Timer.getFPGATimestamp() - startTime) >= Constants.TURRETSPIN_TIMEOUT){
       return true;
     }
-    else {
-      if (turretSubsystem.getLeftSwitch()){
-        return true;
-      }
       else{
         return false;
-      }
     }
   }
 }

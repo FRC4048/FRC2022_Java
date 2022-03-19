@@ -14,10 +14,14 @@ import frc.robot.commands.Autonomous.DoNothingSequence;
 import frc.robot.commands.Autonomous.TwoShotSequenceLeft;
 import frc.robot.commands.Autonomous.TwoShotSequenceMiddle;
 import frc.robot.commands.Autonomous.TwoShotSequenceRight;
+import frc.robot.commands.DriveCommands.Drive;
+import frc.robot.commands.IntakeCommand.IntakeSequence;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.utils.limelight.LimeLightVision;
 //import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.*;
 
@@ -29,11 +33,14 @@ public class AutoChooser {
     private SendableChooser<Action> actionChooser;
     // private NetworkTableEntry delayEntry;
     AutoCommand autonomousCommand;
+    private IntakeSubsystem intakeSubsystem;
+    private ShooterSubsystem shooterSubsystem;
+    private DriveTrain driveTrain;
+    private TurretSubsystem turretSubsystem;
+    private LimeLightVision limeLightVision;
+    private Hood hood;
 
-    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-    private final DriveTrain driveTrain = new DriveTrain();
-    private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-    private final TurretSubsystem turretSubsystem = new TurretSubsystem();
+
 
     // position at beginning of match
     enum Position {
@@ -51,9 +58,15 @@ public class AutoChooser {
     }
     // replace ABC options once we decide what we are doing in auto
 
-    public AutoChooser() {
+    public AutoChooser(IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, ShooterSubsystem shooterSubsystem, TurretSubsystem turretSubsystem, LimeLightVision limeLightVision, Hood hood) {
         positionChooser = new SendableChooser<Position>();
         actionChooser = new SendableChooser<Action>();
+        this.intakeSubsystem = intakeSubsystem;
+        this.driveTrain = driveTrain;
+        this.shooterSubsystem = shooterSubsystem;
+        this.turretSubsystem = turretSubsystem;
+        this.limeLightVision = limeLightVision;
+        this.hood = hood;
         // AutoCommand autonomousCommand = getAutonomousCommand(getPosition(),
         // getAction());
         // ^^ see line 92
@@ -123,16 +136,16 @@ public class AutoChooser {
             if (p == Position.LEFT) {
                 TwoShotSequenceLeft TwoShotSequenceLeft = new TwoShotSequenceLeft(turretSubsystem,
                         Constants.AUTO_TURRET_SPEED, intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED,
-                        Constants.AUTO_DISTANCE_INCHES, shooterSubsystem);
+                        Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision);
                 return TwoShotSequenceLeft;
             } else if (p == Position.MIDDLE) {
                 TwoShotSequenceMiddle TwoShotSequenceMiddle = new TwoShotSequenceMiddle(turretSubsystem,
-                        intakeSubsystem, driveTrain, shooterSubsystem);
+                        intakeSubsystem, driveTrain, shooterSubsystem, limeLightVision);
                 return TwoShotSequenceMiddle;
             } else if (p == Position.RIGHT) {
                 TwoShotSequenceRight TwoShotSequenceRight = new TwoShotSequenceRight(turretSubsystem,
                         Constants.AUTO_TURRET_SPEED, intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED,
-                        Constants.AUTO_DISTANCE_INCHES, shooterSubsystem);
+                        Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision, hood);
                 return TwoShotSequenceRight;
             }
         } else if (a == Action.DO_NOTHING) {

@@ -19,8 +19,8 @@ public class AutoSetShootingPosition extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new RunTurretUntilLimitSwitch(turretSubsystem),
-      new WaitCommand(1),
-      new AutoSetTurretPosition(turretSubsystem, speed, angle)
+      new WaitCommand(0.2),
+      new AutoSetTurretPosition(turretSubsystem, -speed, angle)
     );
   }
 }

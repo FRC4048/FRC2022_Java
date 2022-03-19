@@ -99,10 +99,7 @@ public interface GameConstants {
 
   //Autonomous
   public static final double AUTO_TURRET_SPEED = 0.5;
-  public static final double AUTO_RIGHT_TURRET_ANGLE = 14.3; //placeholder
-  public static final double AUTO_MIDDLE_TURRET_ANGLE_FIRST_SHOT = 12.3; //placeholder
-  public static final double AUTO_MIDDLE_TURRET_ANGLE_SECOND_SHOT = 45.6; //placeholder
-  public static final double AUTO_LEFT_TURRET_ANGLE = 78.9; //placeholder
+  public static final double AUTO_TURRET_CENTER_ANGLE = 430; //placeholder
   public static final double AUTO_MOVE_SPEED = 0.5; //placeholder
   public static final double AUTO_DISTANCE_INCHES = 70; //placeholder
   

@@ -4,6 +4,7 @@
 
 package frc.robot.commands.Autonomous;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.TurretSubsystem;
 
@@ -13,6 +14,7 @@ public class AutoSetTurretPosition extends CommandBase {
   private TurretSubsystem turretSubsystem;
   private double speed;
   private double angle;
+  private double startTime;
   public AutoSetTurretPosition(TurretSubsystem turretSubsystem, double speed, double angle) {
     this.turretSubsystem = turretSubsystem;
     this.speed = speed;
@@ -24,12 +26,14 @@ public class AutoSetTurretPosition extends CommandBase {
   @Override
   public void initialize() {
     turretSubsystem.resetEncoder();
-    turretSubsystem.setTurret(speed);
+    startTime = Timer.getFPGATimestamp();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    turretSubsystem.setTurret(speed);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -40,7 +44,7 @@ public class AutoSetTurretPosition extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (turretSubsystem.getEncoder() == angle) {
+    if ((Math.abs(turretSubsystem.getEncoder() - angle) <= 50) || (Timer.getFPGATimestamp() - startTime) >= 3) {
       return true;
     }
     else {
