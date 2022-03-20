@@ -5,9 +5,11 @@
 package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.HoodCommands.HoodAutoCommand;
+import frc.robot.Constants;
+import frc.robot.commands.AutoTargetParallel;
+import frc.robot.commands.WaitCommand;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
-import frc.robot.commands.TurretCommands.TurretAuto;
+import frc.robot.commands.Miscellaneous.SetPipeline;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.utils.SmartShuffleboard;
@@ -24,9 +26,9 @@ public class AutoTargetSequence extends SequentialCommandGroup {
 
     // Use addRequirements() here to declare subsystem dependencies.
     addCommands(
-      new LogCommandWrapper(new SetLEDOn()),
-      new LogCommandWrapper(new TurretAuto(turretSubsystem, vision)),
-      new LogCommandWrapper(new HoodAutoCommand(hoodSubsystem, vision))
+            new LogCommandWrapper(new SetPipeline(Constants.LIMELIGHT_TARGET_DETECTION)),
+            new LogCommandWrapper(new WaitCommand(0.1)),
+            new LogCommandWrapper(new AutoTargetParallel(turretSubsystem, vision, hoodSubsystem))
     );
     SmartShuffleboard.put("Driver", "Data", "Can Shoot", true);
   }

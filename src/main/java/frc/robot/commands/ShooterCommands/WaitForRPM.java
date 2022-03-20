@@ -4,45 +4,37 @@
 
 package frc.robot.commands.ShooterCommands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class SetShooterMotor extends CommandBase {
-  /** Creates a new RotateShooterMotor. */
-  private ShooterSubsystem shooterSubsystem;
-  private double speed;
+public class WaitForRPM extends LoggedCommandBase {
+  /** Creates a new WaitForRPM. */
+  private double targetRPM;
+  ShooterSubsystem shooter;
 
-  public SetShooterMotor(ShooterSubsystem shooterSubsystem, double speed) {
+  public WaitForRPM(ShooterSubsystem shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.shooterSubsystem = shooterSubsystem;
-    this.speed = speed;
-
-    addRequirements(shooterSubsystem);
+    this.shooter = shooter;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-//    shooterSubsystem.setShooterSpeed(desiredSpeed);
+    targetRPM = shooter.getVelocity() / 3;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    shooterSubsystem.setVelocity(speed);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    shooterSubsystem.setVelocity(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-      return true;
+    return (shooter.getShooterSpeed() >= targetRPM);
   }
 }

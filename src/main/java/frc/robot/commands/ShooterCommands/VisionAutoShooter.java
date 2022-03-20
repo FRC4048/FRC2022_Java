@@ -63,6 +63,7 @@ public class VisionAutoShooter extends LoggedCommandBase {
       Double rpm = calculateRPM(vision);
       if (rpm != null) {
         CommandScheduler.getInstance().schedule(new LogCommandWrapper(new SetShooterMotor(shooter, rpm)));
+        SmartShuffleboard.put("Shooter", "desiredSpeed", rpm);
       }
       else {
         addLog("UNKOWN DISTANCE - using default speed");
