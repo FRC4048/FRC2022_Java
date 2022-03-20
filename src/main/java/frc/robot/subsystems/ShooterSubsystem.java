@@ -11,6 +11,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.utils.SmartShuffleboard;
+import frc.robot.utils.diag.DiagOpticalSensor;
 import frc.robot.utils.diag.DiagSparkMaxEncoder;
 import frc.robot.utils.logging.Logging;
 
@@ -28,12 +30,14 @@ public class ShooterSubsystem extends SubsystemBase {
   private boolean isRunning;
   private Solenoid blockPiston;
   private SparkMaxPIDController shooterPID;
+  private DigitalInput elevatorSensor;
 
   public ShooterSubsystem() {
     //climberSolenoid = new Solenoid(Constants.PCM_CAN_ID, Constants.CLIMBER_PISTON_ID);
     shooterSolenoid = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.SHOOTER_PISTON_ID);
     shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_ID, MotorType.kBrushless);
     blockPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.STOP_SOLENOID_ID);
+    elevatorSensor = new DigitalInput(Constants.ELEVATOR_SENSOR_ID);
     shooterPID = shooterMotor.getPIDController();
     isRunning = false;
 
@@ -42,6 +46,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
 
     Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Shooter Encoder", 100, shooterMotor));
+    Robot.getDiagnostics().addDiagnosable(new DiagOpticalSensor("Elevator Sensor", elevatorSensor));
 
     shooterMotor.setIdleMode(IdleMode.kCoast);
     shooterMotor.setInverted(false);
@@ -108,10 +113,15 @@ public class ShooterSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if (Constants.ENABLE_DEBUG == true){
+    if (Constants.ENABLE_DEBUG){
       SmartShuffleboard.put("Shooter", "Data", "Piston State", getPistonState());
       SmartShuffleboard.put("Shooter", "Data", "Shooter RPM", getEncoder().getVelocity());
       SmartShuffleboard.put("Shooter", "Data", "Block Piston", getBlockState());
+      SmartShuffleboard.put("Shooter", "Data", "Elevator Sensor", elevatorSensor.get());
+    }
+
+    if (shooterSolenoid.get() == false && elevatorSensor.get() == true) {
+      blockPiston.set(true);
     }
   }
   

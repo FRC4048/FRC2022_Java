@@ -14,7 +14,7 @@ package frc.robot;
  */
 public interface Constants2022Robot extends GameConstants {
     //Global Constant
-    public static final boolean ENABLE_DEBUG = true;
+    public static final boolean ENABLE_DEBUG = false;
 
     // THE CONSTANTS IN THIS INTERFACE ARE ALL COMMENTED OUT BECAUSE WE DON'T HAVE A ROBOT YET.
     // ONCE THE HARDWARE IS DELIVERED< ALL THESE NEED TO BE DEFINED AND TESTED
@@ -50,6 +50,7 @@ public interface Constants2022Robot extends GameConstants {
     //DIO
     public static final int INTAKE_SENSOR_ID_1 = 0; //temp
     public static final int INTAKE_SENSOR_ID_2 = 1;
+    public static final int ELEVATOR_SENSOR_ID = 2;
 
     
     //AIO 
