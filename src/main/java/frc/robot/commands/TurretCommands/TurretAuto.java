@@ -17,7 +17,6 @@ public class TurretAuto extends LoggedCommandBase {
     // private double clockwise = 0.5; // now in constants
     // private double counterClockwise = -0.5; // now in constants
     // bad readings
-    private int badReadings;
     private double speed;
     private double initTime;
 
@@ -38,12 +37,10 @@ public class TurretAuto extends LoggedCommandBase {
 
     @Override
     public void execute() {
-        if (limeLight.getCameraAngles() != null) {
-            speed = Math.abs(limeLight.getCameraAngles().getTx())/Constants.TURRET_MAX_DIFFERENCE*(Constants.TURRET_SPEED-Constants.TURRET_MIN_SPEED)+Constants.TURRET_MIN_SPEED;
-            badReadings = 0;
+        
+        if (limeLight.hasTarget()) {
+            speed = Math.abs(limeLight.getCameraAngles().getTx())/Constants.TURRET_MAX_DIFFERENCE * (Constants.TURRET_SPEED-Constants.TURRET_MIN_SPEED) + Constants.TURRET_MIN_SPEED;
             turretSubsystem.setTurret(-1 * Math.signum(limeLight.getCameraAngles().getTx()) * speed);
-        } else {
-            badReadings++;
         }
         SmartShuffleboard.put("Shooter", "Turret Speed", speed);
 
@@ -59,13 +56,10 @@ public class TurretAuto extends LoggedCommandBase {
     @Override
     public boolean isFinished() {
 
-        if (limeLight.getCameraAngles() != null) {
+        if (limeLight.hasTarget()) {
             if (Math.abs(limeLight.getCameraAngles().getTx()) <= Constants.TURRET_AUTO_ALIGN_TRESHOLD) {
                 return true;
             }
-        }
-        if (badReadings >= Constants.TURRET_AUTO_BAD_READINGS_TRESHOLD) {
-            return true;
         }
         if ((Timer.getFPGATimestamp() - initTime) >= Constants.TURRET_AUTO_TIMEOUT) {
             return true;
