@@ -201,7 +201,11 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM));
       SmartShuffleboard.putCommand("Shooter", "Calibrate Enocoder", new CalibrateTurretEncoderSequence(turretSubsystem));
-      SmartShuffleboard.putCommand("Shooter", "Start Shooter Motor", new SetShooterMotor(shooterSubsystem, Constants.SHOOTER_SPEED));
+      SmartShuffleboard.putCommand("Shooter", "Shooter Motor 12000", new SetShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM));
+      SmartShuffleboard.putCommand("Shooter", "Shooter Motor 12600", new SetShooterMotor(shooterSubsystem, 12600));
+      SmartShuffleboard.putCommand("Shooter", "Shooter Motor 12900", new SetShooterMotor(shooterSubsystem, 12900));
+      SmartShuffleboard.putCommand("Shooter", "Shooter Motor 0", new SetShooterMotor(shooterSubsystem, 0));
+      SmartShuffleboard.putCommand("Shooter", "Wait For RPM", new WaitForRPM(shooterSubsystem));
 
       SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));

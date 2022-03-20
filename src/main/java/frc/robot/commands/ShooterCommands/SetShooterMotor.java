@@ -18,8 +18,6 @@ public class SetShooterMotor extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooterSubsystem = shooterSubsystem;
     this.speed = speed;
-
-    addRequirements(shooterSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -36,9 +34,7 @@ public class SetShooterMotor extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    shooterSubsystem.setVelocity(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

@@ -27,7 +27,6 @@ public class AutoTargetSequence extends SequentialCommandGroup {
     // Use addRequirements() here to declare subsystem dependencies.
     addCommands(
             new LogCommandWrapper(new SetPipeline(Constants.LIMELIGHT_TARGET_DETECTION)),
-            new LogCommandWrapper(new WaitCommand(0.1)),
             new LogCommandWrapper(new AutoTargetParallel(turretSubsystem, vision, hoodSubsystem))
     );
     SmartShuffleboard.put("Driver", "Data", "Can Shoot", true);

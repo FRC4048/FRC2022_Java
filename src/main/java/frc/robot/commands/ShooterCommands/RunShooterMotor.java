@@ -17,7 +17,9 @@ public class RunShooterMotor extends CommandBase {
 
     @Override
     public void execute() {
-        shooter.setShooterRPM(shooter.getVelocity());
+        if (shooter.getVelocity() == 0) {
+            shooter.setShooterSpeed(0);
+        } else { shooter.setShooterRPM(shooter.getVelocity()); }
     }
 
     @Override

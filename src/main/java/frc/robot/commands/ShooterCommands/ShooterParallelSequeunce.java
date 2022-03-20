@@ -5,7 +5,9 @@
 package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
+import frc.robot.commands.Miscellaneous.SetPipeline;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.utils.limelight.LimeLightVision;
@@ -14,12 +16,13 @@ import frc.robot.utils.logging.LogCommandWrapper;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ShooterParallelSequeunce extends ParallelCommandGroup {
+public class ShooterParallelSequeunce extends SequentialCommandGroup {
   /** Creates a new ShootSequence. */
   public ShooterParallelSequeunce(ShooterSubsystem shooterSubsystem, IntakeSubsystem intakeSubsystem, LimeLightVision vision) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      new LogCommandWrapper(new SetPipeline(Constants.LIMELIGHT_TARGET_DETECTION)),
       new LogCommandWrapper(new VisionAutoShooter(vision, shooterSubsystem)),
       new LogCommandWrapper(new ElevatorSequence(shooterSubsystem, intakeSubsystem))
     );

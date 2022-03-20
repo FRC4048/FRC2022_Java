@@ -7,6 +7,7 @@ package frc.robot.commands.ShooterCommands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.utils.SmartShuffleboard;
 
 public class WaitForRPM extends LoggedCommandBase {
   /** Creates a new WaitForRPM. */
@@ -21,12 +22,14 @@ public class WaitForRPM extends LoggedCommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    targetRPM = shooter.getVelocity() / 3;
+    targetRPM = shooter.getVelocity() * .29;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    SmartShuffleboard.put("Shooter", "Wait Done?", shooter.getShooterRPM() >= targetRPM * .9);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -35,6 +38,7 @@ public class WaitForRPM extends LoggedCommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (shooter.getShooterSpeed() >= targetRPM);
+    SmartShuffleboard.put("Shooter", "Wait Done?", shooter.getShooterRPM() >= targetRPM * .9);
+    return (shooter.getShooterRPM() >= targetRPM * .9);
   }
 }
