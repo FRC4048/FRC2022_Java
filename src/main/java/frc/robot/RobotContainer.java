@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.ToggleBlockerPiston;
 import frc.robot.commands.LogError;
 import frc.robot.commands.ToggleBlockerPiston;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
@@ -24,6 +23,7 @@ import frc.robot.commands.HoodCommands.HoodAutoCommand;
 import frc.robot.commands.HoodCommands.MoveHoodDown;
 import frc.robot.commands.HoodCommands.MoveHoodToAngle;
 import frc.robot.commands.HoodCommands.MoveHoodUp;
+import frc.robot.commands.HoodCommands.UpdatingHoodAutoCommand;
 import frc.robot.commands.IntakeCommand.DeployIntakeCommand;
 import frc.robot.commands.IntakeCommand.DropBallCommand;
 import frc.robot.commands.IntakeCommand.IntakeBallCommand;
@@ -35,7 +35,6 @@ import frc.robot.commands.Miscellaneous.SetLEDOff;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
 import frc.robot.commands.Miscellaneous.SetPipeline;
 import frc.robot.commands.ShooterCommands.AutoTargetSequence;
-import frc.robot.commands.ShooterCommands.ElevatorSequence;
 import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
 import frc.robot.commands.ShooterCommands.ManuallyMoveHood;
 import frc.robot.commands.ShooterCommands.RetractShooterPiston;
@@ -46,7 +45,6 @@ import frc.robot.commands.ShooterCommands.ToggleShooterPiston;
 import frc.robot.commands.ShooterCommands.VisionAutoShooter;
 import frc.robot.commands.TurretCommands.CalibrateTurretEncoderSequence;
 import frc.robot.commands.TurretCommands.MoveTurretDashboard;
-import frc.robot.commands.TurretCommands.TurretAuto;
 import frc.robot.commands.TurretCommands.TurretManualCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
@@ -212,7 +210,6 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM));
       SmartShuffleboard.putCommand("Shooter", "Calibrate Enocoder", new CalibrateTurretEncoderSequence(turretSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Start Shooter Motor", new StartShooterMotor(shooterSubsystem, Constants.SHOOTER_SPEED, Constants.SHOOTER_TIMEOUT));
-
       SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
@@ -234,7 +231,7 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Hood", "Move to 106", new MoveHoodToAngle(hood, 106.0));
       SmartShuffleboard.putCommand("Hood", "Move to 120", new MoveHoodToAngle(hood, 120.0));
       SmartShuffleboard.putCommand("Hood", "Move to 130", new MoveHoodToAngle(hood, 130.0));
-
+      SmartShuffleboard.putCommand("Hood", "Updating Hood Auto", new UpdatingHoodAutoCommand(hood, limeLightVision.getLimeLightVision()));
       SmartShuffleboard.putCommand("Hood", "Auto", new HoodAutoCommand(hood, limeLightVision.getLimeLightVision()));
     }
   }

@@ -63,7 +63,7 @@ public class TurretAuto extends LoggedCommandBase {
                 return true;
             }
         }
-        if (badReadings >= Constants.TURRET_AUTO_BAD_READINGS_TRESHOLD) {
+        if (badReadings >= Constants.HOOD_AND_TURRET_AUTO_BAD_READINGS_TRESHOLD) {
             return true;
         }
         if ((Timer.getFPGATimestamp() - initTime) >= Constants.TURRET_AUTO_TIMEOUT) {
