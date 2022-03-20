@@ -24,7 +24,6 @@ public class IntakeSubsystem extends SubsystemBase {
   private Solenoid piston2;
   private DigitalInput intakeSensor1;
   private DigitalInput intakeSensor2;
-  private Solenoid blockPiston;
 
   /** Creates a new ExampleSubsystem. */
   public IntakeSubsystem() {
@@ -33,7 +32,6 @@ public class IntakeSubsystem extends SubsystemBase {
     piston2 = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.INTAKE_SOLENOID_2);
     intakeSensor1 = new DigitalInput(Constants.INTAKE_SENSOR_ID_1);
     intakeSensor2 = new DigitalInput(Constants.INTAKE_SENSOR_ID_2);
-    blockPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.STOP_SOLENOID_ID);
 
     int TIMEOUT = 100;
 
@@ -95,14 +93,6 @@ public class IntakeSubsystem extends SubsystemBase {
     return piston2.get();
   }
 
-  public boolean getBlockState() {
-    return blockPiston.get();
-  }
-
-  public void setBlockPiston(boolean newState) {
-    blockPiston.set(newState);
-  }
-
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
@@ -112,7 +102,6 @@ public class IntakeSubsystem extends SubsystemBase {
     protected void addAll() {
         add("Piston 1 State", getPiston1State());
         add("Piston 2 State", getPiston2State());
-        add("Block Piston State", getBlockState());
     }
   };
 }

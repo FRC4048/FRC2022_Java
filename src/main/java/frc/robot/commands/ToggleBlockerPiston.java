@@ -10,13 +10,13 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 public class ToggleBlockerPiston extends CommandBase {
   /** Creates a new ExtendBlockerPiston. */
-  private IntakeSubsystem intake;
+  private ShooterSubsystem shooter;
 
   private boolean desiredDirection = false;
 
-  public ToggleBlockerPiston(IntakeSubsystem intake, boolean desiredDirection) {
+  public ToggleBlockerPiston(ShooterSubsystem shooter, boolean desiredDirection) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.intake = intake;
+    this.shooter = shooter;
     this.desiredDirection = desiredDirection;
   }
 
@@ -27,7 +27,7 @@ public class ToggleBlockerPiston extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setBlockPiston(desiredDirection);
+    shooter.setBlockPiston(desiredDirection);
   }
 
   // Called once the command ends or is interrupted.

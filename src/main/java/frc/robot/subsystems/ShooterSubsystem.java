@@ -28,11 +28,13 @@ public class ShooterSubsystem extends SubsystemBase {
   private boolean isRunning;
   private SparkMaxPIDController shooterPID;
   private double velocity;
+  private Solenoid blockPiston;
 
   public ShooterSubsystem() {
     //climberSolenoid = new Solenoid(Constants.PCM_CAN_ID, Constants.CLIMBER_PISTON_ID);
     shooterSolenoid = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.SHOOTER_PISTON_ID);
     shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_ID, MotorType.kBrushless);
+    blockPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.STOP_SOLENOID_ID);
     shooterPID = shooterMotor.getPIDController();
     isRunning = false;
     velocity = 0;
@@ -72,6 +74,14 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void stopShooter() {
     shooterMotor.set(0);
+  }
+
+  public boolean getBlockState() {
+    return blockPiston.get();
+  }
+
+  public void setBlockPiston(boolean newState) {
+    blockPiston.set(newState);
   }
 
   public double getShooterSpeed() {
