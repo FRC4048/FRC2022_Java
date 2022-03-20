@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.ToggleBlockerPiston;
 import frc.robot.commands.LogError;
 import frc.robot.commands.ToggleBlockerPiston;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
@@ -35,7 +34,6 @@ import frc.robot.commands.Miscellaneous.SetLEDOff;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
 import frc.robot.commands.Miscellaneous.SetPipeline;
 import frc.robot.commands.ShooterCommands.AutoTargetSequence;
-import frc.robot.commands.ShooterCommands.ElevatorSequence;
 import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
 import frc.robot.commands.ShooterCommands.ManuallyMoveHood;
 import frc.robot.commands.ShooterCommands.RetractShooterPiston;
@@ -46,8 +44,9 @@ import frc.robot.commands.ShooterCommands.ToggleShooterPiston;
 import frc.robot.commands.ShooterCommands.VisionAutoShooter;
 import frc.robot.commands.TurretCommands.CalibrateTurretEncoderSequence;
 import frc.robot.commands.TurretCommands.MoveTurretDashboard;
-import frc.robot.commands.TurretCommands.TurretAuto;
+import frc.robot.commands.TurretCommands.RunTurretUntilTarget;
 import frc.robot.commands.TurretCommands.TurretManualCommand;
+import frc.robot.commands.TurretCommands.TurretSweepSequence;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -207,6 +206,8 @@ public class RobotContainer {
 
       SmartShuffleboard.putCommand("Shooter", "Rotate Turret Left", new MoveTurretDashboard(turretSubsystem, MoveTurretDashboard.Direction.LEFT));
       SmartShuffleboard.putCommand("Shooter", "Rotate Turret Right", new MoveTurretDashboard(turretSubsystem, MoveTurretDashboard.Direction.RIGHT));
+      SmartShuffleboard.putCommand("Shooter", "Turret Sweep", new TurretSweepSequence(turretSubsystem, limeLightVision.getLimeLightVision()));
+      SmartShuffleboard.putCommand("Shooter", "Run Turret Until Target", new RunTurretUntilTarget(turretSubsystem, limeLightVision.getLimeLightVision()));
 
       SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM));
