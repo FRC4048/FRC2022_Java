@@ -142,7 +142,8 @@ public class LimeLightVision {
 
     public double calcHorizontalDistanceToTarget (double angleY){
 		/*Assumes y offset from camera is in degrees*/
-        double horizontal = (relativeHeight)/Math.tan(Math.toRadians(cameraAngle+angleY));  
+        //+10 Accounts for distance from camera to bumper and distance to center of hoop
+        double horizontal = (relativeHeight)/Math.tan(Math.toRadians(cameraAngle+angleY)) + 10;  
 		return horizontal;
     } 
     
