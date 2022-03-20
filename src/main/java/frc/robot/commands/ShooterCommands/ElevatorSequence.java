@@ -42,9 +42,9 @@ public class ElevatorSequence extends SequentialCommandGroup {
   @Override
   public void end(boolean interrupted) {
     if (interrupted) {
-      new LogCommandWrapper(new SetShooterMotor(shooterSubsystem, 0));
-      new LogCommandWrapper(new ToggleBlockerPiston(shooterSubsystem, false));
-      new LogCommandWrapper(new RetractShooterPiston(shooterSubsystem));
+      shooterSubsystem.setVelocity(0);
+      shooterSubsystem.setBlockPiston(false);
+      shooterSubsystem.retractPiston();
     }
   }
 }
