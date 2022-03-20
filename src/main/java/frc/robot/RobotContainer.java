@@ -19,7 +19,7 @@ import frc.robot.commands.Autonomous.CrossTheLineSequence;
 import frc.robot.commands.Autonomous.DoNothingSequence;
 import frc.robot.commands.Autonomous.TwoShotSequenceLeft;
 import frc.robot.commands.Autonomous.TwoShotSequenceRight;
-import frc.robot.commands.Autonomous.TwoShotSequenceMiddle;
+import frc.robot.commands.Autonomous.OneShotSequenceMiddle;
 import frc.robot.commands.LogError;
 import frc.robot.commands.ToggleBlockerPiston;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
@@ -239,9 +239,9 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Hood", "Move Hood Down", new MoveHoodDown(hood));
       SmartShuffleboard.putCommand("Hood", "Move Hood Up", new MoveHoodUp(hood));
 
-      SmartShuffleboard.putCommand("Autonomous", "Two Shot Left", new TwoShotSequenceLeft(turretSubsystem, Constants.AUTO_TURRET_SPEED,  intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED, Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision.getLimeLightVision()));
+      SmartShuffleboard.putCommand("Autonomous", "Two Shot Left", new TwoShotSequenceLeft(turretSubsystem, Constants.AUTO_TURRET_SPEED,  intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED, Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision.getLimeLightVision(), hood));
       SmartShuffleboard.putCommand("Autonomous", "Two Shot Right", new TwoShotSequenceRight(turretSubsystem, Constants.AUTO_TURRET_SPEED,  intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED, Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision.getLimeLightVision(), hood));
-      SmartShuffleboard.putCommand("Autonomous", "Two Shot Middle", new TwoShotSequenceMiddle(turretSubsystem, intakeSubsystem, driveTrain, shooterSubsystem, limeLightVision.getLimeLightVision()));
+      SmartShuffleboard.putCommand("Autonomous", "Two Shot Middle", new OneShotSequenceMiddle(turretSubsystem, intakeSubsystem, driveTrain, shooterSubsystem, limeLightVision.getLimeLightVision(), hood, Constants.AUTO_MOVE_SPEED, Constants.AUTO_DISTANCE_INCHES));
       SmartShuffleboard.putCommand("Autonomous", "Cross Line", new CrossTheLineSequence(driveTrain));
       SmartShuffleboard.putCommand("Autonomous", "Do Nothing", new DoNothingSequence());
       SmartShuffleboard.putCommand("Autonomous", "Turret Reset", new AutoSetShootingPosition(turretSubsystem, Constants.AUTO_TURRET_SPEED, Constants.AUTO_TURRET_CENTER_ANGLE));

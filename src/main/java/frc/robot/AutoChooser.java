@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.Autonomous.CrossTheLineSequence;
 import frc.robot.commands.Autonomous.DoNothingSequence;
 import frc.robot.commands.Autonomous.TwoShotSequenceLeft;
-import frc.robot.commands.Autonomous.TwoShotSequenceMiddle;
+import frc.robot.commands.Autonomous.OneShotSequenceMiddle;
 import frc.robot.commands.Autonomous.TwoShotSequenceRight;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.IntakeCommand.IntakeSequence;
@@ -32,7 +32,6 @@ public class AutoChooser {
     private SendableChooser<Position> positionChooser;
     private SendableChooser<Action> actionChooser;
     // private NetworkTableEntry delayEntry;
-    AutoCommand autonomousCommand;
     private IntakeSubsystem intakeSubsystem;
     private ShooterSubsystem shooterSubsystem;
     private DriveTrain driveTrain;
@@ -52,11 +51,6 @@ public class AutoChooser {
         TWO_SHOT, DO_NOTHING, CROSS_LINE;
     }
 
-    // all commmands during autonomous
-    enum AutoCommand {
-        A_MIDDLE, B_MIDDLE, C_MIDDLE, A_LEFT, B_LEFT, C_LEFT, A_RIGHT, B_RIGHT, C_RIGHT;
-    }
-    // replace ABC options once we decide what we are doing in auto
 
     public AutoChooser(IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, ShooterSubsystem shooterSubsystem, TurretSubsystem turretSubsystem, LimeLightVision limeLightVision, Hood hood) {
         positionChooser = new SendableChooser<Position>();
@@ -135,12 +129,11 @@ public class AutoChooser {
         if (a == Action.TWO_SHOT) {
             if (p == Position.LEFT) {
                 TwoShotSequenceLeft TwoShotSequenceLeft = new TwoShotSequenceLeft(turretSubsystem,
-                        Constants.AUTO_TURRET_SPEED, intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED,
-                        Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision);
+                Constants.AUTO_TURRET_SPEED, intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED,
+                Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision, hood);
                 return TwoShotSequenceLeft;
             } else if (p == Position.MIDDLE) {
-                TwoShotSequenceMiddle TwoShotSequenceMiddle = new TwoShotSequenceMiddle(turretSubsystem,
-                        intakeSubsystem, driveTrain, shooterSubsystem, limeLightVision);
+                OneShotSequenceMiddle TwoShotSequenceMiddle = new OneShotSequenceMiddle(turretSubsystem, intakeSubsystem, driveTrain, shooterSubsystem, limeLightVision, hood, Constants.AUTO_MOVE_SPEED, Constants.AUTO_DISTANCE_INCHES);
                 return TwoShotSequenceMiddle;
             } else if (p == Position.RIGHT) {
                 TwoShotSequenceRight TwoShotSequenceRight = new TwoShotSequenceRight(turretSubsystem,

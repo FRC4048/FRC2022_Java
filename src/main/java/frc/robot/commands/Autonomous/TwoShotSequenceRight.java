@@ -31,12 +31,11 @@ public class TwoShotSequenceRight extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new MoveHoodToAngle(hood, 106.0),
-      new NonVisionParallelShoot(shooterSubsystem, intakeSubsystem, 11500),
-      //new IntakeSequence(intakeSubsystem),
-      new ParralelMoveAndTurretReset(driveTrain, speed, distanceInches, turretSubsystem, turretSpeed, intakeSubsystem),
+      new MoveAndMoveHood(driveTrain, speed, 12, hood),
+      new NonVisionParallelShoot(shooterSubsystem, intakeSubsystem, 11800),
+      new ParralelMoveAndTurretResetAndIntake(driveTrain, speed, distanceInches, turretSubsystem, turretSpeed, intakeSubsystem, hood),
       new AutoTargetSequence(turretSubsystem, limeLightVision, hood),
-      new WaitCommand(1.5),
+      new WaitCommand(1),
       new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem, limeLightVision, turretSubsystem, hood)
     );
   }

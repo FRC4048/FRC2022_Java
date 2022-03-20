@@ -5,11 +5,13 @@
 package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants;
-import frc.robot.commands.DriveCommands.MoveDistance;
-import frc.robot.commands.IntakeCommand.IntakeSequence;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.HoodCommands.MoveHoodToAngle;
+import frc.robot.commands.ShooterCommands.AutoTargetSequence;
+import frc.robot.commands.ShooterCommands.NonVisionParallelShoot;
 import frc.robot.commands.ShooterCommands.ShooterParallelSequeunce;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
@@ -19,16 +21,18 @@ import frc.robot.utils.limelight.LimeLightVision;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class TwoShotSequenceLeft extends SequentialCommandGroup {
-  /** Creates a new Autonomous. */
-  public TwoShotSequenceLeft(TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, double speed, double distanceInches, ShooterSubsystem shooterSubsystem, LimeLightVision limeLightVision) {
+  /** Creates a new Autonomous. 
+  */
+  public TwoShotSequenceLeft(TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, double speed, double distanceInches, ShooterSubsystem shooterSubsystem, LimeLightVision limeLightVision, Hood hood) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem, limeLightVision, turretSubsystem, null),
-      new IntakeSequence(intakeSubsystem),
-      new MoveDistance(driveTrain, speed, distanceInches),
-      new AutoSetShootingPosition(turretSubsystem, turretSpeed, Constants.AUTO_TURRET_CENTER_ANGLE),
-      new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem, limeLightVision, turretSubsystem, null)
+      new MoveAndMoveHood(driveTrain, speed, 12, hood),
+      new NonVisionParallelShoot(shooterSubsystem, intakeSubsystem, 11800),
+      new ParralelMoveAndTurretResetAndIntake(driveTrain, speed, distanceInches, turretSubsystem, turretSpeed, intakeSubsystem, hood),
+      new AutoTargetSequence(turretSubsystem, limeLightVision, hood),
+      new WaitCommand(0.8),
+      new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem, limeLightVision, turretSubsystem, hood)
     );
   }
 }
