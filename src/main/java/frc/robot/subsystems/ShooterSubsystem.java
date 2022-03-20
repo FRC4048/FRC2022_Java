@@ -117,10 +117,10 @@ public class ShooterSubsystem extends SubsystemBase {
       SmartShuffleboard.put("Shooter", "Data", "Piston State", getPistonState());
       SmartShuffleboard.put("Shooter", "Data", "Shooter RPM", getEncoder().getVelocity());
       SmartShuffleboard.put("Shooter", "Data", "Block Piston", getBlockState());
-      SmartShuffleboard.put("Shooter", "Data", "Elevator Sensor", elevatorSensor.get());
+      SmartShuffleboard.put("MonkaS", "Elevator Sensor", elevatorSensor.get());
     }
 
-    if (shooterSolenoid.get() == false && elevatorSensor.get() == true) {
+    if (shooterSolenoid.get() == false && elevatorSensor.get() == false) {
       blockPiston.set(true);
     }
   }
