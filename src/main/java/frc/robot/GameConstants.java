@@ -101,7 +101,7 @@ public interface GameConstants {
   public static final double AUTO_TURRET_SPEED = 0.5;
   public static final double AUTO_TURRET_CENTER_ANGLE = 430; //placeholder
   public static final double AUTO_MOVE_SPEED = 0.4; //placeholder
-  public static final double AUTO_DISTANCE_INCHES = 62; //placeholder
+  public static final double AUTO_DISTANCE_INCHES = 57; //placeholder
   
   // SHOOTER MATH
   public static final int HOOD_MARGIN_OF_ERROR = 1;
