@@ -84,7 +84,7 @@ public interface GameConstants {
   // Turret
   public static final double TURRET_CLOCKWISE_SPEED = .5;
   public static final double TURRET_COUNTERCLOCKWISE_SPEED = -.5;
-  public static final double TURRET_kP = 1;
+  public static final double TURRET_kP = 0.05;
   public static final double TURRET_kD = 0;
   public static final double TURRET_kI = 0;
 

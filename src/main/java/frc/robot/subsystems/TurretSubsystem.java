@@ -32,7 +32,7 @@ public class TurretSubsystem extends SubsystemBase {
     }
 
     public void pidSetTurret(double error) {
-        turretMotor.set(-1 * turretPID.calculate(error, 0));
+        turretMotor.set(turretPID.calculate(error, 0));
     }
 
     public void stopTurret() {
