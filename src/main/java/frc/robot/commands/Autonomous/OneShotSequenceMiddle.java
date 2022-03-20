@@ -10,7 +10,7 @@ import frc.robot.commands.DriveCommands.MoveDistance;
 import frc.robot.commands.HoodCommands.MoveHoodToAngle;
 import frc.robot.commands.IntakeCommand.IntakeSequence;
 import frc.robot.commands.ShooterCommands.NonVisionParallelShoot;
-import frc.robot.commands.ShooterCommands.ShooterParallelSequeunce;
+import frc.robot.commands.ShooterCommands.ShooterSequeunce;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.IntakeSubsystem;

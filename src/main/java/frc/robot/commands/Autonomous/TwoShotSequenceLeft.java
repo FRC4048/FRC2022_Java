@@ -9,7 +9,8 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.HoodCommands.MoveHoodToAngle;
 import frc.robot.commands.ShooterCommands.AutoTargetSequence;
 import frc.robot.commands.ShooterCommands.NonVisionParallelShoot;
-import frc.robot.commands.ShooterCommands.ShooterParallelSequeunce;
+import frc.robot.commands.ShooterCommands.NonVisionParallelShootDeployIntake;
+import frc.robot.commands.ShooterCommands.ShooterSequeunce;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -28,11 +29,11 @@ public class TwoShotSequenceLeft extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new MoveAndMoveHood(driveTrain, speed, 12, hood),
-      new NonVisionParallelShoot(shooterSubsystem, intakeSubsystem, 11800),
+      new NonVisionParallelShootDeployIntake(shooterSubsystem, intakeSubsystem, 11800),
       new ParralelMoveAndTurretResetAndIntake(driveTrain, speed, distanceInches, turretSubsystem, turretSpeed, intakeSubsystem, hood),
       new AutoTargetSequence(turretSubsystem, limeLightVision, hood),
       new WaitCommand(0.8),
-      new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem, limeLightVision, turretSubsystem, hood)
+      new ShooterSequeunce(shooterSubsystem, limeLightVision)
     );
   }
 }
