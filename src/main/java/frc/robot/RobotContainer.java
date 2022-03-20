@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.ShooterCommands.*;
 import frc.robot.commands.ToggleBlockerPiston;
 import frc.robot.commands.LogError;
-import frc.robot.commands.ToggleBlockerPiston;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.ToggleClimberSolenoid;
@@ -34,19 +34,8 @@ import frc.robot.commands.IntakeCommand.RaiseIntakeCommand;
 import frc.robot.commands.Miscellaneous.SetLEDOff;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
 import frc.robot.commands.Miscellaneous.SetPipeline;
-import frc.robot.commands.ShooterCommands.AutoTargetSequence;
-import frc.robot.commands.ShooterCommands.ElevatorSequence;
-import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
-import frc.robot.commands.ShooterCommands.ManuallyMoveHood;
-import frc.robot.commands.ShooterCommands.RetractShooterPiston;
-import frc.robot.commands.ShooterCommands.ShooterParallelSequeunce;
-import frc.robot.commands.ShooterCommands.StartShooterMotor;
-import frc.robot.commands.ShooterCommands.ToggleShooterMotor;
-import frc.robot.commands.ShooterCommands.ToggleShooterPiston;
-import frc.robot.commands.ShooterCommands.VisionAutoShooter;
 import frc.robot.commands.TurretCommands.CalibrateTurretEncoderSequence;
 import frc.robot.commands.TurretCommands.MoveTurretDashboard;
-import frc.robot.commands.TurretCommands.TurretAuto;
 import frc.robot.commands.TurretCommands.TurretManualCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
@@ -120,6 +109,7 @@ public class RobotContainer {
     turretSubsystem.setDefaultCommand(turretCommand);
     climberArmSubsystem.setDefaultCommand(new ManualMoveClimberArm(climberArmSubsystem, climberController));
     climberWinchSubsystem.setDefaultCommand(new ManualMoveClimberWinch(climberWinchSubsystem, climberController));
+    shooterSubsystem.setDefaultCommand(new RunShooterMotor(shooterSubsystem));
 
     hood.setDefaultCommand(hoodCommand);
 
@@ -213,14 +203,14 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM));
       SmartShuffleboard.putCommand("Shooter", "Calibrate Enocoder", new CalibrateTurretEncoderSequence(turretSubsystem));
-      SmartShuffleboard.putCommand("Shooter", "Start Shooter Motor", new StartShooterMotor(shooterSubsystem, Constants.SHOOTER_CLOCKWISE_SPEED, Constants.SHOOTER_TIMEOUT));
+      SmartShuffleboard.putCommand("Shooter", "Start Shooter Motor", new SetShooterMotor(shooterSubsystem, Constants.SHOOTER_CLOCKWISE_SPEED));
 
       SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
       SmartShuffleboard.putCommand("Shooter", "Shooter Sequence", new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem, limeLightVision.getLimeLightVision()));
-      SmartShuffleboard.putCommand("Block", "Extend Block", new ToggleBlockerPiston(shooterSubsystem, true));
-      SmartShuffleboard.putCommand("Block", "Retract Block", new ToggleBlockerPiston(shooterSubsystem, false));
+      SmartShuffleboard.putCommand("Block", "Extend Block", new ToggleBlockerPiston(intakeSubsystem, true));
+      SmartShuffleboard.putCommand("Block", "Retract Block", new ToggleBlockerPiston(intakeSubsystem, false));
       SmartShuffleboard.putCommand("Shooter", "Shoot on Vision", new VisionAutoShooter(limeLightVision.getLimeLightVision(), shooterSubsystem));
 
       SmartShuffleboard.putCommand("Miscellaneous", "Set LED Off", new SetLEDOff());

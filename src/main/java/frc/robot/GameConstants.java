@@ -68,7 +68,7 @@ public interface GameConstants {
   public static final double SHOOTER_COUNTERCLOCKWISE_SPEED = -1;
   public static final double PISTON_DELAY = 0.5;
   public static final double SHOOTER_SPINUP_DELAY = 1;
-  public static final int SHOOTER_PISTON_WAIT = 1;
+  public static final double SHOOTER_PISTON_WAIT = 0.2;
   public static final double SHOOTER_RPM = 12000;
 
   //Shooter PID

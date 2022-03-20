@@ -26,16 +26,16 @@ public class ShooterSubsystem extends SubsystemBase {
   private Solenoid shooterSolenoid;
   private CANSparkMax shooterMotor;
   private boolean isRunning;
-  private Solenoid blockPiston;
   private SparkMaxPIDController shooterPID;
+  private double velocity;
 
   public ShooterSubsystem() {
     //climberSolenoid = new Solenoid(Constants.PCM_CAN_ID, Constants.CLIMBER_PISTON_ID);
     shooterSolenoid = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.SHOOTER_PISTON_ID);
     shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_ID, MotorType.kBrushless);
-    blockPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.STOP_SOLENOID_ID);
     shooterPID = shooterMotor.getPIDController();
     isRunning = false;
+    velocity = 0;
 
 
     SmartDashboard.putNumber("DesiredSpeed", 12000);
@@ -62,7 +62,13 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterPID.setReference(rpm, CANSparkMax.ControlType.kVelocity);
   } 
 
-  
+  public double getVelocity() {
+    return velocity;
+  }
+
+  public void setVelocity(double velocity) {
+    this.velocity = velocity;
+  }
 
   public void stopShooter() {
     shooterMotor.set(0);
@@ -84,20 +90,12 @@ public class ShooterSubsystem extends SubsystemBase {
     isRunning = state;
   }
 
-  public void setBlockPiston(boolean newState) {
-    blockPiston.set(newState);
-  }
-
   public void extendPiston() {
     shooterSolenoid.set(true);
   }
 
   public void retractPiston() {
     shooterSolenoid.set(false);
-  }
-
-  public boolean getBlockState() {
-    return blockPiston.get();
   }
 
   public boolean getPistonState() {
@@ -111,7 +109,6 @@ public class ShooterSubsystem extends SubsystemBase {
     if (Constants.ENABLE_DEBUG == true){
       SmartShuffleboard.put("Shooter", "Data", "Piston State", getPistonState());
       SmartShuffleboard.put("Shooter", "Data", "Shooter RPM", getEncoder().getVelocity());
-      SmartShuffleboard.put("Shooter", "Data", "Block Piston", getBlockState());
     }
   }
   

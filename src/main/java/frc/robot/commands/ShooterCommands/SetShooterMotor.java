@@ -4,27 +4,20 @@
 
 package frc.robot.commands.ShooterCommands;
 
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.commands.LoggedCommandBase;
 
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.utils.SmartShuffleboard;
 
-public class StartShooterMotor extends CommandBase {
+public class SetShooterMotor extends CommandBase {
   /** Creates a new RotateShooterMotor. */
   private ShooterSubsystem shooterSubsystem;
   private double speed;
-  private double initTime, timeout;
 
-  public StartShooterMotor(ShooterSubsystem shooterSubsystem, double speed, double timeout) {
+  public SetShooterMotor(ShooterSubsystem shooterSubsystem, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooterSubsystem = shooterSubsystem;
     this.speed = speed;
-    this.timeout = timeout;
 
     addRequirements(shooterSubsystem);
   }
@@ -32,8 +25,6 @@ public class StartShooterMotor extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    initTime = Timer.getFPGATimestamp();
-
 //    shooterSubsystem.setShooterSpeed(desiredSpeed);
   }
 
@@ -41,21 +32,18 @@ public class StartShooterMotor extends CommandBase {
   @Override
   public void execute() {
     this.speed = SmartDashboard.getNumber("DesiredSpeed", 12000);
-    shooterSubsystem.setShooterRPM(speed);
+    shooterSubsystem.setVelocity(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooterSubsystem.stopShooter();
+    shooterSubsystem.setVelocity(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (Timer.getFPGATimestamp() - initTime >= timeout) {
       return true;
-    }
-    return false;
   }
 }

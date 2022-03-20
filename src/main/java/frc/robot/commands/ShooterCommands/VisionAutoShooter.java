@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants;
 import frc.robot.commands.LoggedCommandBase;
@@ -63,11 +62,11 @@ public class VisionAutoShooter extends LoggedCommandBase {
     if(vision.hasTarget()) {
       Double rpm = calculateRPM(vision);
       if (rpm != null) {
-        CommandScheduler.getInstance().schedule(new LogCommandWrapper(new StartShooterMotor(shooter, rpm, Constants.SHOOTER_TIMEOUT)));
+        CommandScheduler.getInstance().schedule(new LogCommandWrapper(new SetShooterMotor(shooter, rpm)));
       }
       else {
         addLog("UNKOWN DISTANCE - using default speed");
-        CommandScheduler.getInstance().schedule(new LogCommandWrapper(new StartShooterMotor(shooter, Constants.SHOOTER_RPM, Constants.SHOOTER_TIMEOUT)));
+        CommandScheduler.getInstance().schedule(new LogCommandWrapper(new SetShooterMotor(shooter, Constants.SHOOTER_RPM)));
       }
       done = true;
     }
