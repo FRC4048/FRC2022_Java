@@ -26,8 +26,9 @@ public class ShooterSubsystem extends SubsystemBase {
   private Solenoid shooterSolenoid;
   private CANSparkMax shooterMotor;
   private boolean isRunning;
-  private Solenoid blockPiston;
   private SparkMaxPIDController shooterPID;
+  private double targetVelocity;
+  private Solenoid blockPiston;
 
   public ShooterSubsystem() {
     //climberSolenoid = new Solenoid(Constants.PCM_CAN_ID, Constants.CLIMBER_PISTON_ID);
@@ -36,6 +37,7 @@ public class ShooterSubsystem extends SubsystemBase {
     blockPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.STOP_SOLENOID_ID);
     shooterPID = shooterMotor.getPIDController();
     isRunning = false;
+    targetVelocity = 0;
 
 
     SmartDashboard.putNumber("DesiredSpeed", 12000);
@@ -62,14 +64,32 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterPID.setReference(rpm, CANSparkMax.ControlType.kVelocity);
   } 
 
-  
+  public double getVelocity() {
+    return targetVelocity;
+  }
+
+  public void setVelocity(double targetVelocity) {
+    this.targetVelocity = targetVelocity;
+  }
 
   public void stopShooter() {
     shooterMotor.set(0);
   }
 
+  public boolean getBlockState() {
+    return blockPiston.get();
+  }
+
+  public void setBlockPiston(boolean newState) {
+    blockPiston.set(newState);
+  }
+
   public double getShooterSpeed() {
     return shooterMotor.get();
+  }
+
+  public double getShooterRPM() {
+    return getEncoder().getVelocity();
   }
 
   public RelativeEncoder getEncoder() {
@@ -84,20 +104,12 @@ public class ShooterSubsystem extends SubsystemBase {
     isRunning = state;
   }
 
-  public void setBlockPiston(boolean newState) {
-    blockPiston.set(newState);
-  }
-
   public void extendPiston() {
     shooterSolenoid.set(true);
   }
 
   public void retractPiston() {
     shooterSolenoid.set(false);
-  }
-
-  public boolean getBlockState() {
-    return blockPiston.get();
   }
 
   public boolean getPistonState() {
@@ -110,8 +122,7 @@ public class ShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     if (Constants.ENABLE_DEBUG == true){
       SmartShuffleboard.put("Shooter", "Data", "Piston State", getPistonState());
-      SmartShuffleboard.put("Shooter", "Data", "Shooter RPM", getEncoder().getVelocity());
-      SmartShuffleboard.put("Shooter", "Data", "Block Piston", getBlockState());
+      SmartShuffleboard.put("Shooter", "Data", "Shooter RPM", getShooterRPM());
     }
   }
   
