@@ -27,7 +27,7 @@ public class ShooterSubsystem extends SubsystemBase {
   private CANSparkMax shooterMotor;
   private boolean isRunning;
   private SparkMaxPIDController shooterPID;
-  private double velocity;
+  private double targetVelocity;
   private Solenoid blockPiston;
 
   public ShooterSubsystem() {
@@ -37,7 +37,7 @@ public class ShooterSubsystem extends SubsystemBase {
     blockPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.STOP_SOLENOID_ID);
     shooterPID = shooterMotor.getPIDController();
     isRunning = false;
-    velocity = 0;
+    targetVelocity = 0;
 
 
     SmartDashboard.putNumber("DesiredSpeed", 12000);
@@ -65,11 +65,11 @@ public class ShooterSubsystem extends SubsystemBase {
   } 
 
   public double getVelocity() {
-    return velocity;
+    return targetVelocity;
   }
 
-  public void setVelocity(double velocity) {
-    this.velocity = velocity;
+  public void setVelocity(double targetVelocity) {
+    this.targetVelocity = targetVelocity;
   }
 
   public void stopShooter() {

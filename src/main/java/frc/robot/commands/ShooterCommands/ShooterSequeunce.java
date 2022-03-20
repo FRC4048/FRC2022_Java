@@ -16,15 +16,15 @@ import frc.robot.utils.logging.LogCommandWrapper;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ShooterParallelSequeunce extends SequentialCommandGroup {
+public class ShooterSequeunce extends SequentialCommandGroup {
   /** Creates a new ShootSequence. */
-  public ShooterParallelSequeunce(ShooterSubsystem shooterSubsystem, IntakeSubsystem intakeSubsystem, LimeLightVision vision) {
+  public ShooterSequeunce(ShooterSubsystem shooterSubsystem, LimeLightVision vision) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new LogCommandWrapper(new SetPipeline(Constants.LIMELIGHT_TARGET_DETECTION)),
       new LogCommandWrapper(new VisionAutoShooter(vision, shooterSubsystem)),
-      new LogCommandWrapper(new ElevatorSequence(shooterSubsystem, intakeSubsystem))
+      new LogCommandWrapper(new ElevatorSequence(shooterSubsystem))
     );
   }
 }

@@ -27,9 +27,7 @@ public class WaitForRPM extends LoggedCommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    SmartShuffleboard.put("Shooter", "Wait Done?", shooter.getShooterRPM() >= targetRPM * .9);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -38,7 +36,6 @@ public class WaitForRPM extends LoggedCommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    SmartShuffleboard.put("Shooter", "Wait Done?", shooter.getShooterRPM() >= targetRPM * .9);
     return (shooter.getShooterRPM() >= targetRPM * .9);
   }
 }

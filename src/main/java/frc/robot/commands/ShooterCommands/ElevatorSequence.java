@@ -20,7 +20,9 @@ import frc.robot.utils.logging.LogCommandWrapper;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ElevatorSequence extends SequentialCommandGroup {
   /** Creates a new ElevatorSequence. */
-  public ElevatorSequence(ShooterSubsystem shooterSubsystem, IntakeSubsystem intakeSubsystem) {
+  private ShooterSubsystem shooterSubsystem;
+
+  public ElevatorSequence(ShooterSubsystem shooterSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
@@ -31,9 +33,16 @@ public class ElevatorSequence extends SequentialCommandGroup {
       new LogCommandWrapper(new RetractShooterPiston(shooterSubsystem)),
       new LogCommandWrapper(new SetShooterMotor(shooterSubsystem, 0)),
       new LogCommandWrapper(new ToggleBlockerPiston(shooterSubsystem, false)),
-      new LogCommandWrapper(new DropBallCommand(intakeSubsystem)),
       new LogCommandWrapper(new SetPipeline(Constants.LIMELIGHT_STREAMING))
     );
     SmartShuffleboard.put("Driver", "Data", "Can Shoot", false);
+    this.shooterSubsystem = shooterSubsystem;
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+    if (interrupted) {
+      new LogCommandWrapper(new SetShooterMotor(shooterSubsystem, 0));
+    }
   }
 }
