@@ -56,7 +56,6 @@ public class MoveClimberArmForTicks extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-   return true;
-  //return (climberArmSubsystem.getLeftVoltage() == 0 && climberArmSubsystem.getRightVolatage() == 0) || initTime > Constants.CLIMBER_ARM_TIMEOUT;
+   return (climberArmSubsystem.getLeftVoltage() == 0 && climberArmSubsystem.getRightVoltage() == 0) || initTime > Constants.CLIMBER_ARM_TIMEOUT;
   }
 }

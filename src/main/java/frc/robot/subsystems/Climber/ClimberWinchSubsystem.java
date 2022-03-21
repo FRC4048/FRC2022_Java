@@ -86,7 +86,7 @@ public class ClimberWinchSubsystem extends SubsystemBase {
     return leftWinch.getBusVoltage();
   }
 
-  public double getRightVolatage() {
+  public double getRightVoltage() {
     return rightWinch.getBusVoltage();
   }
   

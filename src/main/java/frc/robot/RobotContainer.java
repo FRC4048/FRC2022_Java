@@ -21,7 +21,6 @@ import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.RetractClimberSequence;
 import frc.robot.commands.ClimberCommands.RetractClimberSolenoid;
-import frc.robot.commands.ClimberCommands.ToggleClimberSolenoid;
 import frc.robot.commands.TurretManualCommand;
 import frc.robot.commands.Miscellaneous.SetLEDOff;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
