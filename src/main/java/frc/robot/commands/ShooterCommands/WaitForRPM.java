@@ -2,33 +2,32 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.utils.SmartShuffleboard;
 
-public class ToggleBlockerPiston extends CommandBase {
-  /** Creates a new ExtendBlockerPiston. */
-  private ShooterSubsystem shooter;
+public class WaitForRPM extends LoggedCommandBase {
+  /** Creates a new WaitForRPM. */
+  private double targetRPM;
+  ShooterSubsystem shooter;
 
-  private boolean desiredDirection = false;
-
-  public ToggleBlockerPiston(ShooterSubsystem shooter, boolean desiredDirection) {
+  public WaitForRPM(ShooterSubsystem shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooter = shooter;
-    this.desiredDirection = desiredDirection;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    targetRPM = shooter.getVelocity() * .29;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    shooter.setBlockPiston(desiredDirection);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -37,6 +36,6 @@ public class ToggleBlockerPiston extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return (shooter.getShooterRPM() >= targetRPM * .9);
   }
 }
