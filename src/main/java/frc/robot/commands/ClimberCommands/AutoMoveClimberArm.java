@@ -8,9 +8,10 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.Climber.ClimberArmSubsystem;
 
-public class AutoMoveClimberArm extends CommandBase {
+public class AutoMoveClimberArm extends LoggedCommandBase {
   /** Creates a new ManualMoveClimberArm. */
   private ClimberArmSubsystem climberArmSubsystem;
   private double encoderDifference;
@@ -25,6 +26,7 @@ public class AutoMoveClimberArm extends CommandBase {
     this.direction = direction;
     this.autoBalance = autoBalance;
     addRequirements(climberArmSubsystem);
+    addLog(direction);
   }
 
   // Called when the command is initially scheduled.

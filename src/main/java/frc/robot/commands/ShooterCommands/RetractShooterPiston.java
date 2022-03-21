@@ -5,12 +5,13 @@
 package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.commands.LoggedCommandBase;
+import frc.robot.subsystems.ShooterSubsystem;
 
-public class RetractShooterPiston extends CommandBase {
+public class RetractShooterPiston extends LoggedCommandBase {
   /** Creates a new RetractPiston. */
-  private Shooter shooterSubsystem;
-  public RetractShooterPiston(Shooter shooterSubsystem) {
+  private ShooterSubsystem shooterSubsystem;
+  public RetractShooterPiston(ShooterSubsystem shooterSubsystem) {
     // DO NOT add sybsystem requirement here, as it would get in the way of the motor command
     this.shooterSubsystem = shooterSubsystem;
   }

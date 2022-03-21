@@ -7,9 +7,10 @@ package frc.robot.commands.ClimberCommands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.Climber.ClimberWinchSubsystem;
 
-public class AutoMoveClimberWinch extends CommandBase {
+public class AutoMoveClimberWinch extends LoggedCommandBase {
   /** Creates a new MoveClimberWinch. */
   ClimberWinchSubsystem climberWinchSubsystem;
   private double initTime;
@@ -24,7 +25,6 @@ public class AutoMoveClimberWinch extends CommandBase {
     this.autoBalance = autoBalance;
     this.direction = direction;
     addRequirements(climberWinchSubsystem);
-
   }
 
   // Called when the command is initially scheduled.

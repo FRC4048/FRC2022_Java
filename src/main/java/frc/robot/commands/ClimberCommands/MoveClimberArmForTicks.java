@@ -8,10 +8,11 @@ package frc.robot.commands.ClimberCommands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.Climber.ClimberArmSubsystem;
 import frc.robot.utils.MotorUtils;
 
-public class MoveClimberArmForTicks extends CommandBase {
+public class MoveClimberArmForTicks extends LoggedCommandBase {
   /** Creates a new MoveClimberArm. */
   private ClimberArmSubsystem climberArmSubsystem;
   private double initTime;
@@ -25,7 +26,7 @@ public class MoveClimberArmForTicks extends CommandBase {
     this.climberArmSubsystem = climberArmSubsystem;
     this.ticks = ticks;
     addRequirements(climberArmSubsystem);
-
+    addLog(ticks);
   }
 
   // Called when the command is initially scheduled.

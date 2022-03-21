@@ -8,23 +8,27 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.utils.MotorUtils;
+import frc.robot.utils.diag.DiagTalonSrxEncoder;
+import frc.robot.utils.diag.DiagTalonSrxSwitch;
 
 public class ClimberArmSubsystem extends SubsystemBase {
   /** Creates a new ClimberArmSubsystem. */
-  private TalonSRX leftArm, rightArm;
+  private WPI_TalonSRX leftArm, rightArm;
   private Solenoid climberLPiston, climberRPiston;
   private MotorUtils leftMotorUtil, rightMotorUtil;
   
   public ClimberArmSubsystem(PowerDistribution m_PowerDistPanel) {
-    leftArm = new TalonSRX(Constants.CLIMBER_LEFT_ARM_ID);
-    rightArm = new TalonSRX(Constants.CLIMBER_RIGHT_ARM_ID);
+    leftArm = new WPI_TalonSRX(Constants.CLIMBER_LEFT_ARM_ID);
+    rightArm = new WPI_TalonSRX(Constants.CLIMBER_RIGHT_ARM_ID);
     climberLPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_L_PISTON_ID);
     climberRPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_R_PISTON_ID);
 
@@ -35,6 +39,13 @@ public class ClimberArmSubsystem extends SubsystemBase {
     leftArm.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     rightArm.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     rightArm.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    
+    Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Left Arm Encoder", 100, leftArm));
+    Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Right Arm Encoder", 100, rightArm));
+    Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Left Arm Forward Switch", leftArm, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
+    Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Left Arm Reverse Switch", leftArm, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
+    Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Right Arm Forward Switch", rightArm, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
+    Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Right Arm Reverse Switch", rightArm, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
     
     leftArm.setNeutralMode(NeutralMode.Brake);
     rightArm.setNeutralMode(NeutralMode.Brake);
