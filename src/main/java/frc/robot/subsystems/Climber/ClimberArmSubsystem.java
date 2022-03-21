@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.utils.MotorUtils;
+import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.DiagTalonSrxEncoder;
 import frc.robot.utils.diag.DiagTalonSrxSwitch;
 
@@ -49,6 +50,8 @@ public class ClimberArmSubsystem extends SubsystemBase {
     
     leftArm.setNeutralMode(NeutralMode.Brake);
     rightArm.setNeutralMode(NeutralMode.Brake);
+
+    rightArm.setInverted(true);
   }
 
   public void setSpeed(double speed) {
@@ -136,5 +139,11 @@ public class ClimberArmSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    if (Constants.ENABLE_DEBUG) {
+      SmartShuffleboard.put("Climber", "Right Winch Encoder", getRightEncoder());
+      SmartShuffleboard.put("Climber", "Left Winch Encoder", getLeftEncoder());
+      SmartShuffleboard.put("Climber", "Right Winch Voltage", getRightVoltage());
+      SmartShuffleboard.put("Climber", "Left Winch Voltage", getLeftVoltage());
+    }
   }
 }
