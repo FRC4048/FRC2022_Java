@@ -13,6 +13,7 @@ import frc.robot.commands.Autonomous.CrossTheLineSequence;
 import frc.robot.commands.Autonomous.DoNothingSequence;
 import frc.robot.commands.Autonomous.TwoShotSequenceLeft;
 import frc.robot.commands.Autonomous.OneShotSequenceMiddle;
+import frc.robot.commands.Autonomous.ThreeShotSequenceRight;
 import frc.robot.commands.Autonomous.TwoShotSequenceRight;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.IntakeCommand.IntakeSequence;
@@ -29,7 +30,6 @@ import edu.wpi.first.wpilibj.shuffleboard.*;
  * Add your docs here.
  */
 public class AutoChooser {
-    private SendableChooser<Position> positionChooser;
     private SendableChooser<Action> actionChooser;
     // private NetworkTableEntry delayEntry;
     private IntakeSubsystem intakeSubsystem;
@@ -39,21 +39,13 @@ public class AutoChooser {
     private LimeLightVision limeLightVision;
     private Hood hood;
 
-
-
-    // position at beginning of match
-    enum Position {
-        MIDDLE, LEFT, RIGHT;
-    }
-
     // all actions driver choose at beginning of match
     enum Action {
-        TWO_SHOT, DO_NOTHING, CROSS_LINE;
+        THREE_SHOT, TWO_SHOT_RIGHT, TWO_SHOT_LEFT, ONE_SHOT, CROSS_LINE, DO_NOTHING;
     }
 
 
     public AutoChooser(IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, ShooterSubsystem shooterSubsystem, TurretSubsystem turretSubsystem, LimeLightVision limeLightVision, Hood hood) {
-        positionChooser = new SendableChooser<Position>();
         actionChooser = new SendableChooser<Action>();
         this.intakeSubsystem = intakeSubsystem;
         this.driveTrain = driveTrain;
@@ -61,110 +53,50 @@ public class AutoChooser {
         this.turretSubsystem = turretSubsystem;
         this.limeLightVision = limeLightVision;
         this.hood = hood;
-        // AutoCommand autonomousCommand = getAutonomousCommand(getPosition(),
-        // getAction());
-        // ^^ see line 92
     }
 
     public void addOptions() {
         
-         positionChooser.addOption(Position.LEFT.name(), Position.LEFT);
-         positionChooser.addOption(Position.MIDDLE.name(), Position.MIDDLE);
-         positionChooser.addOption(Position.RIGHT.name(), Position.RIGHT);
-         actionChooser.setDefaultOption(Action.TWO_SHOT.name(), Action.TWO_SHOT);
-         actionChooser.addOption(Action.DO_NOTHING.name(), Action.DO_NOTHING);
+         
+         actionChooser.setDefaultOption(Action.TWO_SHOT_RIGHT.name(), Action.TWO_SHOT_RIGHT);
+         actionChooser.addOption(Action.THREE_SHOT.name(), Action.TWO_SHOT_RIGHT);
+         actionChooser.addOption(Action.TWO_SHOT_LEFT.name(), Action.TWO_SHOT_LEFT);
+         actionChooser.addOption(Action.ONE_SHOT.name(), Action.ONE_SHOT);
          actionChooser.addOption(Action.CROSS_LINE.name(), Action.CROSS_LINE);
+         actionChooser.addOption(Action.DO_NOTHING.name(), Action.DO_NOTHING);
          
 
     }
 
     public void initialize() {
         ShuffleboardTab tab = Shuffleboard.getTab("Autonomous");
-        tab.add("Autonomous Position", positionChooser);
         tab.add("Autonomous Action", actionChooser);
-        // delayEntry = tab.add("Delay", 0).getEntry();
     }
 
     
      public Action getAction(){
-     if(actionChooser.getSelected() != null){
-        return actionChooser.getSelected();
-     } else{
-        return Action.CROSS_LINE;
-     }
-     }
-     
-
-    public Position getPosition() {
-        if (positionChooser.getSelected() != null) {
-            return positionChooser.getSelected();
-        } else {
-            return Position.MIDDLE;
+        if(actionChooser.getSelected() != null){
+            return actionChooser.getSelected();
+        } else{
+            return Action.TWO_SHOT_RIGHT;
         }
-    }
+     }
 
-    /*
-     * Needs to be updated
-     * public int getDelay(){
-     * int delay = delayEntry.getNumber(0).intValue();
-     * if(autonomousCommand == AutoCommand.DO_NOTHING
-     * || autonomousCommand == AutoCommand.RIGHT_PICKUP
-     * || autonomousCommand == AutoCommand.CROSS_LINE){
-     * return 0;
-     * }
-     * if(delay <= 6 && delay > 0){
-     * return delay;
-     * }else{
-     * return 0;
-     * }
-     * }
-     */
-
-    // Had to take this stuff out because there is not an AutoCommands class, could
-    // be reimplemented later
-
-    public Command getAutonomousCommand(Position p, Action a) {
-
-        // TEMPORARY UNTIL AUTO COMMANDS IMPLEMENTED
-        if (a == Action.TWO_SHOT) {
-            if (p == Position.LEFT) {
-                TwoShotSequenceLeft TwoShotSequenceLeft = new TwoShotSequenceLeft(turretSubsystem,
-                Constants.AUTO_TURRET_SPEED, intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED,
-                Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision, hood);
-                return TwoShotSequenceLeft;
-            } else if (p == Position.MIDDLE) {
-                OneShotSequenceMiddle TwoShotSequenceMiddle = new OneShotSequenceMiddle(turretSubsystem, intakeSubsystem, driveTrain, shooterSubsystem, limeLightVision, hood, Constants.AUTO_MOVE_SPEED, Constants.AUTO_DISTANCE_INCHES);
-                return TwoShotSequenceMiddle;
-            } else if (p == Position.RIGHT) {
-                TwoShotSequenceRight TwoShotSequenceRight = new TwoShotSequenceRight(turretSubsystem,
-                        Constants.AUTO_TURRET_SPEED, intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED,
-                        Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision, hood);
-                return TwoShotSequenceRight;
-            }
-        } else if (a == Action.DO_NOTHING) {
-            if (p == Position.LEFT) {
-                DoNothingSequence DoNothingSequence = new DoNothingSequence();
-                return DoNothingSequence;
-            } else if (p == Position.MIDDLE) {
-                DoNothingSequence DoNothingSequence = new DoNothingSequence();
-                return DoNothingSequence;
-            } else if (p == Position.RIGHT) {
-                DoNothingSequence DoNothingSequence = new DoNothingSequence();
-                return DoNothingSequence;
-            }
-        } 
-        else if (a == Action.CROSS_LINE) {
-            if (p == Position.LEFT) {
-                CrossTheLineSequence CrossTheLineSequence = new CrossTheLineSequence(driveTrain);
-                return CrossTheLineSequence;
-            } else if (p == Position.MIDDLE) {
-                CrossTheLineSequence CrossTheLineSequence = new CrossTheLineSequence(driveTrain);
-                return CrossTheLineSequence;
-            } else if (p == Position.RIGHT) {
-                CrossTheLineSequence CrossTheLineSequence = new CrossTheLineSequence(driveTrain);
-                return CrossTheLineSequence;
-            }
-        }
+    public Command getAutonomousCommand(Action a) {
+        if (a == Action.TWO_SHOT_RIGHT) {return new TwoShotSequenceRight(turretSubsystem,
+            Constants.AUTO_TURRET_SPEED, intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED,
+            Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision, hood);}
+        else if (a == Action.THREE_SHOT) {return new ThreeShotSequenceRight(turretSubsystem, 
+            Constants.AUTO_TURRET_SPEED,  intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED, 
+            Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision, hood);}
+        else if (a == Action.TWO_SHOT_LEFT) {return new TwoShotSequenceLeft(turretSubsystem, 
+            Constants.AUTO_TURRET_SPEED,  intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED, 
+            Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision, hood);}
+        else if (a == Action.ONE_SHOT) {return new OneShotSequenceMiddle(turretSubsystem, intakeSubsystem, 
+            driveTrain, shooterSubsystem, limeLightVision, hood, Constants.AUTO_MOVE_SPEED, 
+            Constants.AUTO_DISTANCE_INCHES);}
+        else if (a == Action.CROSS_LINE) {return new CrossTheLineSequence(driveTrain);}
+        else if (a == Action.DO_NOTHING) {return new DoNothingSequence();}
         return new WaitCommand(0);
     }
 }

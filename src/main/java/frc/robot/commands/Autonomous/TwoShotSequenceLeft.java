@@ -6,6 +6,7 @@ package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.DriveCommands.MoveDistance;
 import frc.robot.commands.HoodCommands.MoveHoodToAngle;
 import frc.robot.commands.ShooterCommands.AutoTargetSequence;
 import frc.robot.commands.ShooterCommands.NonVisionParallelShoot;

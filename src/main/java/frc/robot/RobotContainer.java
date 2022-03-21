@@ -188,7 +188,7 @@ public class RobotContainer {
    */
 
   public Command getAutonomousCommand() {
-    return autoChooser.getAutonomousCommand(autoChooser.getPosition() , autoChooser.getAction());
+    return autoChooser.getAutonomousCommand(autoChooser.getAction());
   }
 
   public void installDriverShuffleboard() {

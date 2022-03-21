@@ -5,9 +5,8 @@
 package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.DriveCommands.MoveDistance;
+import frc.robot.Constants;
 import frc.robot.commands.ShooterCommands.AutoTargetSequence;
-import frc.robot.commands.ShooterCommands.NonVisionParallelShootDeployIntake;
 import frc.robot.commands.ShooterCommands.ShooterSequeunce;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
@@ -19,21 +18,22 @@ import frc.robot.utils.limelight.LimeLightVision;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class TwoShotSequenceRight extends SequentialCommandGroup {
+public class ThreeShotSequenceRight extends SequentialCommandGroup {
   /** Creates a new TwoShotSequenceRight. 
    * @param vision 
    * @param hoodSubsystem */
-  public TwoShotSequenceRight(TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, double speed, double distanceInches, ShooterSubsystem shooterSubsystem, LimeLightVision limeLightVision, Hood hood) {
+  public ThreeShotSequenceRight(TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, double speed, double distanceInches, ShooterSubsystem shooterSubsystem, LimeLightVision limeLightVision, Hood hood) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new MoveAndMoveHood(driveTrain, speed, 12, hood),
-      new NonVisionParallelShootDeployIntake(shooterSubsystem, intakeSubsystem, 11800),
-      new ParralelMoveAndTurretResetAndIntake(driveTrain, speed, distanceInches, turretSubsystem, turretSpeed, intakeSubsystem, hood),
+      new ParralelMoveAndTurretResetAndIntake(driveTrain, speed, Constants.AUTO_CROSS_LINE_DISTANCE_INCHES, turretSubsystem, turretSpeed, intakeSubsystem, hood),
       new AutoTargetSequence(turretSubsystem, limeLightVision, hood),
       //new WaitCommand(0.8),
       new ShooterSequeunce(shooterSubsystem, limeLightVision),
-      new MoveDistance(driveTrain, speed, 11)
+      //turn robot
+      new ParralelMoveAndIntake(driveTrain, speed, Constants.AUTO_DISTANCE_TO_BALL_THREE, turretSubsystem, turretSpeed, intakeSubsystem, hood),
+      new AutoTargetSequence(turretSubsystem, limeLightVision, hood)
+
     );
   }
 }
