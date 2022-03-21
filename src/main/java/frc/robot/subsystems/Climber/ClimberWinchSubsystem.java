@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.DiagTalonSrxEncoder;
 import frc.robot.utils.diag.DiagTalonSrxSwitch;
 
@@ -71,7 +72,7 @@ public class ClimberWinchSubsystem extends SubsystemBase {
     return leftWinch.getBusVoltage();
   }
 
-  public double getRightVolatage() {
+  public double getRightVoltage() {
     return rightWinch.getBusVoltage();
   }
   
@@ -94,5 +95,11 @@ public class ClimberWinchSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    if (Constants.ENABLE_DEBUG) {
+      SmartShuffleboard.put("Climber", "Right Arm Encoder", getRightEncoder());
+      SmartShuffleboard.put("Climber", "Left Arm Encoder", getLeftEncoder());
+      SmartShuffleboard.put("Climber", "Right Arm Voltage", getRightVoltage());
+      SmartShuffleboard.put("Climber", "Left Arm Voltage", getLeftVoltage());
+    }
   }
 }
