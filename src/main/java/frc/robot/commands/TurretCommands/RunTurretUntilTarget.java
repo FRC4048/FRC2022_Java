@@ -23,13 +23,14 @@ public class RunTurretUntilTarget extends CommandBase {
   @Override
   public void initialize() {
     Robot.getRobotContainer().getLimeLight().setLedOn();
-    turretSubsystem.setTurret(0.5);
+    Robot.getRobotContainer().getLimeLight().setPipeline(1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     limeLightSight = limeLightVision.hasTarget();
+    turretSubsystem.setTurret(0.5);
   }
 
   // Called once the command ends or is interrupted.
