@@ -7,7 +7,6 @@ package frc.robot.commands.TurretCommands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.utils.limelight.LimeLightVision;
 
@@ -26,7 +25,6 @@ public class RunTurretUntilTarget extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.getRobotContainer().getLimeLight().setPipeline(1);
     initTime = Timer.getFPGATimestamp();
   }
 

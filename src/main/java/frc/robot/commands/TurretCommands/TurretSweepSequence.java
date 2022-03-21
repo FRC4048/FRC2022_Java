@@ -5,8 +5,10 @@
 package frc.robot.commands.TurretCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.commands.Miscellaneous.SetLEDOff;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
+import frc.robot.commands.Miscellaneous.SetPipeline;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.utils.limelight.LimeLightVision;
 
@@ -21,6 +23,7 @@ public class TurretSweepSequence extends SequentialCommandGroup {
     addCommands(
       new RunTurretUntilLimitSwitch(turretSubsystem),
       new SetLEDOn(),
+      new SetPipeline(Constants.LIMELIGHT_TARGET_DETECTION),
       new RunTurretUntilTarget(turretSubsystem, limeLightVision),
       new SetLEDOff()
     );
