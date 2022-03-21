@@ -51,6 +51,8 @@ public class ClimberArmSubsystem extends SubsystemBase {
     
     leftArm.setNeutralMode(NeutralMode.Brake);
     rightArm.setNeutralMode(NeutralMode.Brake);
+
+    leftArm.setInverted(true);
   }
 
   public void setSpeed(double speed) {
@@ -142,7 +144,7 @@ public class ClimberArmSubsystem extends SubsystemBase {
       SmartShuffleboard.put("Climber", "Right Arm Voltage", getRightVoltage());
       SmartShuffleboard.put("Climber", "Left Arm Voltage", getLeftVoltage());
       SmartShuffleboard.put("Climber", "Right Arm Encoders", getRightEncoder());
-      SmartShuffleboard.put("Climber", "Left Arm Encoders", getLeftVoltage());
+      SmartShuffleboard.put("Climber", "Left Arm Encoders", getLeftEncoder());
     }
   }
 }

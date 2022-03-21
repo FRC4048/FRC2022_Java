@@ -43,6 +43,7 @@ public class ClimberWinchSubsystem extends SubsystemBase {
     leftWinch.setNeutralMode(NeutralMode.Brake);
     rightWinch.setNeutralMode(NeutralMode.Brake);
 
+    leftWinch.setInverted(true);
   }
 
   public void setSpeed(double speed) {
@@ -121,7 +122,7 @@ public class ClimberWinchSubsystem extends SubsystemBase {
       SmartShuffleboard.put("Climber", "Right Winch Voltage", getRightVoltage());
       SmartShuffleboard.put("Climber", "Left Winch Voltage", getLeftVoltage());
       SmartShuffleboard.put("Climber", "Right Winch Encoders", getRightEncoder());
-      SmartShuffleboard.put("Climber", "Left Winch Encoders", getLeftVoltage());
+      SmartShuffleboard.put("Climber", "Left Winch Encoders", getLeftEncoder());
     }
   }
 }
