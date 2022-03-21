@@ -80,16 +80,13 @@ public class RobotContainer {
   private XboxController climberController = new XboxController(Constants.CONTROLLER_CLIMBER_ID);
   private JoystickButton buttonA = new JoystickButton(xboxController, Constants.XBOX_A_BUTTON);
   private JoystickButton buttonB = new JoystickButton(xboxController, Constants.XBOX_B_BUTTON);
-  private JoystickButton targetButton = new JoystickButton(xboxController, Constants.XBOX_START_BUTTON);
-  private JoystickButton manualShootButton = new JoystickButton(xboxController, Constants.XBOX_BACK_BUTTON);
+  
 
   private JoystickButton climberButtonA = new JoystickButton(climberController, Constants.XBOX_A_BUTTON);
   private JoystickButton climberButtonB = new JoystickButton(climberController, Constants.XBOX_B_BUTTON);
 
   private JoystickButton buttonY = new JoystickButton(xboxController, Constants.XBOX_Y_BUTTON);
   
-  private JoystickButton buttonX = new JoystickButton(xboxController, Constants.XBOX_X_BUTTON);
-  private JoystickButton rightBumper = new JoystickButton(xboxController, Constants.XBOX_RIGHT_BUMPER);
   private JoystickButton leftBumper = new JoystickButton(xboxController, Constants.XBOX_LEFT_BUMPER);
   private JoystickButton startButton = new JoystickButton(xboxController, Constants.XBOX_START_BUTTON);
   private Trigger rightTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
@@ -166,8 +163,7 @@ public class RobotContainer {
 
     climberButtonA.whenPressed(new ExtendClimberSequence(climberArmSubsystem, climberWinchSubsystem));
     climberButtonB.whenPressed(new RetractClimberSequence(climberArmSubsystem, climberWinchSubsystem));
-    manualShootButton.whenPressed(new SetShooterMotor(shooterSubsystem, Constants.MANUAL_SHOOTER_SPEED));
-
+    
     buttonA.whenPressed(new LogCommandWrapper(new IntakeSequence(intakeSubsystem)));
     buttonB.whenPressed(new LogCommandWrapper(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED)));
     buttonB.whenReleased(new LogCommandWrapper(new ManuallyRunIntakeMotor(intakeSubsystem, 0)));
