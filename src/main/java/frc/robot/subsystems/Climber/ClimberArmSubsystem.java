@@ -13,10 +13,12 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.utils.MotorUtils;
+import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.DiagTalonSrxEncoder;
 import frc.robot.utils.diag.DiagTalonSrxSwitch;
 
@@ -136,5 +138,11 @@ public class ClimberArmSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    if (Constants.ENABLE_DEBUG) {
+      SmartShuffleboard.put("Climber", "Right Arm Voltage", getRightVoltage());
+      SmartShuffleboard.put("Climber", "Left Arm Voltage", getLeftVoltage());
+      SmartShuffleboard.put("Climber", "Right Arm Encoders", getRightEncoder());
+      SmartShuffleboard.put("Climber", "Left Arm Encoders", getLeftVoltage());
+    }
   }
 }

@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.utils.MotorUtils;
+import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.DiagTalonSrxEncoder;
 import frc.robot.utils.diag.DiagTalonSrxSwitch;
 
@@ -116,5 +117,11 @@ public class ClimberWinchSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    if (Constants.ENABLE_DEBUG) {
+      SmartShuffleboard.put("Climber", "Right Winch Voltage", getRightVoltage());
+      SmartShuffleboard.put("Climber", "Left Winch Voltage", getLeftVoltage());
+      SmartShuffleboard.put("Climber", "Right Winch Encoders", getRightEncoder());
+      SmartShuffleboard.put("Climber", "Left Winch Encoders", getLeftVoltage());
+    }
   }
 }
