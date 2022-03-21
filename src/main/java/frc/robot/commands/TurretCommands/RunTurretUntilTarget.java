@@ -4,7 +4,9 @@
 
 package frc.robot.commands.TurretCommands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.utils.limelight.LimeLightVision;
@@ -12,41 +14,44 @@ import frc.robot.utils.limelight.LimeLightVision;
 public class RunTurretUntilTarget extends CommandBase {
   /** Creates a new TurretSweep. */
   private TurretSubsystem turretSubsystem;
-  private boolean limeLightSight;
   private LimeLightVision limeLightVision;
+  private double turretSpeed = 0.5;
+  private double initTime;
   public RunTurretUntilTarget(TurretSubsystem turretSubsystem, LimeLightVision limeLightVision) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.turretSubsystem = turretSubsystem;
+    this.limeLightVision = limeLightVision;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.getRobotContainer().getLimeLight().setLedOn();
     Robot.getRobotContainer().getLimeLight().setPipeline(1);
+    initTime = Timer.getFPGATimestamp();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    limeLightSight = limeLightVision.hasTarget();
-    turretSubsystem.setTurret(0.5);
+    turretSubsystem.setTurret(turretSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     turretSubsystem.setTurret(0);
-    Robot.getRobotContainer().getLimeLight().setLedOff();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (limeLightSight == true) {
+    if (limeLightVision.hasTarget() == true || Timer.getFPGATimestamp() - initTime >= Constants.TURRETSPIN_TIMEOUT) {
       return true;
     }
     else {
+      if (turretSubsystem.getRightSwitch() || turretSubsystem.getLeftSwitch()) {
+        turretSpeed = -turretSpeed;
+      }
       return false;
     }
   }
