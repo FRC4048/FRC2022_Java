@@ -5,13 +5,16 @@
 package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.HoodCommands.HoodAutoCommand;
+import frc.robot.Constants;
+import frc.robot.commands.AutoTargetParallel;
+import frc.robot.commands.WaitCommand;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
-import frc.robot.commands.TurretCommands.TurretAuto;
+import frc.robot.commands.Miscellaneous.SetPipeline;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.limelight.LimeLightVision;
+import frc.robot.utils.logging.LogCommandWrapper;
 
 public class AutoTargetSequence extends SequentialCommandGroup {
 
@@ -19,13 +22,12 @@ public class AutoTargetSequence extends SequentialCommandGroup {
   private TurretSubsystem turretSubsystem;
   public AutoTargetSequence(TurretSubsystem turretSubsystem, LimeLightVision vision, Hood hoodSubsystem) {
     this.turretSubsystem = turretSubsystem;
-    vision = new LimeLightVision(38, 104, 30);
+//    vision = new LimeLightVision(38, 104, 30);
 
     // Use addRequirements() here to declare subsystem dependencies.
     addCommands(
-      new SetLEDOn(),
-      new TurretAuto(turretSubsystem, vision),
-      new HoodAutoCommand(hoodSubsystem, vision)
+            new LogCommandWrapper(new SetPipeline(Constants.LIMELIGHT_TARGET_DETECTION)),
+            new LogCommandWrapper(new AutoTargetParallel(turretSubsystem, vision, hoodSubsystem))
     );
     SmartShuffleboard.put("Driver", "Data", "Can Shoot", true);
   }

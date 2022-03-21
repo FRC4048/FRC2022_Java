@@ -5,9 +5,10 @@
 package frc.robot.commands.IntakeCommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class ManuallyToggleIntake extends CommandBase {
+public class ManuallyToggleIntake extends LoggedCommandBase {
 private IntakeSubsystem intakeSubsystem;
   /** Creates a new ToggleIntake. */
   public ManuallyToggleIntake(IntakeSubsystem intakeSubsystem) {

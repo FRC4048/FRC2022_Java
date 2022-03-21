@@ -5,13 +5,16 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -24,32 +27,71 @@ public class ShooterSubsystem extends SubsystemBase {
   private Solenoid shooterSolenoid;
   private CANSparkMax shooterMotor;
   private boolean isRunning;
-  private NetworkTableEntry maxSpeed;
+  private SparkMaxPIDController shooterPID;
+  private double targetVelocity;
+  private Solenoid blockPiston;
 
   public ShooterSubsystem() {
     //climberSolenoid = new Solenoid(Constants.PCM_CAN_ID, Constants.CLIMBER_PISTON_ID);
     shooterSolenoid = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.SHOOTER_PISTON_ID);
     shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_ID, MotorType.kBrushless);
+    blockPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.STOP_SOLENOID_ID);
+    shooterPID = shooterMotor.getPIDController();
     isRunning = false;
     
+    targetVelocity = 0;
+
+
+    SmartDashboard.putNumber("DesiredSpeed", 12000);
+
 
     Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Shooter Encoder", 100, shooterMotor));
 
     shooterMotor.setIdleMode(IdleMode.kCoast);
     shooterMotor.setInverted(false);
-    
+
+    shooterPID.setP(Constants.SHOOTER_PID_P);
+    shooterPID.setI(Constants.SHOOTER_PID_I);
+    shooterPID.setD(Constants.SHOOTER_PID_D);
+    shooterPID.setIZone(Constants.SHOOTER_PID_IZ);
+    shooterPID.setFF(Constants.SHOOTER_PID_FF);
+    shooterPID.setOutputRange(Constants.SHOOTER_MIN_OUTPUT, Constants.SHOOTER_MAX_OUTPUT);
   }
 
   public void setShooterSpeed(double speed) {
-    shooterMotor.set(speed * maxSpeed.getDouble(1.0));
+    shooterMotor.set(speed);
+  }
+
+  public void setShooterRPM(double rpm) {
+    shooterPID.setReference(rpm, CANSparkMax.ControlType.kVelocity);
+  } 
+
+  public double getVelocity() {
+    return targetVelocity;
+  }
+
+  public void setVelocity(double targetVelocity) {
+    this.targetVelocity = targetVelocity;
   }
 
   public void stopShooter() {
     shooterMotor.set(0);
   }
 
+  public boolean getBlockState() {
+    return blockPiston.get();
+  }
+
+  public void setBlockPiston(boolean newState) {
+    blockPiston.set(newState);
+  }
+
   public double getShooterSpeed() {
     return shooterMotor.get();
+  }
+
+  public double getShooterRPM() {
+    return getEncoder().getVelocity();
   }
 
   public RelativeEncoder getEncoder() {
@@ -80,19 +122,17 @@ public class ShooterSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if (Constants.ENABLE_DEBUG){
-      SmartShuffleboard.put("Shooter", "Data", "Piston State", getPistonState());;
-      SmartShuffleboard.put("Shooter", "Data", "Shooter RPM", getEncoder().getVelocity());
-
+    if (Constants.ENABLE_DEBUG == true){
+      SmartShuffleboard.put("Shooter", "Data", "Piston State", getPistonState());
+      SmartShuffleboard.put("Shooter", "Data", "Shooter RPM", getShooterRPM());
     }
   }
 
   
-    public final Logging.LoggingContext loggingContext = new Logging.LoggingContext(this.getClass()) {
+  public final Logging.LoggingContext loggingContext = new Logging.LoggingContext(this.getClass()) {
       protected void addAll() {
           add("Piston State", getPistonState());
           add("Shooter Speed", getShooterSpeed());
       }
   };
-  
 }

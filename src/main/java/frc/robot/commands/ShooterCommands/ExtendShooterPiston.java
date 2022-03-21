@@ -5,9 +5,10 @@
 package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ExtendShooterPiston extends CommandBase {
+public class ExtendShooterPiston extends LoggedCommandBase {
   /** Creates a new RaisePiston. */
   private ShooterSubsystem shooterSubsystem;
   public ExtendShooterPiston(ShooterSubsystem shooterSubsystem) {

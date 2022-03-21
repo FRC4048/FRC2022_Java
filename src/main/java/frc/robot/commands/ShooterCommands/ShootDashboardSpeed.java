@@ -5,42 +5,43 @@
 package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.commands.LoggedCommandBase;
 import frc.robot.Constants;
+import frc.robot.commands.LoggedCommandBase;
+
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.utils.SmartShuffleboard;
 
-public class ToggleShooterMotor extends LoggedCommandBase {
-  /** Creates a new SpinShooter. */
+public class ShootDashboardSpeed extends CommandBase {
+  /** Creates a new RotateShooterMotor. */
   private ShooterSubsystem shooterSubsystem;
-  private double startTime;
-  private double rpm;
+  private double speed;
+  private double initTime, timeout;
 
-  public ToggleShooterMotor(ShooterSubsystem shooterSubsystem, double rpm) {
+  public ShootDashboardSpeed(ShooterSubsystem shooterSubsystem, double timeout) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooterSubsystem = shooterSubsystem;
+    this.timeout = timeout;
+
     addRequirements(shooterSubsystem);
-    this.rpm = rpm;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooterSubsystem.setRunning(!shooterSubsystem.isRunning());
-    startTime = Timer.getFPGATimestamp();
+    initTime = Timer.getFPGATimestamp();
+
+//    shooterSubsystem.setShooterSpeed(desiredSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (shooterSubsystem.isRunning()) {
-      shooterSubsystem.setShooterRPM(rpm);
-    } else {
-      shooterSubsystem.stopShooter();
-    }
+    this.speed = SmartDashboard.getNumber("DesiredSpeed", 12000);
+    shooterSubsystem.setShooterRPM(speed);
   }
-
-  
 
   // Called once the command ends or is interrupted.
   @Override
@@ -51,6 +52,9 @@ public class ToggleShooterMotor extends LoggedCommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Timer.getFPGATimestamp() - startTime) > Constants.SHOOTER_TIMEOUT;
+    if (Timer.getFPGATimestamp() - initTime >= timeout) {
+      return true;
+    }
+    return false;
   }
 }

@@ -1,18 +1,18 @@
-package frc.robot.commands.ShooterCommands;
+package frc.robot.commands.HoodCommands;
+
+import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.Hood;
 
-public class MoveHoodUp extends CommandBase {
+public class MoveHoodDown extends LoggedCommandBase {
     private Hood hood;
     private double startTimeMillis;
-    ;
-    
 
-    public MoveHoodUp(Hood hood) {
+    public MoveHoodDown(Hood hood) {
         this.hood = hood;
-        
         addRequirements(hood);
     }
 
@@ -21,7 +21,7 @@ public class MoveHoodUp extends CommandBase {
     }
 
     public void execute() {
-        hood.setHood(-0.4);
+        hood.setHood(0.4);
     }
 
     @Override
@@ -37,5 +37,5 @@ public class MoveHoodUp extends CommandBase {
         else {
             return false;
         }
-    }   
+    }
 }
