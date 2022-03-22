@@ -34,10 +34,11 @@ public class ManualMoveClimberWinch extends CommandBase {
     if (climberController.getRightY() > 0.5) {
       rightSpeed = Constants.CLIMBER_WINCH_SPEED;
       leftSpeed = Constants.CLIMBER_WINCH_SPEED;
-    } else if (climberController.getRightY() < -0.5 && !isStalled) {
-      rightSpeed = -Constants.CLIMBER_WINCH_SPEED;
-      leftSpeed = -Constants.CLIMBER_WINCH_SPEED;
-    }
+    } 
+    // else if (climberController.getRightY() < -0.5 && !isStalled) {
+    //   rightSpeed = -Constants.CLIMBER_WINCH_SPEED;
+    //   leftSpeed = -Constants.CLIMBER_WINCH_SPEED;
+    // }
 
     if (climberController.getRightTriggerAxis() > 0.5) {
       rightSpeed *= Constants.CLIMBER_SLOW_WINCH_RATE; 
