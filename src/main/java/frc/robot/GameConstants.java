@@ -67,7 +67,7 @@ public interface GameConstants {
   public static final double SHOOTER_SPEED = 0.5;
   public static final double PISTON_DELAY = 0.5;
   public static final double SHOOTER_SPINUP_DELAY = 1;
-  public static final int SHOOTER_PISTON_WAIT = 1;
+  public static final double SHOOTER_PISTON_WAIT = .7;
   public static final double SHOOTER_RPM = 12000;
 
   //Shooter PID
@@ -95,9 +95,9 @@ public interface GameConstants {
 
   //Turret
   public static final double TURRETSPIN_SCALEFACTOR = 0.35;
-  public static final int TURRET_AUTO_BAD_READINGS_TRESHOLD = 5;
+  public static final int TURRET_AUTO_BAD_READINGS_TRESHOLD = 50;
   public static final double TURRET_AUTO_ALIGN_TRESHOLD = 0.2; //change when testing
-  public static final double TURRET_AUTO_TIMEOUT = 100;
+  public static final double TURRET_AUTO_TIMEOUT = 5;
   public static final double TURRET_SPEED = 0.7;
   public static final double TURRET_MIN_SPEED = 0.1;
   public static final double TURRET_MAX_DIFFERENCE = 500;

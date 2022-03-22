@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -57,11 +58,28 @@ public class TurretSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+        double new_kP = 0;
+        double new_kI = 0;
+        double new_kD = 0;
         // This method will be called once per scheduler run
         if (Constants.ENABLE_DEBUG == true) {
             SmartShuffleboard.put("Shooter", "Turret Encoder", getEncoder());
             SmartShuffleboard.put("Shooter", "Left Limit Switch", getLeftSwitch());
             SmartShuffleboard.put("Shooter", "Right Limit Switch", getRightSwitch());
+        }
+        if (Constants.ENABLE_DEBUG) {
+           SmartDashboard.getNumber("turret_kP", new_kP);
+           SmartDashboard.getNumber("turret_kI", new_kI);
+           SmartDashboard.getNumber("turret_kD", new_kD);
+           if (new_kP != turretPID.getP()) {
+               turretPID.setP(new_kP);
+           }
+           if (new_kI != turretPID.getI()) {
+               turretPID.setI(new_kI);
+           }
+           if (new_kD != turretPID.getD()) {
+               turretPID.setD(new_kD);
+           }
         }
     }
 
