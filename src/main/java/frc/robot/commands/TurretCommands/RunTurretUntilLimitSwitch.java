@@ -44,5 +44,5 @@ public class RunTurretUntilLimitSwitch extends CommandBase {
   @Override
   public boolean isFinished() {
     return (turretSubsystem.getLeftSwitch() || (Timer.getFPGATimestamp() - startTime) >= Constants.TURRETSPIN_TIMEOUT);
-  }
+  } 
 }
