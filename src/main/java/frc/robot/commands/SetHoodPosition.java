@@ -15,6 +15,7 @@ public class SetHoodPosition extends CommandBase {
     this.speed = speed;
     this.Hood = Hood;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Hood);
   }
 
   // Called when the command is initially scheduled.

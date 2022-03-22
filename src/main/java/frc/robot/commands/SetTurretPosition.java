@@ -15,6 +15,7 @@ public class SetTurretPosition extends CommandBase {
     this.TurretSubsystem = TurretSubsystem;
     this.speed =speed;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(TurretSubsystem);
   }
 
   // Called when the command is initially scheduled.
