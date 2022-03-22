@@ -10,6 +10,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -37,6 +38,7 @@ public class ShooterSubsystem extends SubsystemBase {
     blockPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.STOP_SOLENOID_ID);
     shooterPID = shooterMotor.getPIDController();
     isRunning = false;
+    
     targetVelocity = 0;
 
 
@@ -125,6 +127,7 @@ public class ShooterSubsystem extends SubsystemBase {
       SmartShuffleboard.put("Shooter", "Data", "Shooter RPM", getShooterRPM());
     }
   }
+
   
   public final Logging.LoggingContext loggingContext = new Logging.LoggingContext(this.getClass()) {
       protected void addAll() {
