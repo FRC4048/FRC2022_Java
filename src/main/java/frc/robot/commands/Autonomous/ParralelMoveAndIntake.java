@@ -14,12 +14,12 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
 
 public class ParralelMoveAndIntake extends ParallelCommandGroup {
-    public ParralelMoveAndIntake(DriveTrain driveTrain, double speed, double distanceInches, TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, Hood hood) {
+    public ParralelMoveAndIntake(DriveTrain driveTrain, double speed, double distanceInches, TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, Hood hood, TurretSubsystem TurretSubsystem) {
         addCommands(
             new MoveDistance(driveTrain, speed, distanceInches),
-            new IntakeSequence(intakeSubsystem)
-            //we will eventually need to move the turret here to make sure the goal is in frame after this move. 
-            //new SetTurretPosition(TurretSubsystem, speed)
+            new IntakeSequence(intakeSubsystem),
+            //temporary angle value, needs to be tested.
+            new AutoSetTurretPosition(TurretSubsystem, 850, speed)
         );
     }
 }

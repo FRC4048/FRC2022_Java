@@ -6,6 +6,7 @@ package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
+import frc.robot.commands.WaitCommand;
 import frc.robot.commands.ShooterCommands.AutoTargetSequence;
 import frc.robot.commands.ShooterCommands.ShooterSequeunce;
 import frc.robot.subsystems.DriveTrain;
@@ -30,10 +31,12 @@ public class ThreeShotSequenceRight extends SequentialCommandGroup {
       new AutoTargetSequence(turretSubsystem, limeLightVision, hood),
       //new WaitCommand(0.8),
       new ShooterSequeunce(shooterSubsystem, limeLightVision),
+      new WaitCommand(0.8),
+      new ShooterSequeunce(shooterSubsystem, limeLightVision),
       //turn robot
-      new ParralelMoveAndIntake(driveTrain, speed, Constants.AUTO_DISTANCE_TO_BALL_THREE, turretSubsystem, turretSpeed, intakeSubsystem, hood),
-      new AutoTargetSequence(turretSubsystem, limeLightVision, hood)
-
+      new ParralelMoveAndIntake(driveTrain, speed, Constants.AUTO_DISTANCE_TO_BALL_THREE, turretSubsystem, turretSpeed, intakeSubsystem, hood, turretSubsystem),
+      new AutoTargetSequence(turretSubsystem, limeLightVision, hood),
+      new ShooterSequeunce(shooterSubsystem, limeLightVision)
     );
   }
 }
