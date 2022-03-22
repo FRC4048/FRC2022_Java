@@ -31,6 +31,7 @@ import frc.robot.commands.IntakeCommand.IntakeSequence;
 import frc.robot.commands.IntakeCommand.ManuallyRunIntakeMotor;
 import frc.robot.commands.IntakeCommand.ManuallyToggleIntake;
 import frc.robot.commands.IntakeCommand.RaiseIntakeCommand;
+import frc.robot.commands.Miscellaneous.CancelAll;
 import frc.robot.commands.Miscellaneous.SetLEDOff;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
 import frc.robot.commands.Miscellaneous.SetPipeline;
@@ -80,6 +81,7 @@ public class RobotContainer {
   private JoystickButton startButton = new JoystickButton(xboxController, Constants.XBOX_START_BUTTON);
   private Trigger rightTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
   private Trigger leftTrigger = new Trigger(() -> xboxController.getLeftTriggerAxis() > 0.5 );
+  private JoystickButton backButton = new JoystickButton(xboxController, Constants.XBOX_BACK_BUTTON);
 
   private final LimelightSubsystem limeLightVision = new LimelightSubsystem();
 
@@ -160,6 +162,7 @@ public class RobotContainer {
     leftBumper.whenPressed(new LogCommandWrapper(new ToggleShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM)));
     leftBumper.whenReleased(new LogCommandWrapper(new ToggleShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM)));
     startButton.whenPressed(new LogError());
+    backButton.whenPressed(new LogCommandWrapper(new CancelAll(intakeSubsystem, shooterSubsystem)));
 
     climberButtonA.whenPressed(new ToggleClimberSolenoid(climberArmSubsystem));
   }
