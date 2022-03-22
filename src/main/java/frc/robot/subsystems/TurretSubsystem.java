@@ -51,8 +51,8 @@ public class TurretSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        if (Constants.ENABLE_DEBUG == true) {
-            SmartShuffleboard.put("Shooter", "Turret Encoder", getEncoder());
+        if (Constants.ENABLE_DEBUG) {
+            //SmartShuffleboard.put("Shooter", "Turret Encoder", getEncoder());
             SmartShuffleboard.put("Shooter", "Left Limit Switch", getLeftSwitch());
             SmartShuffleboard.put("Shooter", "Right Limit Switch", getRightSwitch());
         }

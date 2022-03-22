@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.utils.MotorUtils;
+import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.DiagTalonSrxEncoder;
 import frc.robot.utils.diag.DiagTalonSrxSwitch;
 
@@ -47,8 +48,10 @@ public class ClimberArmSubsystem extends SubsystemBase {
     Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Right Arm Forward Switch", rightArm, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
     Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Right Arm Reverse Switch", rightArm, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
     
-    leftArm.setNeutralMode(NeutralMode.Brake);
-    rightArm.setNeutralMode(NeutralMode.Brake);
+    leftArm.setNeutralMode(NeutralMode.Coast);
+    rightArm.setNeutralMode(NeutralMode.Coast);
+
+    leftArm.setInverted(true);
   }
 
   public void setSpeed(double speed) {
@@ -136,5 +139,11 @@ public class ClimberArmSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    if (Constants.ENABLE_DEBUG) {
+      SmartShuffleboard.put("Climber", "R Arm Encoder", getRightEncoder());
+      SmartShuffleboard.put("Climber", "L Arm Encoder", getLeftEncoder());
+      SmartShuffleboard.put("Climber", "R Arm Voltage", getRightVoltage());
+      SmartShuffleboard.put("Climber", "L Arm Voltage", getLeftVoltage());
+    }
   }
 }
