@@ -140,10 +140,10 @@ public class ClimberArmSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     if (Constants.ENABLE_DEBUG) {
-      SmartShuffleboard.put("Climber", "Right Arm Encoder", getRightEncoder());
-      SmartShuffleboard.put("Climber", "Left Arm Encoder", getLeftEncoder());
-      SmartShuffleboard.put("Climber", "Right Arm Voltage", getRightVoltage());
-      SmartShuffleboard.put("Climber", "Left Arm Voltage", getLeftVoltage());
+      SmartShuffleboard.put("Climber", "R Arm Encoder", getRightEncoder());
+      SmartShuffleboard.put("Climber", "L Arm Encoder", getLeftEncoder());
+      SmartShuffleboard.put("Climber", "R Arm Voltage", getRightVoltage());
+      SmartShuffleboard.put("Climber", "L Arm Voltage", getLeftVoltage());
     }
   }
 }
