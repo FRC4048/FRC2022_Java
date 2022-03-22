@@ -24,19 +24,19 @@ public class ClimberWinchSubsystem extends SubsystemBase {
     leftWinch = new WPI_TalonSRX(Constants.CLIMBER_LEFT_WINCH_ID);
     rightWinch = new WPI_TalonSRX(Constants.CLIMBER_RIGHT_WINCH_ID);
 
-    leftWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    leftWinch.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     rightWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 
     Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Left Winch Encoder", 100, leftWinch));
     Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Right Winch Encoder", 100, rightWinch));
-    Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Left Winch Forward Switch", leftWinch, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
-    Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Right Winch Forward Switch", rightWinch, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
+    Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Left Winch Switch", leftWinch, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
+    Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Right Winch Switch", rightWinch, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
   
     leftWinch.setNeutralMode(NeutralMode.Brake);
     rightWinch.setNeutralMode(NeutralMode.Brake);
 
+    leftWinch.setInverted(true);
     rightWinch.setInverted(true);
-
   }
 
   public void setSpeed(double speed) {

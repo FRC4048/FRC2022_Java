@@ -48,10 +48,10 @@ public class ClimberArmSubsystem extends SubsystemBase {
     Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Right Arm Forward Switch", rightArm, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
     Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Right Arm Reverse Switch", rightArm, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
     
-    leftArm.setNeutralMode(NeutralMode.Brake);
-    rightArm.setNeutralMode(NeutralMode.Brake);
+    leftArm.setNeutralMode(NeutralMode.Coast);
+    rightArm.setNeutralMode(NeutralMode.Coast);
 
-    rightArm.setInverted(true);
+    leftArm.setInverted(true);
   }
 
   public void setSpeed(double speed) {
