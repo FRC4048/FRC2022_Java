@@ -31,10 +31,10 @@ public interface Constants2022Robot extends GameConstants {
     public static final int TURRET_HOOD_CAN_ID = 10;
     public static final int SHOOTER_MOTOR_ID = 46;
     public static final int HOOD_MOTOR_ID = 10;
-    public static final int CLIMBER_RIGHT_WINCH_ID = 7; //temp
-    public static final int CLIMBER_LEFT_WINCH_ID = 1; //temp
-    public static final int CLIMBER_RIGHT_ARM_ID = 12; //temp
-    public static final int CLIMBER_LEFT_ARM_ID = 2; //temp
+    public static final int CLIMBER_RIGHT_WINCH_ID = 7; 
+    public static final int CLIMBER_LEFT_WINCH_ID = 1; 
+    public static final int CLIMBER_RIGHT_ARM_ID = 12; 
+    public static final int CLIMBER_LEFT_ARM_ID = 2; 
 
 
     //PDP
@@ -42,8 +42,8 @@ public interface Constants2022Robot extends GameConstants {
     public static final int PDP_DRIVE_L2 = 13; 
     public static final int PDP_DRIVE_R1 = 1; 
     public static final int PDP_DRIVE_R2 = 14; 
-    public static final int PDP_CLIMBER_L_WINCH = 50;
-    public static final int PDP_CLIMBER_R_WINCH = 51;
+    public static final int PDP_CLIMBER_L_WINCH = 8;
+    public static final int PDP_CLIMBER_R_WINCH = 9;
     public static final int PDP_CLIMBER_L_ARM = 52;
     public static final int PDP_CLIMBER_R_ARM = 53;
 
@@ -51,6 +51,8 @@ public interface Constants2022Robot extends GameConstants {
     public static final int INTAKE_SENSOR_ID_1 = 0; //temp
     public static final int INTAKE_SENSOR_ID_2 = 1;
     public static final int ELEVATOR_SENSOR_ID = 2;
+    public static final int CLIMBER_L_WINCH_SENSOR = 4;
+    public static final int CLIMBER_R_WINCH_SENSOR = 5;
 
     
     //AIO 

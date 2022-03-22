@@ -61,3 +61,4 @@ public class MoveClimberArmForTicks extends LoggedCommandBase {
   //return (climberArmSubsystem.getLeftVoltage() == 0 && climberArmSubsystem.getRightVolatage() == 0) || initTime > Constants.CLIMBER_ARM_TIMEOUT;
   }
 }
+
