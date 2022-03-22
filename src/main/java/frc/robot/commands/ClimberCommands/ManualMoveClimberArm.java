@@ -28,7 +28,7 @@ public class ManualMoveClimberArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double rightSpeed = 0, leftSpeed = 0;
+    double rightSpeed = 0, leftSpeed = 0; 
     
     if (climberController.getLeftY() > 0.5) {
       rightSpeed = Constants.CLIMBER_ARM_SPEED;
