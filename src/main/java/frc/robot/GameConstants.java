@@ -96,6 +96,7 @@ public interface GameConstants {
   public static final double TURRET_SPEED = 0.7;
   public static final double TURRET_MIN_SPEED = 0.1;
   public static final double TURRET_MAX_DIFFERENCE = 500;
+  public static final double TURRET_SWEEP_SPEED = 0.4;
 
   // SHOOTER MATH
   public static final int HOOD_MARGIN_OF_ERROR = 1;

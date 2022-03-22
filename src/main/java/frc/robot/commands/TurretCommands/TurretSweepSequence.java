@@ -21,11 +21,9 @@ public class TurretSweepSequence extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new RunTurretUntilLimitSwitch(turretSubsystem),
-      new SetLEDOn(),
       new SetPipeline(Constants.LIMELIGHT_TARGET_DETECTION),
-      new RunTurretUntilTarget(turretSubsystem, limeLightVision),
-      new SetLEDOff()
+      new RunTurretUntilLimitSwitch(turretSubsystem),
+      new RunTurretUntilTarget(turretSubsystem, limeLightVision, Constants.TURRET_SWEEP_SPEED)
     );
   }
 }

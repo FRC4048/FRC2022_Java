@@ -14,12 +14,13 @@ public class RunTurretUntilTarget extends CommandBase {
   /** Creates a new TurretSweep. */
   private TurretSubsystem turretSubsystem;
   private LimeLightVision limeLightVision;
-  private double turretSpeed = 0.5;
+  private double turretSpeed;
   private double initTime;
-  public RunTurretUntilTarget(TurretSubsystem turretSubsystem, LimeLightVision limeLightVision) {
+  public RunTurretUntilTarget(TurretSubsystem turretSubsystem, LimeLightVision limeLightVision, double turretSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.turretSubsystem = turretSubsystem;
     this.limeLightVision = limeLightVision;
+    this.turretSpeed = turretSpeed;
   }
 
   // Called when the command is initially scheduled.
@@ -31,6 +32,12 @@ public class RunTurretUntilTarget extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (turretSubsystem.getRightSwitch() && turretSpeed < 0) {
+      turretSpeed = -turretSpeed;
+    }
+    if (turretSubsystem.getLeftSwitch() && turretSpeed > 0) {
+      turretSpeed = -turretSpeed;
+    }
     turretSubsystem.setTurret(turretSpeed);
   }
 
@@ -47,9 +54,6 @@ public class RunTurretUntilTarget extends CommandBase {
       return true;
     }
     else {
-      if (turretSubsystem.getRightSwitch() || turretSubsystem.getLeftSwitch()) {
-        turretSpeed = -turretSpeed;
-      }
       return false;
     }
   }
