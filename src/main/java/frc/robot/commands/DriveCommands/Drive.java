@@ -34,14 +34,13 @@ public class Drive extends CommandBase {
   @Override
   public void execute() {
     double lSpeed = leftSpeed.getAsDouble(), rSpeed = rightSpeed.getAsDouble();
-    if (lSpeed < Constants.CONTROLLER_DEAD_ZONE && lSpeed > -Constants.CONTROLLER_DEAD_ZONE) {
+    if (Math.abs(lSpeed) < Constants.CONTROLLER_DEAD_ZONE) {
       lSpeed = 0;
     }
 
-    if (rSpeed < Constants.CONTROLLER_DEAD_ZONE && rSpeed > -Constants.CONTROLLER_DEAD_ZONE) {
+    if (Math.abs(rSpeed) < Constants.CONTROLLER_DEAD_ZONE) {
       rSpeed = 0;
     }
-
 
       driveTrain.drive(-lSpeed, -rSpeed, false);
   }
