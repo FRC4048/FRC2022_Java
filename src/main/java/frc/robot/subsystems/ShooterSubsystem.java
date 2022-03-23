@@ -13,13 +13,20 @@ import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.commands.ShooterCommands.Flush;
+import frc.robot.utils.ColorSensor;
 import frc.robot.utils.SmartShuffleboard;
+import frc.robot.utils.ColorSensor.ColorValue;
 import frc.robot.utils.diag.DiagOpticalSensor;
 import frc.robot.utils.diag.DiagSparkMaxEncoder;
 import frc.robot.utils.logging.Logging;
@@ -33,15 +40,24 @@ public class ShooterSubsystem extends SubsystemBase {
   private DigitalInput elevatorSensor;
   private double targetVelocity;
   private Solenoid blockPiston;
+  private ColorSensor colorSensor;
+  private boolean isRedAlliance;
+  private boolean isFlushing;
+  private Hood hood;
 
-  public ShooterSubsystem() {
+  public ShooterSubsystem(Hood hood) {
     //climberSolenoid = new Solenoid(Constants.PCM_CAN_ID, Constants.CLIMBER_PISTON_ID);
     shooterSolenoid = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.SHOOTER_PISTON_ID);
     shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_ID, MotorType.kBrushless);
     blockPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.STOP_SOLENOID_ID);
     elevatorSensor = new DigitalInput(Constants.ELEVATOR_SENSOR_ID);
+    colorSensor = new ColorSensor(I2C.Port.kOnboard);
     shooterPID = shooterMotor.getPIDController();
     isRunning = false;
+    isFlushing = false;
+    this.hood = hood;
+
+    isRedAlliance = (DriverStation.getAlliance() == Alliance.Red);
     
     targetVelocity = 0;
 
@@ -123,6 +139,10 @@ public class ShooterSubsystem extends SubsystemBase {
     return shooterSolenoid.get();
   }
 
+  public void setFlush(boolean state) {
+    isFlushing = state;
+  }
+
 
   @Override
   public void periodic() {
@@ -136,6 +156,9 @@ public class ShooterSubsystem extends SubsystemBase {
 
     if (shooterSolenoid.get() == false && elevatorSensor.get() == false) {
       blockPiston.set(true);
+      if ((((colorSensor.getColor() == ColorValue.BLUE) && isRedAlliance) || ((colorSensor.getColor() == ColorValue.RED) && !isRedAlliance)) && !isFlushing) {
+        CommandScheduler.getInstance().schedule(new Flush(hood, this));
+      }
     }
   }
 

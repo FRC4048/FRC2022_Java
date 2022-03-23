@@ -87,12 +87,12 @@ public class RobotContainer {
 
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   private final DriveTrain driveTrain = new DriveTrain();
-  private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+  private final Hood hood = new Hood();
+  private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem(hood);
   private final PowerDistribution m_PowerDistPanel = new PowerDistribution();
   private final ClimberArmSubsystem climberArmSubsystem = new ClimberArmSubsystem(m_PowerDistPanel);
   private final ClimberWinchSubsystem climberWinchSubsystem = new ClimberWinchSubsystem();
   
-  private final Hood hood = new Hood();
   private final TurretSubsystem turretSubsystem= new TurretSubsystem(); 
 
   public AutoChooser autoChooser = new AutoChooser();
