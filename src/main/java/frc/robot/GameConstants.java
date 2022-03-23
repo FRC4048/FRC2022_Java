@@ -101,7 +101,7 @@ public interface GameConstants {
   public static final double AUTO_TURRET_SPEED = 0.5;
   public static final double AUTO_TURRET_CENTER_ANGLE = 430; //this is a random value, it works though
   public static final double AUTO_MOVE_SPEED = 0.4;
-  public static final double AUTO_DISTANCE_INCHES = 57;
+  public static final double AUTO_DISTANCE_INCHES = 15;
   public static final double AUTO_CROSS_LINE_DISTANCE_INCHES = 69; //added 12 because we dont do the move 1 foot for the first shot
   public static final double AUTO_DISTANCE_TO_BALL_THREE = 60; // Place holder; we need to test this dist
 

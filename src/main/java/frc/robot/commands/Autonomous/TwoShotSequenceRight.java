@@ -6,6 +6,7 @@ package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.DriveCommands.MoveDistance;
+import frc.robot.commands.HoodCommands.MoveHoodToAngle;
 import frc.robot.commands.ShooterCommands.AutoTargetSequence;
 import frc.robot.commands.ShooterCommands.NonVisionParallelShootDeployIntake;
 import frc.robot.commands.ShooterCommands.ShooterSequeunce;
@@ -27,13 +28,14 @@ public class TwoShotSequenceRight extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new MoveAndMoveHood(driveTrain, speed, 12, hood),
-      new NonVisionParallelShootDeployIntake(shooterSubsystem, intakeSubsystem, 11800),
-      new ParralelMoveAndTurretResetAndIntake(driveTrain, speed, distanceInches, turretSubsystem, turretSpeed, intakeSubsystem, hood),
+      //new MoveAndMoveHood(driveTrain, speed, 12, hood),
+      new MoveHoodToAngle(hood, 109.0),
+      new NonVisionParallelShootDeployIntake(shooterSubsystem, intakeSubsystem, 11900),
+      new ParralelMoveAndTurretResetAndIntake(driveTrain, 0.4, 40, turretSubsystem, turretSpeed, intakeSubsystem, hood),
       new AutoTargetSequence(turretSubsystem, limeLightVision, hood),
       //new WaitCommand(0.8),
       new ShooterSequeunce(shooterSubsystem, limeLightVision),
-      new MoveDistance(driveTrain, speed, 11)
+      new MoveDistance(driveTrain, speed, 12)
     );
   }
 }
