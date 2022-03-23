@@ -54,10 +54,7 @@ public class ManualMoveClimberWinch extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    climberWinchSubsystem.stopLeftWinch();
-    climberWinchSubsystem.stopRightWinch();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

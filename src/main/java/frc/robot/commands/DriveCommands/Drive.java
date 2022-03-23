@@ -12,15 +12,15 @@ import frc.robot.subsystems.DriveTrain;
 
 public class Drive extends CommandBase {
   private final DriveTrain driveTrain;
-  private double leftSpeed;
-  private double rightSpeed;
+  private DoubleSupplier leftSpeed;
+  private DoubleSupplier rightSpeed;
 
   /**
    * Creates a new Drive.
    */
   public Drive(DriveTrain driveTrain, DoubleSupplier leftSpeed, DoubleSupplier rightSpeed) {
-    this.leftSpeed = leftSpeed.getAsDouble(); 
-    this.rightSpeed = rightSpeed.getAsDouble();
+    this.leftSpeed = leftSpeed; 
+    this.rightSpeed = rightSpeed;
     this.driveTrain = driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(driveTrain);
@@ -33,16 +33,17 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (leftSpeed < Constants.CONTROLLER_DEAD_ZONE && leftSpeed > -Constants.CONTROLLER_DEAD_ZONE) {
-      leftSpeed = 0;
+    double lSpeed = leftSpeed.getAsDouble(), rSpeed = rightSpeed.getAsDouble();
+    if (lSpeed < Constants.CONTROLLER_DEAD_ZONE && lSpeed > -Constants.CONTROLLER_DEAD_ZONE) {
+      lSpeed = 0;
     }
 
-    if (rightSpeed < Constants.CONTROLLER_DEAD_ZONE && rightSpeed > -Constants.CONTROLLER_DEAD_ZONE) {
-      rightSpeed = 0;
+    if (rSpeed < Constants.CONTROLLER_DEAD_ZONE && rSpeed > -Constants.CONTROLLER_DEAD_ZONE) {
+      rSpeed = 0;
     }
 
 
-      driveTrain.drive(-leftSpeed, -rightSpeed, false);
+      driveTrain.drive(-lSpeed, -rSpeed, false);
   }
 
   // Called once the command ends or is interrupted.
