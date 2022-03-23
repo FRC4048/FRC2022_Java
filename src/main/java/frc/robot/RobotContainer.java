@@ -17,6 +17,7 @@ import frc.robot.commands.ToggleBlockerPiston;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.ToggleClimberSolenoid;
+import frc.robot.commands.ClimberCommands.WinchExtend;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.DriveCommands.TurnDegrees;
 import frc.robot.commands.HoodCommands.HoodAutoCommand;
@@ -176,7 +177,7 @@ public class RobotContainer {
     startButton.whenPressed(new LogError());
     backButton.whenPressed(new LogCommandWrapper(new CancelAll(intakeSubsystem, shooterSubsystem)));
 
-    climberButtonA.whenPressed(new ToggleClimberSolenoid(climberArmSubsystem));
+    climberButtonA.whenPressed(new WinchExtend(climberWinchSubsystem));
   }
 
   public IntakeSubsystem getIntakeSubsystem() {
