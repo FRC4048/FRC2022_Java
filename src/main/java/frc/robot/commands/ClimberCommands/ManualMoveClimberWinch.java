@@ -32,11 +32,11 @@ public class ManualMoveClimberWinch extends CommandBase {
     double joySpeed = climberController.getRightY();
     //boolean isStalled = false;
     
-    if (joySpeed > 0.5) {
+    if (joySpeed > Constants.CLIMBER_DEAD_ZONE) {
       rightSpeed = joySpeed*Constants.CLIMBER_WINCH_SPEED;
       leftSpeed = joySpeed*Constants.CLIMBER_WINCH_SPEED;
     } 
-    // else if (joySpeed) < -0.5 && !isStalled) {
+    // else if (joySpeed) < -Constants.CLIMBER_DEAD_ZONE && !isStalled) {
     //   rightSpeed = -Constants.CLIMBER_WINCH_SPEED * joySpeed;
     //   leftSpeed = -Constants.CLIMBER_WINCH_SPEED * joySpeed;
     // }

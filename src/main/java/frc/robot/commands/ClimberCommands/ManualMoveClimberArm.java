@@ -30,10 +30,10 @@ public class ManualMoveClimberArm extends CommandBase {
   public void execute() {
     double rightSpeed = 0, leftSpeed = 0; 
     
-    if (climberController.getLeftY() > 0.5) {
+    if (climberController.getLeftY() > Constants.CLIMBER_DEAD_ZONE) {
       rightSpeed = Constants.CLIMBER_ARM_SPEED;
       leftSpeed = Constants.CLIMBER_ARM_SPEED;
-    } else if (climberController.getLeftY() < -0.5) {
+    } else if (climberController.getLeftY() < -Constants.CLIMBER_DEAD_ZONE) {
       rightSpeed = -Constants.CLIMBER_ARM_SPEED;
       leftSpeed = -Constants.CLIMBER_ARM_SPEED;
     }

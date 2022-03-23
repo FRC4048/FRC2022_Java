@@ -62,6 +62,7 @@ public interface GameConstants {
   public static final double CLIMBER_MAX_ENCODER_DIFF = 1000;
   public static final double CLIMBER_ARM_TIMEOUT = 10;
   public static final double CLIMBER_WINCH_TIMEOUT = 10;
+  public static final double CLIMBER_DEAD_ZONE = 0.5;
 
   //Shooter
   public static final double SHOOTER_SPEED = 0.5;
