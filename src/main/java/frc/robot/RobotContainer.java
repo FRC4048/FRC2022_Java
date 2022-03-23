@@ -30,6 +30,7 @@ import frc.robot.commands.IntakeCommand.IntakeSequence;
 import frc.robot.commands.IntakeCommand.ManuallyRunIntakeMotor;
 import frc.robot.commands.IntakeCommand.ManuallyToggleIntake;
 import frc.robot.commands.IntakeCommand.RaiseIntakeCommand;
+import frc.robot.commands.Miscellaneous.CancelAll;
 import frc.robot.commands.Miscellaneous.SetLEDOff;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
 import frc.robot.commands.Miscellaneous.SetPipeline;
@@ -37,11 +38,13 @@ import frc.robot.commands.ShooterCommands.AutoTargetSequence;
 import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
 import frc.robot.commands.ShooterCommands.ManuallyMoveHood;
 import frc.robot.commands.ShooterCommands.RetractShooterPiston;
-import frc.robot.commands.ShooterCommands.ShooterParallelSequeunce;
-import frc.robot.commands.ShooterCommands.StartShooterMotor;
+import frc.robot.commands.ShooterCommands.RunShooterMotor;
+import frc.robot.commands.ShooterCommands.SetShooterMotor;
+import frc.robot.commands.ShooterCommands.ShooterSequeunce;
 import frc.robot.commands.ShooterCommands.ToggleShooterMotor;
 import frc.robot.commands.ShooterCommands.ToggleShooterPiston;
 import frc.robot.commands.ShooterCommands.VisionAutoShooter;
+import frc.robot.commands.ShooterCommands.WaitForRPM;
 import frc.robot.commands.TurretCommands.CalibrateTurretEncoderSequence;
 import frc.robot.commands.TurretCommands.MoveTurretDashboard;
 import frc.robot.commands.TurretCommands.RunTurretUntilTarget;
@@ -90,6 +93,7 @@ public class RobotContainer {
   private JoystickButton startButton = new JoystickButton(xboxController, Constants.XBOX_START_BUTTON);
   private Trigger rightTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
   private Trigger leftTrigger = new Trigger(() -> xboxController.getLeftTriggerAxis() > 0.5 );
+  private JoystickButton backButton = new JoystickButton(xboxController, Constants.XBOX_BACK_BUTTON);
 
   private final LimelightSubsystem limeLightVision = new LimelightSubsystem();
 
@@ -119,6 +123,7 @@ public class RobotContainer {
     turretSubsystem.setDefaultCommand(turretCommand);
     climberArmSubsystem.setDefaultCommand(new ManualMoveClimberArm(climberArmSubsystem, climberController));
     climberWinchSubsystem.setDefaultCommand(new ManualMoveClimberWinch(climberWinchSubsystem, climberController));
+    shooterSubsystem.setDefaultCommand(new RunShooterMotor(shooterSubsystem));
 
     hood.setDefaultCommand(hoodCommand);
 
@@ -153,7 +158,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
+   
     SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
     SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
     SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
@@ -164,11 +169,12 @@ public class RobotContainer {
     buttonB.whenReleased(new LogCommandWrapper(new ManuallyRunIntakeMotor(intakeSubsystem, 0)));
     buttonY.whenPressed(new LogCommandWrapper(new ManuallyToggleIntake(intakeSubsystem)));
 
-    rightTrigger.whenActive(new LogCommandWrapper(new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem, limeLightVision.getLimeLightVision())));
+    rightTrigger.whenActive(new LogCommandWrapper(new ShooterSequeunce(shooterSubsystem, limeLightVision.getLimeLightVision())));
     leftTrigger.whenActive(new LogCommandWrapper(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood)));
     leftBumper.whenPressed(new LogCommandWrapper(new ToggleShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM)));
     leftBumper.whenReleased(new LogCommandWrapper(new ToggleShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM)));
     startButton.whenPressed(new LogError());
+    backButton.whenPressed(new LogCommandWrapper(new CancelAll(intakeSubsystem, shooterSubsystem)));
 
     climberButtonA.whenPressed(new ToggleClimberSolenoid(climberArmSubsystem));
   }
@@ -212,12 +218,16 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM));
       SmartShuffleboard.putCommand("Shooter", "Calibrate Enocoder", new CalibrateTurretEncoderSequence(turretSubsystem));
-      SmartShuffleboard.putCommand("Shooter", "Start Shooter Motor", new StartShooterMotor(shooterSubsystem, Constants.SHOOTER_SPEED, Constants.SHOOTER_TIMEOUT));
+      SmartShuffleboard.putCommand("Shooter", "Shooter Motor 12000", new SetShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM));
+      SmartShuffleboard.putCommand("Shooter", "Shooter Motor 12600", new SetShooterMotor(shooterSubsystem, 12600));
+      SmartShuffleboard.putCommand("Shooter", "Shooter Motor 12900", new SetShooterMotor(shooterSubsystem, 12900));
+      SmartShuffleboard.putCommand("Shooter", "Shooter Motor 0", new SetShooterMotor(shooterSubsystem, 0));
+      SmartShuffleboard.putCommand("Shooter", "Wait For RPM", new WaitForRPM(shooterSubsystem));
 
       SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
-      SmartShuffleboard.putCommand("Shooter", "Shooter Sequence", new ShooterParallelSequeunce(shooterSubsystem, intakeSubsystem, limeLightVision.getLimeLightVision()));
+      SmartShuffleboard.putCommand("Shooter", "Shooter Sequence", new ShooterSequeunce(shooterSubsystem, limeLightVision.getLimeLightVision()));
       SmartShuffleboard.putCommand("Block", "Extend Block", new ToggleBlockerPiston(shooterSubsystem, true));
       SmartShuffleboard.putCommand("Block", "Retract Block", new ToggleBlockerPiston(shooterSubsystem, false));
       SmartShuffleboard.putCommand("Shooter", "Shoot on Vision", new VisionAutoShooter(limeLightVision.getLimeLightVision(), shooterSubsystem));

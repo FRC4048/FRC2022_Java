@@ -54,10 +54,10 @@ public interface GameConstants {
   public static final double CLIMBER_ARM_V_TIMEOUT = 0.3;
   public static final double CLIMBER_SLOW_ARM_RATE = 0.75;
   public static final double CLIMBER_SLOW_WINCH_RATE = 0.75;
-  public static final double CLIMBER_ARM_SPEED = .5;
-  public static final double CLIMBER_WINCH_SPEED = 1;
-  public static final double CLIMBER_MIN_ARM_SPEED = 0.8;
-  public static final double CLIMBER_MIN_WINCH_SPEED = 0.8;
+  public static final double CLIMBER_ARM_SPEED = .8;
+  public static final double CLIMBER_WINCH_SPEED = .8;
+  public static final double CLIMBER_MIN_ARM_SPEED = 0.1;
+  public static final double CLIMBER_MIN_WINCH_SPEED = 0.1;
   public static final double CLIMBER_TIMEOUT = 10;
   public static final double CLIMBER_MAX_ENCODER_DIFF = 1000;
   public static final double CLIMBER_ARM_TIMEOUT = 10;
@@ -67,7 +67,7 @@ public interface GameConstants {
   public static final double SHOOTER_SPEED = 0.5;
   public static final double PISTON_DELAY = 0.5;
   public static final double SHOOTER_SPINUP_DELAY = 1;
-  public static final int SHOOTER_PISTON_WAIT = 1;
+  public static final double SHOOTER_PISTON_WAIT = .7;
   public static final double SHOOTER_RPM = 12000;
 
   //Shooter PID
@@ -90,9 +90,9 @@ public interface GameConstants {
 
   //Turret
   public static final double TURRETSPIN_SCALEFACTOR = 0.35;
-  public static final int TURRET_AUTO_BAD_READINGS_TRESHOLD = 5;
+  public static final int TURRET_AUTO_BAD_READINGS_TRESHOLD = 50;
   public static final double TURRET_AUTO_ALIGN_TRESHOLD = 0.2; //change when testing
-  public static final double TURRET_AUTO_TIMEOUT = 100;
+  public static final double TURRET_AUTO_TIMEOUT = 5;
   public static final double TURRET_SPEED = 0.7;
   public static final double TURRET_MIN_SPEED = 0.1;
   public static final double TURRET_MAX_DIFFERENCE = 500;

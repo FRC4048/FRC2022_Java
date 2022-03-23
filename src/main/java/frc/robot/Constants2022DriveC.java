@@ -39,6 +39,8 @@ public interface Constants2022DriveC extends GameConstants {
   //DIO
   public static final int INTAKE_SENSOR_ID_1 = 0; //temp
   public static final int INTAKE_SENSOR_ID_2 = 1;
+  public static final int CLIMBER_L_WINCH_SENSOR = 4;
+  public static final int CLIMBER_R_WINCH_SENSOR = 5;
 
   //Relay
 
