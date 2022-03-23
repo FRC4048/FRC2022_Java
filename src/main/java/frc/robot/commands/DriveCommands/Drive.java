@@ -12,8 +12,8 @@ import frc.robot.subsystems.DriveTrain;
 
 public class Drive extends CommandBase {
   private final DriveTrain driveTrain;
-  private DoubleSupplier leftSpeed;
-  private DoubleSupplier rightSpeed;
+  private final DoubleSupplier leftSpeed;
+  private final DoubleSupplier rightSpeed;
 
   /**
    * Creates a new Drive.
