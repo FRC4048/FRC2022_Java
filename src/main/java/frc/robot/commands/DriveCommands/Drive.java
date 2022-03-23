@@ -1,6 +1,8 @@
 package frc.robot.commands.DriveCommands;
 
 import java.util.function.DoubleSupplier;
+
+import frc.robot.Constants;
 import frc.robot.Robot;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -31,11 +33,11 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (leftSpeed < 0.05 && leftSpeed > -0.05) {
+    if (leftSpeed < Constants.CONTROLLER_DEAD_ZONE && leftSpeed > -Constants.CONTROLLER_DEAD_ZONE) {
       leftSpeed = 0;
     }
 
-    if (rightSpeed < 0.05 && rightSpeed > -0.05) {
+    if (rightSpeed < Constants.CONTROLLER_DEAD_ZONE && rightSpeed > -Constants.CONTROLLER_DEAD_ZONE) {
       rightSpeed = 0;
     }
 
