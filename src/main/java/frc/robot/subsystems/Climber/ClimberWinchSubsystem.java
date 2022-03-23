@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.utils.SmartShuffleboard;
+import frc.robot.utils.diag.DiagSwitch;
 import frc.robot.utils.diag.DiagTalonSrxEncoder;
 import frc.robot.utils.diag.DiagTalonSrxSwitch;
 
@@ -26,6 +27,8 @@ public class ClimberWinchSubsystem extends SubsystemBase {
   public ClimberWinchSubsystem() {
     leftWinch = new WPI_TalonSRX(Constants.CLIMBER_LEFT_WINCH_ID);
     rightWinch = new WPI_TalonSRX(Constants.CLIMBER_RIGHT_WINCH_ID);
+    leftSensor = new DigitalInput(Constants.CLIMBER_L_WINCH_SENSOR);
+    rightSensor = new DigitalInput(Constants.CLIMBER_R_WINCH_SENSOR);
 
     //leftWinch.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     //rightWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
@@ -34,9 +37,8 @@ public class ClimberWinchSubsystem extends SubsystemBase {
     Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Right Winch Encoder", 100, rightWinch));
     // Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Left Winch Switch", leftWinch, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
     // Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Right Winch Switch", rightWinch, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
-  
-    leftSensor = new DigitalInput(Constants.CLIMBER_L_WINCH_SENSOR);
-    rightSensor = new DigitalInput(Constants.CLIMBER_R_WINCH_SENSOR);
+    Robot.getDiagnostics().addDiagnosable(new DiagSwitch("L Winch Switch", leftSensor));
+    Robot.getDiagnostics().addDiagnosable(new DiagSwitch("R Winch Switch", rightSensor));
 
     leftWinch.setNeutralMode(NeutralMode.Brake);
     rightWinch.setNeutralMode(NeutralMode.Brake);
@@ -113,4 +115,4 @@ public class ClimberWinchSubsystem extends SubsystemBase {
       SmartShuffleboard.put("Climber", "L Winch Sensor", getLeftSwitch());
     }
   }
-}
+} 
