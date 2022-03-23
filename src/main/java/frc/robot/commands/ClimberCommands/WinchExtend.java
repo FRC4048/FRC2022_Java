@@ -4,13 +4,16 @@
 
 package frc.robot.commands.ClimberCommands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Climber.ClimberWinchSubsystem;
 
 public class WinchExtend extends CommandBase {
   /** Creates a new WinchExtend. */
   private ClimberWinchSubsystem climberWinchSubsystem;
+  private double startTime;
 
   public WinchExtend(ClimberWinchSubsystem climberWinchSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -20,20 +23,23 @@ public class WinchExtend extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    startTime = Timer.getFPGATimestamp();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climberWinchSubsystem.setRightWinchSpeed(-.3);
-    climberWinchSubsystem.setLeftWinchSpeed(-.3);
-
     if (!climberWinchSubsystem.getRightSwitch()) {
       climberWinchSubsystem.setRightWinchSpeed(0);
+    } else {
+      climberWinchSubsystem.setRightWinchSpeed(.3);
     }
 
     if (!climberWinchSubsystem.getLeftSwitch()) {
       climberWinchSubsystem.setLeftWinchSpeed(0);
+    } else {
+      climberWinchSubsystem.setLeftWinchSpeed(.3);
     }
   }
 
@@ -47,6 +53,7 @@ public class WinchExtend extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (!climberWinchSubsystem.getLeftSwitch() && !climberWinchSubsystem.getRightSwitch());
+    return ((!climberWinchSubsystem.getLeftSwitch() && !climberWinchSubsystem.getRightSwitch()) || 
+            (Timer.getFPGATimestamp() - startTime >= Constants.EXTEND_WINCH_TIMEOUT));
   }
 }
