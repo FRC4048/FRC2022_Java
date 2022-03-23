@@ -62,6 +62,7 @@ public interface GameConstants {
   public static final double CLIMBER_MAX_ENCODER_DIFF = 1000;
   public static final double CLIMBER_ARM_TIMEOUT = 10;
   public static final double CLIMBER_WINCH_TIMEOUT = 10;
+  public static final double CLIMBER_DEAD_ZONE = 0.5;
 
   //Shooter
   public static final double SHOOTER_SPEED = 0.5;
@@ -79,7 +80,8 @@ public interface GameConstants {
   public static final double SHOOTER_MAX_OUTPUT = 1;
   public static final double SHOOTER_MIN_OUTPUT = -1;
 
-
+  //Drive
+  public static final double CONTROLLER_DEAD_ZONE = 0.05;
 
   // Turret
   public static final double TURRET_CLOCKWISE_SPEED = .5;
