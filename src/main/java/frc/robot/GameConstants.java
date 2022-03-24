@@ -100,7 +100,7 @@ public interface GameConstants {
   public static final double TURRET_MIN_SPEED = 0.1;
   public static final double TURRET_MAX_DIFFERENCE = 500;
   public static final double TURRET_SWEEP_SPEED = 0.4;
-  public static final double TURRET_ERROR_THRESHOLD = 3;
+  public static final double TURRET_ERROR_THRESHOLD = 6;
   public static final double TURRET_FAST_SPEED = 0.4;
   public static final double TURRET_SLOW_SPEED = 0.1;
 
