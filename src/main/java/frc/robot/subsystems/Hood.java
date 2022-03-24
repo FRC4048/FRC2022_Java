@@ -61,8 +61,10 @@ public class Hood extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        SmartShuffleboard.put("Shooter", "Potentiometer", getPotentiometer());
-        SmartShuffleboard.put("Hood", "Potentiometer", getPotentiometer());
+        if (Constants.ENABLE_DEBUG) {
+            SmartShuffleboard.put("Shooter", "Potentiometer", getPotentiometer());
+            SmartShuffleboard.put("Hood", "Potentiometer", getPotentiometer());    
+        }
     }
 
     @Override

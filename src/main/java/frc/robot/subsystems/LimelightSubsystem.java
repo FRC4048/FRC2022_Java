@@ -42,16 +42,19 @@ public class LimelightSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartShuffleboard.put("Driver", "Limelight", "Targeted", vision.hasTarget());
-    CameraAngles angles = vision.getCameraAngles();
-    if (angles != null) {
-      SmartShuffleboard.put("Driver", "Limelight", "X Offset", angles.getTx());
-      SmartShuffleboard.put("Driver", "Limelight", "Y Offset", angles.getTy());
-      SmartShuffleboard.put("Driver", "Limelight", "Horiz Distance", vision.calcHorizontalDistanceToTarget(angles.getTy()));
-    }
-    else {
-      SmartShuffleboard.put("Driver", "Limelight", "X Offset", 0);
-      SmartShuffleboard.put("Driver", "Limelight", "Y Offset", 0);
-      SmartShuffleboard.put("Driver", "Limelight", "Horiz Distance", 0);
+
+    if (Constants.ENABLE_DEBUG) {
+      CameraAngles angles = vision.getCameraAngles();
+      if (angles != null) {
+        SmartShuffleboard.put("Driver", "Limelight", "X Offset", angles.getTx());
+        SmartShuffleboard.put("Driver", "Limelight", "Y Offset", angles.getTy());
+        SmartShuffleboard.put("Driver", "Limelight", "Horiz Distance", vision.calcHorizontalDistanceToTarget(angles.getTy()));
+      }
+      else {
+        SmartShuffleboard.put("Driver", "Limelight", "X Offset", 0);
+        SmartShuffleboard.put("Driver", "Limelight", "Y Offset", 0);
+        SmartShuffleboard.put("Driver", "Limelight", "Horiz Distance", 0);
+      }  
     }
     // This method will be called once per scheduler run
   }
