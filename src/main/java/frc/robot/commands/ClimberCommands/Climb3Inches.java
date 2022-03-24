@@ -4,16 +4,18 @@
 
 package frc.robot.commands.ClimberCommands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber.ClimberWinchSubsystem;
 
-public class StartClimb extends CommandBase {
+public class Climb3Inches extends CommandBase {
   /** Creates a new StartClimb. */
   private ClimberWinchSubsystem climberWinchSubsystem;
   private double leftStart;
   private double rightStart;
+  private double startTime;
 
-  public StartClimb(ClimberWinchSubsystem climberWinchSubsystem) {
+  public Climb3Inches(ClimberWinchSubsystem climberWinchSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.climberWinchSubsystem = climberWinchSubsystem;
     addRequirements(climberWinchSubsystem);
@@ -24,6 +26,7 @@ public class StartClimb extends CommandBase {
   public void initialize() {
     leftStart = climberWinchSubsystem.getLeftEncoder();
     rightStart = climberWinchSubsystem.getRightEncoder();
+    startTime = Timer.getFPGATimestamp();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -40,6 +43,6 @@ public class StartClimb extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs(climberWinchSubsystem.getLeftEncoder() - leftStart) >= 200000 || Math.abs(climberWinchSubsystem.getRightEncoder() - rightStart) >= 200000);
+    return ((Math.abs(climberWinchSubsystem.getLeftEncoder() - leftStart) >= 200000 || Math.abs(climberWinchSubsystem.getRightEncoder() - rightStart) >= 200000) || (Timer.getFPGATimestamp() - startTime) >= 1);
   }
 }
