@@ -5,28 +5,25 @@
 package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
-import frc.robot.subsystems.Hood;
-import frc.robot.commands.Miscellaneous.SetPipeline;
+import frc.robot.commands.IntakeCommand.DeployIntakeCommand;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.utils.limelight.LimeLightVision;
 import frc.robot.utils.logging.LogCommandWrapper;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ShooterSequeunce extends SequentialCommandGroup {
+public class NonVisionParallelShootDeployIntake extends ParallelCommandGroup {
   /** Creates a new ShootSequence. */
-  public ShooterSequeunce(ShooterSubsystem shooterSubsystem, LimeLightVision vision) {
+  public NonVisionParallelShootDeployIntake(ShooterSubsystem shooterSubsystem, IntakeSubsystem intakeSubsystem, double rpm) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new LogCommandWrapper(new SetPipeline(Constants.LIMELIGHT_TARGET_DETECTION)),
-      new LogCommandWrapper(new VisionAutoShooter(vision, shooterSubsystem)),
-      new LogCommandWrapper(new ElevatorSequence(shooterSubsystem))
+      new LogCommandWrapper(new SetShooterMotor(shooterSubsystem, rpm)),
+      new LogCommandWrapper(new ElevatorSequence(shooterSubsystem)),
+      new LogCommandWrapper(new DeployIntakeCommand(intakeSubsystem))
     );
   }
 }

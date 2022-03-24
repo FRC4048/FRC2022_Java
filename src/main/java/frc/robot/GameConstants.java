@@ -31,6 +31,7 @@ public interface GameConstants {
   public static final double INTAKE_MOTOR_TIMEOUT = 10;
   public static final double TURRETSPIN_COMMAND_TIMEOUT = 2;
   public static final double HOOD_TARGET_TIMEOUT = 1;
+  public static final double EXTEND_WINCH_TIMEOUT = 3;
 
   //Limelight Settings
   public static final double CAMERA_HEIGHT = 38.5;
@@ -99,6 +100,14 @@ public interface GameConstants {
   public static final double TURRET_MIN_SPEED = 0.1;
   public static final double TURRET_MAX_DIFFERENCE = 500;
   public static final double TURRET_SWEEP_SPEED = 0.4;
+
+  //Autonomous
+  public static final double AUTO_TURRET_SPEED = 0.5;
+  public static final double AUTO_TURRET_CENTER_ANGLE = 430; //this is a random value, it works though
+  public static final double AUTO_MOVE_SPEED = 0.4;
+  public static final double AUTO_DISTANCE_INCHES = 15;
+  public static final double AUTO_CROSS_LINE_DISTANCE_INCHES = 69; //added 12 because we dont do the move 1 foot for the first shot
+  public static final double AUTO_DISTANCE_TO_BALL_THREE = 60; // Place holder; we need to test this dist
 
   // SHOOTER MATH
   public static final int HOOD_MARGIN_OF_ERROR = 1;
