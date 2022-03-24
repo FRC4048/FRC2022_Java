@@ -95,6 +95,8 @@ public class DriveTrain extends SubsystemBase {
             SmartShuffleboard.put("Drive", "Gyro", "Raw Angle", imu.getAngle());
             SmartShuffleboard.put("Drive", "Gyro", "X Comp Angle", imu.getXComplementaryAngle());
             SmartShuffleboard.put("Drive", "Gyro", "Y Comp Angle", imu.getYComplementaryAngle());
+            SmartShuffleboard.put("Drive", "Gyro", "X filtered acceleration angle", imu.getXFilteredAccelAngle());
+            SmartShuffleboard.put("Drive", "Gyro", "Y filtered acceleration angle", imu.getYFilteredAccelAngle());
          }
     }
 
