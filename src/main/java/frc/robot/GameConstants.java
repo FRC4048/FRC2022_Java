@@ -82,7 +82,7 @@ public interface GameConstants {
   public static final double SHOOTER_MIN_OUTPUT = -1;
 
   //Drive
-  public static final double CONTROLLER_DEAD_ZONE = 0.05;
+  public static final double CONTROLLER_DEAD_ZONE = 0.15;
 
   // Turret
   public static final double TURRET_CLOCKWISE_SPEED = .5;

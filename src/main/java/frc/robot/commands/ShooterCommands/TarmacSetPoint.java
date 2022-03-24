@@ -17,7 +17,7 @@ public class TarmacSetPoint extends SequentialCommandGroup {
     // Use addRequirements() here to declare subsystem dependencies.
     addCommands(
       new LogCommandWrapper(new MoveHoodToAngle(hood, 121.0)),
-      new LogCommandWrapper(new SetShooterMotor(shooterSubsystem, 11800.0)),
+      new LogCommandWrapper(new SetShooterMotor(shooterSubsystem, 12100.0)),
       new LogCommandWrapper(new ElevatorSequence(shooterSubsystem)));
   }
 }
