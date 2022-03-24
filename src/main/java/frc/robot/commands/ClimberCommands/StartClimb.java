@@ -23,7 +23,7 @@ public class StartClimb extends CommandBase {
   @Override
   public void initialize() {
     leftStart = climberWinchSubsystem.getLeftEncoder();
-    rightStart = climberWinchSubsystem.getLeftEncoder();
+    rightStart = climberWinchSubsystem.getRightEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -40,6 +40,6 @@ public class StartClimb extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs(climberWinchSubsystem.getLeftEncoder() - leftStart) == 200000 || Math.abs(climberWinchSubsystem.getRightEncoder() - rightStart) == 200000);
+    return (Math.abs(climberWinchSubsystem.getLeftEncoder() - leftStart) >= 200000 || Math.abs(climberWinchSubsystem.getRightEncoder() - rightStart) >= 200000);
   }
 }
