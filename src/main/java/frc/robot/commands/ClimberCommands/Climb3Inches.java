@@ -43,6 +43,9 @@ public class Climb3Inches extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return ((Math.abs(climberWinchSubsystem.getLeftEncoder() - leftStart) >= 200000 || Math.abs(climberWinchSubsystem.getRightEncoder() - rightStart) >= 200000) || (Timer.getFPGATimestamp() - startTime) >= 1);
+    return ((
+      Math.abs(climberWinchSubsystem.getLeftEncoder() - leftStart) >= 500000 || 
+      Math.abs(climberWinchSubsystem.getRightEncoder() - rightStart) >= 500000) || 
+      (Timer.getFPGATimestamp() - startTime) >= 1);
   }
 }
