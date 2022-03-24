@@ -44,7 +44,7 @@ public class ClimberWinchSubsystem extends SubsystemBase {
     rightWinch.setNeutralMode(NeutralMode.Brake);
 
     leftWinch.setInverted(true);
-    rightWinch.setInverted(true);
+    rightWinch.setInverted(false);
   }
 
   public void setSpeed(double speed) {
