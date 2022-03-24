@@ -31,6 +31,7 @@ public interface GameConstants {
   public static final double INTAKE_MOTOR_TIMEOUT = 10;
   public static final double TURRETSPIN_COMMAND_TIMEOUT = 2;
   public static final double HOOD_TARGET_TIMEOUT = 1;
+  public static final double EXTEND_WINCH_TIMEOUT = 3;
 
   //Limelight Settings
   public static final double CAMERA_HEIGHT = 38.5;
