@@ -31,6 +31,7 @@ public interface GameConstants {
   public static final double INTAKE_MOTOR_TIMEOUT = 10;
   public static final double TURRETSPIN_COMMAND_TIMEOUT = 2;
   public static final double HOOD_TARGET_TIMEOUT = 1;
+  public static final double EXTEND_WINCH_TIMEOUT = 3;
 
   //Limelight Settings
   public static final double CAMERA_HEIGHT = 38.5;
@@ -54,14 +55,15 @@ public interface GameConstants {
   public static final double CLIMBER_ARM_V_TIMEOUT = 0.3;
   public static final double CLIMBER_SLOW_ARM_RATE = 0.75;
   public static final double CLIMBER_SLOW_WINCH_RATE = 0.75;
-  public static final double CLIMBER_ARM_SPEED = .5;
-  public static final double CLIMBER_WINCH_SPEED = 1;
-  public static final double CLIMBER_MIN_ARM_SPEED = 0.8;
-  public static final double CLIMBER_MIN_WINCH_SPEED = 0.8;
+  public static final double CLIMBER_ARM_SPEED = .3;
+  public static final double CLIMBER_WINCH_SPEED = .5;
+  public static final double CLIMBER_MIN_ARM_SPEED = 0.1;
+  public static final double CLIMBER_MIN_WINCH_SPEED = 0.1;
   public static final double CLIMBER_TIMEOUT = 10;
   public static final double CLIMBER_MAX_ENCODER_DIFF = 1000;
   public static final double CLIMBER_ARM_TIMEOUT = 10;
   public static final double CLIMBER_WINCH_TIMEOUT = 10;
+  public static final double CLIMBER_DEAD_ZONE = 0.5;
 
   //Shooter
   public static final double SHOOTER_SPEED = 0.5;
@@ -79,7 +81,8 @@ public interface GameConstants {
   public static final double SHOOTER_MAX_OUTPUT = 1;
   public static final double SHOOTER_MIN_OUTPUT = -1;
 
-
+  //Drive
+  public static final double CONTROLLER_DEAD_ZONE = 0.05;
 
   // Turret
   public static final double TURRET_CLOCKWISE_SPEED = .5;
@@ -96,6 +99,7 @@ public interface GameConstants {
   public static final double TURRET_SPEED = 0.7;
   public static final double TURRET_MIN_SPEED = 0.1;
   public static final double TURRET_MAX_DIFFERENCE = 500;
+  public static final double TURRET_SWEEP_SPEED = 0.4;
 
   //Autonomous
   public static final double AUTO_TURRET_SPEED = 0.5;

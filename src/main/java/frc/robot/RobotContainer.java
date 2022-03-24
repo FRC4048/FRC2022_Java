@@ -22,9 +22,12 @@ import frc.robot.commands.Autonomous.TwoShotSequenceLeft;
 import frc.robot.commands.Autonomous.TwoShotSequenceRight;
 import frc.robot.commands.Autonomous.OneShotSequenceMiddle;
 import frc.robot.commands.LogError;
+import frc.robot.commands.ToggleBlockerPiston;
+import frc.robot.commands.ClimberCommands.Climb3Inches;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.ToggleClimberSolenoid;
+import frc.robot.commands.ClimberCommands.WinchExtend;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.DriveCommands.TurnDegrees;
 import frc.robot.commands.HoodCommands.HoodAutoCommand;
@@ -38,14 +41,30 @@ import frc.robot.commands.IntakeCommand.IntakeSequence;
 import frc.robot.commands.IntakeCommand.ManuallyRunIntakeMotor;
 import frc.robot.commands.IntakeCommand.ManuallyToggleIntake;
 import frc.robot.commands.IntakeCommand.RaiseIntakeCommand;
+import frc.robot.commands.Miscellaneous.CancelAll;
 import frc.robot.commands.Miscellaneous.SetLEDOff;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
 import frc.robot.commands.Miscellaneous.SetPipeline;
+import frc.robot.commands.ShooterCommands.AutoTargetSequence;
+import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
+import frc.robot.commands.ShooterCommands.LaunchpadSetPoint;
+import frc.robot.commands.ShooterCommands.ManuallyMoveHood;
+import frc.robot.commands.ShooterCommands.RetractShooterPiston;
+import frc.robot.commands.ShooterCommands.RunShooterMotor;
+import frc.robot.commands.ShooterCommands.SetShooterMotor;
+import frc.robot.commands.ShooterCommands.ShooterSequeunce;
+import frc.robot.commands.ShooterCommands.TarmacSetPoint;
+import frc.robot.commands.ShooterCommands.ToggleShooterMotor;
+import frc.robot.commands.ShooterCommands.ToggleShooterPiston;
+import frc.robot.commands.ShooterCommands.VisionAutoShooter;
+import frc.robot.commands.ShooterCommands.WaitForRPM;
 import frc.robot.commands.TurretCommands.CalibrateTurretEncoderSequence;
 import frc.robot.commands.TurretCommands.MoveTurretDashboard;
 import frc.robot.commands.TurretCommands.RunTurretUntilLimitSwitch;
 import frc.robot.commands.TurretCommands.TurretAuto;
+import frc.robot.commands.TurretCommands.RunTurretUntilTarget;
 import frc.robot.commands.TurretCommands.TurretManualCommand;
+import frc.robot.commands.TurretCommands.TurretSweepSequence;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -89,6 +108,8 @@ public class RobotContainer {
   private JoystickButton startButton = new JoystickButton(xboxController, Constants.XBOX_START_BUTTON);
   private Trigger rightTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
   private Trigger leftTrigger = new Trigger(() -> xboxController.getLeftTriggerAxis() > 0.5 );
+  private JoystickButton backButton = new JoystickButton(xboxController, Constants.XBOX_BACK_BUTTON);
+  private JoystickButton climberButtonB = new JoystickButton(climberController, Constants.XBOX_B_BUTTON);
 
   private final LimelightSubsystem limeLightVision = new LimelightSubsystem();
 
@@ -166,11 +187,13 @@ public class RobotContainer {
 
     rightTrigger.whenActive(new LogCommandWrapper(new ShooterSequeunce(shooterSubsystem, limeLightVision.getLimeLightVision())));
     leftTrigger.whenActive(new LogCommandWrapper(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood)));
-    leftBumper.whenPressed(new LogCommandWrapper(new ToggleShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM)));
-    leftBumper.whenReleased(new LogCommandWrapper(new ToggleShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM)));
+    leftBumper.whenPressed(new LogCommandWrapper(new TarmacSetPoint(hood, shooterSubsystem)));
+    rightBumper.whenPressed(new LogCommandWrapper(new LaunchpadSetPoint(hood, shooterSubsystem)));
     startButton.whenPressed(new LogError());
+    backButton.whenPressed(new LogCommandWrapper(new CancelAll(intakeSubsystem, shooterSubsystem)));
 
-    climberButtonA.whenPressed(new ToggleClimberSolenoid(climberArmSubsystem));
+    climberButtonA.whenPressed(new LogCommandWrapper(new WinchExtend(climberWinchSubsystem)));
+    climberButtonB.whenPressed(new LogCommandWrapper(new Climb3Inches(climberWinchSubsystem)));
   }
 
   public IntakeSubsystem getIntakeSubsystem() {
@@ -206,6 +229,8 @@ public class RobotContainer {
 
       SmartShuffleboard.putCommand("Shooter", "Rotate Turret Left", new MoveTurretDashboard(turretSubsystem, MoveTurretDashboard.Direction.LEFT));
       SmartShuffleboard.putCommand("Shooter", "Rotate Turret Right", new MoveTurretDashboard(turretSubsystem, MoveTurretDashboard.Direction.RIGHT));
+      SmartShuffleboard.putCommand("Shooter", "Turret Sweep", new TurretSweepSequence(turretSubsystem, limeLightVision.getLimeLightVision()));
+      SmartShuffleboard.putCommand("Shooter", "Run Turret Until Target", new RunTurretUntilTarget(turretSubsystem, limeLightVision.getLimeLightVision(), Constants.TURRET_SWEEP_SPEED));
 
       SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM));
