@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.LogError;
 import frc.robot.commands.ToggleBlockerPiston;
+import frc.robot.commands.ClimberCommands.Climb3Inches;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.ToggleClimberSolenoid;
@@ -97,6 +98,7 @@ public class RobotContainer {
   private Trigger rightTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
   private Trigger leftTrigger = new Trigger(() -> xboxController.getLeftTriggerAxis() > 0.5 );
   private JoystickButton backButton = new JoystickButton(xboxController, Constants.XBOX_BACK_BUTTON);
+  private JoystickButton climberButtonB = new JoystickButton(climberController, Constants.XBOX_B_BUTTON);
 
   private final LimelightSubsystem limeLightVision = new LimelightSubsystem();
 
@@ -179,7 +181,8 @@ public class RobotContainer {
     startButton.whenPressed(new LogError());
     backButton.whenPressed(new LogCommandWrapper(new CancelAll(intakeSubsystem, shooterSubsystem)));
 
-    climberButtonA.whenPressed(new WinchExtend(climberWinchSubsystem));
+    climberButtonA.whenPressed(new LogCommandWrapper(new WinchExtend(climberWinchSubsystem)));
+    climberButtonB.whenPressed(new LogCommandWrapper(new Climb3Inches(climberWinchSubsystem)));
   }
 
   public IntakeSubsystem getIntakeSubsystem() {
