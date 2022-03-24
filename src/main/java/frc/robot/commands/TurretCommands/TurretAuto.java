@@ -39,11 +39,20 @@ public class TurretAuto extends LoggedCommandBase {
     public void execute() {
         
         if (limeLight.hasTarget()) {
-            speed = Math.abs(limeLight.getCameraAngles().getTx())/Constants.TURRET_MAX_DIFFERENCE * (Constants.TURRET_SPEED-Constants.TURRET_MIN_SPEED) + Constants.TURRET_MIN_SPEED;
+            if (Math.abs(limeLight.getCameraAngles().getTx()) > Constants.TURRET_ERROR_THRESHOLD) {
+                speed = Constants.TURRET_FAST_SPEED; 
+            }
+            else {
+                speed = Constants.TURRET_SLOW_SPEED;
+            }
             turretSubsystem.setTurret(-1 * Math.signum(limeLight.getCameraAngles().getTx()) * speed);
         }
-        SmartShuffleboard.put("Shooter", "Turret Speed", speed);
-
+        else {  
+            turretSubsystem.setTurret(0);
+        }
+        if (Constants.ENABLE_DEBUG) {
+            SmartShuffleboard.put("Shooter", "Turret Speed", speed);
+        }    
     }
 
     @Override
