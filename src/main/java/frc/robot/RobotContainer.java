@@ -7,9 +7,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.commands.AutoTurnDegrees;
 import frc.robot.commands.Drive;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.utils.SmartShuffleboard;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -42,6 +45,15 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {}
+
+  public void installCommandsOnShuffleboard () {
+    SmartShuffleboard.putCommand("Drive", "Turn 30 Degrees", new AutoTurnDegrees(drivetrain, 30));
+    SmartShuffleboard.putCommand("Drive", "Turn -30 Degrees", new AutoTurnDegrees(drivetrain, -30));
+    SmartShuffleboard.putCommand("Drive", "Turn 90 Degrees", new AutoTurnDegrees(drivetrain, 90));
+    SmartShuffleboard.putCommand("Drive", "Turn 120 Degrees", new AutoTurnDegrees(drivetrain, 120));
+    SmartShuffleboard.putCommand("Drive", "Turn 150 Degrees", new AutoTurnDegrees(drivetrain, 150));
+    SmartShuffleboard.putCommand("Drive", "Turn 180 Degrees", new AutoTurnDegrees(drivetrain, 180));
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

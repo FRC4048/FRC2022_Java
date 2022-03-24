@@ -3,18 +3,13 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.sensors.PigeonIMU;
-import com.ctre.phoenix.sensors.PigeonIMUConfiguration;
 
-import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Robot;
-import edu.wpi.first.wpilibj.ADIS16470_IMU;
+import frc.robot.utils.SmartShuffleboard;
 
 public class DriveTrain extends SubsystemBase {
   private WPI_TalonSRX left1;
@@ -38,6 +33,8 @@ public class DriveTrain extends SubsystemBase {
     right2 = new WPI_TalonSRX(8);
 
     gyro = new ADIS16470_IMU();
+    gyro.reset();
+    gyro.calibrate();
 
     // navX = new AHRS(I2C.Port.kMXP);
     left2.set(ControlMode.Follower, 6);
@@ -52,6 +49,12 @@ public class DriveTrain extends SubsystemBase {
     left2.setNeutralMode(NeutralMode.Brake);
     right1.setNeutralMode(NeutralMode.Brake);
     right2.setNeutralMode(NeutralMode.Brake);
+
+    addToShuffleboard();
+  }
+
+  private void addToShuffleboard() {
+    SmartShuffleboard.put("drive", "angle", gyro.getAngle());
   }
 
   /**
