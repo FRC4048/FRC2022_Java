@@ -1,11 +1,8 @@
 package frc.robot.commands.IntakeCommand;
 
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.commands.LoggedCommandBase;
-import frc.robot.subsystems.IntakeSubsystem;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class DropBallCommandManual extends LoggedCommandBase {
@@ -46,6 +43,6 @@ private Double time;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (!intakeSubsystem.isBallInIntake() || (Timer.getFPGATimestamp() - initTime) >= time);
+    return (Timer.getFPGATimestamp() - initTime) >= time;
   }
 }
