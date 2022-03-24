@@ -25,6 +25,7 @@ import frc.robot.commands.HoodCommands.MoveHoodToAngle;
 import frc.robot.commands.HoodCommands.MoveHoodUp;
 import frc.robot.commands.IntakeCommand.DeployIntakeCommand;
 import frc.robot.commands.IntakeCommand.DropBallCommand;
+import frc.robot.commands.IntakeCommand.DropBallCommandManual;
 import frc.robot.commands.IntakeCommand.IntakeBallCommand;
 import frc.robot.commands.IntakeCommand.IntakeSequence;
 import frc.robot.commands.IntakeCommand.ManuallyRunIntakeMotor;
@@ -168,6 +169,7 @@ public class RobotContainer {
     buttonB.whenPressed(new LogCommandWrapper(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED)));
     buttonB.whenReleased(new LogCommandWrapper(new ManuallyRunIntakeMotor(intakeSubsystem, 0)));
     buttonY.whenPressed(new LogCommandWrapper(new ManuallyToggleIntake(intakeSubsystem)));
+    buttonX.whenPressed(new LogCommandWrapper(new DropBallCommandManual(intakeSubsystem, 0.8)));
 
     rightTrigger.whenActive(new LogCommandWrapper(new ShooterSequeunce(shooterSubsystem, limeLightVision.getLimeLightVision())));
     leftTrigger.whenActive(new LogCommandWrapper(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood)));
