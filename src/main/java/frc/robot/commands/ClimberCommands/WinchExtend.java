@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Climber.ClimberWinchSubsystem;
+import frc.robot.utils.SmartShuffleboard;
 
 public class WinchExtend extends CommandBase {
   /** Creates a new WinchExtend. */
@@ -30,17 +31,18 @@ public class WinchExtend extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    double lSpeed = 0.5, rSpeed = 0.5;
+    //SmartShuffleboard.put("Climber", "R Winch Cmd Sensor", climberWinchSubsystem.getRightSwitch());
     if (!climberWinchSubsystem.getRightSwitch()) {
-      climberWinchSubsystem.setRightWinchSpeed(0);
-    } else {
-      climberWinchSubsystem.setRightWinchSpeed(.3);
+      rSpeed = 0;
     }
 
     if (!climberWinchSubsystem.getLeftSwitch()) {
-      climberWinchSubsystem.setLeftWinchSpeed(0);
-    } else {
-      climberWinchSubsystem.setLeftWinchSpeed(.3);
+      lSpeed = 0;
     }
+
+    climberWinchSubsystem.setRightWinchSpeed(rSpeed);
+    climberWinchSubsystem.setLeftWinchSpeed(lSpeed);
   }
 
   // Called once the command ends or is interrupted.
