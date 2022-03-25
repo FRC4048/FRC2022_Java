@@ -55,13 +55,13 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void deployPiston() {
-    piston1.set(false);
-    piston2.set(false);
+    piston1.set(true);
+    piston2.set(true);
   }
 
   public void retractPiston() {
-    piston1.set(true);
-    piston2.set(true);
+    piston1.set(false);
+    piston2.set(false);
   }
   
   public void togglePiston() {
