@@ -59,7 +59,7 @@ public class AutoChooser {
         
          
          actionChooser.setDefaultOption(Action.TWO_SHOT_RIGHT.name(), Action.TWO_SHOT_RIGHT);
-         actionChooser.addOption(Action.THREE_SHOT.name(), Action.THREE_SHOT); 
+         //actionChooser.addOption(Action.THREE_SHOT.name(), Action.THREE_SHOT); 
          actionChooser.addOption(Action.TWO_SHOT_LEFT.name(), Action.TWO_SHOT_LEFT);
          actionChooser.addOption(Action.ONE_SHOT.name(), Action.ONE_SHOT);
          actionChooser.addOption(Action.CROSS_LINE.name(), Action.CROSS_LINE);
