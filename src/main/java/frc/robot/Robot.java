@@ -25,7 +25,7 @@ public class Robot extends TimedRobot {
   private static RobotContainer m_robotContainer;
   private static Diagnostics diagnostics;
 
-  private static boolean isLogging = false;
+  private static boolean isLogging = true;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -39,6 +39,7 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     m_robotContainer.installCommandsOnShuffleboard();
     m_robotContainer.installDriverShuffleboard();
+    m_robotContainer.getLimeLight().setStream(1.0);
   }
 
   /**
