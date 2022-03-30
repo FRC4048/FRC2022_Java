@@ -28,5 +28,6 @@ public class Flush extends SequentialCommandGroup {
   @Override
   public void end(boolean interrupted) {
     shooter.setFlush(false);
+    super.end(interrupted);
   }
 }

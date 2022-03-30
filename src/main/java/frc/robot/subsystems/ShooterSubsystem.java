@@ -158,6 +158,7 @@ public class ShooterSubsystem extends SubsystemBase {
       blockPiston.set(true);
       if ((((colorSensor.getColor() == ColorValue.BLUE) && isRedAlliance) || ((colorSensor.getColor() == ColorValue.RED) && !isRedAlliance)) && !isFlushing) {
         CommandScheduler.getInstance().schedule(new Flush(hood, this));
+        isFlushing = true;
       }
     }
   }

@@ -46,5 +46,6 @@ public class ElevatorSequence extends SequentialCommandGroup {
       shooterSubsystem.setBlockPiston(false);
       shooterSubsystem.retractPiston();
     }
+    super.end(interrupted);
   }
 }
