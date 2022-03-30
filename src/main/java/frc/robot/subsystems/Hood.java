@@ -23,8 +23,8 @@ public class Hood extends SubsystemBase {
        hoodMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
        potentiometer = new AnalogPotentiometer(Constants.HOOD_POTENTIOMETER, Constants.HOOD_RANGE_OF_MOTION , Constants.HOOD_STARTING_POINT);
 
-       Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Hood Encoder", 100, hoodMotor));
-       Robot.getDiagnostics().addDiagnosable(new DiagPot("Hood Potentiometer", -10, 10, potentiometer));
+       //Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Hood Encoder", 100, hoodMotor)); Doesnt exist
+       Robot.getDiagnostics().addDiagnosable(new DiagPot("Hood Potentiometer", -10, 10, potentiometer)); //Doesnt work
        Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Hood Forward Switch", hoodMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
        Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Hood Reverse Switch", hoodMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
     }
