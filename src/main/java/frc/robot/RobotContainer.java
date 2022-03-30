@@ -63,7 +63,9 @@ import frc.robot.commands.TurretCommands.CalibrateTurretEncoderSequence;
 import frc.robot.commands.TurretCommands.MoveTurretDashboard;
 import frc.robot.commands.TurretCommands.RunTurretUntilLimitSwitch;
 import frc.robot.commands.TurretCommands.TurretAuto;
+import frc.robot.commands.TurretCommands.TurretContinousTarget;
 import frc.robot.commands.TurretCommands.RunTurretUntilTarget;
+import frc.robot.commands.TurretCommands.ToggleTargetState;
 import frc.robot.commands.TurretCommands.TurretManualCommand;
 import frc.robot.commands.TurretCommands.TurretSweepSequence;
 import frc.robot.subsystems.DriveTrain;
@@ -127,7 +129,7 @@ public class RobotContainer {
   public AutoChooser autoChooser = new AutoChooser(intakeSubsystem, driveTrain, shooterSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), hood);
 
   private final Drive driveCommand = new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getY());
-  private final TurretManualCommand turretCommand= new TurretManualCommand(turretSubsystem, () -> -xboxController.getLeftX());
+  private final TurretContinousTarget turretCommand= new TurretContinousTarget(turretSubsystem, limeLightVision.getLimeLightVision(), () -> -xboxController.getLeftX());
   private final ManuallyMoveHood hoodCommand = new ManuallyMoveHood(hood, () -> xboxController.getRightY());
 
   public boolean canShoot = false;
@@ -188,7 +190,7 @@ public class RobotContainer {
     buttonX.whenPressed(new LogCommandWrapper(new DropBallCommandManual(intakeSubsystem, 0.8)));
 
     rightTrigger.whenActive(new LogCommandWrapper(new ShooterSequeunce(shooterSubsystem, limeLightVision.getLimeLightVision())));
-    leftTrigger.whenActive(new LogCommandWrapper(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood)));
+    leftTrigger.whenActive(new LogCommandWrapper(new ToggleTargetState(turretSubsystem)));
     leftBumper.whenPressed(new LogCommandWrapper(new TarmacSetPoint(hood, shooterSubsystem)));
     rightBumper.whenPressed(new LogCommandWrapper(new LaunchpadSetPoint(hood, shooterSubsystem)));
     startButton.whenPressed(new LogError());

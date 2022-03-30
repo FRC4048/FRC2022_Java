@@ -13,6 +13,9 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 
 public class TurretSubsystem extends SubsystemBase {
     private WPI_TalonSRX turretMotor;
+    private TARGETING_STATE target_state;
+
+    public enum TARGETING_STATE {OFF, SWEEP, LOCK};
 
     public TurretSubsystem() {
         turretMotor = new WPI_TalonSRX(Constants.TURRET_MOTOR_ID);
@@ -22,6 +25,8 @@ public class TurretSubsystem extends SubsystemBase {
         Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Turret  Encoder", 100, turretMotor));
         Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Turret Forward Switch", turretMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
         Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Turret Reverse Switch", turretMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
+
+        target_state = TARGETING_STATE.OFF;
     }
 
     public void setTurret(double speed) {
@@ -46,6 +51,14 @@ public class TurretSubsystem extends SubsystemBase {
 
     public void resetEncoder() {
         turretMotor.setSelectedSensorPosition(0);
+    }
+
+    public TARGETING_STATE getTargetState() {
+        return target_state;
+    }
+
+    public void setTargetState(TARGETING_STATE state){
+        target_state = state;
     }
 
     @Override
