@@ -10,12 +10,14 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.utils.MotorUtils;
 import frc.robot.utils.SmartShuffleboard;
+import frc.robot.utils.diag.DiagSwitch;
 import frc.robot.utils.diag.DiagTalonSrxEncoder;
 import frc.robot.utils.diag.DiagTalonSrxSwitch;
 
@@ -23,9 +25,13 @@ public class ClimberWinchSubsystem extends SubsystemBase {
   /** Creates a new ClimberWinchSubsystem. */
   private WPI_TalonSRX leftWinch, rightWinch;
   private MotorUtils leftMotorContact, rightMotorContact, leftMotorStall, rightMotorStall;
+  private DigitalInput leftSensor, rightSensor;
   public ClimberWinchSubsystem(PowerDistribution m_PowerDistPanel) {
+  
     leftWinch = new WPI_TalonSRX(Constants.CLIMBER_LEFT_WINCH_ID);
     rightWinch = new WPI_TalonSRX(Constants.CLIMBER_RIGHT_WINCH_ID);
+    leftSensor = new DigitalInput(Constants.CLIMBER_L_WINCH_SENSOR);
+    rightSensor = new DigitalInput(Constants.CLIMBER_R_WINCH_SENSOR);
 
     leftMotorContact = new MotorUtils(Constants.PDP_CLIMBER_L_ARM, Constants.WINCH_CONTACT_V, Constants.WINCH_CONTACT_V_TIMEOUT, m_PowerDistPanel);
     rightMotorContact = new MotorUtils(Constants.PDP_CLIMBER_R_ARM, Constants.WINCH_CONTACT_V, Constants.WINCH_CONTACT_V_TIMEOUT, m_PowerDistPanel);
@@ -34,16 +40,21 @@ public class ClimberWinchSubsystem extends SubsystemBase {
 
     leftWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     rightWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    //leftWinch.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    //rightWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 
     Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Left Winch Encoder", 100, leftWinch));
     Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Right Winch Encoder", 100, rightWinch));
-    Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Left Winch Forward Switch", leftWinch, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
-    Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Right Winch Forward Switch", rightWinch, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
-  
+    // Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Left Winch Switch", leftWinch, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
+    // Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Right Winch Switch", rightWinch, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
+    Robot.getDiagnostics().addDiagnosable(new DiagSwitch("L Winch Switch", leftSensor));
+    Robot.getDiagnostics().addDiagnosable(new DiagSwitch("R Winch Switch", rightSensor));
+
     leftWinch.setNeutralMode(NeutralMode.Brake);
     rightWinch.setNeutralMode(NeutralMode.Brake);
 
     leftWinch.setInverted(true);
+    rightWinch.setInverted(false);
   }
 
   public void setSpeed(double speed) {
@@ -108,21 +119,26 @@ public class ClimberWinchSubsystem extends SubsystemBase {
   }
 
   public boolean getLeftSwitch() {
-    return leftWinch.getSensorCollection().isFwdLimitSwitchClosed();
+    //return leftWinch.getSensorCollection().isFwdLimitSwitchClosed();
+    return leftSensor.get();
   }
 
   public boolean getRightSwitch() {
-    return rightWinch.getSensorCollection().isFwdLimitSwitchClosed();
+    //return rightWinch.getSensorCollection().isFwdLimitSwitchClosed();
+    return rightSensor.get();
   }
+
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     if (Constants.ENABLE_DEBUG) {
-      SmartShuffleboard.put("Climber", "Right Winch Voltage", getRightVoltage());
-      SmartShuffleboard.put("Climber", "Left Winch Voltage", getLeftVoltage());
-      SmartShuffleboard.put("Climber", "Right Winch Encoders", getRightEncoder());
-      SmartShuffleboard.put("Climber", "Left Winch Encoders", getLeftEncoder());
+      SmartShuffleboard.put("Climber", "R Winch Encoder", getRightEncoder());
+      SmartShuffleboard.put("Climber", "L Winch Encoder", getLeftEncoder());
+      SmartShuffleboard.put("Climber", "R Winch Voltage", getRightVoltage());
+      SmartShuffleboard.put("Climber", "L Winch Voltage", getLeftVoltage());
+      SmartShuffleboard.put("Climber", "R Winch Sensor", getRightSwitch());
+      SmartShuffleboard.put("Climber", "L Winch Sensor", getLeftSwitch());
     }
   }
-}
+} 

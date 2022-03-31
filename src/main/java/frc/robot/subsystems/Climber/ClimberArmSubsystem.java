@@ -49,8 +49,8 @@ public class ClimberArmSubsystem extends SubsystemBase {
     Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Right Arm Forward Switch", rightArm, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
     Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Right Arm Reverse Switch", rightArm, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
     
-    leftArm.setNeutralMode(NeutralMode.Brake);
-    rightArm.setNeutralMode(NeutralMode.Brake);
+    leftArm.setNeutralMode(NeutralMode.Coast);
+    rightArm.setNeutralMode(NeutralMode.Coast);
 
     leftArm.setInverted(true);
   }
@@ -141,10 +141,10 @@ public class ClimberArmSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     if (Constants.ENABLE_DEBUG) {
-      SmartShuffleboard.put("Climber", "Right Arm Voltage", getRightVoltage());
-      SmartShuffleboard.put("Climber", "Left Arm Voltage", getLeftVoltage());
-      SmartShuffleboard.put("Climber", "Right Arm Encoders", getRightEncoder());
-      SmartShuffleboard.put("Climber", "Left Arm Encoders", getLeftEncoder());
+      SmartShuffleboard.put("Climber", "R Arm Encoder", getRightEncoder());
+      SmartShuffleboard.put("Climber", "L Arm Encoder", getLeftEncoder());
+      SmartShuffleboard.put("Climber", "R Arm Voltage", getRightVoltage());
+      SmartShuffleboard.put("Climber", "L Arm Voltage", getLeftVoltage());
     }
   }
 }

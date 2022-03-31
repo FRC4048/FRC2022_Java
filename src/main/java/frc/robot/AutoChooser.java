@@ -9,6 +9,20 @@ package frc.robot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.Autonomous.CrossTheLineSequence;
+import frc.robot.commands.Autonomous.DoNothingSequence;
+import frc.robot.commands.Autonomous.TwoShotSequenceLeft;
+import frc.robot.commands.Autonomous.OneShotSequenceMiddle;
+import frc.robot.commands.Autonomous.ThreeShotSequenceRight;
+import frc.robot.commands.Autonomous.TwoShotSequenceRight;
+import frc.robot.commands.DriveCommands.Drive;
+import frc.robot.commands.IntakeCommand.IntakeSequence;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Hood;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.utils.limelight.LimeLightVision;
 //import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.*;
 
@@ -16,120 +30,73 @@ import edu.wpi.first.wpilibj.shuffleboard.*;
  * Add your docs here.
  */
 public class AutoChooser {
-    private SendableChooser<Position> positionChooser;
     private SendableChooser<Action> actionChooser;
-    //private NetworkTableEntry delayEntry;
-    AutoCommand autonomousCommand;
-    //position at beginning of match
-    enum Position{
-        MIDDLE, LEFT, RIGHT;
-    }
-    //all actions driver choose at beginning of match
+    // private NetworkTableEntry delayEntry;
+    private IntakeSubsystem intakeSubsystem;
+    private ShooterSubsystem shooterSubsystem;
+    private DriveTrain driveTrain;
+    private TurretSubsystem turretSubsystem;
+    private LimeLightVision limeLightVision;
+    private Hood hood;
+
+    // all actions driver choose at beginning of match
     enum Action {
-        ACTION_A, ACTION_B, ACTION_C;
+        THREE_SHOT, TWO_SHOT_RIGHT, TWO_SHOT_LEFT, ONE_SHOT, CROSS_LINE, DO_NOTHING;
     }
-    //all commmands during autonomous
-    enum AutoCommand {
-        A_MIDDLE, B_MIDDLE, C_MIDDLE, A_LEFT, B_LEFT, C_LEFT, A_RIGHT, B_RIGHT, C_RIGHT;
-    }
-    //replace ABC options once we decide what we are doing in auto
- 
-    public AutoChooser(){
-        positionChooser = new SendableChooser<Position>();
+
+
+    public AutoChooser(IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, ShooterSubsystem shooterSubsystem, TurretSubsystem turretSubsystem, LimeLightVision limeLightVision, Hood hood) {
         actionChooser = new SendableChooser<Action>();
-        //AutoCommand autonomousCommand = getAutonomousCommand(getPosition(), getAction());
-        // ^^ see line 92 
+        this.intakeSubsystem = intakeSubsystem;
+        this.driveTrain = driveTrain;
+        this.shooterSubsystem = shooterSubsystem;
+        this.turretSubsystem = turretSubsystem;
+        this.limeLightVision = limeLightVision;
+        this.hood = hood;
     }
-    public void addOptions(){
-        positionChooser.addOption(Position.LEFT.name(), Position.LEFT);
-        positionChooser.addOption(Position.MIDDLE.name(), Position.MIDDLE);
-        positionChooser.addOption(Position.RIGHT.name(), Position.RIGHT); 
-        actionChooser.setDefaultOption(Action.ACTION_A.name(), Action.ACTION_A);
-        actionChooser.addOption(Action.ACTION_B.name(), Action.ACTION_B);
-        actionChooser.addOption(Action.ACTION_C.name(), Action.ACTION_C);
+
+    public void addOptions() {
+        
+         
+         actionChooser.setDefaultOption(Action.TWO_SHOT_RIGHT.name(), Action.TWO_SHOT_RIGHT);
+         actionChooser.addOption(Action.THREE_SHOT.name(), Action.THREE_SHOT); 
+         actionChooser.addOption(Action.TWO_SHOT_LEFT.name(), Action.TWO_SHOT_LEFT);
+         actionChooser.addOption(Action.ONE_SHOT.name(), Action.ONE_SHOT);
+         actionChooser.addOption(Action.CROSS_LINE.name(), Action.CROSS_LINE);
+         actionChooser.addOption(Action.DO_NOTHING.name(), Action.DO_NOTHING);
+         
 
     }
+
     public void initialize() {
         ShuffleboardTab tab = Shuffleboard.getTab("Autonomous");
-        tab.add("Autonomous Position", positionChooser);
         tab.add("Autonomous Action", actionChooser);
-        //delayEntry = tab.add("Delay", 0).getEntry();
     }
 
-    public Action getAction(){
+    
+     public Action getAction(){
         if(actionChooser.getSelected() != null){
             return actionChooser.getSelected();
         } else{
-            return Action.ACTION_C;
+            return Action.TWO_SHOT_RIGHT;
         }
-    }
+     }
 
-    public Position getPosition(){
-        if(positionChooser.getSelected() != null){
-            return positionChooser.getSelected();
-        } else{
-            return Position.MIDDLE;
-        }
-    }
-
-    /* Needs to be updated 
-    public int getDelay(){
-        int delay = delayEntry.getNumber(0).intValue();
-        if(autonomousCommand == AutoCommand.DO_NOTHING
-            || autonomousCommand == AutoCommand.RIGHT_PICKUP 
-            || autonomousCommand == AutoCommand.CROSS_LINE){
-            return 0;
-        }
-        if(delay <= 6 && delay > 0){
-            return delay;
-        }else{
-            return 0;
-        }
-    }
-    */
-
-
-
-
-    //Had to take this stuff out because there is not an AutoCommands class, could be reimplemented later
-
-    public Command getAutonomousCommand(Position p, Action a){
-
-        /* TEMPORARY UNTIL AUTO COMMANDS IMPLEMENTED
-        if (a == Action.ACTION_A){
-            if (p == Position.LEFT){
-                return AutoCommand.A_LEFT;
-            }   
-            else if (p == Position.MIDDLE){
-                return AutoCommand.A_MIDDLE;
-            }
-            else if (p == Position.RIGHT){
-                return AutoCommand.A_RIGHT;
-            }
-        }
-        else if (a == Action.ACTION_B){
-            if (p == Position.LEFT){
-                return AutoCommand.B_LEFT;
-            }   
-            else if (p == Position.MIDDLE){
-                return AutoCommand.B_MIDDLE;
-            }
-            else if (p == Position.RIGHT){
-                return AutoCommand.B_RIGHT;
-            }
-        }
-        else if (a == Action.ACTION_C){
-            if (p == Position.LEFT){
-                return AutoCommand.C_LEFT;
-            }   
-            else if (p == Position.MIDDLE){
-                return AutoCommand.C_MIDDLE;
-            }
-            else if (p == Position.RIGHT){
-                return AutoCommand.C_RIGHT;
-            }
-            
-    */
-    return new WaitCommand(0);
+    public Command getAutonomousCommand(Action a) {
+        if (a == Action.TWO_SHOT_RIGHT) {return new TwoShotSequenceRight(turretSubsystem,
+            Constants.AUTO_TURRET_SPEED, intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED,
+            Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision, hood);}
+        else if (a == Action.THREE_SHOT) {return new ThreeShotSequenceRight(turretSubsystem, 
+            Constants.AUTO_TURRET_SPEED,  intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED, 
+            Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision, hood);}
+        else if (a == Action.TWO_SHOT_LEFT) {return new TwoShotSequenceLeft(turretSubsystem, 
+            Constants.AUTO_TURRET_SPEED,  intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED, 
+            Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision, hood);}
+        else if (a == Action.ONE_SHOT) {return new OneShotSequenceMiddle(turretSubsystem, intakeSubsystem, 
+            driveTrain, shooterSubsystem, limeLightVision, hood, Constants.AUTO_MOVE_SPEED, 
+            Constants.AUTO_DISTANCE_INCHES);}
+        else if (a == Action.CROSS_LINE) {return new CrossTheLineSequence(driveTrain);}
+        else if (a == Action.DO_NOTHING) {return new DoNothingSequence();}
+        return new WaitCommand(0);
     }
 }
