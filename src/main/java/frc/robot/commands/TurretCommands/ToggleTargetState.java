@@ -5,16 +5,19 @@
 package frc.robot.commands.TurretCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.subsystems.TurretSubsystem.TARGETING_STATE;
 
 public class ToggleTargetState extends CommandBase {
   /** Creates a new ToggleTargetState. */
   private TurretSubsystem turret;
+  private Hood hood;
 
-  public ToggleTargetState(TurretSubsystem turret) {
+  public ToggleTargetState(TurretSubsystem turret, Hood hood) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.turret = turret;
+    this.hood = hood;
   }
 
   // Called when the command is initially scheduled.
@@ -22,8 +25,10 @@ public class ToggleTargetState extends CommandBase {
   public void initialize() {
     if ((turret.getTargetState() == TARGETING_STATE.SWEEP) || (turret.getTargetState() == TARGETING_STATE.LOCK)) {
       turret.setTargetState(TARGETING_STATE.OFF);
+      hood.setTargetState(Hood.TARGETING_STATE.OFF);
     } else {
       turret.setTargetState(TARGETING_STATE.SWEEP);
+      hood.setTargetState(Hood.TARGETING_STATE.LOCK);
     }
   }
 

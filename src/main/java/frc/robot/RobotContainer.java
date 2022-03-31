@@ -31,6 +31,7 @@ import frc.robot.commands.ClimberCommands.WinchExtend;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.DriveCommands.TurnDegrees;
 import frc.robot.commands.HoodCommands.HoodAutoCommand;
+import frc.robot.commands.HoodCommands.HoodContinousTarget;
 import frc.robot.commands.HoodCommands.MoveHoodDown;
 import frc.robot.commands.HoodCommands.MoveHoodToAngle;
 import frc.robot.commands.HoodCommands.MoveHoodUp;
@@ -130,7 +131,7 @@ public class RobotContainer {
 
   private final Drive driveCommand = new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getY());
   private final TurretContinousTarget turretCommand= new TurretContinousTarget(turretSubsystem, limeLightVision.getLimeLightVision(), () -> -xboxController.getLeftX());
-  private final ManuallyMoveHood hoodCommand = new ManuallyMoveHood(hood, () -> xboxController.getRightY());
+  private final HoodContinousTarget hoodCommand = new HoodContinousTarget(hood, () -> xboxController.getRightY(), limeLightVision.getLimeLightVision());
 
   public boolean canShoot = false;
 
@@ -190,7 +191,7 @@ public class RobotContainer {
     buttonX.whenPressed(new LogCommandWrapper(new DropBallCommandManual(intakeSubsystem, 0.8)));
 
     rightTrigger.whenActive(new LogCommandWrapper(new ShooterSequeunce(shooterSubsystem, limeLightVision.getLimeLightVision())));
-    leftTrigger.whenActive(new LogCommandWrapper(new ToggleTargetState(turretSubsystem)));
+    leftTrigger.whenActive(new LogCommandWrapper(new ToggleTargetState(turretSubsystem, hood)));
     leftBumper.whenPressed(new LogCommandWrapper(new TarmacSetPoint(hood, shooterSubsystem)));
     rightBumper.whenPressed(new LogCommandWrapper(new LaunchpadSetPoint(hood, shooterSubsystem)));
     startButton.whenPressed(new LogError());

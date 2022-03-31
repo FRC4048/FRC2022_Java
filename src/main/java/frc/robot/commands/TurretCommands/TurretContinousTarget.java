@@ -41,12 +41,10 @@ public class TurretContinousTarget extends CommandBase {
   public void execute() {
     switch(turret.getTargetState()) {
       case OFF:
-        turret.setTurret(0);
         turret.setTurret((joystick.getAsDouble() * Constants.TURRETSPIN_SCALEFACTOR));
         break;
 
       case SWEEP:
-        turret.setTurret(0);
         if (((turret.getEncoder() >= Constants.TURRET_RIGHT_THRESHOLD) && turretSpeed < 0) || 
             ((turret.getEncoder() <= Constants.TURRET_LEFT_THRESHOLD) && turretSpeed > 0)) {
             turretSpeed = -turretSpeed;
@@ -55,7 +53,6 @@ public class TurretContinousTarget extends CommandBase {
         break;
 
       case LOCK:
-        turret.setTurret(0);
         if (limelight.hasTarget()) {
           if (Math.abs(limelight.getCameraAngles().getTx()) > Constants.TURRET_ERROR_THRESHOLD) {
             speed = Constants.TURRET_FAST_SPEED; 

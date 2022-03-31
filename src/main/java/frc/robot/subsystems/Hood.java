@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.subsystems.TurretSubsystem.TARGETING_STATE;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.DiagPot;
 import frc.robot.utils.diag.DiagTalonSrxEncoder;
@@ -16,6 +17,8 @@ import frc.robot.utils.diag.DiagTalonSrxSwitch;
 public class Hood extends SubsystemBase {
     private WPI_TalonSRX hoodMotor;
     private AnalogPotentiometer potentiometer;
+    public enum TARGETING_STATE {OFF, LOCK};
+    private TARGETING_STATE targetState;
 
     public Hood(){
        hoodMotor = new WPI_TalonSRX(Constants.HOOD_MOTOR_ID); 
@@ -27,6 +30,8 @@ public class Hood extends SubsystemBase {
        Robot.getDiagnostics().addDiagnosable(new DiagPot("Hood Potentiometer", -10, 10, potentiometer));
        Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Hood Forward Switch", hoodMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
        Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Hood Reverse Switch", hoodMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
+
+       targetState = TARGETING_STATE.OFF;
     }
 
     public void setHood(double speed){
@@ -56,6 +61,14 @@ public class Hood extends SubsystemBase {
 
     public double getPotentiometer(){
         return potentiometer.get();
+    }
+    
+    public TARGETING_STATE getTargetState() {
+        return targetState;
+    }
+
+    public void setTargetState(TARGETING_STATE state){
+        targetState = state;
     }
     
     @Override
