@@ -10,8 +10,8 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.subsystems.Hood;
-import frc.robot.subsystems.Hood.TARGETING_STATE;
 import frc.robot.utils.limelight.LimeLightVision;
 
 public class HoodContinousTarget extends CommandBase {
@@ -55,7 +55,7 @@ public class HoodContinousTarget extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    switch(hood.getTargetState()) {
+    switch(Robot.getTargetState()) {
       case OFF:
         if(Math.abs(rightJoystickY.getAsDouble()) < Constants.HOOD_JOYSTICK_THRESHOLD){
           hood.setHood(0);
@@ -71,6 +71,9 @@ public class HoodContinousTarget extends CommandBase {
           }
         }
         break;
+
+      case SWEEP:
+        
     }
   }
 
@@ -78,7 +81,7 @@ public class HoodContinousTarget extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     hood.setHood(0);
-    hood.setTargetState(TARGETING_STATE.OFF);
+    Robot.setTargetState(frc.robot.Robot.TARGETING_STATE.OFF);
   }
 
   // Returns true when the command should end.

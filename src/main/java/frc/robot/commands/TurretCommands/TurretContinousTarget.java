@@ -8,8 +8,9 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.Robot.TARGETING_STATE;
 import frc.robot.subsystems.TurretSubsystem;
-import frc.robot.subsystems.TurretSubsystem.TARGETING_STATE;
 import frc.robot.utils.limelight.LimeLightVision;
 
 public class TurretContinousTarget extends CommandBase {
@@ -39,7 +40,7 @@ public class TurretContinousTarget extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    switch(turret.getTargetState()) {
+    switch(Robot.getTargetState()) {
       case OFF:
         turret.setTurret((joystick.getAsDouble() * Constants.TURRETSPIN_SCALEFACTOR));
         break;
@@ -67,9 +68,9 @@ public class TurretContinousTarget extends CommandBase {
     }
 
     if (limelight.hasTarget()) {
-      turret.setTargetState(TARGETING_STATE.LOCK);
+      Robot.setTargetState(TARGETING_STATE.LOCK);
     } else {
-      turret.setTargetState(TARGETING_STATE.SWEEP);
+      Robot.setTargetState(TARGETING_STATE.SWEEP);
     }
   }
 
@@ -77,7 +78,7 @@ public class TurretContinousTarget extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     turret.setTurret(0);
-    turret.setTargetState(TARGETING_STATE.OFF);
+    Robot.setTargetState(TARGETING_STATE.OFF);
   }
 
   // Returns true when the command should end.
