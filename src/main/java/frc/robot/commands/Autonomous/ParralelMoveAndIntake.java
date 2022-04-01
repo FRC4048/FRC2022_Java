@@ -22,4 +22,12 @@ public class ParralelMoveAndIntake extends ParallelCommandGroup {
             new AutoSetTurretPosition(TurretSubsystem, 20, speed)
         );
     }
+    public ParralelMoveAndIntake(DriveTrain driveTrain, double speed, double distanceInches, TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, Hood hood, TurretSubsystem TurretSubsystem, int timeOut) {
+        addCommands(
+            new MoveDistance(driveTrain, speed, distanceInches),
+            new IntakeSequence(intakeSubsystem, timeOut),
+            //temporary angle value, needs to be tested.
+            new AutoSetTurretPosition(TurretSubsystem, 20, speed)
+        );
+    }
 }

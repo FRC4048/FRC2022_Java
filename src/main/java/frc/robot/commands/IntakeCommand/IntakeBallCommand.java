@@ -13,6 +13,7 @@ public class IntakeBallCommand extends LoggedCommandBase {
   private IntakeSubsystem intakeSubsystem;
   private double initTime;
   private int ballDetections;
+  private int timeOut = 6;
   /**
    * Creates a new ExampleCommand.
    *
@@ -22,6 +23,12 @@ public class IntakeBallCommand extends LoggedCommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intakeSubsystem);
     this.intakeSubsystem = intakeSubsystem;
+  }
+  public IntakeBallCommand(IntakeSubsystem intakeSubsystem, int timeOut) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(intakeSubsystem);
+    this.intakeSubsystem = intakeSubsystem;
+    this.timeOut = timeOut;
   }
 
   // Called when the command is initially scheduled.
@@ -50,6 +57,6 @@ public class IntakeBallCommand extends LoggedCommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return ((ballDetections >= 5) || (Timer.getFPGATimestamp() - initTime) >= Constants.DEPLOYED_INTAKE_TIMEOUT);
+    return ((ballDetections >= 5) || (Timer.getFPGATimestamp() - initTime) >= timeOut);
   }
 }
