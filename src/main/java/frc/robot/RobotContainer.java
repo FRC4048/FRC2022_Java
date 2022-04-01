@@ -21,11 +21,13 @@ import frc.robot.commands.Autonomous.DoNothingSequence;
 import frc.robot.commands.Autonomous.OneShotSequenceMiddle;
 import frc.robot.commands.Autonomous.TwoShotSequenceLeft;
 import frc.robot.commands.Autonomous.TwoShotSequenceRight;
-import frc.robot.commands.ClimberCommands.ExtendClimberSequence;
+import frc.robot.commands.ClimberCommands.AutoMoveClimberArm.Direction;
+import frc.robot.commands.ClimberCommands.ExtendClimberSolenoid;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.RetractClimberSequence;
-import frc.robot.commands.ClimberCommands.WinchExtend;
+import frc.robot.commands.ClimberCommands.InitialClimbSequence;
+import frc.robot.commands.ClimberCommands.RetractClimberSolenoid;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.DriveCommands.TurnDegrees;
 import frc.robot.commands.HoodCommands.HoodAutoCommand;
@@ -97,8 +99,10 @@ public class RobotContainer {
   private JoystickButton buttonB = new JoystickButton(xboxController, Constants.XBOX_B_BUTTON);
   
 
-  private JoystickButton climberButtonA = new JoystickButton(climberController, Constants.XBOX_A_BUTTON);
-  private JoystickButton climberButtonB = new JoystickButton(climberController, Constants.XBOX_B_BUTTON);
+  private JoystickButton extendClimber = new JoystickButton(climberController, Constants.XBOX_A_BUTTON);
+  private JoystickButton retractClimber = new JoystickButton(climberController, Constants.XBOX_B_BUTTON);
+  private JoystickButton staticLock = new JoystickButton(climberController, Constants.XBOX_LEFT_BUMPER);
+  private JoystickButton staticUnlock = new JoystickButton(climberController, Constants.XBOX_RIGHT_BUMPER);
 
   private JoystickButton buttonY = new JoystickButton(xboxController, Constants.XBOX_Y_BUTTON);
   private JoystickButton buttonX = new JoystickButton(xboxController, Constants.XBOX_X_BUTTON);
@@ -179,8 +183,10 @@ public class RobotContainer {
     SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
     SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
 
-    climberButtonA.whenPressed(new ExtendClimberSequence(climberArmSubsystem, climberWinchSubsystem));
-    climberButtonB.whenPressed(new RetractClimberSequence(climberArmSubsystem, climberWinchSubsystem));
+    extendClimber.whenPressed(new LogCommandWrapper(new InitialClimbSequence(climberArmSubsystem, climberWinchSubsystem)));
+    retractClimber.whenPressed(new LogCommandWrapper(new RetractClimberSequence(climberWinchSubsystem)));
+    staticLock.whenPressed(new LogCommandWrapper(new ExtendClimberSolenoid(climberArmSubsystem)));
+    staticUnlock.whenPressed(new LogCommandWrapper(new RetractClimberSolenoid(climberArmSubsystem)));
     
     buttonA.whenPressed(new LogCommandWrapper(new IntakeSequence(intakeSubsystem)));
     buttonB.whenPressed(new LogCommandWrapper(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED)));
@@ -195,7 +201,6 @@ public class RobotContainer {
     startButton.whenPressed(new LogError());
     backButton.whenPressed(new LogCommandWrapper(new CancelAll(intakeSubsystem, shooterSubsystem)));
 
-    climberButtonA.whenPressed(new LogCommandWrapper(new WinchExtend(climberWinchSubsystem)));
   }
 
   public IntakeSubsystem getIntakeSubsystem() {

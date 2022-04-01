@@ -5,6 +5,7 @@
 package frc.robot.commands.ClimberCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.ClimberCommands.AutoMoveClimberArm.Direction;
 import frc.robot.subsystems.Climber.ClimberArmSubsystem;
 import frc.robot.subsystems.Climber.ClimberWinchSubsystem;
 import frc.robot.utils.logging.LogCommandWrapper;
@@ -12,16 +13,14 @@ import frc.robot.utils.logging.LogCommandWrapper;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ExtendClimberSequence extends SequentialCommandGroup {
-  /** Creates a new ExtendClimberSequence. */
-
-  public ExtendClimberSequence(ClimberArmSubsystem climberArmSubsystem, ClimberWinchSubsystem climberWinchSubsystem) {
+public class MoveClimberToNextBar extends SequentialCommandGroup {
+  /** Creates a new MoveClimberToNextBar. */
+  public MoveClimberToNextBar(ClimberArmSubsystem climberArmSubsystem, ClimberWinchSubsystem climberWinchSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-
     addCommands(
-      new LogCommandWrapper(new RetractClimberSolenoid(climberArmSubsystem)),
-      new LogCommandWrapper(new MoveClimberParallelSequence(climberArmSubsystem, climberWinchSubsystem, 1))
+      new LogCommandWrapper(new AutoMoveClimberWinch(climberWinchSubsystem, Direction.UP)),
+      new LogCommandWrapper(new AutoMoveClimberArm(climberArmSubsystem, Direction.UP))
     );
   }
 }

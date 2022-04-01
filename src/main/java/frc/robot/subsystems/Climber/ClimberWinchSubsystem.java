@@ -34,15 +34,15 @@ public class ClimberWinchSubsystem extends SubsystemBase {
     rightSensor = new DigitalInput(Constants.CLIMBER_R_WINCH_SENSOR);
     powerDistribution = m_PowerDistPanel;
 
-    leftMotorContact = new MotorUtils(Constants.PDP_CLIMBER_L_ARM, Constants.WINCH_CONTACT_V, Constants.WINCH_CONTACT_V_TIMEOUT, m_PowerDistPanel);
-    rightMotorContact = new MotorUtils(Constants.PDP_CLIMBER_R_ARM, Constants.WINCH_CONTACT_V, Constants.WINCH_CONTACT_V_TIMEOUT, m_PowerDistPanel);
+    //leftMotorContact = new MotorUtils(Constants.PDP_CLIMBER_L_ARM, Constants.WINCH_CONTACT_V, Constants.WINCH_CONTACT_V_TIMEOUT, m_PowerDistPanel);
+    //rightMotorContact = new MotorUtils(Constants.PDP_CLIMBER_R_ARM, Constants.WINCH_CONTACT_V, Constants.WINCH_CONTACT_V_TIMEOUT, m_PowerDistPanel);
     leftMotorStall = new MotorUtils(Constants.PDP_CLIMBER_L_ARM, Constants.WINCH_V_LIMIT, Constants.CLIMBER_WINCH_V_TIMEOUT, m_PowerDistPanel);
     rightMotorStall = new MotorUtils(Constants.PDP_CLIMBER_R_ARM, Constants.WINCH_V_LIMIT, Constants.CLIMBER_WINCH_V_TIMEOUT, m_PowerDistPanel);
 
     leftWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     rightWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-    //leftWinch.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-    //rightWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    leftWinch.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    rightWinch.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 
     Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Left Winch Encoder", 100, leftWinch));
     Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Right Winch Encoder", 100, rightWinch));
@@ -104,7 +104,6 @@ public class ClimberWinchSubsystem extends SubsystemBase {
   }
 
   public double getLeftCurrent() {
-    //return leftWinch.getBusVoltage();
     return powerDistribution.getCurrent(Constants.PDP_CLIMBER_L_WINCH);
   }
 
@@ -112,14 +111,20 @@ public class ClimberWinchSubsystem extends SubsystemBase {
     return powerDistribution.getCurrent(Constants.PDP_CLIMBER_R_WINCH);
   }
 
-  public boolean getLeftSwitch() {
-    //return leftWinch.getSensorCollection().isFwdLimitSwitchClosed();
-    return leftSensor.get();
+  public boolean getLeftTopSwitch() {
+    return leftWinch.getSensorCollection().isFwdLimitSwitchClosed();
   }
 
-  public boolean getRightSwitch() {
-    //return rightWinch.getSensorCollection().isFwdLimitSwitchClosed();
-    return rightSensor.get();
+  public boolean getRightTopSwitch() {
+    return rightWinch.getSensorCollection().isFwdLimitSwitchClosed();
+  }
+
+  public boolean getLeftBotSwitch() {
+    return leftWinch.getSensorCollection().isRevLimitSwitchClosed();
+  }
+
+  public boolean getRightBotSwitch() {
+    return rightWinch.getSensorCollection().isRevLimitSwitchClosed();
   }
 
 
@@ -131,8 +136,10 @@ public class ClimberWinchSubsystem extends SubsystemBase {
       SmartShuffleboard.put("Climber", "L Winch Encoder", getLeftEncoder());
       SmartShuffleboard.put("Climber", "R Winch Current", getRightCurrent());
       SmartShuffleboard.put("Climber", "L Winch Current", getLeftCurrent());
-      SmartShuffleboard.put("Climber", "R Winch Sensor", getRightSwitch());
-      SmartShuffleboard.put("Climber", "L Winch Sensor", getLeftSwitch());
+      SmartShuffleboard.put("Climber", "R Top Winch Sensor", getRightTopSwitch());
+      SmartShuffleboard.put("Climber", "L Top Winch Sensor", getLeftTopSwitch());
+      SmartShuffleboard.put("Climber", "R Bot Winch Sensor", getRightBotSwitch());
+      SmartShuffleboard.put("Climber", "L Bot Winch Sensor", getLeftBotSwitch());
     }
   }
 } 

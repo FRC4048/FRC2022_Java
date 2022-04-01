@@ -15,7 +15,6 @@ public class AutoMoveClimberWinch extends LoggedCommandBase {
   /** Creates a new MoveClimberWinch. */
   ClimberWinchSubsystem climberWinchSubsystem;
   private double initTime;
-  public enum Direction {UP, DOWN}
   private Direction direction;
   private boolean lStall, rStall;
 
@@ -44,10 +43,10 @@ public class AutoMoveClimberWinch extends LoggedCommandBase {
   public void execute() {
     double rightSpeed = 0, leftSpeed = 0;
     if (direction == Direction.UP) {
-      if (!climberWinchSubsystem.getLeftSwitch()) {
+      if (!climberWinchSubsystem.getLeftTopSwitch()) {
         leftSpeed = Constants.CLIMBER_WINCH_SPEED;
       }
-      if (!climberWinchSubsystem.getRightSwitch()) {
+      if (!climberWinchSubsystem.getRightTopSwitch()) {
         rightSpeed = Constants.CLIMBER_WINCH_SPEED;
       }
     } else {
@@ -80,7 +79,7 @@ public class AutoMoveClimberWinch extends LoggedCommandBase {
   @Override
   public boolean isFinished() {
     return ((rStall && lStall && (direction == Direction.DOWN)) || 
-    (climberWinchSubsystem.getRightSwitch() && climberWinchSubsystem.getLeftSwitch() && (direction == Direction.UP)) ||
+    (climberWinchSubsystem.getRightTopSwitch() && climberWinchSubsystem.getLeftTopSwitch() && (direction == Direction.UP)) ||
     ((Timer.getFPGATimestamp() - initTime) >= Constants.CLIMBER_ARM_TIMEOUT));
   }
 }

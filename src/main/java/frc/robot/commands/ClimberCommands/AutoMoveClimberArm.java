@@ -15,8 +15,13 @@ public class AutoMoveClimberArm extends LoggedCommandBase {
   /** Creates a new ManualMoveClimberArm. */
   private ClimberArmSubsystem climberArmSubsystem;
   private double initTime;
-  public enum Direction {UP, DOWN}
+
+  public enum Direction {
+    UP, DOWN
+  }
+
   private Direction direction;
+  private boolean lStall, rStall;
 
   public AutoMoveClimberArm(ClimberArmSubsystem climberArmSubsystem, Direction direction) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -30,6 +35,11 @@ public class AutoMoveClimberArm extends LoggedCommandBase {
   @Override
   public void initialize() {
     initTime = Timer.getFPGATimestamp();
+    lStall = false;
+    rStall = false;
+    // Reset Motor Utils Timeout
+    climberArmSubsystem.isLeftStalled();
+    climberArmSubsystem.isRightStalled();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -37,20 +47,29 @@ public class AutoMoveClimberArm extends LoggedCommandBase {
   public void execute() {
     double rightSpeed = 0, leftSpeed = 0;
     // if (autoBalance) {
-    //   encoderDifference = Math.abs(climberArmSubsystem.getRightEncoder() - climberArmSubsystem.getLeftEncoder());    
+    // encoderDifference = Math.abs(climberArmSubsystem.getRightEncoder() -
+    // climberArmSubsystem.getLeftEncoder());
 
-    //   if (climberArmSubsystem.getRightVelocity() < 1 || climberArmSubsystem.isRightStalled()) {
-    //     rightSpeed = 0;
-    //   }
-    //   if (climberArmSubsystem.getLeftVelocity() < 1 || climberArmSubsystem.isLeftStalled()) {
-    //     leftSpeed = 0;
-    //   }
+    // if (climberArmSubsystem.getRightVelocity() < 1 ||
+    // climberArmSubsystem.isRightStalled()) {
+    // rightSpeed = 0;
+    // }
+    // if (climberArmSubsystem.getLeftVelocity() < 1 ||
+    // climberArmSubsystem.isLeftStalled()) {
+    // leftSpeed = 0;
+    // }
 
-    //   if (Math.abs(climberArmSubsystem.getRightEncoder()) > Math.abs(climberArmSubsystem.getLeftEncoder())+Constants.CLIMBER_MAX_ENCODER_DIFF) {
-    //     rightSpeed *= (1-(encoderDifference/Constants.CLIMBER_MAX_ENCODER_DIFF*Constants.CLIMBER_MIN_ARM_SPEED));
-    //  } else if (Math.abs(climberArmSubsystem.getLeftEncoder()) > Math.abs(climberArmSubsystem.getRightEncoder())+Constants.CLIMBER_MAX_ENCODER_DIFF) {
-    //     leftSpeed *= (1-(encoderDifference/Constants.CLIMBER_MAX_ENCODER_DIFF*Constants.CLIMBER_MIN_ARM_SPEED));
-    //  }
+    // if (Math.abs(climberArmSubsystem.getRightEncoder()) >
+    // Math.abs(climberArmSubsystem.getLeftEncoder())+Constants.CLIMBER_MAX_ENCODER_DIFF)
+    // {
+    // rightSpeed *=
+    // (1-(encoderDifference/Constants.CLIMBER_MAX_ENCODER_DIFF*Constants.CLIMBER_MIN_ARM_SPEED));
+    // } else if (Math.abs(climberArmSubsystem.getLeftEncoder()) >
+    // Math.abs(climberArmSubsystem.getRightEncoder())+Constants.CLIMBER_MAX_ENCODER_DIFF)
+    // {
+    // leftSpeed *=
+    // (1-(encoderDifference/Constants.CLIMBER_MAX_ENCODER_DIFF*Constants.CLIMBER_MIN_ARM_SPEED));
+    // }
     // }
     if (direction == Direction.UP) {
       if (!climberArmSubsystem.getLeftTopSensor()) {
@@ -60,19 +79,24 @@ public class AutoMoveClimberArm extends LoggedCommandBase {
         rightSpeed = Constants.CLIMBER_ARM_SPEED;
       }
     } else {
-        if (!climberArmSubsystem.getLeftBotSensor()) {
-          leftSpeed = -Constants.CLIMBER_ARM_SPEED;
-        }
-        if (!climberArmSubsystem.getRightBotSensor()) {
-          rightSpeed = -Constants.CLIMBER_ARM_SPEED;
-        }
+      if (climberArmSubsystem.isLeftStalled()) {
+        lStall = true;
       }
-   
+      if (climberArmSubsystem.isRightStalled()) {
+        rStall = true;
+      }
+      if (!climberArmSubsystem.getLeftBotSensor() && !lStall) {
+        leftSpeed = -Constants.CLIMBER_ARM_SPEED;
+      }
+      if (!climberArmSubsystem.getRightBotSensor() && rStall) {
+        rightSpeed = -Constants.CLIMBER_ARM_SPEED;
+      }
+    }
+
     climberArmSubsystem.setRightArmSpeed(rightSpeed);
     climberArmSubsystem.setLeftArmSpeed(leftSpeed);
-    
+
   }
- 
 
   // Called once the command ends or is interrupted.
   @Override
@@ -84,9 +108,14 @@ public class AutoMoveClimberArm extends LoggedCommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (climberArmSubsystem.getRightTopSensor() && climberArmSubsystem.getLeftTopSensor() && (direction == Direction.UP)) || 
-    (climberArmSubsystem.getRightBotSensor() && climberArmSubsystem.getLeftBotSensor() && (direction == Direction.DOWN)) || 
-    ((Timer.getFPGATimestamp() - initTime) >= Constants.CLIMBER_ARM_TIMEOUT);
-    
+    return 
+        (((rStall && lStall && (direction == Direction.UP))
+        || 
+        (climberArmSubsystem.getRightTopSensor() && climberArmSubsystem.getLeftTopSensor() && (direction == Direction.UP)) 
+        ||
+        (climberArmSubsystem.getRightBotSensor() && climberArmSubsystem.getLeftBotSensor() && (direction == Direction.DOWN)) 
+        ||
+        ((Timer.getFPGATimestamp() - initTime) >= Constants.CLIMBER_ARM_TIMEOUT)));
+
   }
 }

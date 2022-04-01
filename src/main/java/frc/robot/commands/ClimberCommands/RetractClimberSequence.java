@@ -5,7 +5,7 @@
 package frc.robot.commands.ClimberCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.Climber.ClimberArmSubsystem;
+import frc.robot.commands.ClimberCommands.AutoMoveClimberArm.Direction;
 import frc.robot.subsystems.Climber.ClimberWinchSubsystem;
 import frc.robot.utils.logging.LogCommandWrapper;
 
@@ -14,12 +14,11 @@ import frc.robot.utils.logging.LogCommandWrapper;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class RetractClimberSequence extends SequentialCommandGroup {
   /** Creates a new RetractClimberSequence. */
-  public RetractClimberSequence(ClimberArmSubsystem climberArmSubsystem, ClimberWinchSubsystem climberWinchSubsystem) {
+  public RetractClimberSequence(ClimberWinchSubsystem climberWinchSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new LogCommandWrapper(new MoveClimberParallelSequence(climberArmSubsystem, climberWinchSubsystem, -1)),
-      new LogCommandWrapper(new ExtendClimberSolenoid(climberArmSubsystem))
+      new LogCommandWrapper(new AutoMoveClimberWinch(climberWinchSubsystem, Direction.DOWN))
     );
   }
 }

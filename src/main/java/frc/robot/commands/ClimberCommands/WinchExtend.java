@@ -33,11 +33,11 @@ public class WinchExtend extends CommandBase {
   public void execute() {
     double lSpeed = 0.5, rSpeed = 0.5;
     //SmartShuffleboard.put("Climber", "R Winch Cmd Sensor", climberWinchSubsystem.getRightSwitch());
-    if (!climberWinchSubsystem.getRightSwitch()) {
+    if (!climberWinchSubsystem.getRightTopSwitch()) {
       rSpeed = 0;
     }
 
-    if (!climberWinchSubsystem.getLeftSwitch()) {
+    if (!climberWinchSubsystem.getLeftTopSwitch()) {
       lSpeed = 0;
     }
 
@@ -55,7 +55,7 @@ public class WinchExtend extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return ((!climberWinchSubsystem.getLeftSwitch() && !climberWinchSubsystem.getRightSwitch()) || 
+    return ((!climberWinchSubsystem.getLeftTopSwitch() && !climberWinchSubsystem.getRightTopSwitch()) || 
             (Timer.getFPGATimestamp() - startTime >= Constants.EXTEND_WINCH_TIMEOUT));
   }
 }
