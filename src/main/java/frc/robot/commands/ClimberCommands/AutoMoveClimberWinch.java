@@ -63,6 +63,6 @@ public class AutoMoveClimberWinch extends LoggedCommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (climberWinchSubsystem.getRightVoltage() == 0 && climberWinchSubsystem.getLeftVoltage() == 0) || initTime > Constants.CLIMBER_ARM_TIMEOUT;
+    return (climberWinchSubsystem.getRightCurrent() == 0 && climberWinchSubsystem.getLeftCurrent() == 0) || initTime > Constants.CLIMBER_ARM_TIMEOUT;
   }
 }

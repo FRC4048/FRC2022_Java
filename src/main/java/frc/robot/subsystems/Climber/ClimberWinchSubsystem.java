@@ -26,12 +26,14 @@ public class ClimberWinchSubsystem extends SubsystemBase {
   private WPI_TalonSRX leftWinch, rightWinch;
   private MotorUtils leftMotorContact, rightMotorContact, leftMotorStall, rightMotorStall;
   private DigitalInput leftSensor, rightSensor;
+  private PowerDistribution powerDistribution;
   public ClimberWinchSubsystem(PowerDistribution m_PowerDistPanel) {
   
     leftWinch = new WPI_TalonSRX(Constants.CLIMBER_LEFT_WINCH_ID);
     rightWinch = new WPI_TalonSRX(Constants.CLIMBER_RIGHT_WINCH_ID);
     leftSensor = new DigitalInput(Constants.CLIMBER_L_WINCH_SENSOR);
     rightSensor = new DigitalInput(Constants.CLIMBER_R_WINCH_SENSOR);
+    powerDistribution = m_PowerDistPanel;
 
     leftMotorContact = new MotorUtils(Constants.PDP_CLIMBER_L_ARM, Constants.WINCH_CONTACT_V, Constants.WINCH_CONTACT_V_TIMEOUT, m_PowerDistPanel);
     rightMotorContact = new MotorUtils(Constants.PDP_CLIMBER_R_ARM, Constants.WINCH_CONTACT_V, Constants.WINCH_CONTACT_V_TIMEOUT, m_PowerDistPanel);
@@ -102,12 +104,13 @@ public class ClimberWinchSubsystem extends SubsystemBase {
     return rightMotorStall.isStalled();
   }
 
-  public double getLeftVoltage() {
-    return leftWinch.getBusVoltage();
+  public double getLeftCurrent() {
+    //return leftWinch.getBusVoltage();
+    return powerDistribution.getCurrent(Constants.PDP_CLIMBER_L_WINCH);
   }
 
-  public double getRightVoltage() {
-    return rightWinch.getBusVoltage();
+  public double getRightCurrent() {
+    return powerDistribution.getCurrent(Constants.PDP_CLIMBER_R_WINCH);
   }
   
   public double getLeftVelocity() {
@@ -135,8 +138,8 @@ public class ClimberWinchSubsystem extends SubsystemBase {
     if (Constants.ENABLE_DEBUG) {
       SmartShuffleboard.put("Climber", "R Winch Encoder", getRightEncoder());
       SmartShuffleboard.put("Climber", "L Winch Encoder", getLeftEncoder());
-      SmartShuffleboard.put("Climber", "R Winch Voltage", getRightVoltage());
-      SmartShuffleboard.put("Climber", "L Winch Voltage", getLeftVoltage());
+      SmartShuffleboard.put("Climber", "R Winch Current", getRightCurrent());
+      SmartShuffleboard.put("Climber", "L Winch Current", getLeftCurrent());
       SmartShuffleboard.put("Climber", "R Winch Sensor", getRightSwitch());
       SmartShuffleboard.put("Climber", "L Winch Sensor", getLeftSwitch());
     }
