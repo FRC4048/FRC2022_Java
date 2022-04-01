@@ -77,6 +77,7 @@ public class TurretContinousTarget extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     turret.setTurret(0);
+    turret.setTargetState(TARGETING_STATE.OFF);
   }
 
   // Returns true when the command should end.
