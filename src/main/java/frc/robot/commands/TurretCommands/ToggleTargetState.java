@@ -5,9 +5,12 @@
 package frc.robot.commands.TurretCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.Miscellaneous.SetPipeline;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.subsystems.TurretSubsystem.TARGETING_STATE;
+import frc.robot.utils.logging.LogCommandWrapper;
 
 public class ToggleTargetState extends CommandBase {
   /** Creates a new ToggleTargetState. */
@@ -26,9 +29,11 @@ public class ToggleTargetState extends CommandBase {
     if ((turret.getTargetState() == TARGETING_STATE.SWEEP) || (turret.getTargetState() == TARGETING_STATE.LOCK)) {
       turret.setTargetState(TARGETING_STATE.OFF);
       hood.setTargetState(Hood.TARGETING_STATE.OFF);
+      CommandScheduler.getInstance().schedule(new LogCommandWrapper(new SetPipeline(0)));
     } else {
       turret.setTargetState(TARGETING_STATE.SWEEP);
       hood.setTargetState(Hood.TARGETING_STATE.LOCK);
+      CommandScheduler.getInstance().schedule(new LogCommandWrapper(new SetPipeline(1)));
     }
   }
 
@@ -38,7 +43,12 @@ public class ToggleTargetState extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    if (interrupted) {
+      turret.setTargetState(TARGETING_STATE.OFF);
+      hood.setTargetState(Hood.TARGETING_STATE.OFF);
+    }
+  }
 
   // Returns true when the command should end.
   @Override

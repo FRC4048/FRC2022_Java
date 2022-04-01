@@ -11,6 +11,7 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Hood;
+import frc.robot.subsystems.Hood.TARGETING_STATE;
 import frc.robot.utils.limelight.LimeLightVision;
 
 public class HoodContinousTarget extends CommandBase {
@@ -77,6 +78,7 @@ public class HoodContinousTarget extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     hood.setHood(0);
+    hood.setTargetState(TARGETING_STATE.OFF);
   }
 
   // Returns true when the command should end.
