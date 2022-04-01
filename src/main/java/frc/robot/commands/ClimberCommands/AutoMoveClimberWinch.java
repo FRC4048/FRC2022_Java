@@ -8,49 +8,65 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.commands.LoggedCommandBase;
+import frc.robot.commands.ClimberCommands.AutoMoveClimberArm.Direction;
 import frc.robot.subsystems.Climber.ClimberWinchSubsystem;
 
 public class AutoMoveClimberWinch extends LoggedCommandBase {
   /** Creates a new MoveClimberWinch. */
   ClimberWinchSubsystem climberWinchSubsystem;
   private double initTime;
-  private double direction;
-  private double barContactTimeout;
-  boolean autoBalance;
+  public enum Direction {UP, DOWN}
+  private Direction direction;
+  private boolean lStall, rStall;
 
 
-  public AutoMoveClimberWinch(ClimberWinchSubsystem climberWinchSubsystem, double direction, boolean autoBalance) {
+  public AutoMoveClimberWinch(ClimberWinchSubsystem climberWinchSubsystem, Direction direction) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.climberWinchSubsystem = climberWinchSubsystem;
-    this.autoBalance = autoBalance;
     this.direction = direction;
     addRequirements(climberWinchSubsystem);
+    addLog(direction.name());
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     initTime = Timer.getFPGATimestamp();
-    climberWinchSubsystem.setSpeed(Constants.CLIMBER_WINCH_SPEED * direction);
-    
+    lStall = false;
+    rStall = false;
+    //Reset Motor Utils Timeout
+    climberWinchSubsystem.isLeftStalled();
+    climberWinchSubsystem.isRightStalled();
    }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (climberWinchSubsystem.isLeftStalled()) {
-      climberWinchSubsystem.setLeftWinchSpeed(0);
-    }
-
-    if (climberWinchSubsystem.isRightStalled()) {
-      climberWinchSubsystem.setRightWinchSpeed(0);
-    }
-
-    if (climberWinchSubsystem.isRightBarContact() != climberWinchSubsystem.isLeftBarContact()) {
-      barContactTimeout = Timer.getFPGATimestamp();
+    double rightSpeed = 0, leftSpeed = 0;
+    if (direction == Direction.UP) {
+      if (!climberWinchSubsystem.getLeftSwitch()) {
+        leftSpeed = Constants.CLIMBER_WINCH_SPEED;
+      }
+      if (!climberWinchSubsystem.getRightSwitch()) {
+        rightSpeed = Constants.CLIMBER_WINCH_SPEED;
+      }
     } else {
-      barContactTimeout = 0;
+      if (climberWinchSubsystem.isLeftStalled()) {
+        lStall = true;
+      }
+      if (climberWinchSubsystem.isRightStalled()) {
+        rStall = true;
+      }
+      if (!lStall) {
+        leftSpeed = -Constants.CLIMBER_WINCH_SPEED;
+      }
+      if (!rStall) {
+        rightSpeed = -Constants.CLIMBER_WINCH_SPEED;
+      }    
     }
+
+    climberWinchSubsystem.setLeftWinchSpeed(leftSpeed);
+    climberWinchSubsystem.setRightWinchSpeed(rightSpeed);
   }
 
   // Called once the command ends or is interrupted.
@@ -63,6 +79,8 @@ public class AutoMoveClimberWinch extends LoggedCommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (climberWinchSubsystem.getRightVoltage() == 0 && climberWinchSubsystem.getLeftVoltage() == 0) || initTime > Constants.CLIMBER_ARM_TIMEOUT;
+    return ((rStall && lStall && (direction == Direction.DOWN)) || 
+    (climberWinchSubsystem.getRightSwitch() && climberWinchSubsystem.getLeftSwitch() && (direction == Direction.UP)) ||
+    ((Timer.getFPGATimestamp() - initTime) >= Constants.CLIMBER_ARM_TIMEOUT));
   }
 }

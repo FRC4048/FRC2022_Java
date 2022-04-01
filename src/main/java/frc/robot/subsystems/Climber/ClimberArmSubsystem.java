@@ -105,12 +105,12 @@ public class ClimberArmSubsystem extends SubsystemBase {
     return rightMotorUtil.isStalled();
   }
 
-  public double getLeftVoltage() {
-    return leftArm.getBusVoltage();
+  public double getLeftCurrent() {
+    return leftArm.getSupplyCurrent();
   }
 
-  public double getRightVoltage() {
-    return rightArm.getBusVoltage();
+  public double getRightCurrent() {
+    return rightArm.getSupplyCurrent();
   }
 
   public double getLeftVelocity() {
@@ -143,8 +143,8 @@ public class ClimberArmSubsystem extends SubsystemBase {
     if (Constants.ENABLE_DEBUG) {
       SmartShuffleboard.put("Climber", "R Arm Encoder", getRightEncoder());
       SmartShuffleboard.put("Climber", "L Arm Encoder", getLeftEncoder());
-      SmartShuffleboard.put("Climber", "R Arm Voltage", getRightVoltage());
-      SmartShuffleboard.put("Climber", "L Arm Voltage", getLeftVoltage());
+      SmartShuffleboard.put("Climber", "R Arm Voltage", getRightCurrent());
+      SmartShuffleboard.put("Climber", "L Arm Voltage", getLeftCurrent());
     }
   }
 }

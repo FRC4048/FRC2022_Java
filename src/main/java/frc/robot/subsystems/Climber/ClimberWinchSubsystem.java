@@ -102,12 +102,12 @@ public class ClimberWinchSubsystem extends SubsystemBase {
     return rightMotorStall.isStalled();
   }
 
-  public double getLeftVoltage() {
-    return leftWinch.getBusVoltage();
+  public double getLeftCurrent() {
+    return leftWinch.getSupplyCurrent();
   }
 
-  public double getRightVoltage() {
-    return rightWinch.getBusVoltage();
+  public double getRightCurrent() {
+    return rightWinch.getSupplyCurrent();
   }
   
   public double getLeftVelocity() {
@@ -135,8 +135,8 @@ public class ClimberWinchSubsystem extends SubsystemBase {
     if (Constants.ENABLE_DEBUG) {
       SmartShuffleboard.put("Climber", "R Winch Encoder", getRightEncoder());
       SmartShuffleboard.put("Climber", "L Winch Encoder", getLeftEncoder());
-      SmartShuffleboard.put("Climber", "R Winch Voltage", getRightVoltage());
-      SmartShuffleboard.put("Climber", "L Winch Voltage", getLeftVoltage());
+      SmartShuffleboard.put("Climber", "R Winch Current", getRightCurrent());
+      SmartShuffleboard.put("Climber", "L Winch Current", getLeftCurrent());
       SmartShuffleboard.put("Climber", "R Winch Sensor", getRightSwitch());
       SmartShuffleboard.put("Climber", "L Winch Sensor", getLeftSwitch());
     }

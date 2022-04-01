@@ -14,19 +14,16 @@ import frc.robot.subsystems.Climber.ClimberArmSubsystem;
 public class AutoMoveClimberArm extends LoggedCommandBase {
   /** Creates a new ManualMoveClimberArm. */
   private ClimberArmSubsystem climberArmSubsystem;
-  private double encoderDifference;
-  private double direction;
   private double initTime;
-  private boolean autoBalance;
+  public enum Direction {UP, DOWN}
+  private Direction direction;
 
-
-  public AutoMoveClimberArm(ClimberArmSubsystem climberArmSubsystem, double direction, boolean autoBalance) {
+  public AutoMoveClimberArm(ClimberArmSubsystem climberArmSubsystem, Direction direction) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.climberArmSubsystem = climberArmSubsystem;
     this.direction = direction;
-    this.autoBalance = autoBalance;
     addRequirements(climberArmSubsystem);
-    addLog(direction);
+    addLog(direction.name());
   }
 
   // Called when the command is initially scheduled.
@@ -38,25 +35,42 @@ public class AutoMoveClimberArm extends LoggedCommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double rightSpeed = Constants.CLIMBER_ARM_SPEED * direction, leftSpeed = Constants.CLIMBER_ARM_SPEED * direction;
-    if (autoBalance) {
-      encoderDifference = Math.abs(climberArmSubsystem.getRightEncoder() - climberArmSubsystem.getLeftEncoder());    
+    double rightSpeed = 0, leftSpeed = 0;
+    // if (autoBalance) {
+    //   encoderDifference = Math.abs(climberArmSubsystem.getRightEncoder() - climberArmSubsystem.getLeftEncoder());    
 
-      if (climberArmSubsystem.getRightVelocity() < 1 || climberArmSubsystem.isRightStalled()) {
-        rightSpeed = 0;
-      }
-      if (climberArmSubsystem.getLeftVelocity() < 1 || climberArmSubsystem.isLeftStalled()) {
-        leftSpeed = 0;
-      }
+    //   if (climberArmSubsystem.getRightVelocity() < 1 || climberArmSubsystem.isRightStalled()) {
+    //     rightSpeed = 0;
+    //   }
+    //   if (climberArmSubsystem.getLeftVelocity() < 1 || climberArmSubsystem.isLeftStalled()) {
+    //     leftSpeed = 0;
+    //   }
 
-      if (Math.abs(climberArmSubsystem.getRightEncoder()) > Math.abs(climberArmSubsystem.getLeftEncoder())+Constants.CLIMBER_MAX_ENCODER_DIFF) {
-        rightSpeed *= (1-(encoderDifference/Constants.CLIMBER_MAX_ENCODER_DIFF*Constants.CLIMBER_MIN_ARM_SPEED));
-     } else if (Math.abs(climberArmSubsystem.getLeftEncoder()) > Math.abs(climberArmSubsystem.getRightEncoder())+Constants.CLIMBER_MAX_ENCODER_DIFF) {
-        leftSpeed *= (1-(encoderDifference/Constants.CLIMBER_MAX_ENCODER_DIFF*Constants.CLIMBER_MIN_ARM_SPEED));
-     }
-    }
+    //   if (Math.abs(climberArmSubsystem.getRightEncoder()) > Math.abs(climberArmSubsystem.getLeftEncoder())+Constants.CLIMBER_MAX_ENCODER_DIFF) {
+    //     rightSpeed *= (1-(encoderDifference/Constants.CLIMBER_MAX_ENCODER_DIFF*Constants.CLIMBER_MIN_ARM_SPEED));
+    //  } else if (Math.abs(climberArmSubsystem.getLeftEncoder()) > Math.abs(climberArmSubsystem.getRightEncoder())+Constants.CLIMBER_MAX_ENCODER_DIFF) {
+    //     leftSpeed *= (1-(encoderDifference/Constants.CLIMBER_MAX_ENCODER_DIFF*Constants.CLIMBER_MIN_ARM_SPEED));
+    //  }
+    // }
+    if (direction == Direction.UP) {
+      if (!climberArmSubsystem.getLeftTopSensor()) {
+        leftSpeed = Constants.CLIMBER_ARM_SPEED;
+      }
+      if (!climberArmSubsystem.getRightTopSensor()) {
+        rightSpeed = Constants.CLIMBER_ARM_SPEED;
+      }
+    } else {
+        if (!climberArmSubsystem.getLeftBotSensor()) {
+          leftSpeed = -Constants.CLIMBER_ARM_SPEED;
+        }
+        if (!climberArmSubsystem.getRightBotSensor()) {
+          rightSpeed = -Constants.CLIMBER_ARM_SPEED;
+        }
+      }
+   
     climberArmSubsystem.setRightArmSpeed(rightSpeed);
     climberArmSubsystem.setLeftArmSpeed(leftSpeed);
+    
   }
  
 
@@ -70,6 +84,9 @@ public class AutoMoveClimberArm extends LoggedCommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (climberArmSubsystem.getRightVoltage() == 0 && climberArmSubsystem.getLeftVoltage() == 0) || Timer.getFPGATimestamp() - initTime >= Constants.CLIMBER_ARM_TIMEOUT;
+    return (climberArmSubsystem.getRightTopSensor() && climberArmSubsystem.getLeftTopSensor() && (direction == Direction.UP)) || 
+    (climberArmSubsystem.getRightBotSensor() && climberArmSubsystem.getLeftBotSensor() && (direction == Direction.DOWN)) || 
+    ((Timer.getFPGATimestamp() - initTime) >= Constants.CLIMBER_ARM_TIMEOUT);
+    
   }
 }

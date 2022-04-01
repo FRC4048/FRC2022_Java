@@ -57,6 +57,6 @@ public class MoveClimberWinchForTicks extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-   return (climberWinchSubsystem.getLeftVoltage() == 0 && climberWinchSubsystem.getRightVoltage() == 0) || initTime > Constants.CLIMBER_ARM_TIMEOUT;
+   return (climberWinchSubsystem.getLeftCurrent() == 0 && climberWinchSubsystem.getRightCurrent() == 0) || initTime > Constants.CLIMBER_ARM_TIMEOUT;
   }
 }

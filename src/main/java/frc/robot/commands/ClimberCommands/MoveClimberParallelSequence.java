@@ -20,8 +20,8 @@ public class MoveClimberParallelSequence extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
 
     addCommands(
-      new LogCommandWrapper(new AutoMoveClimberArm(climberArmSubsystem, direction, false)),
-      new LogCommandWrapper(new AutoMoveClimberWinch(climberWinchSubsystem, direction, false))
+      //new LogCommandWrapper(new AutoMoveClimberArm(climberArmSubsystem, direction, false)),
+      //new LogCommandWrapper(new AutoMoveClimberWinch(climberWinchSubsystem, direction, false))
     );
   }
 }
