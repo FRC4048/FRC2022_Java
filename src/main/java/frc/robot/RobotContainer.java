@@ -21,7 +21,6 @@ import frc.robot.commands.Autonomous.DoNothingSequence;
 import frc.robot.commands.Autonomous.OneShotSequenceMiddle;
 import frc.robot.commands.Autonomous.TwoShotSequenceLeft;
 import frc.robot.commands.Autonomous.TwoShotSequenceRight;
-import frc.robot.commands.ClimberCommands.Climb3Inches;
 import frc.robot.commands.ClimberCommands.ExtendClimberSequence;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
@@ -197,7 +196,6 @@ public class RobotContainer {
     backButton.whenPressed(new LogCommandWrapper(new CancelAll(intakeSubsystem, shooterSubsystem)));
 
     climberButtonA.whenPressed(new LogCommandWrapper(new WinchExtend(climberWinchSubsystem)));
-    climberButtonB.whenPressed(new LogCommandWrapper(new Climb3Inches(climberWinchSubsystem)));
   }
 
   public IntakeSubsystem getIntakeSubsystem() {

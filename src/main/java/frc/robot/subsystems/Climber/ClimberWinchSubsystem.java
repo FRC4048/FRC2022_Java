@@ -19,19 +19,20 @@ import frc.robot.utils.MotorUtils;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.DiagSwitch;
 import frc.robot.utils.diag.DiagTalonSrxEncoder;
-import frc.robot.utils.diag.DiagTalonSrxSwitch;
 
 public class ClimberWinchSubsystem extends SubsystemBase {
   /** Creates a new ClimberWinchSubsystem. */
   private WPI_TalonSRX leftWinch, rightWinch;
   private MotorUtils leftMotorContact, rightMotorContact, leftMotorStall, rightMotorStall;
   private DigitalInput leftSensor, rightSensor;
+  private PowerDistribution powerDistribution;
   public ClimberWinchSubsystem(PowerDistribution m_PowerDistPanel) {
   
     leftWinch = new WPI_TalonSRX(Constants.CLIMBER_LEFT_WINCH_ID);
     rightWinch = new WPI_TalonSRX(Constants.CLIMBER_RIGHT_WINCH_ID);
     leftSensor = new DigitalInput(Constants.CLIMBER_L_WINCH_SENSOR);
     rightSensor = new DigitalInput(Constants.CLIMBER_R_WINCH_SENSOR);
+    powerDistribution = m_PowerDistPanel;
 
     leftMotorContact = new MotorUtils(Constants.PDP_CLIMBER_L_ARM, Constants.WINCH_CONTACT_V, Constants.WINCH_CONTACT_V_TIMEOUT, m_PowerDistPanel);
     rightMotorContact = new MotorUtils(Constants.PDP_CLIMBER_R_ARM, Constants.WINCH_CONTACT_V, Constants.WINCH_CONTACT_V_TIMEOUT, m_PowerDistPanel);
@@ -103,19 +104,12 @@ public class ClimberWinchSubsystem extends SubsystemBase {
   }
 
   public double getLeftCurrent() {
-    return leftWinch.getSupplyCurrent();
+    //return leftWinch.getBusVoltage();
+    return powerDistribution.getCurrent(Constants.PDP_CLIMBER_L_WINCH);
   }
 
   public double getRightCurrent() {
-    return rightWinch.getSupplyCurrent();
-  }
-  
-  public double getLeftVelocity() {
-    return leftWinch.getActiveTrajectoryVelocity();
-  }
-
-  public double getRightVelocity() {
-    return rightWinch.getActiveTrajectoryVelocity();
+    return powerDistribution.getCurrent(Constants.PDP_CLIMBER_R_WINCH);
   }
 
   public boolean getLeftSwitch() {
