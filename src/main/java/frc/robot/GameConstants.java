@@ -83,6 +83,7 @@ public interface GameConstants {
 
   //Drive
   public static final double CONTROLLER_DEAD_ZONE = 0.15;
+  public static final double AUTO_MOVE_TURN_SPEED = 0.2;
 
   // Turret
   public static final double TURRET_CLOCKWISE_SPEED = .5;

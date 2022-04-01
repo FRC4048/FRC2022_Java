@@ -2,19 +2,20 @@ package frc.robot.commands.DriveCommands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
 
 public class AutoTurnDegrees extends CommandBase{
 
     private DriveTrain driveTrain;
-    private double TurnDegrees;
+    private double turnDegrees;
     private double startTime;
     private double startDegrees;
-    private double TURN_SPEED = 0.2;
+    private double turnSpeed = Constants.AUTO_MOVE_TURN_SPEED;
 
     public AutoTurnDegrees(DriveTrain driveTrain, double angleToTurn) {
         this.driveTrain = driveTrain;
-        this.TurnDegrees = angleToTurn;
+        this.turnDegrees = angleToTurn;
     }
 
     @Override
@@ -25,10 +26,10 @@ public class AutoTurnDegrees extends CommandBase{
 
     @Override
     public void execute() {
-        if (TurnDegrees > 0) {
-            driveTrain.drive(TURN_SPEED, -TURN_SPEED, false);
-        } else if (TurnDegrees < 0) {
-            driveTrain.drive(-TURN_SPEED, TURN_SPEED, false);
+        if (turnDegrees > 0) {
+            driveTrain.drive(turnSpeed, -turnSpeed, false);
+        } else if (turnDegrees < 0) {
+            driveTrain.drive(-turnSpeed, turnSpeed, false);
         }
     }
 
@@ -43,7 +44,7 @@ public class AutoTurnDegrees extends CommandBase{
             return true;
         }
         double turnedSoFar = driveTrain.getAngle() - startDegrees;
-        if (Math.abs(turnedSoFar) >= Math.abs(TurnDegrees)) {
+        if (Math.abs(turnedSoFar) >= Math.abs(turnDegrees)) {
             return true;
         }
         return false;
