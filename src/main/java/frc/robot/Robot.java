@@ -68,6 +68,10 @@ public class Robot extends TimedRobot {
     if (isLogging) {
       Logging.instance().writeAllData();
     }
+
+    if (Constants.ENABLE_DEBUG) {
+      SmartShuffleboard.put("Shooter", "State", target_state);
+    }
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
