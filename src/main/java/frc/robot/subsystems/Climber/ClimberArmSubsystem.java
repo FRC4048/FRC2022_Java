@@ -27,8 +27,10 @@ public class ClimberArmSubsystem extends SubsystemBase {
   private WPI_TalonSRX leftArm, rightArm;
   private Solenoid climberLPiston, climberRPiston;
   private MotorUtils leftMotorUtil, rightMotorUtil;
+  private PowerDistribution m_PowerDistPanel;
   
   public ClimberArmSubsystem(PowerDistribution m_PowerDistPanel) {
+    this.m_PowerDistPanel = m_PowerDistPanel;
     leftArm = new WPI_TalonSRX(Constants.CLIMBER_LEFT_ARM_ID);
     rightArm = new WPI_TalonSRX(Constants.CLIMBER_RIGHT_ARM_ID);
     climberLPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_L_PISTON_ID);
@@ -105,6 +107,14 @@ public class ClimberArmSubsystem extends SubsystemBase {
     return rightMotorUtil.isStalled();
   }
 
+  public double getLeftCurrent() {
+    return m_PowerDistPanel.getCurrent(Constants.PDP_CLIMBER_L_ARM);
+  }
+
+  public double getRightCurrent() {
+    return m_PowerDistPanel.getCurrent(Constants.PDP_CLIMBER_R_ARM);
+  }
+
   public boolean getLeftTopSensor() {
     return leftArm.getSensorCollection().isFwdLimitSwitchClosed();
   }
@@ -127,6 +137,8 @@ public class ClimberArmSubsystem extends SubsystemBase {
     if (Constants.ENABLE_DEBUG) {
       SmartShuffleboard.put("Climber", "R Arm Encoder", getRightEncoder());
       SmartShuffleboard.put("Climber", "L Arm Encoder", getLeftEncoder());
+      SmartShuffleboard.put("Climber", "R Arm Current", getRightCurrent());
+      SmartShuffleboard.put("Climber", "L Arm Current", getLeftCurrent());
     }
   }
 }

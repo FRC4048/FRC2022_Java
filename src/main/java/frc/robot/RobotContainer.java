@@ -25,6 +25,7 @@ import frc.robot.commands.ClimberCommands.AutoMoveClimberArm.Direction;
 import frc.robot.commands.ClimberCommands.ExtendClimberSolenoid;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
+import frc.robot.commands.ClimberCommands.MoveClimberToNextBar;
 import frc.robot.commands.ClimberCommands.RetractClimberSequence;
 import frc.robot.commands.ClimberCommands.InitialClimbSequence;
 import frc.robot.commands.ClimberCommands.RetractClimberSolenoid;
@@ -103,6 +104,7 @@ public class RobotContainer {
   private JoystickButton retractClimber = new JoystickButton(climberController, Constants.XBOX_B_BUTTON);
   private JoystickButton staticLock = new JoystickButton(climberController, Constants.XBOX_LEFT_BUMPER);
   private JoystickButton staticUnlock = new JoystickButton(climberController, Constants.XBOX_RIGHT_BUMPER);
+  private JoystickButton moveToBar = new JoystickButton(climberController, Constants.XBOX_Y_BUTTON);
 
   private JoystickButton buttonY = new JoystickButton(xboxController, Constants.XBOX_Y_BUTTON);
   private JoystickButton buttonX = new JoystickButton(xboxController, Constants.XBOX_X_BUTTON);
@@ -187,6 +189,7 @@ public class RobotContainer {
     retractClimber.whenPressed(new LogCommandWrapper(new RetractClimberSequence(climberWinchSubsystem)));
     staticLock.whenPressed(new LogCommandWrapper(new ExtendClimberSolenoid(climberArmSubsystem)));
     staticUnlock.whenPressed(new LogCommandWrapper(new RetractClimberSolenoid(climberArmSubsystem)));
+    moveToBar.whenPressed(new LogCommandWrapper(new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem)));
     
     buttonA.whenPressed(new LogCommandWrapper(new IntakeSequence(intakeSubsystem)));
     buttonB.whenPressed(new LogCommandWrapper(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED)));

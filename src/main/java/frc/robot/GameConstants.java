@@ -52,17 +52,17 @@ public interface GameConstants {
 
 
   //Climber
-  public static final double CLIMBER_V_LIMIT = 15;
+  public static final double CLIMBER_V_LIMIT = 10;
   public static final double WINCH_CONTACT_V = 20;
-  public static final double WINCH_V_LIMIT = 15;
+  public static final double WINCH_V_LIMIT = 3;
   public static final double CLIMBER_ARM_V_TIMEOUT = 0.3;
   public static final double WINCH_CONTACT_V_TIMEOUT = 1;
   public static final double WINCH_CONTACT_TIMEOUT = 2;
   public static final double CLIMBER_WINCH_V_TIMEOUT = 0.3;
   public static final double CLIMBER_SLOW_ARM_RATE = 0.75;
   public static final double CLIMBER_SLOW_WINCH_RATE = 0.75;
-  public static final double CLIMBER_ARM_SPEED = .5;
-  public static final double CLIMBER_WINCH_SPEED = .7;
+  public static final double CLIMBER_ARM_SPEED = .75;
+  public static final double CLIMBER_WINCH_SPEED = .75;
   public static final double CLIMBER_MIN_ARM_SPEED = 0.1;
   public static final double CLIMBER_MIN_WINCH_SPEED = 0.1;
   public static final double CLIMBER_MAX_ENCODER_DIFF = 1000;

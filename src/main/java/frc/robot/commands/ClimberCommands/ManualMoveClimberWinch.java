@@ -13,6 +13,8 @@ public class ManualMoveClimberWinch extends CommandBase {
   /** Creates a new ManualMoveClimberWinch. */
   private ClimberWinchSubsystem climberWinchSubsystem;
   private XboxController climberController;
+  private boolean lStop = false, rStop = false;
+
   public ManualMoveClimberWinch(ClimberWinchSubsystem climberWinchSubsystem, XboxController climberController) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.climberWinchSubsystem = climberWinchSubsystem;
@@ -23,23 +25,35 @@ public class ManualMoveClimberWinch extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     double rightSpeed = 0, leftSpeed = 0;
-    double joySpeed = climberController.getRightY();
+    double joySpeed = -climberController.getRightY();
     //boolean isStalled = false;
-    
+    if (climberWinchSubsystem.isLeftStalled() || climberWinchSubsystem.getLeftBotSwitch()) {
+      lStop = true;
+    }
+    if (climberWinchSubsystem.isRightStalled() || climberWinchSubsystem.getRightBotSwitch()) {
+      rStop = true;
+    }
     if (joySpeed > Constants.CLIMBER_DEAD_ZONE) {
-      rightSpeed = joySpeed*Constants.CLIMBER_WINCH_SPEED;
-      leftSpeed = joySpeed*Constants.CLIMBER_WINCH_SPEED;
+      rightSpeed = Constants.CLIMBER_WINCH_SPEED * joySpeed;
+      leftSpeed = Constants.CLIMBER_WINCH_SPEED * joySpeed;
+      lStop = false;
+      rStop = false;  
     } 
-    // else if (joySpeed) < -Constants.CLIMBER_DEAD_ZONE && !isStalled) {
-    //   rightSpeed = -Constants.CLIMBER_WINCH_SPEED * joySpeed;
-    //   leftSpeed = -Constants.CLIMBER_WINCH_SPEED * joySpeed;
-    // }
+    else if (joySpeed < -Constants.CLIMBER_DEAD_ZONE){      
+      if (!lStop) {
+        leftSpeed = joySpeed*Constants.CLIMBER_WINCH_SPEED;
+      }
+      if (!rStop) {
+        rightSpeed = joySpeed*Constants.CLIMBER_WINCH_SPEED;
+      }
+    }
 
     if (climberController.getRightTriggerAxis() > 0.5) {
       rightSpeed *= Constants.CLIMBER_SLOW_WINCH_RATE; 
@@ -49,7 +63,7 @@ public class ManualMoveClimberWinch extends CommandBase {
 
     climberWinchSubsystem.setRightWinchSpeed(rightSpeed);
     climberWinchSubsystem.setLeftWinchSpeed(leftSpeed);
-  
+    
   }
 
   // Called once the command ends or is interrupted.

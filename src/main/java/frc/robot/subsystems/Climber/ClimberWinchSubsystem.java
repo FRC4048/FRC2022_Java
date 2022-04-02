@@ -36,13 +36,14 @@ public class ClimberWinchSubsystem extends SubsystemBase {
 
     //leftMotorContact = new MotorUtils(Constants.PDP_CLIMBER_L_ARM, Constants.WINCH_CONTACT_V, Constants.WINCH_CONTACT_V_TIMEOUT, m_PowerDistPanel);
     //rightMotorContact = new MotorUtils(Constants.PDP_CLIMBER_R_ARM, Constants.WINCH_CONTACT_V, Constants.WINCH_CONTACT_V_TIMEOUT, m_PowerDistPanel);
-    leftMotorStall = new MotorUtils(Constants.PDP_CLIMBER_L_ARM, Constants.WINCH_V_LIMIT, Constants.CLIMBER_WINCH_V_TIMEOUT, m_PowerDistPanel);
-    rightMotorStall = new MotorUtils(Constants.PDP_CLIMBER_R_ARM, Constants.WINCH_V_LIMIT, Constants.CLIMBER_WINCH_V_TIMEOUT, m_PowerDistPanel);
+    leftMotorStall = new MotorUtils(Constants.PDP_CLIMBER_L_WINCH, Constants.WINCH_V_LIMIT, Constants.CLIMBER_WINCH_V_TIMEOUT, m_PowerDistPanel);
+    rightMotorStall = new MotorUtils(Constants.PDP_CLIMBER_R_WINCH, Constants.WINCH_V_LIMIT, Constants.CLIMBER_WINCH_V_TIMEOUT, m_PowerDistPanel);
 
-    leftWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-    rightWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     leftWinch.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     rightWinch.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    //leftWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    //rightWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+
 
     Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Left Winch Encoder", 100, leftWinch));
     Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Right Winch Encoder", 100, rightWinch));
@@ -111,20 +112,32 @@ public class ClimberWinchSubsystem extends SubsystemBase {
     return powerDistribution.getCurrent(Constants.PDP_CLIMBER_R_WINCH);
   }
 
+  /**
+   * True when tripped, false when open
+   */
   public boolean getLeftTopSwitch() {
-    return leftWinch.getSensorCollection().isFwdLimitSwitchClosed();
-  }
-
-  public boolean getRightTopSwitch() {
-    return rightWinch.getSensorCollection().isFwdLimitSwitchClosed();
-  }
-
-  public boolean getLeftBotSwitch() {
     return leftWinch.getSensorCollection().isRevLimitSwitchClosed();
   }
 
-  public boolean getRightBotSwitch() {
+  /**
+   * True when tripped, false when open
+   */
+  public boolean getRightTopSwitch() {
     return rightWinch.getSensorCollection().isRevLimitSwitchClosed();
+  }
+
+  /** 
+   * True when tripped, false when open
+   */
+  public boolean getLeftBotSwitch() {
+    return !leftSensor.get();
+  }
+
+  /**
+   * True when tripped, false when open
+   */
+  public boolean getRightBotSwitch() {
+    return !rightSensor.get();
   }
 
 
