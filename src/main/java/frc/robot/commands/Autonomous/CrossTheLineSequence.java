@@ -17,6 +17,6 @@ public class CrossTheLineSequence extends SequentialCommandGroup {
   public CrossTheLineSequence(DriveTrain driveTrain) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new MoveDistance(driveTrain, Constants.AUTO_MOVE_SPEED, Constants.AUTO_DISTANCE_INCHES));
+    addCommands(new MoveDistance(driveTrain, 0.4, 70));
   }
 }

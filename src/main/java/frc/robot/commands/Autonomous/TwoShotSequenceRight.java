@@ -30,7 +30,7 @@ public class TwoShotSequenceRight extends SequentialCommandGroup {
     addCommands(
       //new MoveAndMoveHood(driveTrain, speed, 12, hood),
       new MoveHoodToAngle(hood, 109.0),
-      new NonVisionParallelShootDeployIntake(shooterSubsystem, intakeSubsystem, 11900),
+      new NonVisionParallelShootDeployIntake(shooterSubsystem, intakeSubsystem, 12100),
       new ParralelMoveAndTurretResetAndIntake(driveTrain, 0.4, 40, turretSubsystem, turretSpeed, intakeSubsystem, hood),
       new AutoTargetSequence(turretSubsystem, limeLightVision, hood),
       //new WaitCommand(0.8),
