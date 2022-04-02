@@ -58,7 +58,7 @@ public interface GameConstants {
   public static final double CLIMBER_SLOW_ARM_RATE = 0.75;
   public static final double CLIMBER_SLOW_WINCH_RATE = 0.75;
   public static final double CLIMBER_ARM_SPEED = .4;
-  public static final double CLIMBER_WINCH_SPEED = .4;
+  public static final double CLIMBER_WINCH_SPEED = .8;
   // public static final double CLIMBER_MIN_ARM_SPEED = 0.1;
   // public static final double CLIMBER_MIN_WINCH_SPEED = 0.1;
   // public static final double CLIMBER_MAX_ENCODER_DIFF = 1000;

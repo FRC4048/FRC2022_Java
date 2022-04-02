@@ -90,19 +90,19 @@ public class ClimberArmSubsystem extends SubsystemBase {
   }
 
   public boolean getLeftBotSensor() {
-    return leftArm.getSensorCollection().isFwdLimitSwitchClosed();
-  }
-
-  public boolean getLeftTopSensor() {
     return leftArm.getSensorCollection().isRevLimitSwitchClosed();
   }
 
+  public boolean getLeftTopSensor() {
+    return leftArm.getSensorCollection().isFwdLimitSwitchClosed();
+  }
+
   public boolean getRightBotSensor() {
-    return rightArm.getSensorCollection().isFwdLimitSwitchClosed();
+    return rightArm.getSensorCollection().isRevLimitSwitchClosed();
   }
 
   public boolean getRightTopSensor() {
-    return rightArm.getSensorCollection().isRevLimitSwitchClosed();
+    return rightArm.getSensorCollection().isFwdLimitSwitchClosed();
   }
   
   @Override
