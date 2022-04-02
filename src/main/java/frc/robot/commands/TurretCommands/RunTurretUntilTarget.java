@@ -15,7 +15,7 @@ public class RunTurretUntilTarget extends CommandBase {
   private TurretSubsystem turretSubsystem;
   private LimeLightVision limeLightVision;
   private double turretSpeed;
-  private double initTime;
+
   public RunTurretUntilTarget(TurretSubsystem turretSubsystem, LimeLightVision limeLightVision, double turretSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.turretSubsystem = turretSubsystem;
@@ -25,18 +25,15 @@ public class RunTurretUntilTarget extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    initTime = Timer.getFPGATimestamp();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (turretSubsystem.getRightSwitch() && turretSpeed < 0) {
-      turretSpeed = -turretSpeed;
-    }
-    if (turretSubsystem.getLeftSwitch() && turretSpeed > 0) {
-      turretSpeed = -turretSpeed;
+    if (((turretSubsystem.getEncoder() >= Constants.TURRET_RIGHT_THRESHOLD) && turretSpeed < 0) || 
+        ((turretSubsystem.getEncoder() <= Constants.TURRET_LEFT_THRESHOLD) && turretSpeed > 0)) {
+
+          turretSpeed = -turretSpeed;
     }
     turretSubsystem.setTurret(turretSpeed);
   }
@@ -50,11 +47,6 @@ public class RunTurretUntilTarget extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (limeLightVision.hasTarget() == true || Timer.getFPGATimestamp() - initTime >= Constants.TURRETSPIN_TIMEOUT) {
-      return true;
-    }
-    else {
-      return false;
-    }
+    return (limeLightVision.hasTarget() == true);
   }
 }

@@ -104,6 +104,8 @@ public interface GameConstants {
   public static final double TURRET_ERROR_THRESHOLD = 6;
   public static final double TURRET_FAST_SPEED = 0.4;
   public static final double TURRET_SLOW_SPEED = 0.1;
+  public static final double TURRET_RIGHT_THRESHOLD = 830; //placeholder
+  public static final double TURRET_LEFT_THRESHOLD = 20; //placeholder
 
   //Autonomous
   public static final double AUTO_TURRET_SPEED = 0.5;
