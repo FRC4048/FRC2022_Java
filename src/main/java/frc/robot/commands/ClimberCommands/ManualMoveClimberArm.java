@@ -32,19 +32,11 @@ public class ManualMoveClimberArm extends CommandBase {
 
     double joySpeed = climberController.getLeftY();
     
-    if (Math.abs(climberController.getLeftY()) > Constants.CLIMBER_DEAD_ZONE) {
-      rightSpeed = Constants.CLIMBER_ARM_SPEED * joySpeed;
-      leftSpeed = Constants.CLIMBER_ARM_SPEED * joySpeed;
-    } else if (climberController.getLeftY() < -Constants.CLIMBER_DEAD_ZONE) {
+    if (Math.abs(joySpeed) > Constants.CLIMBER_DEAD_ZONE) {
       rightSpeed = Constants.CLIMBER_ARM_SPEED * joySpeed;
       leftSpeed = Constants.CLIMBER_ARM_SPEED * joySpeed;
     }
 
-    if (climberController.getRightBumperPressed()) {
-      rightSpeed *= Constants.CLIMBER_SLOW_ARM_RATE; 
-    } else if (climberController.getLeftBumperPressed()) {
-      leftSpeed *= Constants.CLIMBER_SLOW_ARM_RATE;
-    }
 
     climberArmSubsystem.setRightArmSpeed(rightSpeed);
     climberArmSubsystem.setLeftArmSpeed(leftSpeed);

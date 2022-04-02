@@ -2,17 +2,17 @@ package frc.robot.commands.ClimberCommands;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.commands.LoggedCommandBase;
-import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.utils.limelight.LimeLightVision;
 
 public class ClimberLockTurret extends LoggedCommandBase{
 
     private TurretSubsystem turret;
-    private LimelightSubsystem limelight;
+    private LimeLightVision limelight;
 
     private double initTime;
 
-    public ClimberLockTurret (TurretSubsystem turret, LimelightSubsystem limelight) {
+    public ClimberLockTurret (TurretSubsystem turret, LimeLightVision limelight) {
         this.turret = turret;
         this.limelight = limelight;
     }
@@ -20,7 +20,7 @@ public class ClimberLockTurret extends LoggedCommandBase{
     @Override
     public void initialize() {
         initTime = Timer.getFPGATimestamp();
-        limelight.getLimeLightVision().setPipeline(0);
+        limelight.setPipeline(0);
     }
 
     @Override

@@ -10,10 +10,7 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -25,7 +22,6 @@ import frc.robot.utils.diag.DiagTalonSrxSwitch;
 public class ClimberArmSubsystem extends SubsystemBase {
   /** Creates a new ClimberArmSubsystem. */
   private WPI_TalonSRX leftArm, rightArm;
-  private Solenoid climberLPiston, climberRPiston;
   private MotorUtils leftMotorUtil, rightMotorUtil;
   private PowerDistribution m_PowerDistPanel;
   
@@ -33,11 +29,6 @@ public class ClimberArmSubsystem extends SubsystemBase {
     this.m_PowerDistPanel = m_PowerDistPanel;
     leftArm = new WPI_TalonSRX(Constants.CLIMBER_LEFT_ARM_ID);
     rightArm = new WPI_TalonSRX(Constants.CLIMBER_RIGHT_ARM_ID);
-    climberLPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_L_PISTON_ID);
-    climberRPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_R_PISTON_ID);
-
-    leftMotorUtil = new MotorUtils(Constants.PDP_CLIMBER_L_ARM, Constants.CLIMBER_V_LIMIT, Constants.CLIMBER_ARM_V_TIMEOUT, m_PowerDistPanel);
-    rightMotorUtil = new MotorUtils(Constants.PDP_CLIMBER_R_ARM, Constants.CLIMBER_V_LIMIT, Constants.CLIMBER_ARM_V_TIMEOUT, m_PowerDistPanel);
 
     leftArm.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     leftArm.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
@@ -68,15 +59,6 @@ public class ClimberArmSubsystem extends SubsystemBase {
 
   public void setRightArmSpeed(double speed) {
     rightArm.set(ControlMode.PercentOutput, speed);  
-  }
-
-  public void movePiston(boolean state) {
-    climberLPiston.set(state);
-    climberRPiston.set(state);
-  }
-
-  public boolean getPistonState() {
-    return climberLPiston.get();
   }
 
   public void stopArms() {
@@ -115,7 +97,7 @@ public class ClimberArmSubsystem extends SubsystemBase {
     return m_PowerDistPanel.getCurrent(Constants.PDP_CLIMBER_R_ARM);
   }
 
-  public boolean getLeftTopSensor() {
+  public boolean getLeftHookSwitch() {
     return leftArm.getSensorCollection().isFwdLimitSwitchClosed();
   }
 
@@ -123,12 +105,12 @@ public class ClimberArmSubsystem extends SubsystemBase {
     return leftArm.getSensorCollection().isRevLimitSwitchClosed();
   }
 
-  public boolean getRightTopSensor() {
+  public boolean getRightHookSwitch() {
     return rightArm.getSensorCollection().isFwdLimitSwitchClosed();
   }
 
   public boolean getRightBotSensor() {
-    return leftArm.getSensorCollection().isRevLimitSwitchClosed();
+    return rightArm.getSensorCollection().isRevLimitSwitchClosed();
   }
   
   @Override
@@ -139,6 +121,9 @@ public class ClimberArmSubsystem extends SubsystemBase {
       SmartShuffleboard.put("Climber", "L Arm Encoder", getLeftEncoder());
       SmartShuffleboard.put("Climber", "R Arm Current", getRightCurrent());
       SmartShuffleboard.put("Climber", "L Arm Current", getLeftCurrent());
+      SmartShuffleboard.put("Climber", "L Hook Switch", getLeftHookSwitch());
+      SmartShuffleboard.put("Climber", "R Hook Switch", getRightHookSwitch());
+      
 
       // Note this will change the stalled variable in isStalled
       SmartShuffleboard.put("Climber", "Left Arm Stalled", isLeftStalled());

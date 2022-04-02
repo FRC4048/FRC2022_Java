@@ -5,7 +5,7 @@
 package frc.robot.commands.ClimberCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.ClimberCommands.AutoMoveClimberArm.Direction;
+import frc.robot.commands.ClimberCommands.AutoMoveClimberArm.ClimberDirection;
 import frc.robot.subsystems.Climber.ClimberWinchSubsystem;
 import frc.robot.utils.logging.LogCommandWrapper;
 
@@ -18,7 +18,7 @@ public class RetractClimberSequence extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new LogCommandWrapper(new AutoMoveClimberWinch(climberWinchSubsystem, Direction.DOWN))
+      new LogCommandWrapper(new AutoMoveClimberWinch(climberWinchSubsystem, ClimberDirection.RETRACT))
     );
   }
 }

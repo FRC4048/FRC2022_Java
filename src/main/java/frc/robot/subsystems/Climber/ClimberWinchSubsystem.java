@@ -11,7 +11,9 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -26,6 +28,7 @@ public class ClimberWinchSubsystem extends SubsystemBase {
   private MotorUtils leftMotorStall, rightMotorStall;
   private DigitalInput leftSensor, rightSensor;
   private PowerDistribution powerDistribution;
+  private Solenoid climberLPiston, climberRPiston;
 
   public ClimberWinchSubsystem(PowerDistribution m_PowerDistPanel) {
   
@@ -33,10 +36,12 @@ public class ClimberWinchSubsystem extends SubsystemBase {
     rightWinch = new WPI_TalonSRX(Constants.CLIMBER_RIGHT_WINCH_ID);
     leftSensor = new DigitalInput(Constants.CLIMBER_L_WINCH_SENSOR);
     rightSensor = new DigitalInput(Constants.CLIMBER_R_WINCH_SENSOR);
+    
+    climberLPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_L_PISTON_ID);
+    climberRPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_R_PISTON_ID);
+
     powerDistribution = m_PowerDistPanel;
 
-    //leftMotorContact = new MotorUtils(Constants.PDP_CLIMBER_L_ARM, Constants.WINCH_CONTACT_V, Constants.WINCH_CONTACT_V_TIMEOUT, m_PowerDistPanel);
-    //rightMotorContact = new MotorUtils(Constants.PDP_CLIMBER_R_ARM, Constants.WINCH_CONTACT_V, Constants.WINCH_CONTACT_V_TIMEOUT, m_PowerDistPanel);
     leftMotorStall = new MotorUtils(Constants.PDP_CLIMBER_L_WINCH, Constants.WINCH_CURR_LIMIT, Constants.CLIMBER_WINCH_CURR_TIMEOUT, m_PowerDistPanel);
     rightMotorStall = new MotorUtils(Constants.PDP_CLIMBER_R_WINCH, Constants.WINCH_CURR_LIMIT, Constants.CLIMBER_WINCH_CURR_TIMEOUT, m_PowerDistPanel);
 
@@ -108,6 +113,15 @@ public class ClimberWinchSubsystem extends SubsystemBase {
   public void stop() {
     stopLeftWinch();
     stopRightWinch();
+  }
+
+  public void movePiston(boolean state) {
+    climberLPiston.set(state);
+    climberRPiston.set(state);
+  }
+
+  public boolean getPistonState() {
+    return climberLPiston.get();
   }
 
   public void stopLeftWinch() {
