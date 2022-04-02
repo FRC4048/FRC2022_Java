@@ -13,7 +13,6 @@ public class ManualMoveClimberWinch extends CommandBase {
   /** Creates a new ManualMoveClimberWinch. */
   private ClimberWinchSubsystem climberWinchSubsystem;
   private XboxController climberController;
-  private boolean lStop = false, rStop = false;
 
   public ManualMoveClimberWinch(ClimberWinchSubsystem climberWinchSubsystem, XboxController climberController) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -32,27 +31,16 @@ public class ManualMoveClimberWinch extends CommandBase {
   @Override
   public void execute() {
     double rightSpeed = 0, leftSpeed = 0;
+    // Right and Left Ys move backwards (up is -1, down is +1)
     double joySpeed = -climberController.getRightY();
-    //boolean isStalled = false;
-    if (climberWinchSubsystem.isLeftStalled() || climberWinchSubsystem.getLeftBotSwitch()) {
-      lStop = true;
-    }
-    if (climberWinchSubsystem.isRightStalled() || climberWinchSubsystem.getRightBotSwitch()) {
-      rStop = true;
-    }
+
     if (joySpeed > Constants.CLIMBER_DEAD_ZONE) {
       rightSpeed = Constants.CLIMBER_WINCH_SPEED * joySpeed;
       leftSpeed = Constants.CLIMBER_WINCH_SPEED * joySpeed;
-      lStop = false;
-      rStop = false;  
     } 
     else if (joySpeed < -Constants.CLIMBER_DEAD_ZONE){      
-      if (!lStop) {
         leftSpeed = joySpeed*Constants.CLIMBER_WINCH_SPEED;
-      }
-      if (!rStop) {
         rightSpeed = joySpeed*Constants.CLIMBER_WINCH_SPEED;
-      }
     }
 
     if (climberController.getRightTriggerAxis() > 0.5) {

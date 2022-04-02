@@ -5,7 +5,6 @@
 package frc.robot.commands.ClimberCommands;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.commands.LoggedCommandBase;
 import frc.robot.commands.ClimberCommands.AutoMoveClimberArm.Direction;
@@ -16,8 +15,6 @@ public class AutoMoveClimberWinch extends LoggedCommandBase {
   ClimberWinchSubsystem climberWinchSubsystem;
   private double initTime;
   private Direction direction;
-  private boolean lStall, rStall;
-
 
   public AutoMoveClimberWinch(ClimberWinchSubsystem climberWinchSubsystem, Direction direction) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -31,55 +28,41 @@ public class AutoMoveClimberWinch extends LoggedCommandBase {
   @Override
   public void initialize() {
     initTime = Timer.getFPGATimestamp();
-    lStall = false;
-    rStall = false;
-    //Reset Motor Utils Timeout
-    climberWinchSubsystem.isLeftStalled();
-    climberWinchSubsystem.isRightStalled();
    }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double rightSpeed = 0, leftSpeed = 0;
-    if (direction == Direction.UP) {
-      if (!climberWinchSubsystem.getLeftTopSwitch()) {
-        leftSpeed = Constants.CLIMBER_WINCH_SPEED;
-      }
-      if (!climberWinchSubsystem.getRightTopSwitch()) {
-        rightSpeed = Constants.CLIMBER_WINCH_SPEED;
-      }
-    } else {
-      if (climberWinchSubsystem.isLeftStalled()) {
-        lStall = true;
-      }
-      if (climberWinchSubsystem.isRightStalled()) {
-        rStall = true;
-      }
-      if (!lStall) {
-        leftSpeed = -Constants.CLIMBER_WINCH_SPEED;
-      }
-      if (!rStall) {
-        rightSpeed = -Constants.CLIMBER_WINCH_SPEED;
-      }    
+    double directionMultiplier = 1;
+    if (direction == Direction.DOWN) {
+      directionMultiplier = -1;
     }
 
-    climberWinchSubsystem.setLeftWinchSpeed(leftSpeed);
-    climberWinchSubsystem.setRightWinchSpeed(rightSpeed);
+    climberWinchSubsystem.setSpeed(Constants.CLIMBER_WINCH_SPEED * directionMultiplier);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climberWinchSubsystem.stopLeftWinch();
-    climberWinchSubsystem.stopRightWinch();
+    climberWinchSubsystem.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return ((rStall && lStall && (direction == Direction.DOWN)) || 
-    (climberWinchSubsystem.getRightTopSwitch() && climberWinchSubsystem.getLeftTopSwitch() && (direction == Direction.UP)) ||
-    ((Timer.getFPGATimestamp() - initTime) >= Constants.CLIMBER_ARM_TIMEOUT));
+    if ((Timer.getFPGATimestamp() - initTime) >= Constants.CLIMBER_ARM_TIMEOUT) {
+      return true;
+    }
+
+    if (direction == Direction.DOWN) {
+      if (((climberWinchSubsystem.getLeftOnBarSwitch() == true) && 
+          (climberWinchSubsystem.getRightOnBarSwitch() == true)) ||
+          (climberWinchSubsystem.isLeftEverStalled() && climberWinchSubsystem.isRightEverStalled())) {
+          return true;
+      }
+    }
+
+    return 
+    (climberWinchSubsystem.getRightStrapExtendedSwitch() && climberWinchSubsystem.getLeftStrapExtendedSwitch() && (direction == Direction.UP));
   }
 }

@@ -5,11 +5,9 @@
 package frc.robot.commands.ClimberCommands;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Climber.ClimberWinchSubsystem;
-import frc.robot.utils.SmartShuffleboard;
 
 public class WinchExtend extends CommandBase {
   /** Creates a new WinchExtend. */
@@ -33,11 +31,11 @@ public class WinchExtend extends CommandBase {
   public void execute() {
     double lSpeed = 0.5, rSpeed = 0.5;
     //SmartShuffleboard.put("Climber", "R Winch Cmd Sensor", climberWinchSubsystem.getRightSwitch());
-    if (!climberWinchSubsystem.getRightTopSwitch()) {
+    if (!climberWinchSubsystem.getRightStrapExtendedSwitch()) {
       rSpeed = 0;
     }
 
-    if (!climberWinchSubsystem.getLeftTopSwitch()) {
+    if (!climberWinchSubsystem.getLeftStrapExtendedSwitch()) {
       lSpeed = 0;
     }
 
@@ -55,7 +53,7 @@ public class WinchExtend extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return ((!climberWinchSubsystem.getLeftTopSwitch() && !climberWinchSubsystem.getRightTopSwitch()) || 
+    return ((!climberWinchSubsystem.getLeftStrapExtendedSwitch() && !climberWinchSubsystem.getRightStrapExtendedSwitch()) || 
             (Timer.getFPGATimestamp() - startTime >= Constants.EXTEND_WINCH_TIMEOUT));
   }
 }

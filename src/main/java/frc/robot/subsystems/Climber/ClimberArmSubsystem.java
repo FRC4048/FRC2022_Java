@@ -53,7 +53,7 @@ public class ClimberArmSubsystem extends SubsystemBase {
     
     leftArm.setNeutralMode(NeutralMode.Coast);
     rightArm.setNeutralMode(NeutralMode.Coast);
-
+    
     leftArm.setInverted(true);
   }
 
@@ -139,6 +139,10 @@ public class ClimberArmSubsystem extends SubsystemBase {
       SmartShuffleboard.put("Climber", "L Arm Encoder", getLeftEncoder());
       SmartShuffleboard.put("Climber", "R Arm Current", getRightCurrent());
       SmartShuffleboard.put("Climber", "L Arm Current", getLeftCurrent());
+
+      // Note this will change the stalled variable in isStalled
+      SmartShuffleboard.put("Climber", "Left Arm Stalled", isLeftStalled());
+      SmartShuffleboard.put("Climber", "Right Arm Stalled", isRightStalled());
     }
   }
 }
