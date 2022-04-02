@@ -21,7 +21,6 @@ public class AutoMoveClimberArm extends LoggedCommandBase {
   }
 
   private Direction direction;
-  private boolean lStall, rStall;
 
   public AutoMoveClimberArm(ClimberArmSubsystem climberArmSubsystem, Direction direction) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -35,8 +34,6 @@ public class AutoMoveClimberArm extends LoggedCommandBase {
   @Override
   public void initialize() {
     initTime = Timer.getFPGATimestamp();
-    lStall = false;
-    rStall = false;
     // Reset Motor Utils Timeout
     climberArmSubsystem.isLeftStalled();
     climberArmSubsystem.isRightStalled();
@@ -79,22 +76,16 @@ public class AutoMoveClimberArm extends LoggedCommandBase {
         rightSpeed = Constants.CLIMBER_ARM_SPEED;
       }
     } else {
-      if (climberArmSubsystem.isLeftStalled()) {
-        lStall = true;
-      }
-      if (climberArmSubsystem.isRightStalled()) {
-        rStall = true;
-      }
-      if (!climberArmSubsystem.getLeftBotSensor() && !lStall) {
+      if (!climberArmSubsystem.getLeftBotSensor()) {
         leftSpeed = -Constants.CLIMBER_ARM_SPEED;
       }
-      if (!climberArmSubsystem.getRightBotSensor() && rStall) {
+      if (!climberArmSubsystem.getRightBotSensor()) {
         rightSpeed = -Constants.CLIMBER_ARM_SPEED;
       }
     }
 
-    climberArmSubsystem.setRightArmSpeed(rightSpeed);
-    climberArmSubsystem.setLeftArmSpeed(leftSpeed);
+    climberArmSubsystem.setRightArmSpeed(-rightSpeed);
+    climberArmSubsystem.setLeftArmSpeed(-leftSpeed);
 
   }
 
@@ -109,9 +100,7 @@ public class AutoMoveClimberArm extends LoggedCommandBase {
   @Override
   public boolean isFinished() {
     return 
-        (((rStall && lStall && (direction == Direction.UP))
-        || 
-        (climberArmSubsystem.getRightTopSensor() && climberArmSubsystem.getLeftTopSensor() && (direction == Direction.UP)) 
+        (((climberArmSubsystem.getRightTopSensor() && climberArmSubsystem.getLeftTopSensor() && (direction == Direction.UP)) 
         ||
         (climberArmSubsystem.getRightBotSensor() && climberArmSubsystem.getLeftBotSensor() && (direction == Direction.DOWN)) 
         ||

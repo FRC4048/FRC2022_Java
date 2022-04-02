@@ -21,6 +21,7 @@ import frc.robot.commands.Autonomous.DoNothingSequence;
 import frc.robot.commands.Autonomous.OneShotSequenceMiddle;
 import frc.robot.commands.Autonomous.TwoShotSequenceLeft;
 import frc.robot.commands.Autonomous.TwoShotSequenceRight;
+import frc.robot.commands.ClimberCommands.AutoMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ClimberLockTurret;
 import frc.robot.commands.ClimberCommands.ExtendClimberSolenoid;
 import frc.robot.commands.ClimberCommands.InitialClimbSequence;
@@ -29,6 +30,7 @@ import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.MoveClimberToNextBar;
 import frc.robot.commands.ClimberCommands.RetractClimberSequence;
 import frc.robot.commands.ClimberCommands.RetractClimberSolenoid;
+import frc.robot.commands.ClimberCommands.AutoMoveClimberArm.Direction;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.DriveCommands.TurnDegrees;
 import frc.robot.commands.HoodCommands.HoodAutoCommand;
@@ -239,6 +241,9 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Intake", "Raise Intake", new RaiseIntakeCommand(getIntakeSubsystem()));
       SmartShuffleboard.putCommand("Intake", "Intake Ball", new IntakeBallCommand(getIntakeSubsystem()));
       SmartShuffleboard.putCommand("Intake", "Drop Ball", new DropBallCommand(getIntakeSubsystem()));
+
+      SmartShuffleboard.putCommand("Climber", "Extend Arm", new AutoMoveClimberArm(climberArmSubsystem, Direction.UP));
+
 
       SmartShuffleboard.putCommand("Shooter", "Rotate Turret Left", new MoveTurretDashboard(turretSubsystem, MoveTurretDashboard.Direction.LEFT));
       SmartShuffleboard.putCommand("Shooter", "Rotate Turret Right", new MoveTurretDashboard(turretSubsystem, MoveTurretDashboard.Direction.RIGHT));
