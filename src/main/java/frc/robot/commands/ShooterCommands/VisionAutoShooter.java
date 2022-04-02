@@ -84,6 +84,6 @@ public class VisionAutoShooter extends LoggedCommandBase {
     addLog(tempDistance);
     int distance = (int)Math.round(tempDistance);
     SmartShuffleboard.put("Shooter", "Distance", distance);
-    return rpmLookupMap.get(distance);
+    return 10565 * Math.pow(Math.E, .0177 * distance);
   }
 }

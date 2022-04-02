@@ -66,8 +66,12 @@ public class HoodContinousTarget extends CommandBase {
       case LOCK:
         if(vision.hasTarget()) {
           if (calculateAngle(vision) != null) {
-            double direction = Math.signum(hood.getPotentiometer() - calculateAngle(vision));
-            hood.setHood(Constants.HOOD_AUTO_MOTOR_SPEED * direction);
+            if (Math.abs(hood.getPotentiometer() - calculateAngle(vision)) <= Constants.HOOD_ERROR_THRESHOLD) {
+              hood.setHood(0);
+            } else {
+              double direction = Math.signum(hood.getPotentiometer() - calculateAngle(vision));
+              hood.setHood(Constants.HOOD_AUTO_MOTOR_SPEED * direction);
+            }
           }
         }
         break; 
@@ -90,6 +94,6 @@ public class HoodContinousTarget extends CommandBase {
   private static Double calculateAngle(LimeLightVision vision) {
     double tempDistance = vision.calcHorizontalDistanceToTarget(vision.getCameraAngles().getTy()) / 12;
     int distance = (int)Math.round(tempDistance);
-    return angleLookupMap.get(distance);
+    return -.0858 * Math.pow(distance, 2) + 5.36 * distance + 79.7;
   }
 }
