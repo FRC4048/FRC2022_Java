@@ -54,8 +54,8 @@ public class TurretContinousTarget extends CommandBase {
           }
           turret.setTurret(-1 * Math.signum(limelight.getCameraAngles().getTx()) * speed);
         } else {  
-            if (((turret.getEncoder() >= Constants.TURRET_RIGHT_THRESHOLD) && turretSpeed > 0) || 
-                ((turret.getEncoder() <= Constants.TURRET_LEFT_THRESHOLD) && turretSpeed < 0)) {
+            if (((turret.getEncoder() >= Constants.TURRET_RIGHT_THRESHOLD) && turretSpeed < 0) || 
+                ((turret.getEncoder() <= Constants.TURRET_LEFT_THRESHOLD) && turretSpeed > 0)) {
                   turretSpeed = -turretSpeed;
             }
             turret.setTurret(turretSpeed);
