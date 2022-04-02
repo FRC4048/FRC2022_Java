@@ -82,10 +82,10 @@ public interface GameConstants {
   public static final double SHOOTER_MIN_OUTPUT = -1;
 
   //Drive
-  public static final double AUTO_MOVE_TURN_MAX_SPEED = 0.6;
+  public static final double AUTO_MOVE_TURN_MAX_SPEED = 0.4;
   public static final double AUTO_MOVE_TURN_MIN_SPEED = 0.1;
   public static final double AUTO_MOVE_TURN_SLOWDOWN_ERROR = 25;
-  public static final double AUTO_MOVE_TURN_TIMEOUT = 3;
+  public static final double AUTO_MOVE_TURN_TIMEOUT = 5;
   public static final double AUTO_MOVE_TURN_THRESHOLD = 2;
 
   public static final double CONTROLLER_DEAD_ZONE = 0.2;

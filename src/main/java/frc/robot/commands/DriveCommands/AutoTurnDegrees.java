@@ -36,7 +36,7 @@ public class AutoTurnDegrees extends CommandBase{
         else {
             turnSpeed = error/Constants.AUTO_MOVE_TURN_SLOWDOWN_ERROR * (Constants.AUTO_MOVE_TURN_MAX_SPEED - Constants.AUTO_MOVE_TURN_MIN_SPEED) + Constants.AUTO_MOVE_TURN_MIN_SPEED;
         }
-        driveTrain.drive(direction * turnSpeed, -1.0 * direction * turnSpeed, false);
+        driveTrain.drive(-direction * turnSpeed, direction * turnSpeed, false);
     }
 
     @Override
