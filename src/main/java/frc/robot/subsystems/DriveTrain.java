@@ -86,7 +86,7 @@ public class DriveTrain extends SubsystemBase {
    * @return angle of robot between -180-180
    */
     public double getAngle() {
-        return Math.IEEEremainder(imu.getAngle(), 360);
+        return imu.getAngle();
     }
 
     @Override
