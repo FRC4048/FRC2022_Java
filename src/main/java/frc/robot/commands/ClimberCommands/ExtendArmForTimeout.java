@@ -27,7 +27,7 @@ public class ExtendArmForTimeout extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climberArmSubsystem.setSpeed(Constants.CLIMBER_ARM_SPEED/3);
+    climberArmSubsystem.setSpeed(-Constants.CLIMBER_ARM_SPEED);
   }
 
   // Called once the command ends or is interrupted.

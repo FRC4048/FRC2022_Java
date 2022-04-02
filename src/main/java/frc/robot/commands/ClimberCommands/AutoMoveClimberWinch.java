@@ -29,7 +29,7 @@ public class AutoMoveClimberWinch extends LoggedCommandBase {
   public void initialize() {
     initTime = Timer.getFPGATimestamp();
     if (direction == ClimberDirection.RETRACT) {
-      climberWinchSubsystem.movePiston(false);
+      climberWinchSubsystem.movePiston(true);
     }
    }
 
@@ -44,7 +44,7 @@ public class AutoMoveClimberWinch extends LoggedCommandBase {
     climberWinchSubsystem.setSpeed(Constants.CLIMBER_WINCH_SPEED * directionMultiplier);
 
     if (direction == ClimberDirection.RETRACT && climberWinchSubsystem.getRightOnBarSwitch() && climberWinchSubsystem.getLeftOnBarSwitch()) {
-      climberWinchSubsystem.movePiston(true);
+      climberWinchSubsystem.movePiston(false);
     }
   }
 
@@ -57,7 +57,7 @@ public class AutoMoveClimberWinch extends LoggedCommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if ((Timer.getFPGATimestamp() - initTime) >= Constants.CLIMBER_ARM_TIMEOUT) {
+    if ((Timer.getFPGATimestamp() - initTime) >= Constants.CLIMBER_WINCH_TIMEOUT) {
       return true;
     }
 

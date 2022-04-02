@@ -5,6 +5,7 @@
 package frc.robot.commands.ClimberCommands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.ClimberCommands.AutoMoveClimberArm.ClimberDirection;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.subsystems.Climber.ClimberArmSubsystem;
@@ -15,7 +16,7 @@ import frc.robot.utils.logging.LogCommandWrapper;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class InitialParallelSequence extends ParallelCommandGroup {
+public class InitialParallelSequence extends SequentialCommandGroup {
   /** Creates a new ExtendClimberParallelSequence. */
 
   public InitialParallelSequence(ClimberArmSubsystem climberArmSubsystem, ClimberWinchSubsystem climberWinchSubsystem, TurretSubsystem turretSubsystem, LimeLightVision vision) {
@@ -23,9 +24,10 @@ public class InitialParallelSequence extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
 
     addCommands(
+      new LogCommandWrapper(new ExtendArmForTimeout(climberArmSubsystem)),
       new LogCommandWrapper(new ClimberLockTurret(turretSubsystem, vision)),
-      new LogCommandWrapper(new AutoMoveClimberArm(climberArmSubsystem, ClimberDirection.EXTEND)),
-      new LogCommandWrapper(new AutoMoveClimberWinch(climberWinchSubsystem, ClimberDirection.EXTEND))
+      new LogCommandWrapper(new AutoMoveClimberWinch(climberWinchSubsystem, ClimberDirection.EXTEND)),
+      new LogCommandWrapper(new AutoMoveClimberArm(climberArmSubsystem, ClimberDirection.EXTEND))
     );
   }
 }

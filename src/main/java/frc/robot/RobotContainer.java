@@ -198,7 +198,7 @@ public class RobotContainer {
     staticLock.whenPressed(new LogCommandWrapper(new ExtendClimberSolenoid(climberWinchSubsystem)));
     staticUnlock.whenPressed(new LogCommandWrapper(new RetractClimberSolenoid(climberWinchSubsystem)));
     climberYButton.whenPressed(new LogCommandWrapper(new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, climberController)));
-    climberXButton.whenPressed(new LogCommandWrapper(new ClimberLockTurret(turretSubsystem, limeLightVision.getLimeLightVision())));
+    climberXButton.whenPressed(new LogCommandWrapper(new InitialClimbSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
     climberBackButton.whenPressed(new LogCommandWrapper(new Traversal(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
     
     buttonA.whenPressed(new LogCommandWrapper(new IntakeSequence(intakeSubsystem)));

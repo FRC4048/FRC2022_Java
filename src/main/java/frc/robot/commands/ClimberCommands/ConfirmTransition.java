@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ConfirmTransition extends CommandBase {
   /** Creates a new ConfirmTransition. */
   XboxController climberController;
-  public ConfirmTransition(XboxController climbeController) {
+  public ConfirmTransition(XboxController climberController) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.climberController = climberController;
   }
