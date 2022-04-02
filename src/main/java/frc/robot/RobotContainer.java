@@ -27,6 +27,7 @@ import frc.robot.commands.ClimberCommands.Climb3Inches;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.ToggleClimberSolenoid;
+import frc.robot.commands.DriveCommands.AutoTurnDegrees;
 import frc.robot.commands.ClimberCommands.WinchExtend;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.DriveCommands.TurnDegrees;
@@ -259,6 +260,12 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline to 0", new SetPipeline(0));
       SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline to 1", new SetPipeline(1));
       SmartShuffleboard.putCommand("Turn", "Turn Degrees", new TurnDegrees(driveTrain, 90));
+      SmartShuffleboard.putCommand("Drive", "Turn 30 Degrees", new AutoTurnDegrees(driveTrain, 30));
+      SmartShuffleboard.putCommand("Drive", "Turn -30 Degrees", new AutoTurnDegrees(driveTrain, -30));
+      SmartShuffleboard.putCommand("Drive", "Turn 90 Degrees", new AutoTurnDegrees(driveTrain, 90));
+      SmartShuffleboard.putCommand("Drive", "Turn 120 Degrees", new AutoTurnDegrees(driveTrain, 120));
+      SmartShuffleboard.putCommand("Drive", "Turn 150 Degrees", new AutoTurnDegrees(driveTrain, 150));
+      SmartShuffleboard.putCommand("Drive", "Turn 180 Degrees", new AutoTurnDegrees(driveTrain, 180));
 
 
       SmartShuffleboard.putCommand("Hood", "Move Hood Down", new MoveHoodDown(hood));
