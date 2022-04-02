@@ -84,7 +84,7 @@ public interface GameConstants {
   //Drive
   public static final double AUTO_MOVE_TURN_MAX_SPEED = 0.2;
   public static final double AUTO_MOVE_TURN_MIN_SPEED = 0.05;
-  public static final double AUTO_MOVE_TURN_SLOWDOWN_ERROR = 25;
+  public static final double AUTO_MOVE_TURN_SLOWDOWN_ERROR = 50;
   public static final double AUTO_MOVE_TURN_TIMEOUT = 5;
   public static final double AUTO_MOVE_TURN_THRESHOLD = 2;
 
