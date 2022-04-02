@@ -70,7 +70,7 @@ public class Robot extends TimedRobot {
     }
 
     if (Constants.ENABLE_DEBUG) {
-      SmartShuffleboard.put("Shooter", "State", target_state);
+      SmartShuffleboard.put("Shooter", "State", target_state.name());
     }
   }
 
