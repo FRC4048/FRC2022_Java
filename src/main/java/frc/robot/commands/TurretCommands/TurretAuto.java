@@ -19,7 +19,7 @@ public class TurretAuto extends LoggedCommandBase {
     // bad readings
     private double speed;
     private double initTime;
-    private static double CAMERA_OFFSET = 2;
+    private static double CAMERA_OFFSET = 4;
 
     public TurretAuto(TurretSubsystem turretSubsystem, LimeLightVision limeLight) {
         this.limeLight = limeLight;
@@ -42,7 +42,7 @@ public class TurretAuto extends LoggedCommandBase {
         if (limeLight.hasTarget()) {
             double tx = limeLight.getCameraAngles().getTx();
             if (tx > (CAMERA_OFFSET + Constants.TURRET_ERROR_THRESHOLD) ||tx > (CAMERA_OFFSET - Constants.TURRET_ERROR_THRESHOLD) ) {
-                speed = Constants.TURRET_FAST_SPEED; 
+                speed = Constants.TURRET_SLOW_SPEED; 
             }
             else {
                 speed = Constants.TURRET_SLOW_SPEED;
