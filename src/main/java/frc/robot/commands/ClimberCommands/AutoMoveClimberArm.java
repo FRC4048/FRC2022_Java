@@ -16,14 +16,14 @@ public class AutoMoveClimberArm extends LoggedCommandBase {
   private ClimberArmSubsystem climberArmSubsystem;
   private double initTime;
 
-  public enum Direction {
-    UP, DOWN
+  public enum ClimberDirection {
+    EXTEND, RETRACT
   }
 
-  private Direction direction;
+  private ClimberDirection direction;
   private boolean lStall, rStall;
 
-  public AutoMoveClimberArm(ClimberArmSubsystem climberArmSubsystem, Direction direction) {
+  public AutoMoveClimberArm(ClimberArmSubsystem climberArmSubsystem, ClimberDirection direction) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.climberArmSubsystem = climberArmSubsystem;
     this.direction = direction;
@@ -71,7 +71,7 @@ public class AutoMoveClimberArm extends LoggedCommandBase {
     // (1-(encoderDifference/Constants.CLIMBER_MAX_ENCODER_DIFF*Constants.CLIMBER_MIN_ARM_SPEED));
     // }
     // }
-    if (direction == Direction.UP) {
+    if (direction == ClimberDirection.EXTEND) {
       if (!climberArmSubsystem.getLeftTopSensor()) {
         leftSpeed = Constants.CLIMBER_ARM_SPEED;
       }
@@ -79,16 +79,11 @@ public class AutoMoveClimberArm extends LoggedCommandBase {
         rightSpeed = Constants.CLIMBER_ARM_SPEED;
       }
     } else {
-      if (climberArmSubsystem.isLeftStalled()) {
-        lStall = true;
-      }
-      if (climberArmSubsystem.isRightStalled()) {
-        rStall = true;
-      }
-      if (!climberArmSubsystem.getLeftBotSensor() && !lStall) {
+      
+      if (!climberArmSubsystem.getLeftBotSensor()) {
         leftSpeed = -Constants.CLIMBER_ARM_SPEED;
       }
-      if (!climberArmSubsystem.getRightBotSensor() && rStall) {
+      if (!climberArmSubsystem.getRightBotSensor()) {
         rightSpeed = -Constants.CLIMBER_ARM_SPEED;
       }
     }
@@ -109,11 +104,9 @@ public class AutoMoveClimberArm extends LoggedCommandBase {
   @Override
   public boolean isFinished() {
     return 
-        (((rStall && lStall && (direction == Direction.UP))
-        || 
-        (climberArmSubsystem.getRightTopSensor() && climberArmSubsystem.getLeftTopSensor() && (direction == Direction.UP)) 
+        (((climberArmSubsystem.getRightTopSensor() && climberArmSubsystem.getLeftTopSensor() && (direction == ClimberDirection.EXTEND)) 
         ||
-        (climberArmSubsystem.getRightBotSensor() && climberArmSubsystem.getLeftBotSensor() && (direction == Direction.DOWN)) 
+        (climberArmSubsystem.getRightBotSensor() && climberArmSubsystem.getLeftBotSensor() && (direction == ClimberDirection.RETRACT)) 
         ||
         ((Timer.getFPGATimestamp() - initTime) >= Constants.CLIMBER_ARM_TIMEOUT)));
 

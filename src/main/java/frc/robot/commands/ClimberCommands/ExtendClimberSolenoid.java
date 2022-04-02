@@ -5,15 +5,14 @@
 package frc.robot.commands.ClimberCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.commands.LoggedCommandBase;
-import frc.robot.subsystems.Climber.ClimberArmSubsystem;
+import frc.robot.subsystems.Climber.ClimberWinchSubsystem;
 
 public class ExtendClimberSolenoid extends CommandBase {
   /** Creates a new ExtendClimberSolenoid. */
-  ClimberArmSubsystem climberArmSubsystem;
-  public ExtendClimberSolenoid(ClimberArmSubsystem climberArmSubsystem) {
+  ClimberWinchSubsystem climberWinchSubsystem;
+  public ExtendClimberSolenoid(ClimberWinchSubsystem climberWinchSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.climberArmSubsystem = climberArmSubsystem;
+    this.climberWinchSubsystem = climberWinchSubsystem;
   }
 
   // Called when the command is initially scheduled.
@@ -23,7 +22,7 @@ public class ExtendClimberSolenoid extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climberArmSubsystem.movePiston(true);
+    climberWinchSubsystem.movePiston(true);
   }
 
   // Called once the command ends or is interrupted.

@@ -29,6 +29,7 @@ import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.MoveClimberToNextBar;
 import frc.robot.commands.ClimberCommands.RetractClimberSequence;
 import frc.robot.commands.ClimberCommands.RetractClimberSolenoid;
+import frc.robot.commands.ClimberCommands.Traversal;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.DriveCommands.TurnDegrees;
 import frc.robot.commands.HoodCommands.HoodAutoCommand;
@@ -106,6 +107,7 @@ public class RobotContainer {
   private JoystickButton staticUnlock = new JoystickButton(climberController, Constants.XBOX_RIGHT_BUMPER);
   private JoystickButton climberYButton = new JoystickButton(climberController, Constants.XBOX_Y_BUTTON);
   private JoystickButton climberXButton = new JoystickButton(climberController, Constants.XBOX_X_BUTTON);
+  private JoystickButton climberBackButton = new JoystickButton(climberController, Constants.XBOX_BACK_BUTTON);
 
   private JoystickButton buttonY = new JoystickButton(xboxController, Constants.XBOX_Y_BUTTON);
   private JoystickButton buttonX = new JoystickButton(xboxController, Constants.XBOX_X_BUTTON);
@@ -187,12 +189,13 @@ public class RobotContainer {
     SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
 
     // Climber Controls
-    climberAButton.whenPressed(new LogCommandWrapper(new InitialClimbSequence(climberArmSubsystem, climberWinchSubsystem)));
+    climberAButton.whenPressed(new LogCommandWrapper(new InitialClimbSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
     climberBButton.whenPressed(new LogCommandWrapper(new RetractClimberSequence(climberWinchSubsystem)));
-    staticLock.whenPressed(new LogCommandWrapper(new ExtendClimberSolenoid(climberArmSubsystem)));
-    staticUnlock.whenPressed(new LogCommandWrapper(new RetractClimberSolenoid(climberArmSubsystem)));
-    climberYButton.whenPressed(new LogCommandWrapper(new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem)));
-    climberXButton.whenPressed(new LogCommandWrapper(new ClimberLockTurret(turretSubsystem, limeLightVision)));
+    staticLock.whenPressed(new LogCommandWrapper(new ExtendClimberSolenoid(climberWinchSubsystem)));
+    staticUnlock.whenPressed(new LogCommandWrapper(new RetractClimberSolenoid(climberWinchSubsystem)));
+    climberYButton.whenPressed(new LogCommandWrapper(new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, climberController)));
+    climberXButton.whenPressed(new LogCommandWrapper(new ClimberLockTurret(turretSubsystem, limeLightVision.getLimeLightVision())));
+    climberBackButton.whenPressed(new LogCommandWrapper(new Traversal(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
     
     buttonA.whenPressed(new LogCommandWrapper(new IntakeSequence(intakeSubsystem)));
     buttonB.whenPressed(new LogCommandWrapper(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED)));

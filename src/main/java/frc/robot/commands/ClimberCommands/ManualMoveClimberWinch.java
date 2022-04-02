@@ -34,20 +34,11 @@ public class ManualMoveClimberWinch extends CommandBase {
     // Right and Left Ys move backwards (up is -1, down is +1)
     double joySpeed = -climberController.getRightY();
 
-    if (joySpeed > Constants.CLIMBER_DEAD_ZONE) {
+    if (Math.abs(joySpeed) > Constants.CLIMBER_DEAD_ZONE) {
       rightSpeed = Constants.CLIMBER_WINCH_SPEED * joySpeed;
       leftSpeed = Constants.CLIMBER_WINCH_SPEED * joySpeed;
     } 
-    else if (joySpeed < -Constants.CLIMBER_DEAD_ZONE){      
-        leftSpeed = joySpeed*Constants.CLIMBER_WINCH_SPEED;
-        rightSpeed = joySpeed*Constants.CLIMBER_WINCH_SPEED;
-    }
 
-    if (climberController.getRightTriggerAxis() > 0.5) {
-      rightSpeed *= Constants.CLIMBER_SLOW_WINCH_RATE; 
-    } else if (climberController.getLeftTriggerAxis() > 0.5) {
-      leftSpeed *= Constants.CLIMBER_SLOW_WINCH_RATE;
-    }
 
     climberWinchSubsystem.setRightWinchSpeed(rightSpeed);
     climberWinchSubsystem.setLeftWinchSpeed(leftSpeed);
