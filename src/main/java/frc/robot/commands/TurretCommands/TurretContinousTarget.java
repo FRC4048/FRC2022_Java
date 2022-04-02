@@ -47,12 +47,18 @@ public class TurretContinousTarget extends CommandBase {
 
       case LOCK:
         if (limelight.hasTarget()) {
-          if (Math.abs(limelight.getCameraAngles().getTx()) > Constants.TURRET_ERROR_THRESHOLD) {
-            speed = Constants.TURRET_FAST_SPEED; 
-          } else {
-            speed = Constants.TURRET_SLOW_SPEED;
-          }
-          turret.setTurret(-1 * Math.signum(limelight.getCameraAngles().getTx()) * speed);
+          double tx = limelight.getCameraAngles().getTx();
+            if (tx > (4 + Constants.TURRET_ERROR_THRESHOLD) || tx > (4 - Constants.TURRET_ERROR_THRESHOLD)) {
+                speed = Constants.TURRET_SLOW_SPEED; 
+            }
+            else {
+                speed = Constants.TURRET_SLOW_SPEED;
+            }
+            if (tx > 4) {
+                turret.setTurret(speed * -1);
+            } else if (tx < 4) {
+                turret.setTurret(speed);
+            }
         } else {  
             if (((turret.getEncoder() >= Constants.TURRET_RIGHT_THRESHOLD) && turretSpeed < 0) || 
                 ((turret.getEncoder() <= Constants.TURRET_LEFT_THRESHOLD) && turretSpeed > 0)) {
