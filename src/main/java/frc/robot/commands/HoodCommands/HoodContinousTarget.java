@@ -70,10 +70,7 @@ public class HoodContinousTarget extends CommandBase {
             hood.setHood(Constants.HOOD_AUTO_MOTOR_SPEED * direction);
           }
         }
-        break;
-
-      case SWEEP:
-        
+        break; 
     }
   }
 

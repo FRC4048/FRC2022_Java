@@ -9,19 +9,13 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Robot;
 import frc.robot.Robot.TARGETING_STATE;
 import frc.robot.commands.Miscellaneous.SetPipeline;
-import frc.robot.subsystems.Hood;
-import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.utils.logging.LogCommandWrapper;
 
 public class ToggleTargetState extends CommandBase {
   /** Creates a new ToggleTargetState. */
-  private TurretSubsystem turret;
-  private Hood hood;
 
-  public ToggleTargetState(TurretSubsystem turret, Hood hood) {
+  public ToggleTargetState() {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.turret = turret;
-    this.hood = hood;
   }
 
   // Called when the command is initially scheduled.
