@@ -11,11 +11,12 @@ public class AutoTurnDegrees extends CommandBase{
     private double turnDegrees;
     private double startTime;
     private double startDegrees;
-    private double turnSpeed = Constants.AUTO_MOVE_TURN_SPEED;
+    private double turnSpeed;
 
     public AutoTurnDegrees(DriveTrain driveTrain, double angleToTurn) {
         this.driveTrain = driveTrain;
         this.turnDegrees = angleToTurn;
+        addRequirements(driveTrain);
     }
 
     @Override
@@ -26,11 +27,16 @@ public class AutoTurnDegrees extends CommandBase{
 
     @Override
     public void execute() {
-        if (turnDegrees > 0) {
-            driveTrain.drive(turnSpeed, -turnSpeed, false);
-        } else if (turnDegrees < 0) {
-            driveTrain.drive(-turnSpeed, turnSpeed, false);
+        double rawError = (startDegrees + turnDegrees - driveTrain.getAngle());
+        double error = Math.abs(rawError);
+        double direction = Math.signum(rawError);
+        if (error > Constants.AUTO_MOVE_TURN_SLOWDOWN_ERROR) {
+            turnSpeed = Constants.AUTO_MOVE_TURN_MAX_SPEED;
         }
+        else {
+            turnSpeed = error/Constants.AUTO_MOVE_TURN_SLOWDOWN_ERROR * (Constants.AUTO_MOVE_TURN_MAX_SPEED - Constants.AUTO_MOVE_TURN_MIN_SPEED) + Constants.AUTO_MOVE_TURN_MIN_SPEED;
+        }
+        driveTrain.drive(direction * turnSpeed, -1.0 * direction * turnSpeed, false);
     }
 
     @Override
@@ -40,14 +46,11 @@ public class AutoTurnDegrees extends CommandBase{
 
     @Override
     public boolean isFinished() {
-        if (Timer.getFPGATimestamp() - startTime >= 3) {
+        if (Timer.getFPGATimestamp() - startTime >= Constants.AUTO_MOVE_TURN_TIMEOUT) {
             return true;
         }
-        double turnedSoFar = driveTrain.getAngle() - startDegrees;
-        if (Math.abs(turnedSoFar) >= Math.abs(turnDegrees)) {
-            return true;
-        }
-        return false;
+        double error = Math.abs(startDegrees + turnDegrees - driveTrain.getAngle());
+        return (error <= Constants.AUTO_MOVE_TURN_THRESHOLD);
     }
     
 }
