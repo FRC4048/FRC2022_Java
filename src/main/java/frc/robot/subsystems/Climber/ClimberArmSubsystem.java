@@ -118,8 +118,6 @@ public class ClimberArmSubsystem extends SubsystemBase {
       SmartShuffleboard.put("Climber", "L Top Switch", getLeftTopSensor());
       SmartShuffleboard.put("Climber", "R Top Switch", getRightBotSensor());
       
-
-    
     }
   }
 }

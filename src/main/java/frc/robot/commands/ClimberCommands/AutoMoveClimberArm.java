@@ -67,22 +67,22 @@ public class AutoMoveClimberArm extends LoggedCommandBase {
     // }
     if (direction == ClimberDirection.EXTEND) {
       if (!climberArmSubsystem.getLeftBotSensor()) {
-        leftSpeed = Constants.CLIMBER_ARM_SPEED;
-      }
-      if (!climberArmSubsystem.getRightBotSensor()) {
-        rightSpeed = Constants.CLIMBER_ARM_SPEED;
-      }
-    } else { 
-      if (!climberArmSubsystem.getLeftTopSensor()) {
         leftSpeed = -Constants.CLIMBER_ARM_SPEED;
       }
       if (!climberArmSubsystem.getRightBotSensor()) {
         rightSpeed = -Constants.CLIMBER_ARM_SPEED;
       }
+    } else { 
+      if (!climberArmSubsystem.getLeftTopSensor()) {
+        leftSpeed = Constants.CLIMBER_ARM_SPEED;
+      }
+      if (!climberArmSubsystem.getRightTopSensor()) {
+        rightSpeed = Constants.CLIMBER_ARM_SPEED;
+      }
     }
 
-    climberArmSubsystem.setRightArmSpeed(-rightSpeed);
-    climberArmSubsystem.setLeftArmSpeed(-leftSpeed);
+    climberArmSubsystem.setRightArmSpeed(rightSpeed);
+    climberArmSubsystem.setLeftArmSpeed(leftSpeed);
 
   }
 
