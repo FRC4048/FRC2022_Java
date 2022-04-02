@@ -81,14 +81,6 @@ public class ClimberArmSubsystem extends SubsystemBase {
     return rightArm.getSelectedSensorPosition();
   }
 
-  public boolean isLeftStalled() {
-    return leftMotorUtil.isStalled();
-  }
-
-  public boolean isRightStalled() {
-    return rightMotorUtil.isStalled();
-  }
-
   public double getLeftCurrent() {
     return m_PowerDistPanel.getCurrent(Constants.PDP_CLIMBER_L_ARM);
   }
@@ -97,19 +89,19 @@ public class ClimberArmSubsystem extends SubsystemBase {
     return m_PowerDistPanel.getCurrent(Constants.PDP_CLIMBER_R_ARM);
   }
 
-  public boolean getLeftHookSwitch() {
+  public boolean getLeftBotSensor() {
     return leftArm.getSensorCollection().isFwdLimitSwitchClosed();
   }
 
-  public boolean getLeftBotSensor() {
+  public boolean getLeftTopSensor() {
     return leftArm.getSensorCollection().isRevLimitSwitchClosed();
   }
 
-  public boolean getRightHookSwitch() {
+  public boolean getRightBotSensor() {
     return rightArm.getSensorCollection().isFwdLimitSwitchClosed();
   }
 
-  public boolean getRightBotSensor() {
+  public boolean getRightTopSensor() {
     return rightArm.getSensorCollection().isRevLimitSwitchClosed();
   }
   
@@ -121,13 +113,13 @@ public class ClimberArmSubsystem extends SubsystemBase {
       SmartShuffleboard.put("Climber", "L Arm Encoder", getLeftEncoder());
       SmartShuffleboard.put("Climber", "R Arm Current", getRightCurrent());
       SmartShuffleboard.put("Climber", "L Arm Current", getLeftCurrent());
-      SmartShuffleboard.put("Climber", "L Hook Switch", getLeftHookSwitch());
-      SmartShuffleboard.put("Climber", "R Hook Switch", getRightHookSwitch());
+      SmartShuffleboard.put("Climber", "L Bot Switch", getLeftBotSensor());
+      SmartShuffleboard.put("Climber", "R Bot Switch", getRightBotSensor());
+      SmartShuffleboard.put("Climber", "L Top Switch", getLeftTopSensor());
+      SmartShuffleboard.put("Climber", "R Top Switch", getRightBotSensor());
       
 
-      // Note this will change the stalled variable in isStalled
-      SmartShuffleboard.put("Climber", "Left Arm Stalled", isLeftStalled());
-      SmartShuffleboard.put("Climber", "Right Arm Stalled", isRightStalled());
+    
     }
   }
 }

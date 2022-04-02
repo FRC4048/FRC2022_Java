@@ -196,8 +196,8 @@ public class ClimberWinchSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    leftMotorStall.isStalled();
-    rightMotorStall.isStalled();
+    isLeftStalled();
+    isRightStalled();
     if (Constants.ENABLE_DEBUG) {
       SmartShuffleboard.put("Climber", "R Winch Encoder", getRightEncoder());
       SmartShuffleboard.put("Climber", "L Winch Encoder", getLeftEncoder());

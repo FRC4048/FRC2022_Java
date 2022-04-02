@@ -21,7 +21,6 @@ public class AutoMoveClimberArm extends LoggedCommandBase {
   }
 
   private ClimberDirection direction;
-  private boolean lStall, rStall;
 
   public AutoMoveClimberArm(ClimberArmSubsystem climberArmSubsystem, ClimberDirection direction) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -35,9 +34,6 @@ public class AutoMoveClimberArm extends LoggedCommandBase {
   @Override
   public void initialize() {
     initTime = Timer.getFPGATimestamp();
-    // Reset Motor Utils Timeout
-    climberArmSubsystem.isLeftStalled();
-    climberArmSubsystem.isRightStalled();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -70,14 +66,14 @@ public class AutoMoveClimberArm extends LoggedCommandBase {
     // }
     // }
     if (direction == ClimberDirection.EXTEND) {
-      if (!climberArmSubsystem.getLeftHookSwitch()) {
+      if (!climberArmSubsystem.getLeftBotSensor()) {
         leftSpeed = Constants.CLIMBER_ARM_SPEED;
       }
-      if (!climberArmSubsystem.getRightHookSwitch()) {
+      if (!climberArmSubsystem.getRightBotSensor()) {
         rightSpeed = Constants.CLIMBER_ARM_SPEED;
       }
     } else { 
-      if (!climberArmSubsystem.getLeftBotSensor()) {
+      if (!climberArmSubsystem.getLeftTopSensor()) {
         leftSpeed = -Constants.CLIMBER_ARM_SPEED;
       }
       if (!climberArmSubsystem.getRightBotSensor()) {
@@ -101,9 +97,9 @@ public class AutoMoveClimberArm extends LoggedCommandBase {
   @Override
   public boolean isFinished() {
     return 
-        (((climberArmSubsystem.getRightHookSwitch() && climberArmSubsystem.getLeftHookSwitch() && (direction == ClimberDirection.EXTEND)) 
+        (((climberArmSubsystem.getRightBotSensor() && climberArmSubsystem.getLeftBotSensor() && (direction == ClimberDirection.EXTEND)) 
         ||
-        (climberArmSubsystem.getRightBotSensor() && climberArmSubsystem.getLeftBotSensor() && (direction == ClimberDirection.RETRACT)) 
+        (climberArmSubsystem.getRightBotSensor() && climberArmSubsystem.getLeftTopSensor() && (direction == ClimberDirection.RETRACT)) 
         ||
         ((Timer.getFPGATimestamp() - initTime) >= Constants.CLIMBER_ARM_TIMEOUT)));
 
