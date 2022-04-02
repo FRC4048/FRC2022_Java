@@ -27,11 +27,11 @@ public class ToggleTargetState extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if ((Robot.getTargetState() == TARGETING_STATE.SWEEP) || (Robot.getTargetState() == TARGETING_STATE.LOCK)) {
+    if (Robot.getTargetState() == TARGETING_STATE.LOCK) {
       Robot.setTargetState(TARGETING_STATE.OFF);
       CommandScheduler.getInstance().schedule(new LogCommandWrapper(new SetPipeline(0)));
     } else {
-      Robot.setTargetState(TARGETING_STATE.SWEEP);
+      Robot.setTargetState(TARGETING_STATE.LOCK);
       CommandScheduler.getInstance().schedule(new LogCommandWrapper(new SetPipeline(1)));
     }
   }

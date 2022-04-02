@@ -45,14 +45,6 @@ public class TurretContinousTarget extends CommandBase {
         turret.setTurret((joystick.getAsDouble() * Constants.TURRETSPIN_SCALEFACTOR));
         break;
 
-      case SWEEP:
-        if (((turret.getEncoder() >= Constants.TURRET_RIGHT_THRESHOLD) && turretSpeed < 0) || 
-            ((turret.getEncoder() <= Constants.TURRET_LEFT_THRESHOLD) && turretSpeed > 0)) {
-            turretSpeed = -turretSpeed;
-        }
-        turret.setTurret(turretSpeed);
-        break;
-
       case LOCK:
         if (limelight.hasTarget()) {
           if (Math.abs(limelight.getCameraAngles().getTx()) > Constants.TURRET_ERROR_THRESHOLD) {
@@ -62,15 +54,13 @@ public class TurretContinousTarget extends CommandBase {
           }
           turret.setTurret(-1 * Math.signum(limelight.getCameraAngles().getTx()) * speed);
         } else {  
-          turret.setTurret(0);
+            if (((turret.getEncoder() >= Constants.TURRET_RIGHT_THRESHOLD) && turretSpeed < 0) || 
+                ((turret.getEncoder() <= Constants.TURRET_LEFT_THRESHOLD) && turretSpeed > 0)) {
+                  turretSpeed = -turretSpeed;
+            }
+            turret.setTurret(turretSpeed);
         }
         break;
-    }
-
-    if (limelight.hasTarget()) {
-      Robot.setTargetState(TARGETING_STATE.LOCK);
-    } else {
-      Robot.setTargetState(TARGETING_STATE.SWEEP);
     }
   }
 

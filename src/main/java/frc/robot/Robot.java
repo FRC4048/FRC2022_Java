@@ -29,7 +29,7 @@ public class Robot extends TimedRobot {
 
   private static TARGETING_STATE target_state;
 
-  public enum TARGETING_STATE {OFF, SWEEP, LOCK};
+  public enum TARGETING_STATE {OFF, LOCK};
   
 
   /**
