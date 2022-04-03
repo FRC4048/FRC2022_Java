@@ -40,6 +40,7 @@ public class TurretContinousTarget extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    boolean turretState = false;
     SmartShuffleboard.put("Continous", "Encoder", turret.getEncoder());
     turret.setTurretLockState(false);
     switch (Robot.getTargetState()) {
@@ -60,7 +61,7 @@ public class TurretContinousTarget extends CommandBase {
           if (Math.abs(4 - tx) > .5) {
             turret.setTurret(speed * Math.signum(4 - tx));
           } else {
-            turret.setTurretLockState(true);
+            turretState = true;
             turret.setTurret(0);
           }
         } else {
@@ -73,6 +74,7 @@ public class TurretContinousTarget extends CommandBase {
         }
         break;
     }
+    turret.setTurretLockState(turretState);
   }
 
   // Called once the command ends or is interrupted.

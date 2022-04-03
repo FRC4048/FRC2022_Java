@@ -57,7 +57,7 @@ public class HoodContinousTarget extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    hood.setHoodLockState(false);
+    boolean hoodState = false;
     switch (Robot.getTargetState()) {
       case OFF:
         if (Math.abs(rightJoystickY.getAsDouble()) < Constants.HOOD_JOYSTICK_THRESHOLD) {
@@ -72,7 +72,7 @@ public class HoodContinousTarget extends CommandBase {
           ticks = calculateAngle(vision);
           if (ticks != null) {
             if (Math.abs(hood.getPotentiometer() - ticks) <= Constants.HOOD_ERROR_THRESHOLD) {
-              hood.setHoodLockState(true);
+              hoodState = true;
               hood.setHood(0);
             } else {
               double direction = Math.signum(hood.getPotentiometer() - ticks);
@@ -84,6 +84,7 @@ public class HoodContinousTarget extends CommandBase {
         }
         break;
     }
+    hood.setHoodLockState(hoodState);
   }
 
   // Called once the command ends or is interrupted.
