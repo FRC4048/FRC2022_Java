@@ -158,12 +158,12 @@ public class RobotContainer {
     return m_PowerDistPanel;
   }
 
-  public boolean getTurretLockState() {
-    return turretSubsystem.getTurretLockState();
+  public TurretSubsystem getTurretSubsystem() {
+    return turretSubsystem;
   }
 
-  public boolean getHoodLockState() {
-    return hood.getHoodLockState();
+  public Hood getHood() {
+    return hood;
   }
 
   /*

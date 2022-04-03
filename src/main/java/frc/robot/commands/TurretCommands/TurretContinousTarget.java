@@ -43,14 +43,15 @@ public class TurretContinousTarget extends CommandBase {
     SmartShuffleboard.put("Continous", "Encoder", turret.getEncoder());
     switch (Robot.getTargetState()) {
       case OFF:
+        turret.setTurretLockState(false);
         turret.setTurret((joystick.getAsDouble() * Constants.TURRETSPIN_SCALEFACTOR));
         break;
 
       case LOCK:
         double speed;
+        turret.setTurretLockState(false);
         if (limelight.hasTarget()) {
           double tx = limelight.getCameraAngles().getTx();
-          turret.setTurretLockState(false);
           if (Math.abs(tx - 4) > Constants.TURRET_ERROR_THRESHOLD) {
             speed = Constants.TURRET_FAST_SPEED;
           } else {
@@ -63,7 +64,6 @@ public class TurretContinousTarget extends CommandBase {
             turret.setTurret(0);
           }
         } else {
-          turret.setTurretLockState(false);
           if (((turret.getEncoder() >= Constants.TURRET_RIGHT_THRESHOLD) && turretSpeed < 0) ||
               ((turret.getEncoder() <= Constants.TURRET_LEFT_THRESHOLD) && turretSpeed > 0)) {
             turretSpeed = -turretSpeed;
