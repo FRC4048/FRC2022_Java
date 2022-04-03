@@ -21,7 +21,7 @@ public interface Constants2022Robot extends GameConstants {
 
     //CAN ID
     public static final int PDP_CAN_ID = 0;
-    public static final int DRIVE_LEFT1_ID = 40;
+    public static final int DRIVE_LEFT1_ID = 40; 
     public static final int DRIVE_LEFT2_ID = 39;
     public static final int DRIVE_RIGHT1_ID = 38;
     public static final int DRIVE_RIGHT2_ID = 37;
