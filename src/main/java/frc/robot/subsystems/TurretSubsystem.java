@@ -22,6 +22,7 @@ public class TurretSubsystem extends SubsystemBase {
         turretMotor = new WPI_TalonSRX(Constants.TURRET_MOTOR_ID);
         turretMotor.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
         turretMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+        turretPID.setTolerance(Constants.TURRET_AUTO_ALIGN_TRESHOLD,0.0);
 
         Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Turret  Encoder", 100, turretMotor));
         Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Turret Forward Switch", turretMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
