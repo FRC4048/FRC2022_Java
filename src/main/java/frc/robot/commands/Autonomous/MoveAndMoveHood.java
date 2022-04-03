@@ -16,7 +16,7 @@ public class MoveAndMoveHood extends ParallelCommandGroup {
     public MoveAndMoveHood(DriveTrain driveTrain, double speed, double distanceInches, Hood hood) {
         addCommands(
             new MoveDistance(driveTrain, speed, distanceInches),
-            new MoveHoodToAngle(hood, 106.0)
+            new MoveHoodToAngle(hood, 112.0)
         );
     }
 }
