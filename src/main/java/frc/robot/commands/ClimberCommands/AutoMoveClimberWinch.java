@@ -43,9 +43,6 @@ public class AutoMoveClimberWinch extends LoggedCommandBase {
 
     climberWinchSubsystem.setSpeed(Constants.CLIMBER_WINCH_SPEED * directionMultiplier);
 
-    if (direction == ClimberDirection.RETRACT && climberWinchSubsystem.getRightOnBarSwitch() && climberWinchSubsystem.getLeftOnBarSwitch()) {
-      climberWinchSubsystem.movePiston(false);
-    }
   }
 
   // Called once the command ends or is interrupted.
