@@ -47,7 +47,7 @@ public interface GameConstants {
   public static final double HOOD_JOYSTICK_THRESHOLD = 0.2;
   public static final double HOOD_RANGE_OF_MOTION = 180; //temp value
   public static final double HOOD_STARTING_POINT = 0; //temp value
-  public static final double HOOD_ERROR_THRESHOLD = .5;
+  public static final double HOOD_ERROR_THRESHOLD = 1;
 
 
   //Climber

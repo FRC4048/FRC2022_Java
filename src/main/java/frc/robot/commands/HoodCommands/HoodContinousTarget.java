@@ -60,11 +60,11 @@ public class HoodContinousTarget extends CommandBase {
       case OFF:
         if(Math.abs(rightJoystickY.getAsDouble()) < Constants.HOOD_JOYSTICK_THRESHOLD){
           hood.setHood(0);
-        }
-        hood.setHood(rightJoystickY.getAsDouble()*Constants.HOOD_MOTOR_SPEED);
+        } else { hood.setHood(rightJoystickY.getAsDouble() * Constants.HOOD_MOTOR_SPEED); }
         break;
 
       case LOCK:
+        if (vision.hasTarget()) {
           ticks = calculateAngle(vision);
           if (ticks != null) {
             if (Math.abs(hood.getPotentiometer() - ticks) <= Constants.HOOD_ERROR_THRESHOLD) {
@@ -73,9 +73,10 @@ public class HoodContinousTarget extends CommandBase {
               double direction = Math.signum(hood.getPotentiometer() - ticks);
               hood.setHood(Constants.HOOD_AUTO_MOTOR_SPEED * direction);
             }
-          } else {
-            hood.setHood(0);
           }
+        } else {
+          hood.setHood(0);
+        }
         break; 
     }
   }

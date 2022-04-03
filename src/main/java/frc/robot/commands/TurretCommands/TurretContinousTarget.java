@@ -19,7 +19,6 @@ public class TurretContinousTarget extends CommandBase {
   private LimeLightVision limelight;
   private DoubleSupplier joystick;
   private double turretSpeed;
-  private double speed;
 
   public TurretContinousTarget(TurretSubsystem turret, LimeLightVision limelight, DoubleSupplier joystick) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -46,18 +45,19 @@ public class TurretContinousTarget extends CommandBase {
         break;
 
       case LOCK:
+        double speed;
         if (limelight.hasTarget()) {
           double tx = limelight.getCameraAngles().getTx();
-            if (tx > (4 + Constants.TURRET_ERROR_THRESHOLD) || tx > (4 - Constants.TURRET_ERROR_THRESHOLD)) {
+            if (Math.abs(tx - 4) > Constants.TURRET_ERROR_THRESHOLD) {
                 speed = Constants.TURRET_SLOW_SPEED; 
             }
             else {
-                speed = Constants.TURRET_SLOW_SPEED;
+                speed = Constants.TURRET_FAST_SPEED;
             }
-            if (tx > 4) {
-                turret.setTurret(speed * -1);
-            } else if (tx < 4) {
-                turret.setTurret(speed);
+            if (Math.abs(4 - tx) > 2){
+              turret.setTurret(speed * Math.signum(4 - tx));
+            } else {
+              turret.setTurret(0);
             }
         } else {  
             if (((turret.getEncoder() >= Constants.TURRET_RIGHT_THRESHOLD) && turretSpeed < 0) || 
