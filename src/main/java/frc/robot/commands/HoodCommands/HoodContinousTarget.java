@@ -57,9 +57,9 @@ public class HoodContinousTarget extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    hood.setHoodLockState(false);
     switch (Robot.getTargetState()) {
       case OFF:
-        hood.setHoodLockState(false);
         if (Math.abs(rightJoystickY.getAsDouble()) < Constants.HOOD_JOYSTICK_THRESHOLD) {
           hood.setHood(0);
         } else {
@@ -68,7 +68,6 @@ public class HoodContinousTarget extends CommandBase {
         break;
 
       case LOCK:
-        hood.setHoodLockState(false);
         if (vision.hasTarget()) {
           ticks = calculateAngle(vision);
           if (ticks != null) {
