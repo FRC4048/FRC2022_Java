@@ -16,7 +16,7 @@ import frc.robot.utils.limelight.LimeLightVision;
 
 public class HoodContinousTarget extends CommandBase {
   /** Creates a new HoodContinousTarget. */
-  private static Map <Integer, Double> angleLookupMap;
+  private static Map<Integer, Double> angleLookupMap;
   private Hood hood;
   private DoubleSupplier rightJoystickY;
   private LimeLightVision vision;
@@ -40,7 +40,7 @@ public class HoodContinousTarget extends CommandBase {
     angleLookupMap.put(16, 142.9);
   }
 
-  public HoodContinousTarget (Hood hood, DoubleSupplier rightJoystickY, LimeLightVision vision) {
+  public HoodContinousTarget(Hood hood, DoubleSupplier rightJoystickY, LimeLightVision vision) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.hood = hood;
     this.rightJoystickY = rightJoystickY;
@@ -51,23 +51,28 @@ public class HoodContinousTarget extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    switch(Robot.getTargetState()) {
+    switch (Robot.getTargetState()) {
       case OFF:
-        if(Math.abs(rightJoystickY.getAsDouble()) < Constants.HOOD_JOYSTICK_THRESHOLD){
+        if (Math.abs(rightJoystickY.getAsDouble()) < Constants.HOOD_JOYSTICK_THRESHOLD) {
           hood.setHood(0);
-        } else { hood.setHood(rightJoystickY.getAsDouble() * Constants.HOOD_MOTOR_SPEED); }
+        } else {
+          hood.setHood(rightJoystickY.getAsDouble() * Constants.HOOD_MOTOR_SPEED);
+        }
         break;
 
       case LOCK:
+        hood.setHoodLockState(false);
         if (vision.hasTarget()) {
           ticks = calculateAngle(vision);
           if (ticks != null) {
             if (Math.abs(hood.getPotentiometer() - ticks) <= Constants.HOOD_ERROR_THRESHOLD) {
+              hood.setHoodLockState(true);
               hood.setHood(0);
             } else {
               double direction = Math.signum(hood.getPotentiometer() - ticks);
@@ -75,9 +80,10 @@ public class HoodContinousTarget extends CommandBase {
             }
           }
         } else {
+          hood.setHoodLockState(false);
           hood.setHood(0);
         }
-        break; 
+        break;
     }
   }
 
