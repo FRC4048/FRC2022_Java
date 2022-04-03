@@ -1,17 +1,13 @@
 package frc.robot.commands.IntakeCommand;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class IntakeBallCommand extends LoggedCommandBase {
   private IntakeSubsystem intakeSubsystem;
-  private double initTime;
   private int ballDetections;
   /**
    * Creates a new ExampleCommand.
@@ -26,9 +22,7 @@ public class IntakeBallCommand extends LoggedCommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-      initTime = Timer.getFPGATimestamp();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -50,6 +44,6 @@ public class IntakeBallCommand extends LoggedCommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return ((ballDetections >= 5) || (Timer.getFPGATimestamp() - initTime) >= Constants.DEPLOYED_INTAKE_TIMEOUT);
+    return (ballDetections >= 5);
   }
 }
