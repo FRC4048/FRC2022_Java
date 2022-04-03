@@ -25,7 +25,7 @@ import frc.robot.commands.ClimberCommands.AutoMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ClimberLockTurret;
 import frc.robot.commands.ClimberCommands.ExtendClimberSolenoid;
 import frc.robot.commands.ClimberCommands.InitialClimbSequence;
-import frc.robot.commands.ClimberCommands.InitialParallelSequence;
+import frc.robot.commands.ClimberCommands.InitialExtendSequeunce;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.MoveClimberToNextBar;
@@ -192,9 +192,9 @@ public class RobotContainer {
     SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
 
     // Climber Controls
-    climberAButton.whenPressed(new LogCommandWrapper(new InitialParallelSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision())));
+    climberAButton.whenPressed(new LogCommandWrapper(new InitialExtendSequeunce(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision())));
     //climberAButton.whenPressed(new LogCommandWrapper(new InitialClimbSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
-    climberBButton.whenPressed(new LogCommandWrapper(new RetractClimberSequence(climberWinchSubsystem)));
+    climberBButton.whenPressed(new LogCommandWrapper(new RetractClimberSequence(climberWinchSubsystem, climberArmSubsystem)));
     staticLock.whenPressed(new LogCommandWrapper(new ExtendClimberSolenoid(climberWinchSubsystem)));
     staticUnlock.whenPressed(new LogCommandWrapper(new RetractClimberSolenoid(climberWinchSubsystem)));
     climberYButton.whenPressed(new LogCommandWrapper(new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, climberController)));
@@ -249,7 +249,7 @@ public class RobotContainer {
 
       SmartShuffleboard.putCommand("Climber", "Extend Arm", new AutoMoveClimberArm(climberArmSubsystem, ClimberDirection.EXTEND));
       SmartShuffleboard.putCommand("Climber", "Retract Arm", new AutoMoveClimberArm(climberArmSubsystem, ClimberDirection.RETRACT));
-
+      SmartShuffleboard.putCommand("Climber", "Transfer", new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, climberController));
 
       SmartShuffleboard.putCommand("Shooter", "Rotate Turret Left", new MoveTurretDashboard(turretSubsystem, MoveTurretDashboard.Direction.LEFT));
       SmartShuffleboard.putCommand("Shooter", "Rotate Turret Right", new MoveTurretDashboard(turretSubsystem, MoveTurretDashboard.Direction.RIGHT));

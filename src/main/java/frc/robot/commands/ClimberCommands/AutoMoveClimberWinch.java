@@ -52,6 +52,9 @@ public class AutoMoveClimberWinch extends LoggedCommandBase {
   @Override
   public void end(boolean interrupted) {
     climberWinchSubsystem.stop();
+    if (direction == ClimberDirection.RETRACT && climberWinchSubsystem.getRightOnBarSwitch() && climberWinchSubsystem.getLeftOnBarSwitch()) {
+      climberWinchSubsystem.movePiston(false);
+    }
   }
 
   // Returns true when the command should end.
