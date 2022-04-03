@@ -85,7 +85,7 @@ public interface GameConstants {
   public static final double AUTO_MOVE_TURN_SPEED = 0.2;
   public static final double CONTROLLER_DEAD_ZONE = 0.2;
 
-  // Turret
+  // Turret 
   public static final double TURRET_CLOCKWISE_SPEED = .5;
   public static final double TURRET_COUNTERCLOCKWISE_SPEED = -.5;
   // Intake
@@ -103,9 +103,9 @@ public interface GameConstants {
   public static final double TURRET_SWEEP_SPEED = 0.4;
   public static final double TURRET_ERROR_THRESHOLD = 6;
   public static final double TURRET_FAST_SPEED = 0.4;
-  public static final double TURRET_SLOW_SPEED = 0.1;
-  public static final double TURRET_RIGHT_THRESHOLD = 830; //placeholder
-  public static final double TURRET_LEFT_THRESHOLD = 20; //placeholder
+  public static final double TURRET_SLOW_SPEED = 0.2;
+  public static final double TURRET_RIGHT_THRESHOLD = 810; //placeholder
+  public static final double TURRET_LEFT_THRESHOLD = 40; //placeholder
 
   //Autonomous
   public static final double AUTO_TURRET_SPEED = 0.5;

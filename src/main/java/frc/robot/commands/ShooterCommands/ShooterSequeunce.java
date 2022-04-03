@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.subsystems.Hood;
+import frc.robot.commands.SetStateOff;
 import frc.robot.commands.Miscellaneous.SetPipeline;
 import frc.robot.commands.TurretCommands.ToggleTargetState;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -25,10 +26,9 @@ public class ShooterSequeunce extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new LogCommandWrapper(new SetPipeline(Constants.LIMELIGHT_TARGET_DETECTION)),
       new LogCommandWrapper(new VisionAutoShooter(vision, shooterSubsystem)),
       new LogCommandWrapper(new ElevatorSequence(shooterSubsystem)),
-      new LogCommandWrapper(new ToggleTargetState())
+      new LogCommandWrapper(new SetStateOff())
     );
   }
 }

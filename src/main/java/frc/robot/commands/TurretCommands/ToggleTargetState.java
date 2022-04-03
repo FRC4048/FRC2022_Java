@@ -23,7 +23,6 @@ public class ToggleTargetState extends CommandBase {
   public void initialize() {
     if (Robot.getTargetState() == TARGETING_STATE.LOCK) {
       Robot.setTargetState(TARGETING_STATE.OFF);
-      CommandScheduler.getInstance().schedule(new LogCommandWrapper(new SetPipeline(0)));
     } else {
       Robot.setTargetState(TARGETING_STATE.LOCK);
       CommandScheduler.getInstance().schedule(new LogCommandWrapper(new SetPipeline(1)));

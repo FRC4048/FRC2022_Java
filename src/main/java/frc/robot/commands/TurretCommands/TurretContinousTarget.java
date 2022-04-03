@@ -11,6 +11,7 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.Robot.TARGETING_STATE;
 import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.limelight.LimeLightVision;
 
 public class TurretContinousTarget extends CommandBase {
@@ -39,6 +40,7 @@ public class TurretContinousTarget extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    SmartShuffleboard.put("Continous", "Encoder", turret.getEncoder());
     switch(Robot.getTargetState()) {
       case OFF:
         turret.setTurret((joystick.getAsDouble() * Constants.TURRETSPIN_SCALEFACTOR));
@@ -49,12 +51,12 @@ public class TurretContinousTarget extends CommandBase {
         if (limelight.hasTarget()) {
           double tx = limelight.getCameraAngles().getTx();
             if (Math.abs(tx - 4) > Constants.TURRET_ERROR_THRESHOLD) {
-                speed = Constants.TURRET_SLOW_SPEED; 
+                speed = Constants.TURRET_FAST_SPEED; 
             }
             else {
-                speed = Constants.TURRET_FAST_SPEED;
+                speed = Constants.TURRET_SLOW_SPEED * (Math.abs(tx - 4) / Constants.TURRET_ERROR_THRESHOLD);
             }
-            if (Math.abs(4 - tx) > 2){
+            if (Math.abs(4 - tx) > .5){
               turret.setTurret(speed * Math.signum(4 - tx));
             } else {
               turret.setTurret(0);
@@ -64,6 +66,7 @@ public class TurretContinousTarget extends CommandBase {
                 ((turret.getEncoder() <= Constants.TURRET_LEFT_THRESHOLD) && turretSpeed > 0)) {
                   turretSpeed = -turretSpeed;
             }
+            SmartShuffleboard.put("Continous", "Speed", turretSpeed);
             turret.setTurret(turretSpeed);
         }
         break;
