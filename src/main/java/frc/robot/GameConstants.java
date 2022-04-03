@@ -31,6 +31,7 @@ public interface GameConstants {
   public static final double INTAKE_MOTOR_TIMEOUT = 10;
   public static final double TURRETSPIN_COMMAND_TIMEOUT = 2;
   public static final double HOOD_TARGET_TIMEOUT = 1;
+  public static final double EXTEND_WINCH_TIMEOUT = 3;
 
   //Limelight Settings
   public static final double CAMERA_HEIGHT = 38.5;
@@ -46,7 +47,7 @@ public interface GameConstants {
   public static final double HOOD_JOYSTICK_THRESHOLD = 0.2;
   public static final double HOOD_RANGE_OF_MOTION = 180; //temp value
   public static final double HOOD_STARTING_POINT = 0; //temp value
-  public static final double HOOD_ERROR_THRESHOLD = .5;
+  public static final double HOOD_ERROR_THRESHOLD = 1;
 
 
   //Climber
@@ -54,14 +55,15 @@ public interface GameConstants {
   public static final double CLIMBER_ARM_V_TIMEOUT = 0.3;
   public static final double CLIMBER_SLOW_ARM_RATE = 0.75;
   public static final double CLIMBER_SLOW_WINCH_RATE = 0.75;
-  public static final double CLIMBER_ARM_SPEED = .8;
-  public static final double CLIMBER_WINCH_SPEED = .8;
+  public static final double CLIMBER_ARM_SPEED = .3;
+  public static final double CLIMBER_WINCH_SPEED = .5;
   public static final double CLIMBER_MIN_ARM_SPEED = 0.1;
   public static final double CLIMBER_MIN_WINCH_SPEED = 0.1;
   public static final double CLIMBER_TIMEOUT = 10;
   public static final double CLIMBER_MAX_ENCODER_DIFF = 1000;
   public static final double CLIMBER_ARM_TIMEOUT = 10;
   public static final double CLIMBER_WINCH_TIMEOUT = 10;
+  public static final double CLIMBER_DEAD_ZONE = 0.5;
 
   //Shooter
   public static final double SHOOTER_SPEED = 0.5;
@@ -79,9 +81,16 @@ public interface GameConstants {
   public static final double SHOOTER_MAX_OUTPUT = 1;
   public static final double SHOOTER_MIN_OUTPUT = -1;
 
+  //Drive
+  public static final double AUTO_MOVE_TURN_MAX_SPEED = 0.2;
+  public static final double AUTO_MOVE_TURN_MIN_SPEED = 0.05;
+  public static final double AUTO_MOVE_TURN_SLOWDOWN_ERROR = 50;
+  public static final double AUTO_MOVE_TURN_TIMEOUT = 5;
+  public static final double AUTO_MOVE_TURN_THRESHOLD = 2;
 
+  public static final double CONTROLLER_DEAD_ZONE = 0.2;
 
-  // Turret
+  // Turret 
   public static final double TURRET_CLOCKWISE_SPEED = .5;
   public static final double TURRET_COUNTERCLOCKWISE_SPEED = -.5;
   // Intake
@@ -91,11 +100,25 @@ public interface GameConstants {
   //Turret
   public static final double TURRETSPIN_SCALEFACTOR = 0.35;
   public static final int TURRET_AUTO_BAD_READINGS_TRESHOLD = 50;
-  public static final double TURRET_AUTO_ALIGN_TRESHOLD = 0.2; //change when testing
+  public static final double TURRET_AUTO_ALIGN_TRESHOLD = 0.5; //change when testing
   public static final double TURRET_AUTO_TIMEOUT = 5;
   public static final double TURRET_SPEED = 0.7;
   public static final double TURRET_MIN_SPEED = 0.1;
   public static final double TURRET_MAX_DIFFERENCE = 500;
+  public static final double TURRET_SWEEP_SPEED = 0.4;
+  public static final double TURRET_ERROR_THRESHOLD = 6;
+  public static final double TURRET_FAST_SPEED = 0.4;
+  public static final double TURRET_SLOW_SPEED = 0.2;
+  public static final double TURRET_RIGHT_THRESHOLD = 810; //placeholder
+  public static final double TURRET_LEFT_THRESHOLD = 40; //placeholder
+
+  //Autonomous
+  public static final double AUTO_TURRET_SPEED = 0.5;
+  public static final double AUTO_TURRET_CENTER_ANGLE = 430; //this is a random value, it works though
+  public static final double AUTO_MOVE_SPEED = 0.4;
+  public static final double AUTO_DISTANCE_INCHES = 15;
+  public static final double AUTO_CROSS_LINE_DISTANCE_INCHES = 69; //added 12 because we dont do the move 1 foot for the first shot
+  public static final double AUTO_DISTANCE_TO_BALL_THREE = 60; // Place holder; we need to test this dist
 
   // SHOOTER MATH
   public static final int HOOD_MARGIN_OF_ERROR = 1;

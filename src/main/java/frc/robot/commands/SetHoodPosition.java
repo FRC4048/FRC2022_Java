@@ -2,32 +2,32 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.ShooterCommands;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.commands.LoggedCommandBase;
-import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.utils.SmartShuffleboard;
+import frc.robot.subsystems.Hood;
 
-public class WaitForRPM extends LoggedCommandBase {
-  /** Creates a new WaitForRPM. */
-  private double targetRPM;
-  ShooterSubsystem shooter;
-
-  public WaitForRPM(ShooterSubsystem shooter) {
+public class SetHoodPosition extends CommandBase {
+  /** Creates a new SetHoodPosition. */
+  private double speed;
+  private Hood Hood;
+  public SetHoodPosition(Hood Hood, double speed) {
+    this.speed = speed;
+    this.Hood = Hood;
     // Use addRequirements() here to declare subsystem dependencies.
-    this.shooter = shooter;
+    addRequirements(Hood);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    targetRPM = shooter.getVelocity() * .29;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    Hood.setHood(speed);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -36,6 +36,6 @@ public class WaitForRPM extends LoggedCommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (shooter.getShooterRPM() >= targetRPM);
+    return true;
   }
 }

@@ -21,7 +21,7 @@ import frc.robot.utils.logging.LogCommandWrapper;
 public class ElevatorSequence extends SequentialCommandGroup {
   /** Creates a new ElevatorSequence. */
   private ShooterSubsystem shooterSubsystem;
-
+ 
   public ElevatorSequence(ShooterSubsystem shooterSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
@@ -32,8 +32,7 @@ public class ElevatorSequence extends SequentialCommandGroup {
       new LogCommandWrapper(new WaitCommand(Constants.SHOOTER_PISTON_WAIT)),
       new LogCommandWrapper(new RetractShooterPiston(shooterSubsystem)),
       new LogCommandWrapper(new SetShooterMotor(shooterSubsystem, 0)),
-      new LogCommandWrapper(new ToggleBlockerPiston(shooterSubsystem, false)),
-      new LogCommandWrapper(new SetPipeline(Constants.LIMELIGHT_STREAMING))
+      new LogCommandWrapper(new ToggleBlockerPiston(shooterSubsystem, false))
     );
     SmartShuffleboard.put("Driver", "Data", "Can Shoot", false);
     this.shooterSubsystem = shooterSubsystem;

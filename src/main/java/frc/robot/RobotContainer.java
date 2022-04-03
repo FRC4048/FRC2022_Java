@@ -14,18 +14,31 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ShooterCommands.*;
 import frc.robot.commands.ToggleBlockerPiston;
+import frc.robot.commands.Autonomous.AutoSetShootingPosition;
+import frc.robot.commands.Autonomous.AutoSetTurretPosition;
+import frc.robot.commands.Autonomous.CrossTheLineSequence;
+import frc.robot.commands.Autonomous.DoNothingSequence;
+import frc.robot.commands.Autonomous.TwoShotSequenceLeft;
+import frc.robot.commands.Autonomous.TwoShotSequenceRight;
+import frc.robot.commands.Autonomous.OneShotSequenceMiddle;
 import frc.robot.commands.LogError;
+import frc.robot.commands.ToggleBlockerPiston;
+import frc.robot.commands.ClimberCommands.Climb3Inches;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.ToggleClimberSolenoid;
+import frc.robot.commands.DriveCommands.AutoTurnDegrees;
+import frc.robot.commands.ClimberCommands.WinchExtend;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.DriveCommands.TurnDegrees;
 import frc.robot.commands.HoodCommands.HoodAutoCommand;
+import frc.robot.commands.HoodCommands.HoodContinousTarget;
 import frc.robot.commands.HoodCommands.MoveHoodDown;
 import frc.robot.commands.HoodCommands.MoveHoodToAngle;
 import frc.robot.commands.HoodCommands.MoveHoodUp;
 import frc.robot.commands.IntakeCommand.DeployIntakeCommand;
 import frc.robot.commands.IntakeCommand.DropBallCommand;
+import frc.robot.commands.IntakeCommand.DropBallCommandManual;
 import frc.robot.commands.IntakeCommand.IntakeBallCommand;
 import frc.robot.commands.IntakeCommand.IntakeSequence;
 import frc.robot.commands.IntakeCommand.ManuallyRunIntakeMotor;
@@ -35,9 +48,28 @@ import frc.robot.commands.Miscellaneous.CancelAll;
 import frc.robot.commands.Miscellaneous.SetLEDOff;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
 import frc.robot.commands.Miscellaneous.SetPipeline;
+import frc.robot.commands.ShooterCommands.AutoTargetSequence;
+import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
+import frc.robot.commands.ShooterCommands.LaunchpadSetPoint;
+import frc.robot.commands.ShooterCommands.ManuallyMoveHood;
+import frc.robot.commands.ShooterCommands.RetractShooterPiston;
+import frc.robot.commands.ShooterCommands.RunShooterMotor;
+import frc.robot.commands.ShooterCommands.SetShooterMotor;
+import frc.robot.commands.ShooterCommands.ShooterSequeunce;
+import frc.robot.commands.ShooterCommands.TarmacSetPoint;
+import frc.robot.commands.ShooterCommands.ToggleShooterMotor;
+import frc.robot.commands.ShooterCommands.ToggleShooterPiston;
+import frc.robot.commands.ShooterCommands.VisionAutoShooter;
+import frc.robot.commands.ShooterCommands.WaitForRPM;
 import frc.robot.commands.TurretCommands.CalibrateTurretEncoderSequence;
 import frc.robot.commands.TurretCommands.MoveTurretDashboard;
+import frc.robot.commands.TurretCommands.RunTurretUntilLimitSwitch;
+import frc.robot.commands.TurretCommands.TurretAuto;
+import frc.robot.commands.TurretCommands.TurretContinousTarget;
+import frc.robot.commands.TurretCommands.RunTurretUntilTarget;
+import frc.robot.commands.TurretCommands.ToggleTargetState;
 import frc.robot.commands.TurretCommands.TurretManualCommand;
+import frc.robot.commands.TurretCommands.TurretSweepSequence;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -82,6 +114,7 @@ public class RobotContainer {
   private Trigger rightTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
   private Trigger leftTrigger = new Trigger(() -> xboxController.getLeftTriggerAxis() > 0.5 );
   private JoystickButton backButton = new JoystickButton(xboxController, Constants.XBOX_BACK_BUTTON);
+  private JoystickButton climberButtonB = new JoystickButton(climberController, Constants.XBOX_B_BUTTON);
 
   private final LimelightSubsystem limeLightVision = new LimelightSubsystem();
 
@@ -95,11 +128,11 @@ public class RobotContainer {
   
   private final TurretSubsystem turretSubsystem= new TurretSubsystem(); 
 
-  public AutoChooser autoChooser = new AutoChooser();
+  public AutoChooser autoChooser = new AutoChooser(intakeSubsystem, driveTrain, shooterSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), hood);
 
   private final Drive driveCommand = new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getY());
-  private final TurretManualCommand turretCommand= new TurretManualCommand(turretSubsystem, () -> -xboxController.getLeftX());
-  private final ManuallyMoveHood hoodCommand = new ManuallyMoveHood(hood, () -> xboxController.getRightY());
+  private final TurretContinousTarget turretCommand= new TurretContinousTarget(turretSubsystem, limeLightVision.getLimeLightVision(), () -> -xboxController.getLeftX());
+  private final HoodContinousTarget hoodCommand = new HoodContinousTarget(hood, () -> xboxController.getRightY(), limeLightVision.getLimeLightVision());
 
   public boolean canShoot = false;
 
@@ -156,15 +189,17 @@ public class RobotContainer {
     buttonB.whenPressed(new LogCommandWrapper(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED)));
     buttonB.whenReleased(new LogCommandWrapper(new ManuallyRunIntakeMotor(intakeSubsystem, 0)));
     buttonY.whenPressed(new LogCommandWrapper(new ManuallyToggleIntake(intakeSubsystem)));
+    buttonX.whenPressed(new LogCommandWrapper(new DropBallCommandManual(intakeSubsystem, 0.8)));
 
     rightTrigger.whenActive(new LogCommandWrapper(new ShooterSequeunce(shooterSubsystem, limeLightVision.getLimeLightVision())));
-    leftTrigger.whenActive(new LogCommandWrapper(new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood)));
-    leftBumper.whenPressed(new LogCommandWrapper(new ToggleShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM)));
-    leftBumper.whenReleased(new LogCommandWrapper(new ToggleShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM)));
+    leftTrigger.whenActive(new LogCommandWrapper(new ToggleTargetState()));
+    leftBumper.whenPressed(new LogCommandWrapper(new TarmacSetPoint(hood, shooterSubsystem)));
+    rightBumper.whenPressed(new LogCommandWrapper(new LaunchpadSetPoint(hood, shooterSubsystem)));
     startButton.whenPressed(new LogError());
     backButton.whenPressed(new LogCommandWrapper(new CancelAll(intakeSubsystem, shooterSubsystem)));
 
-    climberButtonA.whenPressed(new ToggleClimberSolenoid(climberArmSubsystem));
+    climberButtonA.whenPressed(new LogCommandWrapper(new WinchExtend(climberWinchSubsystem)));
+    climberButtonB.whenPressed(new LogCommandWrapper(new Climb3Inches(climberWinchSubsystem)));
   }
 
   public IntakeSubsystem getIntakeSubsystem() {
@@ -182,7 +217,7 @@ public class RobotContainer {
    */
 
   public Command getAutonomousCommand() {
-    return autoChooser.getAutonomousCommand(autoChooser.getPosition() , autoChooser.getAction());
+    return autoChooser.getAutonomousCommand(autoChooser.getAction());
   }
 
   public void installDriverShuffleboard() {
@@ -200,6 +235,8 @@ public class RobotContainer {
 
       SmartShuffleboard.putCommand("Shooter", "Rotate Turret Left", new MoveTurretDashboard(turretSubsystem, MoveTurretDashboard.Direction.LEFT));
       SmartShuffleboard.putCommand("Shooter", "Rotate Turret Right", new MoveTurretDashboard(turretSubsystem, MoveTurretDashboard.Direction.RIGHT));
+      SmartShuffleboard.putCommand("Shooter", "Turret Sweep", new TurretSweepSequence(turretSubsystem, limeLightVision.getLimeLightVision()));
+      SmartShuffleboard.putCommand("Shooter", "Run Turret Until Target", new RunTurretUntilTarget(turretSubsystem, limeLightVision.getLimeLightVision(), Constants.TURRET_SWEEP_SPEED));
 
       SmartShuffleboard.putCommand("Shooter", "Toggle Piston", new ToggleShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Toggle Shooter Motor", new ToggleShooterMotor(shooterSubsystem, Constants.SHOOTER_RPM));
@@ -223,10 +260,26 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline to 0", new SetPipeline(0));
       SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline to 1", new SetPipeline(1));
       SmartShuffleboard.putCommand("Turn", "Turn Degrees", new TurnDegrees(driveTrain, 90));
+      SmartShuffleboard.putCommand("Drive", "Turn 30 Degrees", new AutoTurnDegrees(driveTrain, 30));
+      SmartShuffleboard.putCommand("Drive", "Turn -30 Degrees", new AutoTurnDegrees(driveTrain, -30));
+      SmartShuffleboard.putCommand("Drive", "Turn 90 Degrees", new AutoTurnDegrees(driveTrain, 90));
+      SmartShuffleboard.putCommand("Drive", "Turn 120 Degrees", new AutoTurnDegrees(driveTrain, 120));
+      SmartShuffleboard.putCommand("Drive", "Turn 150 Degrees", new AutoTurnDegrees(driveTrain, 150));
+      SmartShuffleboard.putCommand("Drive", "Turn 180 Degrees", new AutoTurnDegrees(driveTrain, 180));
 
 
       SmartShuffleboard.putCommand("Hood", "Move Hood Down", new MoveHoodDown(hood));
       SmartShuffleboard.putCommand("Hood", "Move Hood Up", new MoveHoodUp(hood));
+
+      SmartShuffleboard.putCommand("Autonomous", "Two Shot Left", new TwoShotSequenceLeft(turretSubsystem, Constants.AUTO_TURRET_SPEED,  intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED, Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision.getLimeLightVision(), hood));
+      SmartShuffleboard.putCommand("Autonomous", "Two Shot Right", new TwoShotSequenceRight(turretSubsystem, Constants.AUTO_TURRET_SPEED,  intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED, Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision.getLimeLightVision(), hood));
+      SmartShuffleboard.putCommand("Autonomous", "Two Shot Middle", new OneShotSequenceMiddle(turretSubsystem, intakeSubsystem, driveTrain, shooterSubsystem, limeLightVision.getLimeLightVision(), hood, Constants.AUTO_MOVE_SPEED, Constants.AUTO_DISTANCE_INCHES));
+      SmartShuffleboard.putCommand("Autonomous", "Cross Line", new CrossTheLineSequence(driveTrain));
+      SmartShuffleboard.putCommand("Autonomous", "Do Nothing", new DoNothingSequence());
+      SmartShuffleboard.putCommand("Autonomous", "Turret Reset", new AutoSetShootingPosition(turretSubsystem, Constants.AUTO_TURRET_SPEED, Constants.AUTO_TURRET_CENTER_ANGLE));
+      SmartShuffleboard.putCommand("Autonomous", "Run Turret To Switch", new RunTurretUntilLimitSwitch(turretSubsystem));
+      SmartShuffleboard.putCommand("Autonomous", "Set Turret Middle", new AutoSetTurretPosition(turretSubsystem, Constants.AUTO_TURRET_SPEED, Constants.AUTO_TURRET_CENTER_ANGLE));
+
 
       SmartShuffleboard.putCommand("Hood", "Move to 106", new MoveHoodToAngle(hood, 106.0));
       SmartShuffleboard.putCommand("Hood", "Move to 120", new MoveHoodToAngle(hood, 120.0));

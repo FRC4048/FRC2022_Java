@@ -16,8 +16,8 @@ public class LaunchpadSetPoint extends SequentialCommandGroup {
   public LaunchpadSetPoint(Hood hood, ShooterSubsystem shooterSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     addCommands(
-      new LogCommandWrapper(new MoveHoodToAngle(hood, 139.0)),
-      new LogCommandWrapper(new SetShooterMotor(shooterSubsystem, 13500.0)),
+      new LogCommandWrapper(new MoveHoodToAngle(hood, 140.0)),
+      new LogCommandWrapper(new SetShooterMotor(shooterSubsystem, 14000.0)),
       new LogCommandWrapper(new ElevatorSequence(shooterSubsystem)));
   }
 }

@@ -22,8 +22,10 @@ public class MoveHoodToAngle extends CommandBase {
     }
 
     public void execute() {
+        if (ticks != null) {
         double direction = Math.signum(hood.getPotentiometer() - ticks);
         hood.setHood(Constants.HOOD_AUTO_MOTOR_SPEED * direction);
+        }
     }
         
     @Override

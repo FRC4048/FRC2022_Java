@@ -19,6 +19,7 @@ public class TurretAuto extends LoggedCommandBase {
     // bad readings
     private double speed;
     private double initTime;
+    private static double CAMERA_OFFSET = 4;
 
     public TurretAuto(TurretSubsystem turretSubsystem, LimeLightVision limeLight) {
         this.limeLight = limeLight;
@@ -39,11 +40,26 @@ public class TurretAuto extends LoggedCommandBase {
     public void execute() {
         
         if (limeLight.hasTarget()) {
-            speed = Math.abs(limeLight.getCameraAngles().getTx())/Constants.TURRET_MAX_DIFFERENCE * (Constants.TURRET_SPEED-Constants.TURRET_MIN_SPEED) + Constants.TURRET_MIN_SPEED;
-            turretSubsystem.setTurret(-1 * Math.signum(limeLight.getCameraAngles().getTx()) * speed);
+            double tx = limeLight.getCameraAngles().getTx();
+            if (tx > (CAMERA_OFFSET + Constants.TURRET_ERROR_THRESHOLD) || tx > (CAMERA_OFFSET - Constants.TURRET_ERROR_THRESHOLD)) {
+                speed = Constants.TURRET_SLOW_SPEED; 
+            }
+            else {
+                speed = Constants.TURRET_SLOW_SPEED;
+            }
+            if (tx > CAMERA_OFFSET) {
+                turretSubsystem.setTurret(speed * -1);
+            } else if (tx < CAMERA_OFFSET) {
+                turretSubsystem.setTurret(speed);
+            }
+            //turretSubsystem.setTurret(-1 * Math.signum((limeLight.getCameraAngles().getTx()) + 2) * speed);
         }
-        SmartShuffleboard.put("Shooter", "Turret Speed", speed);
-
+        else {  
+            turretSubsystem.setTurret(0);
+        }
+        if (Constants.ENABLE_DEBUG) {
+            SmartShuffleboard.put("Shooter", "Turret Speed", speed);
+        }    
     }
 
     @Override
@@ -57,7 +73,8 @@ public class TurretAuto extends LoggedCommandBase {
     public boolean isFinished() {
 
         if (limeLight.hasTarget()) {
-            if (Math.abs(limeLight.getCameraAngles().getTx()) <= Constants.TURRET_AUTO_ALIGN_TRESHOLD) {
+            if ((limeLight.getCameraAngles().getTx() >= CAMERA_OFFSET - Constants.TURRET_AUTO_ALIGN_TRESHOLD) && 
+            (limeLight.getCameraAngles().getTx() <= CAMERA_OFFSET + Constants.TURRET_AUTO_ALIGN_TRESHOLD)) {
                 return true;
             }
         }

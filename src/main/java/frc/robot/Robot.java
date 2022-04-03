@@ -25,7 +25,12 @@ public class Robot extends TimedRobot {
   private static RobotContainer m_robotContainer;
   private static Diagnostics diagnostics;
 
-  private static boolean isLogging = false;
+  private static boolean isLogging = true;
+
+  private static TARGETING_STATE target_state;
+
+  public enum TARGETING_STATE {OFF, LOCK};
+  
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -39,6 +44,7 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     m_robotContainer.installCommandsOnShuffleboard();
     m_robotContainer.installDriverShuffleboard();
+    target_state = TARGETING_STATE.OFF;
   }
 
   /**
@@ -60,6 +66,10 @@ public class Robot extends TimedRobot {
 
     if (isLogging) {
       Logging.instance().writeAllData();
+    }
+
+    if (Constants.ENABLE_DEBUG) {
+      SmartShuffleboard.put("Shooter", "State", target_state.name());
     }
   }
 
@@ -145,6 +155,14 @@ public class Robot extends TimedRobot {
 
   public static void setIsLogging(boolean isLog) {
     isLogging = isLog;
+  }
+
+  public static TARGETING_STATE getTargetState() {
+    return target_state;
+  }
+
+  public static void setTargetState(TARGETING_STATE state){
+    target_state = state;
   }
 }
 
