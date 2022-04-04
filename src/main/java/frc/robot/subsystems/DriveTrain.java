@@ -54,7 +54,13 @@ public class DriveTrain extends SubsystemBase {
   }
 
   private void addToShuffleboard() {
-    SmartShuffleboard.put("drive", "angle", gyro.getAngle());
+    SmartShuffleboard.put("Drive", "angle", gyro.getAngle());
+    SmartShuffleboard.put("Drive", "Gyro", "X filtered acceleration angle", gyro.getXFilteredAccelAngle());
+    SmartShuffleboard.put("Drive", "Gyro", "Y filtered acceleration angle", gyro.getYFilteredAccelAngle());
+    SmartShuffleboard.put("Drive", "Gyro", "Z axis", gyro.getYawAxis());
+    SmartShuffleboard.put("Drive", "Gyro", "Z acceleration angle", gyro.getAccelZ());
+    SmartShuffleboard.put("Drive", "Gyro", "X acceleration angle", gyro.getAccelX());
+    SmartShuffleboard.put("Drive", "Gyro", "Y acceleration angle", gyro.getAccelY());
   }
 
   /**
