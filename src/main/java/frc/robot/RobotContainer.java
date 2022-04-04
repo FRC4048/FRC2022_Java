@@ -158,6 +158,14 @@ public class RobotContainer {
     return m_PowerDistPanel;
   }
 
+  public TurretSubsystem getTurretSubsystem() {
+    return turretSubsystem;
+  }
+
+  public Hood getHood() {
+    return hood;
+  }
+
   /*
   public void doRumble() {
     joyLeft.setRumble(GenericHID.RumbleType.kLeftRumble, 1);

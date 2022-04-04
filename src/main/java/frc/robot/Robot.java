@@ -71,6 +71,17 @@ public class Robot extends TimedRobot {
     if (Constants.ENABLE_DEBUG) {
       SmartShuffleboard.put("Shooter", "State", target_state.name());
     }
+    boolean can_shoot = false;
+    boolean turret_lock_state = m_robotContainer.getTurretSubsystem().getTurretLockState();
+    boolean hood_lock_state = m_robotContainer.getHood().getHoodLockState();
+    if (hood_lock_state && turret_lock_state) {
+      can_shoot = true;
+    }
+    else {
+      can_shoot = false;
+    }
+
+    SmartShuffleboard.put("Driver", "Can Shoot", can_shoot);
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
