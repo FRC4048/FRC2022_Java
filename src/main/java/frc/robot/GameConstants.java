@@ -62,7 +62,7 @@ public interface GameConstants {
   // public static final double CLIMBER_MIN_ARM_SPEED = 0.1;
   // public static final double CLIMBER_MIN_WINCH_SPEED = 0.1;
   // public static final double CLIMBER_MAX_ENCODER_DIFF = 1000;
-  public static final double CLIMBER_ARM_TIMEOUT = 3;
+  public static final double CLIMBER_ARM_TIMEOUT = 1.5;
   public static final double CLIMBER_WINCH_TIMEOUT = 10;
   public static final double CLIMBER_DEAD_ZONE = 0.5;
   public static final double CLIMBER_PULL_OFF_TIMEOUT = 0.5;

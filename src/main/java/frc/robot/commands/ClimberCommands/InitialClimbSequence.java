@@ -21,10 +21,10 @@ public class InitialClimbSequence extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new LogCommandWrapper(new InitialParallelSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, vision)),
+      new LogCommandWrapper(new InitialExtendSequeunce(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, vision)),
       new LogCommandWrapper(new RetractWinchForTimeout(climberWinchSubsystem)),
       new LogCommandWrapper(new ConfirmTransition(climberController)),
-      new LogCommandWrapper(new RetractClimberSequence(climberWinchSubsystem))
+      new LogCommandWrapper(new RetractClimberSequence(climberWinchSubsystem, climberArmSubsystem))
     );
   }
 }
