@@ -11,9 +11,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /** An example command that uses an example subsystem. */
 public class IntakeBallCommand extends LoggedCommandBase {
   private IntakeSubsystem intakeSubsystem;
-  private double initTime;
+  //private double initTime;
   private int ballDetections;
-  private int timeOut = 6;
+  //private int timeOut = 6;
   /**
    * Creates a new ExampleCommand.
    *
@@ -28,13 +28,13 @@ public class IntakeBallCommand extends LoggedCommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intakeSubsystem);
     this.intakeSubsystem = intakeSubsystem;
-    this.timeOut = timeOut;
+    //this.timeOut = timeOut;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      initTime = Timer.getFPGATimestamp();
+      //initTime = Timer.getFPGATimestamp();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -57,6 +57,6 @@ public class IntakeBallCommand extends LoggedCommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return ((ballDetections >= 5) || (Timer.getFPGATimestamp() - initTime) >= timeOut);
+    return ((ballDetections >= 5)); //|| (Timer.getFPGATimestamp() - initTime) >= timeOut);
   }
 }
