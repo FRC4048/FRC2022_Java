@@ -15,10 +15,10 @@ import frc.robot.utils.logging.LogCommandWrapper;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class InitialExtendSequeunce extends SequentialCommandGroup {
+public class InitialExtendSequence extends SequentialCommandGroup {
   /** Creates a new ExtendClimberParallelSequence. */
 
-  public InitialExtendSequeunce(ClimberArmSubsystem climberArmSubsystem, ClimberWinchSubsystem climberWinchSubsystem, TurretSubsystem turretSubsystem, LimeLightVision vision) {
+  public InitialExtendSequence(ClimberArmSubsystem climberArmSubsystem, ClimberWinchSubsystem climberWinchSubsystem, TurretSubsystem turretSubsystem, LimeLightVision vision) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 

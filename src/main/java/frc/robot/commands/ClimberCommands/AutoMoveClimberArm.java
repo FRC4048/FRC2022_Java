@@ -38,31 +38,6 @@ public class AutoMoveClimberArm extends LoggedCommandBase {
   @Override
   public void execute() {
     double rightSpeed = 0, leftSpeed = 0;
-    // if (autoBalance) {
-    // encoderDifference = Math.abs(climberArmSubsystem.getRightEncoder() -
-    // climberArmSubsystem.getLeftEncoder());
-
-    // if (climberArmSubsystem.getRightVelocity() < 1 ||
-    // climberArmSubsystem.isRightStalled()) {
-    // rightSpeed = 0;
-    // }
-    // if (climberArmSubsystem.getLeftVelocity() < 1 ||
-    // climberArmSubsystem.isLeftStalled()) {
-    // leftSpeed = 0;
-    // }
-
-    // if (Math.abs(climberArmSubsystem.getRightEncoder()) >
-    // Math.abs(climberArmSubsystem.getLeftEncoder())+Constants.CLIMBER_MAX_ENCODER_DIFF)
-    // {
-    // rightSpeed *=
-    // (1-(encoderDifference/Constants.CLIMBER_MAX_ENCODER_DIFF*Constants.CLIMBER_MIN_ARM_SPEED));
-    // } else if (Math.abs(climberArmSubsystem.getLeftEncoder()) >
-    // Math.abs(climberArmSubsystem.getRightEncoder())+Constants.CLIMBER_MAX_ENCODER_DIFF)
-    // {
-    // leftSpeed *=
-    // (1-(encoderDifference/Constants.CLIMBER_MAX_ENCODER_DIFF*Constants.CLIMBER_MIN_ARM_SPEED));
-    // }
-    // }
     if (direction == ClimberDirection.EXTEND) {
       if (!climberArmSubsystem.getLeftBotSensor()) {
         leftSpeed = -Constants.CLIMBER_ARM_SPEED;
