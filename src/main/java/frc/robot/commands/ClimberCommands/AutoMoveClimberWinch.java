@@ -37,9 +37,16 @@ public class AutoMoveClimberWinch extends LoggedCommandBase {
   @Override
   public void execute() {
     double directionMultiplier = 1;
+    //double rightSpeed = Constants.CLIMBER_WINCH_SPEED;
     if (direction == ClimberDirection.RETRACT) {
       directionMultiplier = -1;
     }
+
+    // if (Math.abs(accel) >= Constants.CLIMBER_MAX_ACCEL + Constants.CLIMBER_ACCEL_ERROR) {
+    //   rightSpeed += accel/Constants.CLIMBER_MAX_ACCEL * Constants.CLIMBER_WINCH_VARIANCE_SPEED;
+    // }
+    // climberWinchSubsystem.setLeftWinchSpeed(Constants.CLIMBER_WINCH_SPEED * directionMultiplier);
+    // climberWinchSubsystem.setRightWinchSpeed(rightSpeed * directionMultiplier);;
 
     climberWinchSubsystem.setSpeed(Constants.CLIMBER_WINCH_SPEED * directionMultiplier);
 

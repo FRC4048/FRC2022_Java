@@ -22,7 +22,6 @@ import frc.robot.utils.diag.DiagTalonSrxSwitch;
 public class ClimberArmSubsystem extends SubsystemBase {
   /** Creates a new ClimberArmSubsystem. */
   private WPI_TalonSRX leftArm, rightArm;
-  private MotorUtils leftMotorUtil, rightMotorUtil;
   private PowerDistribution m_PowerDistPanel;
   
   public ClimberArmSubsystem(PowerDistribution m_PowerDistPanel) {

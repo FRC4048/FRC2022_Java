@@ -59,15 +59,16 @@ public interface GameConstants {
   public static final double CLIMBER_SLOW_WINCH_RATE = 0.75;
   public static final double CLIMBER_ARM_SPEED = .4;
   public static final double CLIMBER_WINCH_SPEED = .75;
-  // public static final double CLIMBER_MIN_ARM_SPEED = 0.1;
-  // public static final double CLIMBER_MIN_WINCH_SPEED = 0.1;
-  // public static final double CLIMBER_MAX_ENCODER_DIFF = 1000;
+  public static final double CLIMBER_WINCH_VARIANCE_SPEED = 0.25;
   public static final double CLIMBER_ARM_TIMEOUT = 1.5;
-  public static final double CLIMBER_WINCH_TIMEOUT = 10;
+  public static final double CLIMBER_WINCH_TIMEOUT = 7;
   public static final double CLIMBER_DEAD_ZONE = 0.5;
   public static final double CLIMBER_PULL_OFF_TIMEOUT = 0.5;
   public static final double SWING_STOP_TIMEOUT = 5;
   public static final double CLIMBER_ARM_EXTEND_TIMEOUT = 0.3;
+  public static final double CLIMBER_MAX_ACCEL = 5;
+  public static final double CLIMBER_ACCEL_ERROR = 0.2;
+  
 
   //Shooter
   public static final double SHOOTER_SPEED = 0.5;
