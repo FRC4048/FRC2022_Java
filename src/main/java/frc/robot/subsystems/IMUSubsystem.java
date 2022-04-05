@@ -4,31 +4,21 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.sensors.PigeonIMU;
-
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.SmartShuffleboard;
-
 
 public class IMUSubsystem extends SubsystemBase {
   /** Creates a new IMUSubststem. */
   private ADIS16470_IMU gyro;
 
   public IMUSubsystem() {
-      gyro = new ADIS16470_IMU();
+    gyro = new ADIS16470_IMU();
   }
 
-  //add @params Please do this before a competition or while the robot is perfectly still
-  public void calibrate() {
+  // add @params Please do this before a competition or while the robot is
+  // perfectly still
+  public void resetGyro() {
+    gyro.reset();
     gyro.calibrate();
   }
 
@@ -48,12 +38,12 @@ public class IMUSubsystem extends SubsystemBase {
     return gyro.getAngle();
   }
 
-  public ADIS16470_IMU getGyro(){
+  public ADIS16470_IMU getGyro() {
     return gyro;
   }
 
   public void name() {
-    
+
   }
 
   @Override
