@@ -21,22 +21,35 @@ import frc.robot.utils.SmartShuffleboard;
 
 public class IMUSubsystem extends SubsystemBase {
   /** Creates a new IMUSubststem. */
-  private PigeonIMU gyro;
+  private ADIS16470_IMU gyro;
 
   public IMUSubsystem() {
-
+      gyro = new ADIS16470_IMU();
   }
 
-  public void resetGyro() {
-    gyro.setFusedHeading(0);
+  //add @params Please do this before a competition or while the robot is perfectly still
+  public void calibrate() {
+    gyro.calibrate();
+  }
+
+  public double getAccelY() {
+    return gyro.getAccelY();
+  }
+
+  public double getAccelX() {
+    return gyro.getAccelX();
+  }
+
+  public double getAccelZ() {
+    return gyro.getAccelZ();
   }
 
   public double getAngle() {
-    return Math.IEEEremainder(gyro.getFusedHeading(), 360);
+    return -gyro.getAngle();
   }
 
-  public double getXaccel() {
-    return gyro.getAccelY();
+  public ADIS16470_IMU getGyro(){
+    return gyro;
   }
 
   @Override
