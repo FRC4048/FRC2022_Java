@@ -42,8 +42,8 @@ public class ClimberWinchSubsystem extends SubsystemBase {
 
     powerDistribution = m_PowerDistPanel;
 
-    leftMotorStall = new MotorUtils(Constants.PDP_CLIMBER_L_WINCH, Constants.WINCH_CURR_LIMIT, Constants.CLIMBER_WINCH_CURR_TIMEOUT, m_PowerDistPanel);
-    rightMotorStall = new MotorUtils(Constants.PDP_CLIMBER_R_WINCH, Constants.WINCH_CURR_LIMIT, Constants.CLIMBER_WINCH_CURR_TIMEOUT, m_PowerDistPanel);
+    leftMotorStall = new MotorUtils(Constants.PDP_CLIMBER_L_WINCH, 30, Constants.CLIMBER_WINCH_CURR_TIMEOUT, m_PowerDistPanel, leftWinch, 10);
+    rightMotorStall = new MotorUtils(Constants.PDP_CLIMBER_R_WINCH, 30, Constants.CLIMBER_WINCH_CURR_TIMEOUT, m_PowerDistPanel, rightWinch, 10);
 
     leftWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     rightWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
