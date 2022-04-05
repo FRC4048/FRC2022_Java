@@ -6,25 +6,25 @@
 /*----------------------------------------------------------------------------*/
 package frc.robot;
 
+//import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.Autonomous.CrossTheLineSequence;
 import frc.robot.commands.Autonomous.DoNothingSequence;
-import frc.robot.commands.Autonomous.TwoShotSequenceLeft;
 import frc.robot.commands.Autonomous.OneShotSequenceMiddle;
 import frc.robot.commands.Autonomous.ThreeShotSequenceRight;
+import frc.robot.commands.Autonomous.TwoShotSequenceLeft;
 import frc.robot.commands.Autonomous.TwoShotSequenceRight;
-import frc.robot.commands.DriveCommands.Drive;
-import frc.robot.commands.IntakeCommand.IntakeSequence;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
+import frc.robot.subsystems.IMUSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.utils.limelight.LimeLightVision;
-//import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.shuffleboard.*;
 
 /**
  * Add your docs here.
@@ -38,6 +38,7 @@ public class AutoChooser {
     private TurretSubsystem turretSubsystem;
     private LimeLightVision limeLightVision;
     private Hood hood;
+    private IMUSubsystem IMUSubsystem;
 
     // all actions driver choose at beginning of match
     enum Action {
@@ -45,7 +46,7 @@ public class AutoChooser {
     }
 
 
-    public AutoChooser(IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, ShooterSubsystem shooterSubsystem, TurretSubsystem turretSubsystem, LimeLightVision limeLightVision, Hood hood) {
+    public AutoChooser(IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, ShooterSubsystem shooterSubsystem, TurretSubsystem turretSubsystem, LimeLightVision limeLightVision, Hood hood, IMUSubsystem IMUSubsystem) {
         actionChooser = new SendableChooser<Action>();
         this.intakeSubsystem = intakeSubsystem;
         this.driveTrain = driveTrain;
@@ -53,6 +54,7 @@ public class AutoChooser {
         this.turretSubsystem = turretSubsystem;
         this.limeLightVision = limeLightVision;
         this.hood = hood;
+        this.IMUSubsystem = IMUSubsystem;
     }
 
     public void addOptions() {
@@ -88,7 +90,7 @@ public class AutoChooser {
             Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision, hood);}
         else if (a == Action.THREE_SHOT) {return new ThreeShotSequenceRight(turretSubsystem, 
             Constants.AUTO_TURRET_SPEED,  intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED, 
-            Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision, hood);}
+            Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision, hood, IMUSubsystem);}
         else if (a == Action.TWO_SHOT_LEFT) {return new TwoShotSequenceLeft(turretSubsystem, 
             Constants.AUTO_TURRET_SPEED,  intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED, 
             Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision, hood);}
