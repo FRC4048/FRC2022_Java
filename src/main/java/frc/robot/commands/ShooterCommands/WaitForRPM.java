@@ -36,6 +36,6 @@ public class WaitForRPM extends LoggedCommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (shooter.getShooterRPM() >= targetRPM);
+    return (shooter.getShooterRPM() >= targetRPM * 0.9);
   }
 }

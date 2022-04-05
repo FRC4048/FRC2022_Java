@@ -63,7 +63,7 @@ public class VisionAutoShooter extends LoggedCommandBase {
     if(vision.hasTarget()) {
       Double rpm = calculateRPM(vision);
       if (rpm != null) {
-        shooter.setShooterRPM(rpm);
+        shooter.setVelocity(rpm);
         //CommandScheduler.getInstance().schedule(new LogCommandWrapper(new SetShooterMotor(shooter, rpm)));
         SmartShuffleboard.put("Shooter", "Target Speed", rpm);
       }
@@ -82,10 +82,10 @@ public class VisionAutoShooter extends LoggedCommandBase {
   }
 
   private Double calculateRPM(LimeLightVision vision) {
-    return SmartDashboard.getNumber("DesiredSpeed", 10000.0);
-    //double distance = vision.calcHorizontalDistanceToTarget(vision.getCameraAngles().getTy()) / 12;
-    //addLog(distance);
-    //SmartShuffleboard.put("Shooter", "Distance", distance);
-    //return 10565 * Math.pow(Math.E, .0177 * distance);
+    //return SmartDashboard.getNumber("DesiredSpeed", 10000.0);
+    double distance = vision.calcHorizontalDistanceToTarget(vision.getCameraAngles().getTy()) / 12;
+    addLog(distance);
+    SmartShuffleboard.put("Shooter", "Distance", distance);
+    return 10565 * Math.pow(Math.E, .0177 * distance);
   }
 }
