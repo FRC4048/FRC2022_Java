@@ -73,7 +73,6 @@ public class DriveTrain extends SubsystemBase {
         if (Constants.ENABLE_DEBUG) {
             SmartShuffleboard.put("Drive", "Encoders", "L", getLeftEncoder());
             SmartShuffleboard.put("Drive", "Encoders", "R", getRightEncoder());
-            SmartShuffleboard.put("Drive", "Gyro", "Gyro", IMUSubsystem.getAngle());
          }
     }
 

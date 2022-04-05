@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.utils.SmartShuffleboard;
 
 public class IMUSubsystem extends SubsystemBase {
   /** Creates a new IMUSubststem. */
@@ -49,5 +51,11 @@ public class IMUSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    if (Constants.ENABLE_DEBUG) {
+      SmartShuffleboard.put("Gyro", "Angle", getAngle());
+      SmartShuffleboard.put("Gyro", "Z accelerated angle", getAccelZ());
+      SmartShuffleboard.put("Gyro", "Y accelerated angle", getAccelY());
+      SmartShuffleboard.put("Gyro", "X accelerated angle", getAccelX());
+   }
   }
 }
