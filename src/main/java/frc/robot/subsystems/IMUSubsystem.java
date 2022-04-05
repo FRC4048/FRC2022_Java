@@ -45,11 +45,15 @@ public class IMUSubsystem extends SubsystemBase {
   }
 
   public double getAngle() {
-    return -gyro.getAngle();
+    return gyro.getAngle();
   }
 
   public ADIS16470_IMU getGyro(){
     return gyro;
+  }
+
+  public void name() {
+    
   }
 
   @Override
