@@ -122,7 +122,7 @@ public class RobotContainer {
   private final Hood hood = new Hood();
   private final TurretSubsystem turretSubsystem= new TurretSubsystem(); 
 
-  public AutoChooser autoChooser = new AutoChooser(intakeSubsystem, driveTrain, shooterSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), hood);
+  public AutoChooser autoChooser = new AutoChooser(intakeSubsystem, driveTrain, shooterSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), hood, IMUSubsystem);
 
   private final Drive driveCommand = new Drive(driveTrain, () -> joyLeft.getY(), () -> joyRight.getY());
   private final TurretManualCommand turretCommand= new TurretManualCommand(turretSubsystem, () -> -xboxController.getLeftX());
