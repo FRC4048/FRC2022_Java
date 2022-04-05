@@ -12,6 +12,7 @@ import frc.robot.commands.ShooterCommands.AutoTargetSequence;
 import frc.robot.commands.ShooterCommands.ShooterSequeunce;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
+import frc.robot.subsystems.IMUSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
@@ -24,7 +25,7 @@ public class ThreeShotSequenceRight extends SequentialCommandGroup {
   /** Creates a new TwoShotSequenceRight. 
    * @param vision 
    * @param hoodSubsystem */
-  public ThreeShotSequenceRight(TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, double speed, double distanceInches, ShooterSubsystem shooterSubsystem, LimeLightVision limeLightVision, Hood hood) {
+  public ThreeShotSequenceRight(TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, double speed, double distanceInches, ShooterSubsystem shooterSubsystem, LimeLightVision limeLightVision, Hood hood, IMUSubsystem IMUSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
@@ -34,7 +35,7 @@ public class ThreeShotSequenceRight extends SequentialCommandGroup {
       new ShooterSequeunce(shooterSubsystem, limeLightVision),
       new WaitCommand(0.8),
       new ShooterSequeunce(shooterSubsystem, limeLightVision),
-      new TurnDegrees(driveTrain, 105),
+      new TurnDegrees(driveTrain, 105, IMUSubsystem),
       new ParralelMoveAndIntake(driveTrain, speed, 60, turretSubsystem, turretSpeed, intakeSubsystem, hood, turretSubsystem),
       
       new AutoTargetSequence(turretSubsystem, limeLightVision, hood),

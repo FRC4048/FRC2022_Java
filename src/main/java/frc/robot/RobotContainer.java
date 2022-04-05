@@ -12,21 +12,18 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.ShooterCommands.*;
+import frc.robot.commands.LogError;
 import frc.robot.commands.ToggleBlockerPiston;
 import frc.robot.commands.Autonomous.AutoSetShootingPosition;
 import frc.robot.commands.Autonomous.AutoSetTurretPosition;
 import frc.robot.commands.Autonomous.CrossTheLineSequence;
 import frc.robot.commands.Autonomous.DoNothingSequence;
+import frc.robot.commands.Autonomous.OneShotSequenceMiddle;
 import frc.robot.commands.Autonomous.TwoShotSequenceLeft;
 import frc.robot.commands.Autonomous.TwoShotSequenceRight;
-import frc.robot.commands.Autonomous.OneShotSequenceMiddle;
-import frc.robot.commands.LogError;
-import frc.robot.commands.ToggleBlockerPiston;
 import frc.robot.commands.ClimberCommands.Climb3Inches;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
-import frc.robot.commands.ClimberCommands.ToggleClimberSolenoid;
 import frc.robot.commands.ClimberCommands.WinchExtend;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.DriveCommands.TurnDegrees;
@@ -62,12 +59,12 @@ import frc.robot.commands.ShooterCommands.WaitForRPM;
 import frc.robot.commands.TurretCommands.CalibrateTurretEncoderSequence;
 import frc.robot.commands.TurretCommands.MoveTurretDashboard;
 import frc.robot.commands.TurretCommands.RunTurretUntilLimitSwitch;
-import frc.robot.commands.TurretCommands.TurretAuto;
 import frc.robot.commands.TurretCommands.RunTurretUntilTarget;
 import frc.robot.commands.TurretCommands.TurretManualCommand;
 import frc.robot.commands.TurretCommands.TurretSweepSequence;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
+import frc.robot.subsystems.IMUSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -120,6 +117,7 @@ public class RobotContainer {
   private final PowerDistribution m_PowerDistPanel = new PowerDistribution();
   private final ClimberArmSubsystem climberArmSubsystem = new ClimberArmSubsystem(m_PowerDistPanel);
   private final ClimberWinchSubsystem climberWinchSubsystem = new ClimberWinchSubsystem();
+  private final IMUSubsystem IMUSubsystem = new IMUSubsystem();
   
   private final Hood hood = new Hood();
   private final TurretSubsystem turretSubsystem= new TurretSubsystem(); 
@@ -255,7 +253,7 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Miscellaneous", "Set LED On", new SetLEDOn());
       SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline to 0", new SetPipeline(0));
       SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline to 1", new SetPipeline(1));
-      SmartShuffleboard.putCommand("Turn", "Turn Degrees", new TurnDegrees(driveTrain, 90));
+      SmartShuffleboard.putCommand("Turn", "Turn Degrees", new TurnDegrees(driveTrain, 90, IMUSubsystem));
 
 
       SmartShuffleboard.putCommand("Hood", "Move Hood Down", new MoveHoodDown(hood));

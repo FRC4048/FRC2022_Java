@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.IMUSubsystem;
 import frc.robot.utils.SmartShuffleboard;
 
 
@@ -14,16 +15,19 @@ public class TurnDegrees extends LoggedCommandBase{
     private final int SLOWDOWN_ANGLE = 45;
     private final double MAXIMUM_TIME_S = 10;
     private DriveTrain driveTrain;
+    private IMUSubsystem IMUSubsystem;
     private double requiredAngle;
     private double currAngle;
     private double speed = 0.0;
     private double startTime;
     
 
-    public TurnDegrees(DriveTrain driveTrain, int requiredAngle){
+    public TurnDegrees(DriveTrain driveTrain, int requiredAngle, IMUSubsystem IMUSubsystem){
         this.driveTrain = driveTrain;
         this.requiredAngle = requiredAngle;
+        this.IMUSubsystem = IMUSubsystem;
         addRequirements(driveTrain);
+        addRequirements(IMUSubsystem);
         addLog(requiredAngle);
     }
 
@@ -32,7 +36,7 @@ public class TurnDegrees extends LoggedCommandBase{
     }
 
     public void execute(){
-        currAngle = driveTrain.getAngle();
+        currAngle = IMUSubsystem.getAngle();
         double angleError = requiredAngle-currAngle;
 
         if (Math.abs(angleError) <= ANGLE_THRESHOLD) {
