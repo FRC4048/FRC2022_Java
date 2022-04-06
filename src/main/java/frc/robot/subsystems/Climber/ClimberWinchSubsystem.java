@@ -176,7 +176,7 @@ public class ClimberWinchSubsystem extends SubsystemBase {
   }
 
 
-  //THESE ARE COMMENTED OUT UNTIL WE DO TRAVERSAL 💪
+  //THESE ARE COMMENTED OUT UNTIL WE DO TRAVERSAL
   /** 
    * True when tripped, false when open
    */
