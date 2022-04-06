@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.utils.SmartShuffleboard;
+import frc.robot.subsystems.IMUSubsystem;
 
 public class AutoTurnDegrees extends CommandBase{
 
@@ -13,22 +13,25 @@ public class AutoTurnDegrees extends CommandBase{
     private double startTime;
     private double startDegrees;
     private double turnSpeed;
+    private IMUSubsystem IMUSubsystem;
 
-    public AutoTurnDegrees(DriveTrain driveTrain, double angleToTurn) {
+    public AutoTurnDegrees(DriveTrain driveTrain, double angleToTurn, IMUSubsystem IMUSubsystem) {
         this.driveTrain = driveTrain;
         this.turnDegrees = angleToTurn;
+        this.IMUSubsystem = IMUSubsystem;
         addRequirements(driveTrain);
+        addRequirements(IMUSubsystem);
     }
 
     @Override
     public void initialize() {
         this.startTime = Timer.getFPGATimestamp();
-        this.startDegrees = driveTrain.getAngle();
+        this.startDegrees = IMUSubsystem.getAngle();
     }
 
     @Override
     public void execute() {
-        double rawError = (startDegrees + turnDegrees - driveTrain.getAngle());
+        double rawError = (startDegrees + turnDegrees - IMUSubsystem.getAngle());
         double error = Math.abs(rawError);
         double direction = Math.signum(rawError);
         if (error > Constants.AUTO_MOVE_TURN_SLOWDOWN_ERROR) {
