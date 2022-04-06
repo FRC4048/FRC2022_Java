@@ -68,7 +68,7 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public boolean isBallInIntake() {
-    return !intakeSensor1.get() || !intakeSensor2.get();
+    return !intakeSensor1.get() && !intakeSensor2.get();
   }
 
   public boolean getIntakeSensor1() {

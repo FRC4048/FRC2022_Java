@@ -38,7 +38,6 @@ public class ClimberWinchSubsystem extends SubsystemBase {
     rightSensor = new DigitalInput(Constants.CLIMBER_R_WINCH_SENSOR);
     
     climberLPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_L_PISTON_ID);
-    climberRPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_R_PISTON_ID);
 
     powerDistribution = m_PowerDistPanel;
 
