@@ -140,6 +140,7 @@ public class ShooterSubsystem extends SubsystemBase {
       SmartShuffleboard.put("Shooter", "Data", "Piston State", getPistonState());
       SmartShuffleboard.put("Shooter", "Data", "Shooter RPM", getShooterRPM());
     }
+    SmartShuffleboard.put("Driver", "Data", getShooterAdj());
   }
 
   
