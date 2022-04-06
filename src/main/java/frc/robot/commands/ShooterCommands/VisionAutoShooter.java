@@ -83,9 +83,10 @@ public class VisionAutoShooter extends LoggedCommandBase {
     double distance = vision.calcHorizontalDistanceToTarget(vision.getCameraAngles().getTy()) / 12;
     addLog(distance);
     SmartShuffleboard.put("Shooter", "Distance", distance);
-    if ((10565 * Math.pow(Math.E, .0177 * distance)) > 15000) {
-      return 15000.0;
+    double speed = 10565 * Math.pow(Math.E, .0177 * distance);
+    if (speed > 15000) {
+      speed = 15000.0;
     }
-    return 10565 * Math.pow(Math.E, .0177 * distance);
+    return speed;
   }
 }

@@ -21,7 +21,7 @@ public class HoodContinousTarget extends CommandBase {
   private DoubleSupplier rightJoystickY;
   private LimeLightVision vision;
   private Double ticks;
-  private static boolean hoodState;
+  private boolean inRange;
 
   static {
     // Conversion Map from feet to pot ticks
@@ -58,7 +58,7 @@ public class HoodContinousTarget extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    hoodState = false;
+    boolean hoodState = false;
     switch (Robot.getTargetState()) {
       case OFF:
         if (Math.abs(rightJoystickY.getAsDouble()) < Constants.HOOD_JOYSTICK_THRESHOLD) {
@@ -73,6 +73,9 @@ public class HoodContinousTarget extends CommandBase {
           ticks = calculateAngle(vision);
           if (ticks != null) {
             if (Math.abs(hood.getPotentiometer() - ticks) <= Constants.HOOD_ERROR_THRESHOLD) {
+              if (inRange) {
+                hoodState = true;
+              }
               hood.setHood(0);
             } else {
               double direction = Math.signum(hood.getPotentiometer() - ticks);
@@ -100,17 +103,18 @@ public class HoodContinousTarget extends CommandBase {
     return false;
   }
 
-  private static Double calculateAngle(LimeLightVision vision) {
+  private double calculateAngle(LimeLightVision vision) {
     double distance = vision.calcHorizontalDistanceToTarget(vision.getCameraAngles().getTy()) / 12;
-    if ((-.0858 * Math.pow(distance, 2) + 5.36 * distance + 79.7) < 106) {
-      hoodState = false;
-      return 106.0;
-    } else if ((-.0858 * Math.pow(distance, 2) + 5.36 * distance + 79.7) > 145) {
-      hoodState = false;
-      return 145.0;
+    double angle = -.0858 * Math.pow(distance, 2) + 5.36 * distance + 79.7;
+    if (angle > 145) {
+      angle = 145;
+      inRange = false;
+    } else if (angle < 106) {
+      angle = 106;
+      inRange = false;
     } else {
-      hoodState = true;
-      return -.0858 * Math.pow(distance, 2) + 5.36 * distance + 79.7;
+      inRange = true;
     }
+    return angle;
   }
 }
