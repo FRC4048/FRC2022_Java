@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants;
 import frc.robot.commands.LoggedCommandBase;
@@ -62,8 +63,9 @@ public class VisionAutoShooter extends LoggedCommandBase {
     if(vision.hasTarget()) {
       Double rpm = calculateRPM(vision);
       if (rpm != null) {
-        CommandScheduler.getInstance().schedule(new LogCommandWrapper(new SetShooterMotor(shooter, rpm)));
-        SmartShuffleboard.put("Shooter", "desiredSpeed", rpm);
+        shooter.setVelocity(rpm);
+        //CommandScheduler.getInstance().schedule(new LogCommandWrapper(new SetShooterMotor(shooter, rpm)));
+        SmartShuffleboard.put("Shooter", "Target Speed", rpm);
       }
       else {
         addLog("UNKOWN DISTANCE - using default speed");
@@ -80,6 +82,7 @@ public class VisionAutoShooter extends LoggedCommandBase {
   }
 
   private Double calculateRPM(LimeLightVision vision) {
+    //return SmartDashboard.getNumber("DesiredSpeed", 10000.0);
     double distance = vision.calcHorizontalDistanceToTarget(vision.getCameraAngles().getTy()) / 12;
     addLog(distance);
     SmartShuffleboard.put("Shooter", "Distance", distance);
