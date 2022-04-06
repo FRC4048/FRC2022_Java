@@ -177,6 +177,8 @@ public class ClimberWinchSubsystem extends SubsystemBase {
     return rightWinch.getSensorCollection().isFwdLimitSwitchClosed();
   }
 
+
+  //THESE ARE COMMENTED OUT UNTIL WE DO TRAVERSAL 💪
   /** 
    * True when tripped, false when open
    */
