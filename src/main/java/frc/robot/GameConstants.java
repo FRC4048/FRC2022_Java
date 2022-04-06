@@ -47,8 +47,7 @@ public interface GameConstants {
   public static final double HOOD_JOYSTICK_THRESHOLD = 0.2;
   public static final double HOOD_RANGE_OF_MOTION = 180; //temp value
   public static final double HOOD_STARTING_POINT = 0; //temp value
-  public static final int MANUAL_HOOD_ANGLE = 12;
-  public static final double HOOD_ERROR_THRESHOLD = .5;
+  public static final double HOOD_ERROR_THRESHOLD = 1;
 
 
   //Climber
@@ -89,9 +88,15 @@ public interface GameConstants {
   public static final double SHOOTER_MIN_OUTPUT = -1;
 
   //Drive
-  public static final double CONTROLLER_DEAD_ZONE = 0.15;
+  public static final double AUTO_MOVE_TURN_MAX_SPEED = 0.2;
+  public static final double AUTO_MOVE_TURN_MIN_SPEED = 0.05;
+  public static final double AUTO_MOVE_TURN_SLOWDOWN_ERROR = 50;
+  public static final double AUTO_MOVE_TURN_TIMEOUT = 5;
+  public static final double AUTO_MOVE_TURN_THRESHOLD = 2;
 
-  // Turret
+  public static final double CONTROLLER_DEAD_ZONE = 0.2;
+
+  // Turret 
   public static final double TURRET_CLOCKWISE_SPEED = .5;
   public static final double TURRET_COUNTERCLOCKWISE_SPEED = -.5;
   // Intake
@@ -109,7 +114,9 @@ public interface GameConstants {
   public static final double TURRET_SWEEP_SPEED = 0.4;
   public static final double TURRET_ERROR_THRESHOLD = 6;
   public static final double TURRET_FAST_SPEED = 0.4;
-  public static final double TURRET_SLOW_SPEED = 0.1;
+  public static final double TURRET_SLOW_SPEED = 0.2;
+  public static final double TURRET_RIGHT_THRESHOLD = 810; //placeholder
+  public static final double TURRET_LEFT_THRESHOLD = 40; //placeholder
 
   //Autonomous
   public static final double AUTO_TURRET_SPEED = 0.5;

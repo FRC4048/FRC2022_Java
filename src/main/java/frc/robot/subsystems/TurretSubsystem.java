@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 
 public class TurretSubsystem extends SubsystemBase {
     private WPI_TalonSRX turretMotor;
+    private boolean turretLockState;
 
     public TurretSubsystem() {
         turretMotor = new WPI_TalonSRX(Constants.TURRET_MOTOR_ID);
@@ -46,6 +47,14 @@ public class TurretSubsystem extends SubsystemBase {
 
     public void resetEncoder() {
         turretMotor.setSelectedSensorPosition(0);
+    }
+
+    public void setTurretLockState(boolean turretLockState){
+        this.turretLockState = turretLockState;
+    }
+
+    public boolean getTurretLockState() {
+        return turretLockState;
     }
 
     @Override

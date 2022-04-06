@@ -22,7 +22,7 @@ public class IntakeWait extends LoggedCommandBase {
     addLog(duration);
     if (DriverStation.isAutonomous()) {    
         duration = 0.8;
-    } else duration = 1;
+    } else duration = 1.3;
     timer.reset();
     timer.start();
   }
