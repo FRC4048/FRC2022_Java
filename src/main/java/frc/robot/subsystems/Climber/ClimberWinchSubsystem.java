@@ -11,27 +11,45 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.utils.MotorUtils;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.DiagSwitch;
 import frc.robot.utils.diag.DiagTalonSrxEncoder;
-import frc.robot.utils.diag.DiagTalonSrxSwitch;
 
 public class ClimberWinchSubsystem extends SubsystemBase {
   /** Creates a new ClimberWinchSubsystem. */
   private WPI_TalonSRX leftWinch, rightWinch;
+  private MotorUtils leftMotorStall, rightMotorStall;
   private DigitalInput leftSensor, rightSensor;
+  private PowerDistribution powerDistribution;
+  private Solenoid climberLPiston, climberRPiston;
 
-  public ClimberWinchSubsystem() {
+  public ClimberWinchSubsystem(PowerDistribution m_PowerDistPanel) {
+  
     leftWinch = new WPI_TalonSRX(Constants.CLIMBER_LEFT_WINCH_ID);
     rightWinch = new WPI_TalonSRX(Constants.CLIMBER_RIGHT_WINCH_ID);
     leftSensor = new DigitalInput(Constants.CLIMBER_L_WINCH_SENSOR);
     rightSensor = new DigitalInput(Constants.CLIMBER_R_WINCH_SENSOR);
+    
+    climberLPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_L_PISTON_ID);
+    climberRPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_R_PISTON_ID);
 
-    //leftWinch.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    powerDistribution = m_PowerDistPanel;
+
+    leftMotorStall = new MotorUtils(Constants.PDP_CLIMBER_L_WINCH, Constants.WINCH_CURR_LIMIT, Constants.CLIMBER_WINCH_CURR_TIMEOUT, m_PowerDistPanel);
+    rightMotorStall = new MotorUtils(Constants.PDP_CLIMBER_R_WINCH, Constants.WINCH_CURR_LIMIT, Constants.CLIMBER_WINCH_CURR_TIMEOUT, m_PowerDistPanel);
+
+    leftWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    rightWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    //leftWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     //rightWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+
 
     Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Left Winch Encoder", 100, leftWinch));
     Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Right Winch Encoder", 100, rightWinch));
@@ -48,16 +66,62 @@ public class ClimberWinchSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
-    leftWinch.set(ControlMode.PercentOutput, speed);
-    rightWinch.set(ControlMode.PercentOutput, speed);
+    setLeftWinchSpeed(speed);
+    setRightWinchSpeed(speed);
   }
 
+  /**
+   * Negative Speed is Retracting
+   * Positive Speed is Expanding
+   */
   public void setLeftWinchSpeed(double speed) {
+
+    if (speed < 0) {
+      // Retracting, chance of stall here
+      if (leftMotorStall.everStalled()) {
+        // Don't let it turn motor anymore
+        speed = 0;
+      }
+    } else if (speed >= 0) {
+      // Cant stall on expand, reset motor stall state
+      leftMotorStall.resetStall();
+    }
+
     leftWinch.set(ControlMode.PercentOutput, speed);
   }
 
+  /**
+   * Negative Speed is Retracting
+   * Positive Speed is Expanding
+   */
   public void setRightWinchSpeed(double speed) {
+
+    if (speed < 0) {
+      // Retracting, chance of stall here
+      if (rightMotorStall.everStalled()) {
+        // Don't let it turn motor anymore
+        speed = 0;
+      }
+    } else if (speed >= 0) {
+      // Cant stall on expand, reset motor stall state
+      rightMotorStall.resetStall();
+    }
+
     rightWinch.set(ControlMode.PercentOutput, speed);
+  }
+
+  public void stop() {
+    stopLeftWinch();
+    stopRightWinch();
+  }
+
+  public void movePiston(boolean state) {
+    climberLPiston.set(state);
+    climberRPiston.set(state);
+  }
+
+  public boolean getPistonState() {
+    return climberLPiston.get();
   }
 
   public void stopLeftWinch() {
@@ -76,43 +140,78 @@ public class ClimberWinchSubsystem extends SubsystemBase {
     return rightWinch.getSelectedSensorPosition();
   }
 
-  public double getLeftVoltage() {
-    return leftWinch.getBusVoltage();
+  public boolean isLeftStalled() {
+    return leftMotorStall.isStalled();
   }
 
-  public double getRightVoltage() {
-    return rightWinch.getBusVoltage();
-  }
-  
-  public double getLeftVelocity() {
-    return leftWinch.getActiveTrajectoryVelocity();
+  public boolean isLeftEverStalled() {
+    return leftMotorStall.everStalled();
   }
 
-  public double getRightVelocity() {
-    return rightWinch.getActiveTrajectoryVelocity();
+  public boolean isRightStalled() {
+    return rightMotorStall.isStalled();
   }
 
-  public boolean getLeftSwitch() {
-    //return leftWinch.getSensorCollection().isFwdLimitSwitchClosed();
-    return leftSensor.get();
+  public boolean isRightEverStalled() {
+    return rightMotorStall.everStalled();
   }
 
-  public boolean getRightSwitch() {
-    //return rightWinch.getSensorCollection().isFwdLimitSwitchClosed();
-    return rightSensor.get();
+  public double getLeftCurrent() {
+    return powerDistribution.getCurrent(Constants.PDP_CLIMBER_L_WINCH);
+  }
+
+  public double getRightCurrent() {
+    return powerDistribution.getCurrent(Constants.PDP_CLIMBER_R_WINCH);
+  }
+
+  /**
+   * True when tripped, false when open
+   */
+  public boolean getLeftStrapExtendedSwitch() {
+    return leftWinch.getSensorCollection().isFwdLimitSwitchClosed();
+  }
+
+  /**
+   * True when tripped, false when open
+   */
+  public boolean getRightStrapExtendedSwitch() {
+    return rightWinch.getSensorCollection().isFwdLimitSwitchClosed();
+  }
+
+  /** 
+   * True when tripped, false when open
+   */
+  public boolean getLeftOnBarSwitch() {
+    return !leftSensor.get();
+  }
+
+  /**
+   * True when tripped, false when open
+   */
+  public boolean getRightOnBarSwitch() {
+    return !rightSensor.get();
   }
 
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    isLeftStalled();
+    isRightStalled();
     if (Constants.ENABLE_DEBUG) {
       SmartShuffleboard.put("Climber", "R Winch Encoder", getRightEncoder());
       SmartShuffleboard.put("Climber", "L Winch Encoder", getLeftEncoder());
-      SmartShuffleboard.put("Climber", "R Winch Voltage", getRightVoltage());
-      SmartShuffleboard.put("Climber", "L Winch Voltage", getLeftVoltage());
-      SmartShuffleboard.put("Climber", "R Winch Sensor", getRightSwitch());
-      SmartShuffleboard.put("Climber", "L Winch Sensor", getLeftSwitch());
+      SmartShuffleboard.put("Climber", "R Winch Current", getRightCurrent());
+      SmartShuffleboard.put("Climber", "L Winch Current", getLeftCurrent());
+      SmartShuffleboard.put("Climber", "R Winch Strap Switch", getRightStrapExtendedSwitch());
+      SmartShuffleboard.put("Climber", "L Winch Strap Switch", getLeftStrapExtendedSwitch());
+      // THIS WAS INADVERTANTLY TRIGGERING THE STALL CHECK
+      SmartShuffleboard.put("Climber", "L Winch Stalled", isLeftStalled());
+      SmartShuffleboard.put("Climber", "R Winch Stalled", isRightStalled());
+      SmartShuffleboard.put("Climber", "L Winch Ever Stalled", leftMotorStall.everStalled());
+      SmartShuffleboard.put("Climber", "R Winch Ever Stalled", rightMotorStall.everStalled());
     }
+      SmartShuffleboard.put("Climber", "R Winch Strap Switch", getRightStrapExtendedSwitch());
+      SmartShuffleboard.put("Climber", "L Winch Strap Switch", getLeftStrapExtendedSwitch());
   }
 } 

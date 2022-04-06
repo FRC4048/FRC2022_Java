@@ -10,8 +10,8 @@ import frc.robot.utils.SmartShuffleboard;
 
 public class TurnDegrees extends LoggedCommandBase{
     private final double ANGLE_THRESHOLD = 2;
-    private final double MAX_SPEED = 0.5;
-    private final double MIN_SPEED = 0.2;   
+    private final double MAX_SPEED = 0.2;
+    private final double MIN_SPEED = 0.1;   
     private final int SLOWDOWN_ANGLE = 45;
     private final double MAXIMUM_TIME_S = 10;
     private DriveTrain driveTrain;

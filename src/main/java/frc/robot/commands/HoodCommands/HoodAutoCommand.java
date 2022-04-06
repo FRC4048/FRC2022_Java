@@ -68,8 +68,9 @@ public class HoodAutoCommand extends LoggedCommandBase {
     return (done || ((Timer.getFPGATimestamp() - startTime) >= Constants.HOOD_TARGET_TIMEOUT));
   }
 
-  private static Double calculateAngle(LimeLightVision vision) {
+  private Double calculateAngle(LimeLightVision vision) {
     double tempDistance = vision.calcHorizontalDistanceToTarget(vision.getCameraAngles().getTy()) / 12;
+    addLog(tempDistance);
     int distance = (int)Math.round(tempDistance);
     return angleLookupMap.get(distance);
   }

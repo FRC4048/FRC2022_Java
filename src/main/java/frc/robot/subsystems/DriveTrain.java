@@ -26,6 +26,7 @@ public class DriveTrain extends SubsystemBase {
         right1 = new CANSparkMax(Constants.DRIVE_RIGHT1_ID, MotorType.kBrushless);
         right2 = new CANSparkMax(Constants.DRIVE_RIGHT2_ID, MotorType.kBrushless);
 
+
         left1.restoreFactoryDefaults();
         left2.restoreFactoryDefaults();
 
@@ -54,6 +55,7 @@ public class DriveTrain extends SubsystemBase {
 
         Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Left Drive Encoder", 10, left1));
         Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Right Drive Encoder", 10, right1));
+        // TODO: Are there diags for the IMU?
     }
 
     public void drive(double speedLeft, double speedRight, boolean isSquared) {

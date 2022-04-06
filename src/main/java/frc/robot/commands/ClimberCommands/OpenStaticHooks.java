@@ -2,32 +2,28 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.ShooterCommands;
+package frc.robot.commands.ClimberCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.commands.LoggedCommandBase;
-import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.utils.SmartShuffleboard;
+import frc.robot.subsystems.Climber.ClimberWinchSubsystem;
 
-public class WaitForRPM extends LoggedCommandBase {
-  /** Creates a new WaitForRPM. */
-  private double targetRPM;
-  ShooterSubsystem shooter;
-
-  public WaitForRPM(ShooterSubsystem shooter) {
+public class OpenStaticHooks extends CommandBase {
+  /** Creates a new ExtendClimberSolenoid. */
+  ClimberWinchSubsystem climberWinchSubsystem;
+  public OpenStaticHooks(ClimberWinchSubsystem climberWinchSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.shooter = shooter;
+    this.climberWinchSubsystem = climberWinchSubsystem;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    targetRPM = shooter.getVelocity() * .29;
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    climberWinchSubsystem.movePiston(false);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -36,6 +32,6 @@ public class WaitForRPM extends LoggedCommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (shooter.getShooterRPM() >= targetRPM);
+    return true;
   }
 }
