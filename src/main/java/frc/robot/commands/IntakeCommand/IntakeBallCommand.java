@@ -8,7 +8,9 @@ import frc.robot.subsystems.IntakeSubsystem;
 /** An example command that uses an example subsystem. */
 public class IntakeBallCommand extends LoggedCommandBase {
   private IntakeSubsystem intakeSubsystem;
+  //private double initTime;
   private int ballDetections;
+  //private int timeOut = 6;
   /**
    * Creates a new ExampleCommand.
    *
@@ -19,10 +21,18 @@ public class IntakeBallCommand extends LoggedCommandBase {
     addRequirements(intakeSubsystem);
     this.intakeSubsystem = intakeSubsystem;
   }
+  public IntakeBallCommand(IntakeSubsystem intakeSubsystem, int timeOut) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(intakeSubsystem);
+    this.intakeSubsystem = intakeSubsystem;
+    //this.timeOut = timeOut;
+  }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+      //initTime = Timer.getFPGATimestamp();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -44,6 +54,6 @@ public class IntakeBallCommand extends LoggedCommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (ballDetections >= 5);
+    return ((ballDetections >= 5)); //|| (Timer.getFPGATimestamp() - initTime) >= timeOut);
   }
 }

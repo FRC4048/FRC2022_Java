@@ -28,15 +28,15 @@ public class ThreeShotSequenceRight extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ParralelMoveAndTurretResetAndIntake(driveTrain, speed, 40, turretSubsystem, turretSpeed, intakeSubsystem, hood),
+      new ParallelMoveAndTurretResetAndIntake(driveTrain, speed, 40, turretSubsystem, turretSpeed, intakeSubsystem, hood),
       new AutoTargetSequence(turretSubsystem, limeLightVision, hood),
       //new WaitCommand(0.8),
       new ShooterSequeunce(shooterSubsystem, limeLightVision),
       new WaitCommand(0.8),
       new ShooterSequeunce(shooterSubsystem, limeLightVision),
       new TurnDegrees(driveTrain, 105),
-      new ParralelMoveAndIntake(driveTrain, speed, 60, turretSubsystem, turretSpeed, intakeSubsystem, hood, turretSubsystem),
-      
+      new ParallelMoveAndIntake(driveTrain, speed, 60, turretSubsystem, turretSpeed, intakeSubsystem, hood, turretSubsystem),
+      new TurnDegrees(driveTrain, -30),
       new AutoTargetSequence(turretSubsystem, limeLightVision, hood),
       new ShooterSequeunce(shooterSubsystem, limeLightVision)
     );
