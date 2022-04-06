@@ -52,9 +52,11 @@ import frc.robot.commands.Miscellaneous.CancelAll;
 import frc.robot.commands.Miscellaneous.SetLEDOff;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
 import frc.robot.commands.Miscellaneous.SetPipeline;
+import frc.robot.commands.ShooterCommands.AdjustShooter;
 import frc.robot.commands.ShooterCommands.AutoTargetSequence;
 import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
 import frc.robot.commands.ShooterCommands.LaunchpadSetPoint;
+import frc.robot.commands.ShooterCommands.ResetShooterAdjustment;
 import frc.robot.commands.ShooterCommands.RetractShooterPiston;
 import frc.robot.commands.ShooterCommands.RunShooterMotor;
 import frc.robot.commands.ShooterCommands.SetShooterMotor;
@@ -122,6 +124,8 @@ public class RobotContainer {
   private Trigger rightTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
   private Trigger leftTrigger = new Trigger(() -> xboxController.getLeftTriggerAxis() > 0.5 );
   private JoystickButton backButton = new JoystickButton(xboxController, Constants.XBOX_BACK_BUTTON);
+  private JoystickButton leftJoyPress = new JoystickButton(xboxController, Constants.XBOX_LEFT_STICK_PRESS);
+  private JoystickButton rightJoyPress = new JoystickButton(xboxController, Constants.XBOX_RIGHT_STICK_PRESS);
 
   private final LimelightSubsystem limeLightVision = new LimelightSubsystem();
 
@@ -202,13 +206,12 @@ public class RobotContainer {
 
     // Climber Controls
     climberAButton.whenPressed(new LogCommandWrapper(new ClimberExtendSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision())));
-    //climberAButton.whenPressed(new LogCommandWrapper(new InitialClimbSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
-    climberBButton.whenPressed(new LogCommandWrapper(new RetractClimberSequence(climberWinchSubsystem, climberArmSubsystem)));
+    climberBButton.whenPressed(new LogCommandWrapper(new Traversal(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
     staticLock.whenPressed(new LogCommandWrapper(new CloseStaticHooks(climberWinchSubsystem)));
     staticUnlock.whenPressed(new LogCommandWrapper(new OpenStaticHooks(climberWinchSubsystem)));
     climberYButton.whenPressed(new LogCommandWrapper(new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
     climberXButton.whenPressed(new LogCommandWrapper(new InitialClimbSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
-    climberBackButton.whenPressed(new LogCommandWrapper(new Traversal(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
+    climberBackButton.whenPressed(new LogCommandWrapper(new CancelAll(intakeSubsystem, shooterSubsystem)));
     
     buttonA.whenPressed(new LogCommandWrapper(new IntakeSequence(intakeSubsystem)));
     buttonB.whenPressed(new LogCommandWrapper(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED)));
@@ -222,6 +225,8 @@ public class RobotContainer {
     rightBumper.whenPressed(new LogCommandWrapper(new LaunchpadSetPoint(hood, shooterSubsystem)));
     startButton.whenPressed(new LogError());
     backButton.whenPressed(new LogCommandWrapper(new CancelAll(intakeSubsystem, shooterSubsystem)));
+    leftJoyPress.whenPressed(new LogCommandWrapper(new AdjustShooter(shooterSubsystem, 2)));
+    rightJoyPress.whenPressed(new LogCommandWrapper(new AdjustShooter(shooterSubsystem, 0.5)));
 
   }
 
