@@ -53,7 +53,7 @@ public class AutoTurnDegrees extends CommandBase{
         if (Timer.getFPGATimestamp() - startTime >= Constants.AUTO_MOVE_TURN_TIMEOUT) {
             return true;
         }
-        double error = Math.abs(startDegrees + turnDegrees - driveTrain.getAngle());
+        double error = Math.abs(startDegrees + turnDegrees - IMUSubsystem.getAngle());
         return (error <= Constants.AUTO_MOVE_TURN_THRESHOLD);
     }
     
