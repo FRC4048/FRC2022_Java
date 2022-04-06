@@ -206,7 +206,7 @@ public class RobotContainer {
     climberBButton.whenPressed(new LogCommandWrapper(new RetractClimberSequence(climberWinchSubsystem, climberArmSubsystem)));
     staticLock.whenPressed(new LogCommandWrapper(new CloseStaticHooks(climberWinchSubsystem)));
     staticUnlock.whenPressed(new LogCommandWrapper(new OpenStaticHooks(climberWinchSubsystem)));
-    climberYButton.whenPressed(new LogCommandWrapper(new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, climberController)));
+    climberYButton.whenPressed(new LogCommandWrapper(new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
     climberXButton.whenPressed(new LogCommandWrapper(new InitialClimbSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
     climberBackButton.whenPressed(new LogCommandWrapper(new Traversal(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
     
@@ -258,7 +258,7 @@ public class RobotContainer {
 
       SmartShuffleboard.putCommand("Climber", "Extend Arm", new AutoMoveClimberArm(climberArmSubsystem, ClimberDirection.EXTEND));
       SmartShuffleboard.putCommand("Climber", "Retract Arm", new AutoMoveClimberArm(climberArmSubsystem, ClimberDirection.RETRACT));
-      SmartShuffleboard.putCommand("Climber", "Transfer", new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, climberController));
+      SmartShuffleboard.putCommand("Climber", "Transfer", new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController));
 
       SmartShuffleboard.putCommand("Shooter", "Rotate Turret Left", new MoveTurretDashboard(turretSubsystem, MoveTurretDashboard.Direction.LEFT));
       SmartShuffleboard.putCommand("Shooter", "Rotate Turret Right", new MoveTurretDashboard(turretSubsystem, MoveTurretDashboard.Direction.RIGHT));
