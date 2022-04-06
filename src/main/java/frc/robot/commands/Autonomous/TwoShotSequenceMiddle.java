@@ -32,9 +32,9 @@ public class TwoShotSequenceMiddle extends SequentialCommandGroup {
     addCommands(
       new MoveAndMoveHood(driveTrain, speed, 12, hood),
       new NonVisionParallelShoot(shooterSubsystem, intakeSubsystem, 11800),
-      new ParralelMoveAndTurretReset(driveTrain, speed, 120, turretSubsystem, Constants.AUTO_TURRET_SPEED, intakeSubsystem),
+      new ParallelMoveAndTurretReset(driveTrain, speed, 120, turretSubsystem, Constants.AUTO_TURRET_SPEED, intakeSubsystem),
       new TurnDegrees(driveTrain, -105),
-      new ParralelMoveAndIntake(driveTrain, speed, 60, turretSubsystem, turretSpeed, intakeSubsystem, hood, turretSubsystem),
+      new ParallelMoveAndIntake(driveTrain, speed, 60, turretSubsystem, turretSpeed, intakeSubsystem, hood, turretSubsystem),
       new TurnDegrees(driveTrain, 30),
       new MoveDistance(driveTrain, speed, 40),
       new AutoTargetSequence(turretSubsystem, limeLightVision, hood),
