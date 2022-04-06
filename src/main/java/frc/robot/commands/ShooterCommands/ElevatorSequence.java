@@ -36,7 +36,6 @@ public class ElevatorSequence extends SequentialCommandGroup {
       new LogCommandWrapper(new SetShooterMotor(shooterSubsystem, 0)),
       new LogCommandWrapper(new ToggleBlockerPiston(shooterSubsystem, false))
     );
-    SmartShuffleboard.put("Driver", "Data", "Can Shoot", false);
     this.shooterSubsystem = shooterSubsystem;
   }
 
