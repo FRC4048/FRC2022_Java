@@ -1,12 +1,9 @@
 package frc.robot.commands.IntakeCommand;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class IntakeBallCommand extends LoggedCommandBase {

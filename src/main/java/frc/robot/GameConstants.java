@@ -47,28 +47,34 @@ public interface GameConstants {
   public static final double HOOD_JOYSTICK_THRESHOLD = 0.2;
   public static final double HOOD_RANGE_OF_MOTION = 180; //temp value
   public static final double HOOD_STARTING_POINT = 0; //temp value
-  public static final double HOOD_ERROR_THRESHOLD = .5;
+  public static final double HOOD_ERROR_THRESHOLD = 1;
 
 
   //Climber
-  public static final double CLIMBER_V_LIMIT = 26;
   public static final double CLIMBER_ARM_V_TIMEOUT = 0.3;
+  public static final double WINCH_CURR_LIMIT = 60.0;
+  public static final double CLIMBER_WINCH_CURR_TIMEOUT = 0.3;
   public static final double CLIMBER_SLOW_ARM_RATE = 0.75;
   public static final double CLIMBER_SLOW_WINCH_RATE = 0.75;
-  public static final double CLIMBER_ARM_SPEED = .3;
-  public static final double CLIMBER_WINCH_SPEED = .5;
-  public static final double CLIMBER_MIN_ARM_SPEED = 0.1;
-  public static final double CLIMBER_MIN_WINCH_SPEED = 0.1;
-  public static final double CLIMBER_TIMEOUT = 10;
-  public static final double CLIMBER_MAX_ENCODER_DIFF = 1000;
-  public static final double CLIMBER_ARM_TIMEOUT = 10;
-  public static final double CLIMBER_WINCH_TIMEOUT = 10;
-  public static final double CLIMBER_DEAD_ZONE = 0.5;
+  public static final double CLIMBER_ARM_SPEED = .4;
+  public static final double CLIMBER_WINCH_SPEED = .75;
+  public static final double CLIMBER_WINCH_VARIANCE_SPEED = 0.25;
+  public static final double CLIMBER_ARM_TIMEOUT = 1.5;
+  public static final double CLIMBER_WINCH_TIMEOUT = 7;
+  public static final double CLIMBER_DEAD_ZONE = 0.2;
+  public static final double CLIMBER_PULL_OFF_TIMEOUT = 0.5;
+  public static final double SWING_STOP_TIMEOUT = 5;
+  public static final double CLIMBER_ARM_EXTEND_TIMEOUT = 0.3;
+  public static final double CLIMBER_MAX_ACCEL = 5;
+  public static final double CLIMBER_ACCEL_ERROR = 0.2;
+  
 
   //Shooter
   public static final double SHOOTER_SPEED = 0.5;
   public static final double PISTON_DELAY = 0.5;
   public static final double SHOOTER_SPINUP_DELAY = 1;
+  public static final int MANUAL_SHOOTER_SPEED = 1;
+  
   public static final double SHOOTER_PISTON_WAIT = .7;
   public static final double SHOOTER_RPM = 12000;
 
@@ -82,9 +88,15 @@ public interface GameConstants {
   public static final double SHOOTER_MIN_OUTPUT = -1;
 
   //Drive
-  public static final double CONTROLLER_DEAD_ZONE = 0.15;
+  public static final double AUTO_MOVE_TURN_MAX_SPEED = 0.2;
+  public static final double AUTO_MOVE_TURN_MIN_SPEED = 0.05;
+  public static final double AUTO_MOVE_TURN_SLOWDOWN_ERROR = 50;
+  public static final double AUTO_MOVE_TURN_TIMEOUT = 5;
+  public static final double AUTO_MOVE_TURN_THRESHOLD = 2;
 
-  // Turret
+  public static final double CONTROLLER_DEAD_ZONE = 0.2;
+
+  // Turret 
   public static final double TURRET_CLOCKWISE_SPEED = .5;
   public static final double TURRET_COUNTERCLOCKWISE_SPEED = -.5;
   // Intake
@@ -102,7 +114,9 @@ public interface GameConstants {
   public static final double TURRET_SWEEP_SPEED = 0.4;
   public static final double TURRET_ERROR_THRESHOLD = 6;
   public static final double TURRET_FAST_SPEED = 0.4;
-  public static final double TURRET_SLOW_SPEED = 0.1;
+  public static final double TURRET_SLOW_SPEED = 0.2;
+  public static final double TURRET_RIGHT_THRESHOLD = 810; //placeholder
+  public static final double TURRET_LEFT_THRESHOLD = 40; //placeholder
 
   //Autonomous
   public static final double AUTO_TURRET_SPEED = 0.5;

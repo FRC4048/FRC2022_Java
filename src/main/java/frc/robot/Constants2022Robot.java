@@ -14,14 +14,14 @@ package frc.robot;
  */
 public interface Constants2022Robot extends GameConstants {
     //Global Constant
-    public static final boolean ENABLE_DEBUG = true;
+    public static final boolean ENABLE_DEBUG = false;
 
     // THE CONSTANTS IN THIS INTERFACE ARE ALL COMMENTED OUT BECAUSE WE DON'T HAVE A ROBOT YET.
     // ONCE THE HARDWARE IS DELIVERED< ALL THESE NEED TO BE DEFINED AND TESTED
 
     //CAN ID
     public static final int PDP_CAN_ID = 0;
-    public static final int DRIVE_LEFT1_ID = 40;
+    public static final int DRIVE_LEFT1_ID = 40; 
     public static final int DRIVE_LEFT2_ID = 39;
     public static final int DRIVE_RIGHT1_ID = 38;
     public static final int DRIVE_RIGHT2_ID = 37;
@@ -41,10 +41,10 @@ public interface Constants2022Robot extends GameConstants {
     public static final int PDP_DRIVE_L2 = 13; 
     public static final int PDP_DRIVE_R1 = 1; 
     public static final int PDP_DRIVE_R2 = 14; 
-    public static final int PDP_CLIMBER_L_WINCH = 8;
-    public static final int PDP_CLIMBER_R_WINCH = 9;
-    public static final int PDP_CLIMBER_L_ARM = 52;
-    public static final int PDP_CLIMBER_R_ARM = 53;
+    public static final int PDP_CLIMBER_L_WINCH = 12;
+    public static final int PDP_CLIMBER_R_WINCH = 15;
+    public static final int PDP_CLIMBER_L_ARM = 8;
+    public static final int PDP_CLIMBER_R_ARM = 9;
 
     //DIO
     public static final int INTAKE_SENSOR_ID_1 = 0; //temp

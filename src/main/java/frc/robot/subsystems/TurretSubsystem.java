@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 
 public class TurretSubsystem extends SubsystemBase {
     private WPI_TalonSRX turretMotor;
+    private boolean turretLockState;
 
     public TurretSubsystem() {
         turretMotor = new WPI_TalonSRX(Constants.TURRET_MOTOR_ID);
@@ -48,11 +49,19 @@ public class TurretSubsystem extends SubsystemBase {
         turretMotor.setSelectedSensorPosition(0);
     }
 
+    public void setTurretLockState(boolean turretLockState){
+        this.turretLockState = turretLockState;
+    }
+
+    public boolean getTurretLockState() {
+        return turretLockState;
+    }
+
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
         if (Constants.ENABLE_DEBUG) {
-            //SmartShuffleboard.put("Shooter", "Turret Encoder", getEncoder());
+            SmartShuffleboard.put("Shooter", "Turret Encoder", getEncoder());
             SmartShuffleboard.put("Shooter", "Left Limit Switch", getLeftSwitch());
             SmartShuffleboard.put("Shooter", "Right Limit Switch", getRightSwitch());
         }

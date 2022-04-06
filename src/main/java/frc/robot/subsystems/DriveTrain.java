@@ -1,16 +1,15 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.sensors.PigeonIMU;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.utils.SmartShuffleboard;
-import frc.robot.utils.diag.DiagPigeon;
 import frc.robot.utils.diag.DiagSparkMaxEncoder;
 
 public class DriveTrain extends SubsystemBase {
@@ -20,13 +19,16 @@ public class DriveTrain extends SubsystemBase {
     private CANSparkMax right2;
     private RelativeEncoder leftEncoder;
     private RelativeEncoder rightEncoder;
-    private PigeonIMU gyro;
+
+    private final ADIS16470_IMU imu;
 
     public DriveTrain(){
         left1 = new CANSparkMax(Constants.DRIVE_LEFT1_ID, MotorType.kBrushless);
         left2 = new CANSparkMax(Constants.DRIVE_LEFT2_ID, MotorType.kBrushless);
         right1 = new CANSparkMax(Constants.DRIVE_RIGHT1_ID, MotorType.kBrushless);
         right2 = new CANSparkMax(Constants.DRIVE_RIGHT2_ID, MotorType.kBrushless);
+
+        imu = new ADIS16470_IMU();
 
         left1.restoreFactoryDefaults();
         left2.restoreFactoryDefaults();
@@ -51,13 +53,12 @@ public class DriveTrain extends SubsystemBase {
         right1.setIdleMode(IdleMode.kBrake);
         right2.setIdleMode(IdleMode.kBrake);
 
-        gyro = new PigeonIMU(Constants.PIGEON_CAN_ID);
         resetGyro();
         
 
         Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Left Drive Encoder", 10, left1));
         Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Right Drive Encoder", 10, right1));
-        Robot.getDiagnostics().addDiagnosable(new DiagPigeon("Pigeon", 10, gyro));
+        // TODO: Are there diags for the IMU?
     }
 
     public void drive(double speedLeft, double speedRight, boolean isSquared) {
@@ -75,7 +76,8 @@ public class DriveTrain extends SubsystemBase {
    * Resets the Gyro
    */
     public void resetGyro() {
-        gyro.setFusedHeading(0);
+        imu.reset();
+        imu.calibrate();
     }
 
       /**
@@ -84,7 +86,7 @@ public class DriveTrain extends SubsystemBase {
    * @return angle of robot between -180-180
    */
     public double getAngle() {
-        return Math.IEEEremainder(gyro.getFusedHeading(), 360);
+        return imu.getAngle();
     }
 
     @Override
@@ -93,7 +95,12 @@ public class DriveTrain extends SubsystemBase {
         if (Constants.ENABLE_DEBUG) {
             SmartShuffleboard.put("Drive", "Encoders", "L", getLeftEncoder());
             SmartShuffleboard.put("Drive", "Encoders", "R", getRightEncoder());
-            SmartShuffleboard.put("Drive", "Gyro", "Gyro", getAngle());
+            SmartShuffleboard.put("Drive", "Gyro", "Angle", getAngle());
+            SmartShuffleboard.put("Drive", "Gyro", "Raw Angle", imu.getAngle());
+            SmartShuffleboard.put("Drive", "Gyro", "X Comp Angle", imu.getXComplementaryAngle());
+            SmartShuffleboard.put("Drive", "Gyro", "Y Comp Angle", imu.getYComplementaryAngle());
+            SmartShuffleboard.put("Drive", "Gyro", "X filtered acceleration angle", imu.getXFilteredAccelAngle());
+            SmartShuffleboard.put("Drive", "Gyro", "Y filtered acceleration angle", imu.getYFilteredAccelAngle());
          }
     }
 
