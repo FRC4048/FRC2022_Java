@@ -4,19 +4,15 @@
 
 package frc.robot.commands.ClimberCommands;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.commands.LoggedCommandBase;
-import frc.robot.subsystems.Climber.ClimberArmSubsystem;
 
-public class ToggleClimberSolenoid extends LoggedCommandBase {
-  /** Creates a new MoveClimberSolenoid. */
-  private ClimberArmSubsystem climberArmSubsystem;
-  private boolean state;
-  public ToggleClimberSolenoid(ClimberArmSubsystem climberArmSubsystem) {
+public class ConfirmTransition extends CommandBase {
+  /** Creates a new ConfirmTransition. */
+  XboxController climberController;
+  public ConfirmTransition(XboxController climberController) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.climberArmSubsystem = climberArmSubsystem;
-    this.state = state;
-    addRequirements(climberArmSubsystem);
+    this.climberController = climberController;
   }
 
   // Called when the command is initially scheduled.
@@ -25,9 +21,7 @@ public class ToggleClimberSolenoid extends LoggedCommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    climberArmSubsystem.movePiston(!climberArmSubsystem.getPistonState());
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -36,6 +30,6 @@ public class ToggleClimberSolenoid extends LoggedCommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return (climberController.getStartButton());
   }
 }

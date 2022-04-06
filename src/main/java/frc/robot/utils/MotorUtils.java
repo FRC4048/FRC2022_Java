@@ -24,6 +24,8 @@ public class MotorUtils {
     final int PDPChannel;
     final double currentThreshold;
 
+    private boolean everStalled = false;
+
     public MotorUtils(int PDPPort, double currentThreshold, double timeout, PowerDistribution powerDistPanel ){
         this.timeout = timeout;
         this.PDPChannel = PDPPort;
@@ -41,10 +43,19 @@ public class MotorUtils {
         } else {
             DriverStation.reportError("Motor stall, PDP Channel=" + PDPChannel, false);
             if (now - time > timeout) {
+                everStalled = true;
                 Logging.instance().traceMessage(Logging.MessageLevel.INFORMATION, "Motor stall, PDP channel =" + PDPChannel);
                 return true;
             }
         }
         return false;
+    }
+
+    public boolean everStalled() {
+        return everStalled;
+    }
+
+    public void resetStall() {
+        everStalled = false;
     }
 }

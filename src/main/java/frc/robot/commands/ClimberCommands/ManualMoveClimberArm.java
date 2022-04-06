@@ -29,20 +29,14 @@ public class ManualMoveClimberArm extends CommandBase {
   @Override
   public void execute() {
     double rightSpeed = 0, leftSpeed = 0; 
+
+    double joySpeed = climberController.getLeftY();
     
-    if (climberController.getLeftY() > Constants.CLIMBER_DEAD_ZONE) {
-      rightSpeed = Constants.CLIMBER_ARM_SPEED;
-      leftSpeed = Constants.CLIMBER_ARM_SPEED;
-    } else if (climberController.getLeftY() < -Constants.CLIMBER_DEAD_ZONE) {
-      rightSpeed = -Constants.CLIMBER_ARM_SPEED;
-      leftSpeed = -Constants.CLIMBER_ARM_SPEED;
+    if (Math.abs(joySpeed) > Constants.CLIMBER_DEAD_ZONE) {
+      rightSpeed = Constants.CLIMBER_ARM_SPEED * joySpeed;
+      leftSpeed = Constants.CLIMBER_ARM_SPEED * joySpeed;
     }
 
-    if (climberController.getRightBumperPressed()) {
-      rightSpeed *= Constants.CLIMBER_SLOW_ARM_RATE; 
-    } else if (climberController.getLeftBumperPressed()) {
-      leftSpeed *= Constants.CLIMBER_SLOW_ARM_RATE;
-    }
 
     climberArmSubsystem.setRightArmSpeed(rightSpeed);
     climberArmSubsystem.setLeftArmSpeed(leftSpeed);
@@ -50,7 +44,9 @@ public class ManualMoveClimberArm extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    climberArmSubsystem.setSpeed(0);
+  }
 
   // Returns true when the command should end.
   @Override
