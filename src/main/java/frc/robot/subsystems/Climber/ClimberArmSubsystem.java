@@ -24,14 +24,13 @@ import frc.robot.utils.diag.DiagTalonSrxSwitch;
 public class ClimberArmSubsystem extends SubsystemBase {
   /** Creates a new ClimberArmSubsystem. */
   private WPI_TalonSRX leftArm, rightArm;
-  private Solenoid climberLPiston, climberRPiston;
+  private Solenoid climberPiston;
   private MotorUtils leftMotorUtil, rightMotorUtil;
   
   public ClimberArmSubsystem(PowerDistribution m_PowerDistPanel) {
     leftArm = new WPI_TalonSRX(Constants.CLIMBER_LEFT_ARM_ID);
     rightArm = new WPI_TalonSRX(Constants.CLIMBER_RIGHT_ARM_ID);
-    climberLPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_L_PISTON_ID);
-    climberRPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_R_PISTON_ID);
+    climberPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_L_PISTON_ID);
 
     leftMotorUtil = new MotorUtils(Constants.PDP_CLIMBER_L_ARM, Constants.CLIMBER_V_LIMIT, Constants.CLIMBER_ARM_V_TIMEOUT, m_PowerDistPanel);
     rightMotorUtil = new MotorUtils(Constants.PDP_CLIMBER_R_ARM, Constants.CLIMBER_V_LIMIT, Constants.CLIMBER_ARM_V_TIMEOUT, m_PowerDistPanel);
@@ -68,12 +67,11 @@ public class ClimberArmSubsystem extends SubsystemBase {
   }
 
   public void movePiston(boolean state) {
-    climberLPiston.set(state);
-    climberRPiston.set(state);
+    climberPiston.set(state);
   }
 
   public boolean getPistonState() {
-    return climberLPiston.get();
+    return climberPiston.get();
   }
 
   public void stopArms() {

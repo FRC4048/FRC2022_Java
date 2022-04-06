@@ -62,9 +62,7 @@ public interface Constants2022Robot extends GameConstants {
     //PCM
     public static final int SHOOTER_PISTON_ID = 0;
     public static final int INTAKE_SOLENOID_1 = 3;
-    public static final int INTAKE_SOLENOID_2 = 6;
     public static final int CLIMBER_L_PISTON_ID = 2;
-    public static final int CLIMBER_R_PISTON_ID = 7;
     public static final int STOP_SOLENOID_ID = 1;   
 
     // Elevator
