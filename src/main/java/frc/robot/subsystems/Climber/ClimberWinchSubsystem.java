@@ -44,8 +44,8 @@ public class ClimberWinchSubsystem extends SubsystemBase {
     leftMotorStall = new MotorUtils(Constants.PDP_CLIMBER_L_WINCH, Constants.WINCH_CURR_LIMIT, Constants.CLIMBER_WINCH_CURR_TIMEOUT, m_PowerDistPanel);
     rightMotorStall = new MotorUtils(Constants.PDP_CLIMBER_R_WINCH, Constants.WINCH_CURR_LIMIT, Constants.CLIMBER_WINCH_CURR_TIMEOUT, m_PowerDistPanel);
 
-    leftWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-    rightWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    //leftWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    //rightWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     //leftWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     //rightWinch.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
 
@@ -181,14 +181,24 @@ public class ClimberWinchSubsystem extends SubsystemBase {
    * True when tripped, false when open
    */
   public boolean getLeftOnBarSwitch() {
-    return !leftSensor.get();
+    //return !leftSensor.get();
+    return false;
   }
 
   /**
    * True when tripped, false when open
    */
   public boolean getRightOnBarSwitch() {
-    return !rightSensor.get();
+    //return !rightSensor.get();
+    return false;
+  }
+
+  public boolean getLeftSwitch() {
+    return leftSensor.get();
+  }
+
+  public boolean getRightSwitch() {
+    return rightSensor.get();
   }
 
 
