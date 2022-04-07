@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -30,6 +32,7 @@ public class Robot extends TimedRobot {
   private static TARGETING_STATE target_state;
 
   public enum TARGETING_STATE {OFF, LOCK};
+  private UsbCamera USBCam;
   
 
   /**
@@ -45,6 +48,9 @@ public class Robot extends TimedRobot {
     m_robotContainer.installCommandsOnShuffleboard();
     m_robotContainer.installDriverShuffleboard();
     target_state = TARGETING_STATE.OFF;
+    USBCam = CameraServer.startAutomaticCapture(0);
+    USBCam.setResolution(640, 480);
+    USBCam.setFPS(15);
   }
 
   /**
