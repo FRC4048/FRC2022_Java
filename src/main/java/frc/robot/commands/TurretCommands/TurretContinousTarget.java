@@ -65,8 +65,8 @@ public class TurretContinousTarget extends CommandBase {
             turret.setTurret(0);
           }
         } else {
-          if (((turret.getEncoder() >= Constants.TURRET_RIGHT_THRESHOLD) && turretSpeed < 0) ||
-              ((turret.getEncoder() <= Constants.TURRET_LEFT_THRESHOLD) && turretSpeed > 0)) {
+          if ((((turret.getEncoder() >= Constants.TURRET_RIGHT_THRESHOLD) || turret.getRightSwitch()) && turretSpeed < 0) ||
+              (((turret.getEncoder() <= Constants.TURRET_LEFT_THRESHOLD) || turret.getLeftSwitch()) && turretSpeed > 0)) {
             turretSpeed = -turretSpeed;
           }
           SmartShuffleboard.put("Continous", "Speed", turretSpeed);

@@ -86,6 +86,10 @@ public class VisionAutoShooter extends LoggedCommandBase {
     //return SmartDashboard.getNumber("DesiredSpeed", 10000.0);
     addLog(distance);
     SmartShuffleboard.put("Shooter", "Distance", distance);
-    return (10565 * Math.pow(Math.E, .0177 * distance));
+    double speed = 10565 * Math.pow(Math.E, .0177 * distance);
+    if (speed > 15000) {
+      speed = 15000.0;
+    }
+    return speed;
   }
 }

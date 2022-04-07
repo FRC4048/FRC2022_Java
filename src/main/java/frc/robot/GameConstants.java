@@ -94,7 +94,7 @@ public interface GameConstants {
   public static final double AUTO_MOVE_TURN_TIMEOUT = 5;
   public static final double AUTO_MOVE_TURN_THRESHOLD = 2;
 
-  public static final double CONTROLLER_DEAD_ZONE = 0.2;
+  public static final double CONTROLLER_DEAD_ZONE = 0;
 
   // Turret 
   public static final double TURRET_CLOCKWISE_SPEED = .5;

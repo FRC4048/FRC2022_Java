@@ -21,6 +21,7 @@ public class HoodContinousTarget extends CommandBase {
   private DoubleSupplier rightJoystickY;
   private LimeLightVision vision;
   private Double ticks;
+  private boolean inRange;
 
   static {
     // Conversion Map from feet to pot ticks
@@ -72,7 +73,9 @@ public class HoodContinousTarget extends CommandBase {
           ticks = calculateAngle(vision);
           if (ticks != null) {
             if (Math.abs(hood.getPotentiometer() - ticks) <= Constants.HOOD_ERROR_THRESHOLD) {
-              hoodState = true;
+              if (inRange) {
+                hoodState = true;
+              }
               hood.setHood(0);
             } else {
               double direction = Math.signum(hood.getPotentiometer() - ticks);
@@ -102,6 +105,16 @@ public class HoodContinousTarget extends CommandBase {
 
   private double calculateAngle(LimeLightVision vision) {
     double distance = vision.calcHorizontalDistanceToTarget(vision.getCameraAngles().getTy()) / 12 + hood.getHoodAdj();
-    return -.0858 * Math.pow(distance, 2) + 5.36 * distance + 79.7;
+    double angle = -.0858 * Math.pow(distance, 2) + 5.36 * distance + 79.7;
+    if (angle > 144) {
+      angle = 140;
+      inRange = false;
+    } else if (angle < 105) {
+      angle = 105;
+      inRange = false;
+    } else {
+      inRange = true;
+    }
+    return angle;
   }
 }
