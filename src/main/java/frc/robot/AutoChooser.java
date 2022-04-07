@@ -95,8 +95,8 @@ public class AutoChooser {
         else if (a == Action.ONE_SHOT) {return new OneShotSequenceMiddle(turretSubsystem, intakeSubsystem, 
             driveTrain, shooterSubsystem, limeLightVision, hood, Constants.AUTO_MOVE_SPEED, 
             Constants.AUTO_DISTANCE_INCHES);}
-        else if (a == Action.CROSS_LINE) {return new CrossTheLineSequence(driveTrain);}
-        else if (a == Action.DO_NOTHING) {return new DoNothingSequence();}
+        else if (a == Action.CROSS_LINE) {return new CrossTheLineSequence(driveTrain, turretSubsystem, Constants.AUTO_TURRET_SPEED);}
+        else if (a == Action.DO_NOTHING) {return new DoNothingSequence(turretSubsystem, Constants.AUTO_TURRET_SPEED);}
         return new WaitCommand(0);
     }
 }
