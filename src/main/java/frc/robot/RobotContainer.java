@@ -22,6 +22,7 @@ import frc.robot.commands.Autonomous.OneShotSequenceMiddle;
 import frc.robot.commands.Autonomous.TwoShotSequenceLeft;
 import frc.robot.commands.Autonomous.TwoShotSequenceRight;
 import frc.robot.commands.ClimberCommands.AutoMoveClimberArm;
+import frc.robot.commands.ClimberCommands.AutoMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.AutoMoveClimberArm.ClimberDirection;
 import frc.robot.commands.ClimberCommands.CloseStaticHooks;
 import frc.robot.commands.ClimberCommands.InitialClimbSequence;
@@ -204,7 +205,7 @@ public class RobotContainer {
     // Climber Controls
     //TRAVERSAL CLIMB BUTTONS ARE COMMENTED OUT
     //climberAButton.whenPressed(new LogCommandWrapper(new InitialExtendSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision())));
-    climberAButton.whenPressed(new LogCommandWrapper(new WinchExtend(climberWinchSubsystem)));
+    climberAButton.whenPressed(new LogCommandWrapper(new AutoMoveClimberWinch(climberWinchSubsystem, ClimberDirection.EXTEND)));
     //climberBButton.whenPressed(new LogCommandWrapper(new RetractClimberSequence(climberWinchSubsystem, climberArmSubsystem)));
     //staticLock.whenPressed(new LogCommandWrapper(new CloseStaticHooks(climberWinchSubsystem)));
     //staticUnlock.whenPressed(new LogCommandWrapper(new OpenStaticHooks(climberWinchSubsystem)));
