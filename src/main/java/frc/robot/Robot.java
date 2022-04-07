@@ -49,7 +49,7 @@ public class Robot extends TimedRobot {
     m_robotContainer.installDriverShuffleboard();
     target_state = TARGETING_STATE.OFF;
     USBCam = CameraServer.startAutomaticCapture(0);
-    USBCam.setResolution(640, 480);
+    USBCam.setResolution(320, 240);
     USBCam.setFPS(15);
   }
 
