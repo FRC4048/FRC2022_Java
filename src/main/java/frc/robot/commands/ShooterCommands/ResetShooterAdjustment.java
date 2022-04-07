@@ -2,32 +2,28 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.ClimberCommands;
+package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.commands.LoggedCommandBase;
-import frc.robot.subsystems.Climber.ClimberArmSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
-public class ToggleClimberSolenoid extends LoggedCommandBase {
-  /** Creates a new MoveClimberSolenoid. */
-  private ClimberArmSubsystem climberArmSubsystem;
-  private boolean state;
-  public ToggleClimberSolenoid(ClimberArmSubsystem climberArmSubsystem) {
+public class ResetShooterAdjustment extends CommandBase {
+  /** Creates a new ResetShooterAdjustment. */
+  ShooterSubsystem shooter;
+  public ResetShooterAdjustment(ShooterSubsystem shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.climberArmSubsystem = climberArmSubsystem;
-    this.state = state;
-    addRequirements(climberArmSubsystem);
+    this.shooter = shooter;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    shooter.resetShooterAdj();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    climberArmSubsystem.movePiston(!climberArmSubsystem.getPistonState());
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override

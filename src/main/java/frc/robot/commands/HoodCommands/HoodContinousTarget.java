@@ -104,7 +104,7 @@ public class HoodContinousTarget extends CommandBase {
   }
 
   private double calculateAngle(LimeLightVision vision) {
-    double distance = vision.calcHorizontalDistanceToTarget(vision.getCameraAngles().getTy()) / 12;
+    double distance = vision.calcHorizontalDistanceToTarget(vision.getCameraAngles().getTy()) / 12 + hood.getHoodAdj();
     double angle = -.0858 * Math.pow(distance, 2) + 5.36 * distance + 79.7;
     if (angle > 144) {
       angle = 140;

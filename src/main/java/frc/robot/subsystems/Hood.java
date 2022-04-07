@@ -16,6 +16,7 @@ public class Hood extends SubsystemBase {
     private WPI_TalonSRX hoodMotor;
     private AnalogPotentiometer potentiometer;
     private boolean hoodLockState;
+    private double hoodAdjustment;
 
     public Hood() {
         hoodMotor = new WPI_TalonSRX(Constants.HOOD_MOTOR_ID);
@@ -31,6 +32,8 @@ public class Hood extends SubsystemBase {
                 frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
         Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Hood Reverse Switch", hoodMotor,
                 frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
+
+        hoodAdjustment = 0;
     }
 
     public void setHood(double speed) {
@@ -68,6 +71,18 @@ public class Hood extends SubsystemBase {
 
     public boolean getHoodLockState() {
         return hoodLockState;
+    }
+
+    public void setHoodAdj(double adjustment) {
+        hoodAdjustment += adjustment;
+    }
+    
+      public double getHoodAdj() {
+        return hoodAdjustment;
+    }
+    
+      public void resetHoodAdj() {
+        hoodAdjustment = 0;
     }
 
     @Override

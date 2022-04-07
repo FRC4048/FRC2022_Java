@@ -24,17 +24,14 @@ import frc.robot.utils.diag.DiagTalonSrxSwitch;
 public class ClimberArmSubsystem extends SubsystemBase {
   /** Creates a new ClimberArmSubsystem. */
   private WPI_TalonSRX leftArm, rightArm;
-  private Solenoid climberLPiston, climberRPiston;
-  private MotorUtils leftMotorUtil, rightMotorUtil;
+  private Solenoid climberPiston;
+  private PowerDistribution m_PowerDistPanel;
   
   public ClimberArmSubsystem(PowerDistribution m_PowerDistPanel) {
+    this.m_PowerDistPanel = m_PowerDistPanel;
     leftArm = new WPI_TalonSRX(Constants.CLIMBER_LEFT_ARM_ID);
     rightArm = new WPI_TalonSRX(Constants.CLIMBER_RIGHT_ARM_ID);
-    climberLPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_L_PISTON_ID);
-    climberRPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_R_PISTON_ID);
-
-    leftMotorUtil = new MotorUtils(Constants.PDP_CLIMBER_L_ARM, Constants.CLIMBER_V_LIMIT, Constants.CLIMBER_ARM_V_TIMEOUT, m_PowerDistPanel);
-    rightMotorUtil = new MotorUtils(Constants.PDP_CLIMBER_R_ARM, Constants.CLIMBER_V_LIMIT, Constants.CLIMBER_ARM_V_TIMEOUT, m_PowerDistPanel);
+    climberPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_L_PISTON_ID);
 
     leftArm.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     leftArm.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
@@ -48,9 +45,9 @@ public class ClimberArmSubsystem extends SubsystemBase {
     Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Right Arm Forward Switch", rightArm, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
     Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Right Arm Reverse Switch", rightArm, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
     
-    leftArm.setNeutralMode(NeutralMode.Coast);
-    rightArm.setNeutralMode(NeutralMode.Coast);
-
+    leftArm.setNeutralMode(NeutralMode.Brake);
+    rightArm.setNeutralMode(NeutralMode.Brake);
+    
     leftArm.setInverted(true);
   }
 
@@ -68,12 +65,11 @@ public class ClimberArmSubsystem extends SubsystemBase {
   }
 
   public void movePiston(boolean state) {
-    climberLPiston.set(state);
-    climberRPiston.set(state);
+    climberPiston.set(state);
   }
 
   public boolean getPistonState() {
-    return climberLPiston.get();
+    return climberPiston.get();
   }
 
   public void stopArms() {
@@ -96,44 +92,28 @@ public class ClimberArmSubsystem extends SubsystemBase {
     return rightArm.getSelectedSensorPosition();
   }
 
-  public boolean isLeftStalled() {
-    return leftMotorUtil.isStalled();
+  public double getLeftCurrent() {
+    return m_PowerDistPanel.getCurrent(Constants.PDP_CLIMBER_L_ARM);
   }
 
-  public boolean isRightStalled() {
-    return rightMotorUtil.isStalled();
-  }
-
-  public double getLeftVoltage() {
-    return leftArm.getBusVoltage();
-  }
-
-  public double getRightVoltage() {
-    return rightArm.getBusVoltage();
-  }
-
-  public double getLeftVelocity() {
-    return leftArm.getActiveTrajectoryVelocity();
-  }
-
-  public double getRightVelocity() {
-    return rightArm.getActiveTrajectoryVelocity();
-  }
-
-  public boolean getLeftTopSensor() {
-    return leftArm.getSensorCollection().isFwdLimitSwitchClosed();
+  public double getRightCurrent() {
+    return m_PowerDistPanel.getCurrent(Constants.PDP_CLIMBER_R_ARM);
   }
 
   public boolean getLeftBotSensor() {
     return leftArm.getSensorCollection().isRevLimitSwitchClosed();
   }
 
-  public boolean getRightTopSensor() {
-    return rightArm.getSensorCollection().isFwdLimitSwitchClosed();
+  public boolean getLeftTopSensor() {
+    return leftArm.getSensorCollection().isFwdLimitSwitchClosed();
   }
 
   public boolean getRightBotSensor() {
-    return leftArm.getSensorCollection().isRevLimitSwitchClosed();
+    return rightArm.getSensorCollection().isRevLimitSwitchClosed();
+  }
+
+  public boolean getRightTopSensor() {
+    return rightArm.getSensorCollection().isFwdLimitSwitchClosed();
   }
   
   @Override
@@ -142,8 +122,13 @@ public class ClimberArmSubsystem extends SubsystemBase {
     if (Constants.ENABLE_DEBUG) {
       SmartShuffleboard.put("Climber", "R Arm Encoder", getRightEncoder());
       SmartShuffleboard.put("Climber", "L Arm Encoder", getLeftEncoder());
-      SmartShuffleboard.put("Climber", "R Arm Voltage", getRightVoltage());
-      SmartShuffleboard.put("Climber", "L Arm Voltage", getLeftVoltage());
+      SmartShuffleboard.put("Climber", "R Arm Current", getRightCurrent());
+      SmartShuffleboard.put("Climber", "L Arm Current", getLeftCurrent());
+      SmartShuffleboard.put("Climber", "L Bot Switch", getLeftBotSensor());
+      SmartShuffleboard.put("Climber", "R Bot Switch", getRightBotSensor());
+      SmartShuffleboard.put("Climber", "L Top Switch", getLeftTopSensor());
+      SmartShuffleboard.put("Climber", "R Top Switch", getRightTopSensor());
+      
     }
   }
 }
