@@ -30,6 +30,7 @@ public class RaiseIntakeCommand extends LoggedCommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    intakeSubsystem.spinMotor(0);
   }
 
   // Returns true when the command should end.

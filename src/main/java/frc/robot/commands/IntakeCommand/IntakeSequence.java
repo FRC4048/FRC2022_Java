@@ -25,6 +25,19 @@ public class IntakeSequence extends SequentialCommandGroup {
     );
   }
 
+  public IntakeSequence(IntakeSubsystem intakeSubsystem, int timeOut) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    this.intakeSubsystem = intakeSubsystem;
+
+    addCommands(
+        new LogCommandWrapper(new DeployIntakeCommand(intakeSubsystem)),
+        new LogCommandWrapper(new IntakeBallCommand(intakeSubsystem, timeOut)),
+        new LogCommandWrapper(new RaiseIntakeCommand(intakeSubsystem)),
+        new LogCommandWrapper(new IntakeWait()),
+        new LogCommandWrapper(new DropBallCommandManual(intakeSubsystem, .5))
+    );
+  }
+
   //Overrides left in in case future additions are necessary
   // Called when the command is initially scheduled.
   @Override

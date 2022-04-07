@@ -15,13 +15,11 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.DiagOpticalSensor;
-import frc.robot.utils.diag.DiagTalonSrxEncoder;
 import frc.robot.utils.logging.Logging;
 
 public class IntakeSubsystem extends SubsystemBase {
   private WPI_TalonSRX intakeMotor;
   private Solenoid piston1;
-  private Solenoid piston2;
   private DigitalInput intakeSensor1;
   private DigitalInput intakeSensor2;
 
@@ -29,7 +27,6 @@ public class IntakeSubsystem extends SubsystemBase {
   public IntakeSubsystem() {
     intakeMotor = new WPI_TalonSRX(Constants.INTAKE_MOTOR_ID);
     piston1 = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.INTAKE_SOLENOID_1);
-    piston2 = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.INTAKE_SOLENOID_2);
     intakeSensor1 = new DigitalInput(Constants.INTAKE_SENSOR_ID_1);
     intakeSensor2 = new DigitalInput(Constants.INTAKE_SENSOR_ID_2);
 
@@ -56,17 +53,14 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void deployPiston() {
     piston1.set(true);
-    piston2.set(true);
   }
 
   public void retractPiston() {
     piston1.set(false);
-    piston2.set(false);
   }
   
   public void togglePiston() {
   piston1.set(!piston1.get());
-  piston2.set(!piston2.get());
   }
 
   public void spinMotor(double speed) {
@@ -74,7 +68,7 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public boolean isBallInIntake() {
-    return !intakeSensor1.get() || !intakeSensor2.get();
+    return !intakeSensor1.get() && !intakeSensor2.get();
   }
 
   public boolean getIntakeSensor1() {
@@ -88,11 +82,6 @@ public class IntakeSubsystem extends SubsystemBase {
   public boolean getPiston1State(){
     return piston1.get();
   }
-
-  public boolean getPiston2State(){
-    return piston2.get();
-  }
-
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
@@ -101,7 +90,6 @@ public class IntakeSubsystem extends SubsystemBase {
   public final Logging.LoggingContext loggingContext = new Logging.LoggingContext(this.getClass()) {
     protected void addAll() {
         add("Piston 1 State", getPiston1State());
-        add("Piston 2 State", getPiston2State());
     }
   };
 }

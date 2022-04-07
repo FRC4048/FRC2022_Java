@@ -12,8 +12,8 @@ import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
 
-public class ParralelMoveAndTurretResetAndIntake extends ParallelCommandGroup {
-    public ParralelMoveAndTurretResetAndIntake(DriveTrain driveTrain, double speed, double distanceInches, TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, Hood hood) {
+public class ParallelMoveAndTurretResetAndIntake extends ParallelCommandGroup {
+    public ParallelMoveAndTurretResetAndIntake(DriveTrain driveTrain, double speed, double distanceInches, TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, Hood hood) {
         addCommands(
             new MoveDistance(driveTrain, speed, distanceInches),
             new AutoSetShootingPosition(turretSubsystem, turretSpeed, Constants.AUTO_TURRET_CENTER_ANGLE),

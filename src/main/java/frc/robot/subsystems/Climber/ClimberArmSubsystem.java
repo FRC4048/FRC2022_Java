@@ -10,7 +10,9 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -22,12 +24,14 @@ import frc.robot.utils.diag.DiagTalonSrxSwitch;
 public class ClimberArmSubsystem extends SubsystemBase {
   /** Creates a new ClimberArmSubsystem. */
   private WPI_TalonSRX leftArm, rightArm;
+  private Solenoid climberPiston;
   private PowerDistribution m_PowerDistPanel;
   
   public ClimberArmSubsystem(PowerDistribution m_PowerDistPanel) {
     this.m_PowerDistPanel = m_PowerDistPanel;
     leftArm = new WPI_TalonSRX(Constants.CLIMBER_LEFT_ARM_ID);
     rightArm = new WPI_TalonSRX(Constants.CLIMBER_RIGHT_ARM_ID);
+    climberPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_L_PISTON_ID);
 
     leftArm.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     leftArm.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
@@ -58,6 +62,14 @@ public class ClimberArmSubsystem extends SubsystemBase {
 
   public void setRightArmSpeed(double speed) {
     rightArm.set(ControlMode.PercentOutput, speed);  
+  }
+
+  public void movePiston(boolean state) {
+    climberPiston.set(state);
+  }
+
+  public boolean getPistonState() {
+    return climberPiston.get();
   }
 
   public void stopArms() {
