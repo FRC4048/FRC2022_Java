@@ -39,7 +39,7 @@ public class ShooterSubsystem extends SubsystemBase {
     blockPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.STOP_SOLENOID_ID);
     shooterPID = shooterMotor.getPIDController();
     isRunning = false;
-    shooterAdjustment = 1;
+    shooterAdjustment = 0;
     
     targetVelocity = 0;
 
@@ -81,7 +81,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void setShooterAdj(double adjustment) {
-    shooterAdjustment *= adjustment;
+    shooterAdjustment += adjustment;
   }
 
   public double getShooterAdj() {
@@ -89,7 +89,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void resetShooterAdj() {
-    shooterAdjustment *= 1;
+    shooterAdjustment = 0;
   }
 
   public boolean getBlockState() {

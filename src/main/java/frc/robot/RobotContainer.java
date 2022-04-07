@@ -225,8 +225,8 @@ public class RobotContainer {
     rightBumper.whenPressed(new LogCommandWrapper(new LaunchpadSetPoint(hood, shooterSubsystem)));
     startButton.whenPressed(new LogError());
     backButton.whenPressed(new LogCommandWrapper(new CancelAll(intakeSubsystem, shooterSubsystem)));
-    leftJoyPress.whenPressed(new LogCommandWrapper(new AdjustShooter(shooterSubsystem, 2)));
-    rightJoyPress.whenPressed(new LogCommandWrapper(new AdjustShooter(shooterSubsystem, 0.5)));
+    leftJoyPress.whenPressed(new LogCommandWrapper(new AdjustShooter(shooterSubsystem, hood, 1)));
+    rightJoyPress.whenPressed(new LogCommandWrapper(new AdjustShooter(shooterSubsystem, hood, -1)));
 
   }
 
