@@ -209,7 +209,7 @@ public class RobotContainer {
     // Climber Controls
     //TRAVERSAL CLIMB BUTTONS ARE COMMENTED OUT
     //climberAButton.whenPressed(new LogCommandWrapper(new InitialExtendSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision())));
-    climberAButton.whenPressed(new LogCommandWrapper(new AutoMoveClimberWinch(climberWinchSubsystem, ClimberDirection.EXTEND)));
+    climberAButton.whenPressed(new LogCommandWrapper(new WinchExtend(climberWinchSubsystem)));
     //climberBButton.whenPressed(new LogCommandWrapper(new RetractClimberSequence(climberWinchSubsystem, climberArmSubsystem)));
     //staticLock.whenPressed(new LogCommandWrapper(new CloseStaticHooks(climberWinchSubsystem)));
     //staticUnlock.whenPressed(new LogCommandWrapper(new OpenStaticHooks(climberWinchSubsystem)));
