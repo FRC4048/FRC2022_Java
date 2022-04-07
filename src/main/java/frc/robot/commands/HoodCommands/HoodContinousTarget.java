@@ -100,8 +100,8 @@ public class HoodContinousTarget extends CommandBase {
     return false;
   }
 
-  private static Double calculateAngle(LimeLightVision vision) {
-    double distance = vision.calcHorizontalDistanceToTarget(vision.getCameraAngles().getTy()) / 12;
+  private double calculateAngle(LimeLightVision vision) {
+    double distance = vision.calcHorizontalDistanceToTarget(vision.getCameraAngles().getTy()) / 12 + hood.getHoodAdj();
     return -.0858 * Math.pow(distance, 2) + 5.36 * distance + 79.7;
   }
 }

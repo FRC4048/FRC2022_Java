@@ -26,7 +26,7 @@ import frc.robot.commands.ClimberCommands.AutoMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.AutoMoveClimberArm.ClimberDirection;
 import frc.robot.commands.ClimberCommands.CloseStaticHooks;
 import frc.robot.commands.ClimberCommands.InitialClimbSequence;
-import frc.robot.commands.ClimberCommands.InitialExtendSequence;
+import frc.robot.commands.ClimberCommands.ClimberExtendSequence;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.MoveClimberToNextBar;
@@ -54,9 +54,11 @@ import frc.robot.commands.Miscellaneous.CancelAll;
 import frc.robot.commands.Miscellaneous.SetLEDOff;
 import frc.robot.commands.Miscellaneous.SetLEDOn;
 import frc.robot.commands.Miscellaneous.SetPipeline;
+import frc.robot.commands.ShooterCommands.AdjustShooter;
 import frc.robot.commands.ShooterCommands.AutoTargetSequence;
 import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
 import frc.robot.commands.ShooterCommands.LaunchpadSetPoint;
+import frc.robot.commands.ShooterCommands.ResetShooterAdjustment;
 import frc.robot.commands.ShooterCommands.RetractShooterPiston;
 import frc.robot.commands.ShooterCommands.RunShooterMotor;
 import frc.robot.commands.ShooterCommands.SetShooterMotor;
@@ -124,6 +126,8 @@ public class RobotContainer {
   private Trigger rightTrigger = new Trigger(() -> xboxController.getRightTriggerAxis() > 0.5 );
   private Trigger leftTrigger = new Trigger(() -> xboxController.getLeftTriggerAxis() > 0.5 );
   private JoystickButton backButton = new JoystickButton(xboxController, Constants.XBOX_BACK_BUTTON);
+  private JoystickButton leftJoyPress = new JoystickButton(xboxController, Constants.XBOX_LEFT_STICK_PRESS);
+  private JoystickButton rightJoyPress = new JoystickButton(xboxController, Constants.XBOX_RIGHT_STICK_PRESS);
 
   private final LimelightSubsystem limeLightVision = new LimelightSubsystem();
 
@@ -225,6 +229,8 @@ public class RobotContainer {
     rightBumper.whenPressed(new LogCommandWrapper(new LaunchpadSetPoint(hood, shooterSubsystem)));
     startButton.whenPressed(new LogError());
     backButton.whenPressed(new LogCommandWrapper(new CancelAll(intakeSubsystem, shooterSubsystem)));
+    leftJoyPress.whenPressed(new LogCommandWrapper(new AdjustShooter(shooterSubsystem, hood, 1)));
+    rightJoyPress.whenPressed(new LogCommandWrapper(new AdjustShooter(shooterSubsystem, hood, -1)));
 
   }
 
@@ -261,7 +267,7 @@ public class RobotContainer {
 
       SmartShuffleboard.putCommand("Climber", "Extend Arm", new AutoMoveClimberArm(climberArmSubsystem, ClimberDirection.EXTEND));
       SmartShuffleboard.putCommand("Climber", "Retract Arm", new AutoMoveClimberArm(climberArmSubsystem, ClimberDirection.RETRACT));
-      SmartShuffleboard.putCommand("Climber", "Transfer", new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, climberController));
+      SmartShuffleboard.putCommand("Climber", "Transfer", new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController));
 
       SmartShuffleboard.putCommand("Shooter", "Rotate Turret Left", new MoveTurretDashboard(turretSubsystem, MoveTurretDashboard.Direction.LEFT));
       SmartShuffleboard.putCommand("Shooter", "Rotate Turret Right", new MoveTurretDashboard(turretSubsystem, MoveTurretDashboard.Direction.RIGHT));

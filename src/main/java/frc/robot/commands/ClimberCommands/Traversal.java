@@ -23,9 +23,9 @@ public class Traversal extends SequentialCommandGroup {
     addCommands(
       new LogCommandWrapper(new InitialClimbSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, vision, climberController)), 
       new LogCommandWrapper(new ConfirmTransition(climberController)),
-      new LogCommandWrapper(new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, climberController)),
+      new LogCommandWrapper(new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, vision, climberController)),
       new LogCommandWrapper(new ConfirmTransition(climberController)),
-      new LogCommandWrapper(new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, climberController))
+      new LogCommandWrapper(new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, vision, climberController))
     );
   }
 }
