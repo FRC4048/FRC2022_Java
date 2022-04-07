@@ -5,8 +5,6 @@
 package frc.robot.subsystems.Climber;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
-import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -212,15 +210,15 @@ public class ClimberWinchSubsystem extends SubsystemBase {
       SmartShuffleboard.put("Climber", "L Winch Encoder", getLeftEncoder());
       SmartShuffleboard.put("Climber", "R Winch Current", getRightCurrent());
       SmartShuffleboard.put("Climber", "L Winch Current", getLeftCurrent());
-      SmartShuffleboard.put("Climber", "R Winch Strap Switch", getRightStrapExtendedSwitch());
-      SmartShuffleboard.put("Climber", "L Winch Strap Switch", getLeftStrapExtendedSwitch());
+      SmartShuffleboard.put("Climber", "L Winch Sensor", getLeftSwitch());
+      SmartShuffleboard.put("Climber", "R Winch Sensor", getRightSwitch());
+//      SmartShuffleboard.put("Climber", "R Winch Strap Switch", getRightStrapExtendedSwitch());
+//      SmartShuffleboard.put("Climber", "L Winch Strap Switch", getLeftStrapExtendedSwitch());
       // THIS WAS INADVERTANTLY TRIGGERING THE STALL CHECK
       SmartShuffleboard.put("Climber", "L Winch Stalled", isLeftStalled());
       SmartShuffleboard.put("Climber", "R Winch Stalled", isRightStalled());
       SmartShuffleboard.put("Climber", "L Winch Ever Stalled", leftMotorStall.everStalled());
       SmartShuffleboard.put("Climber", "R Winch Ever Stalled", rightMotorStall.everStalled());
     }
-      SmartShuffleboard.put("Climber", "R Winch Strap Switch", getRightStrapExtendedSwitch());
-      SmartShuffleboard.put("Climber", "L Winch Strap Switch", getLeftStrapExtendedSwitch());
   }
 } 
