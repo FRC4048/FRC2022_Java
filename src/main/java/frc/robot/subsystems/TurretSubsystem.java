@@ -7,6 +7,7 @@ import frc.robot.Robot;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.DiagTalonSrxEncoder;
 import frc.robot.utils.diag.DiagTalonSrxSwitch;
+import frc.robot.utils.logging.Logging;
 
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
@@ -29,7 +30,7 @@ public class TurretSubsystem extends SubsystemBase {
 
         @Override
         protected void addAll() {
-            add("Targeting State", Robot.getTargetState());
+            add("Targeting State", Robot.getTargetState().name());
         }
     };
 
