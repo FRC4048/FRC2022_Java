@@ -79,6 +79,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
+import frc.robot.subsystems.PowerDistPanel;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.subsystems.Climber.ClimberArmSubsystem;
@@ -134,12 +135,12 @@ public class RobotContainer {
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   private final DriveTrain driveTrain = new DriveTrain();
   private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-  private final PowerDistribution m_PowerDistPanel = new PowerDistribution();
-  private final ClimberArmSubsystem climberArmSubsystem = new ClimberArmSubsystem(m_PowerDistPanel);
-  private final ClimberWinchSubsystem climberWinchSubsystem = new ClimberWinchSubsystem(m_PowerDistPanel);
+  private final PowerDistPanel m_PowerDistPanel = new PowerDistPanel();
+  private final ClimberArmSubsystem climberArmSubsystem = new ClimberArmSubsystem(m_PowerDistPanel.getPDP());
+  private final ClimberWinchSubsystem climberWinchSubsystem = new ClimberWinchSubsystem(m_PowerDistPanel.getPDP());
   
   private final Hood hood = new Hood();
-  private final TurretSubsystem turretSubsystem= new TurretSubsystem(); 
+  private final TurretSubsystem turretSubsystem = new TurretSubsystem();  
 
   public AutoChooser autoChooser = new AutoChooser(intakeSubsystem, driveTrain, shooterSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), hood);
 
@@ -168,7 +169,7 @@ public class RobotContainer {
   }
 
   public PowerDistribution getPowerDistPanel(){
-    return m_PowerDistPanel;
+    return m_PowerDistPanel.getPDP();
   }
 
   public TurretSubsystem getTurretSubsystem() {
