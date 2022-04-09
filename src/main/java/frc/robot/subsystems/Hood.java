@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -90,6 +91,7 @@ public class Hood extends SubsystemBase {
         // This method will be called once per scheduler run
         SmartShuffleboard.put("Shooter", "Potentiometer", getPotentiometer());
         SmartShuffleboard.put("Hood", "Potentiometer", getPotentiometer());
+        SmartDashboard.putNumber("Pot", getPotentiometer());
     }
 
     @Override
