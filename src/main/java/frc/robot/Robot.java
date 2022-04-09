@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -30,6 +32,7 @@ public class Robot extends TimedRobot {
   private static TARGETING_STATE target_state;
 
   public enum TARGETING_STATE {OFF, LOCK};
+  private UsbCamera USBCam;
   
 
   /**
@@ -45,6 +48,9 @@ public class Robot extends TimedRobot {
     m_robotContainer.installCommandsOnShuffleboard();
     m_robotContainer.installDriverShuffleboard();
     target_state = TARGETING_STATE.OFF;
+    USBCam = CameraServer.startAutomaticCapture(0);
+    USBCam.setResolution(320, 240);
+    USBCam.setFPS(15);
   }
 
   /**
@@ -71,6 +77,17 @@ public class Robot extends TimedRobot {
     if (Constants.ENABLE_DEBUG) {
       SmartShuffleboard.put("Shooter", "State", target_state.name());
     }
+    boolean can_shoot = false;
+    boolean turret_lock_state = m_robotContainer.getTurretSubsystem().getTurretLockState();
+    boolean hood_lock_state = m_robotContainer.getHood().getHoodLockState();
+    if (hood_lock_state && turret_lock_state) {
+      can_shoot = true;
+    }
+    else {
+      can_shoot = false;
+    }
+
+    SmartShuffleboard.put("Driver", "Can Shoot", can_shoot);
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

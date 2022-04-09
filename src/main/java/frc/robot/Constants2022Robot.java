@@ -14,7 +14,7 @@ package frc.robot;
  */
 public interface Constants2022Robot extends GameConstants {
     //Global Constant
-    public static final boolean ENABLE_DEBUG = true;
+    public static final boolean ENABLE_DEBUG = false;
 
     // THE CONSTANTS IN THIS INTERFACE ARE ALL COMMENTED OUT BECAUSE WE DON'T HAVE A ROBOT YET.
     // ONCE THE HARDWARE IS DELIVERED< ALL THESE NEED TO BE DEFINED AND TESTED
@@ -28,7 +28,6 @@ public interface Constants2022Robot extends GameConstants {
     public static final int INTAKE_MOTOR_ID = 4;
     public static final int TURRET_MOTOR_ID = 9;
     public static final int PCM_CAN_ID = 20;
-    public static final int TURRET_HOOD_CAN_ID = 10;
     public static final int SHOOTER_MOTOR_ID = 46;
     public static final int HOOD_MOTOR_ID = 10;
     public static final int CLIMBER_RIGHT_WINCH_ID = 7; 
@@ -42,10 +41,10 @@ public interface Constants2022Robot extends GameConstants {
     public static final int PDP_DRIVE_L2 = 13; 
     public static final int PDP_DRIVE_R1 = 1; 
     public static final int PDP_DRIVE_R2 = 14; 
-    public static final int PDP_CLIMBER_L_WINCH = 8;
-    public static final int PDP_CLIMBER_R_WINCH = 9;
-    public static final int PDP_CLIMBER_L_ARM = 52;
-    public static final int PDP_CLIMBER_R_ARM = 53;
+    public static final int PDP_CLIMBER_L_WINCH = 12;
+    public static final int PDP_CLIMBER_R_WINCH = 15;
+    public static final int PDP_CLIMBER_L_ARM = 8;
+    public static final int PDP_CLIMBER_R_ARM = 9;
 
     //DIO
     public static final int INTAKE_SENSOR_ID_1 = 0; //temp
@@ -63,9 +62,7 @@ public interface Constants2022Robot extends GameConstants {
     //PCM
     public static final int SHOOTER_PISTON_ID = 0;
     public static final int INTAKE_SOLENOID_1 = 3;
-    public static final int INTAKE_SOLENOID_2 = 6;
     public static final int CLIMBER_L_PISTON_ID = 2;
-    public static final int CLIMBER_R_PISTON_ID = 7;
     public static final int STOP_SOLENOID_ID = 1;   
 
     // Elevator

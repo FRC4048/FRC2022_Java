@@ -40,37 +40,41 @@ public class TurretContinousTarget extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    boolean turretState = false;
     SmartShuffleboard.put("Continous", "Encoder", turret.getEncoder());
-    switch(Robot.getTargetState()) {
+    turret.setTurretLockState(false);
+    switch (Robot.getTargetState()) {
       case OFF:
         turret.setTurret((joystick.getAsDouble() * Constants.TURRETSPIN_SCALEFACTOR));
         break;
 
       case LOCK:
         double speed;
+        
         if (limelight.hasTarget()) {
           double tx = limelight.getCameraAngles().getTx();
-            if (Math.abs(tx - 4) > Constants.TURRET_ERROR_THRESHOLD) {
-                speed = Constants.TURRET_FAST_SPEED; 
-            }
-            else {
-                speed = Constants.TURRET_SLOW_SPEED * (Math.abs(tx - 4) / Constants.TURRET_ERROR_THRESHOLD);
-            }
-            if (Math.abs(4 - tx) > .5){
-              turret.setTurret(speed * Math.signum(4 - tx));
-            } else {
-              turret.setTurret(0);
-            }
-        } else {  
-            if (((turret.getEncoder() >= Constants.TURRET_RIGHT_THRESHOLD) && turretSpeed < 0) || 
-                ((turret.getEncoder() <= Constants.TURRET_LEFT_THRESHOLD) && turretSpeed > 0)) {
-                  turretSpeed = -turretSpeed;
-            }
-            SmartShuffleboard.put("Continous", "Speed", turretSpeed);
-            turret.setTurret(turretSpeed);
+          if (Math.abs(tx - 4) > Constants.TURRET_ERROR_THRESHOLD) {
+            speed = Constants.TURRET_FAST_SPEED;
+          } else {
+            speed = Constants.TURRET_SLOW_SPEED * (Math.abs(tx - 4) / Constants.TURRET_ERROR_THRESHOLD);
+          }
+          if (Math.abs(4 - tx) > .5) {
+            turret.setTurret(speed * Math.signum(4 - tx));
+          } else {
+            turretState = true;
+            turret.setTurret(0);
+          }
+        } else {
+          if ((((turret.getEncoder() >= Constants.TURRET_RIGHT_THRESHOLD) || turret.getRightSwitch()) && turretSpeed < 0) ||
+              (((turret.getEncoder() <= Constants.TURRET_LEFT_THRESHOLD) || turret.getLeftSwitch()) && turretSpeed > 0)) {
+            turretSpeed = -turretSpeed;
+          }
+          SmartShuffleboard.put("Continous", "Speed", turretSpeed);
+          turret.setTurret(turretSpeed);
         }
         break;
     }
+    turret.setTurretLockState(turretState);
   }
 
   // Called once the command ends or is interrupted.

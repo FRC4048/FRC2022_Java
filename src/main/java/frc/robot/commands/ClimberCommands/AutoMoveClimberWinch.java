@@ -5,54 +5,75 @@
 package frc.robot.commands.ClimberCommands;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.commands.LoggedCommandBase;
+import frc.robot.commands.ClimberCommands.AutoMoveClimberArm.ClimberDirection;
 import frc.robot.subsystems.Climber.ClimberWinchSubsystem;
 
 public class AutoMoveClimberWinch extends LoggedCommandBase {
   /** Creates a new MoveClimberWinch. */
   ClimberWinchSubsystem climberWinchSubsystem;
   private double initTime;
-  private double speed;
-  private double ticks;
+  private ClimberDirection direction;
 
-  public AutoMoveClimberWinch(ClimberWinchSubsystem climberWinchSubsystem, double speed, int ticks) {
+  public AutoMoveClimberWinch(ClimberWinchSubsystem climberWinchSubsystem, ClimberDirection direction) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.climberWinchSubsystem = climberWinchSubsystem;
+    this.direction = direction;
     addRequirements(climberWinchSubsystem);
-    addLog(speed);
+    addLog(direction.name());
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    climberWinchSubsystem.setRightWinchSpeed(speed);
-    climberWinchSubsystem.setLeftWinchSpeed(speed);
     initTime = Timer.getFPGATimestamp();
-    
+    if (direction == ClimberDirection.RETRACT) {
+      climberWinchSubsystem.movePiston(true);
+    }
    }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    /* WORK IN PROGRESS
-    if (climberWinchSubsystem.getRightEncoder() > ticks) {
-      climberWinchSubsystem.setRightWinchSpeed(0);
+    double directionMultiplier = 1;
+    //double rightSpeed = Constants.CLIMBER_WINCH_SPEED;
+    if (direction == ClimberDirection.RETRACT) {
+      directionMultiplier = -1;
     }
-    if (climberWinchSubsystem.getLeftEncoder() > ticks) {
-      climberWinchSubsystem.setRightWinchSpeed(0);
-    }
-*/
+
+    // if (Math.abs(accel) >= Constants.CLIMBER_MAX_ACCEL + Constants.CLIMBER_ACCEL_ERROR) {
+    //   rightSpeed += accel/Constants.CLIMBER_MAX_ACCEL * Constants.CLIMBER_WINCH_VARIANCE_SPEED;
+    // }
+    // climberWinchSubsystem.setLeftWinchSpeed(Constants.CLIMBER_WINCH_SPEED * directionMultiplier);
+    // climberWinchSubsystem.setRightWinchSpeed(rightSpeed * directionMultiplier);;
+
+    climberWinchSubsystem.setSpeed(Constants.CLIMBER_WINCH_SPEED * directionMultiplier);
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    climberWinchSubsystem.stop();
+    if (direction == ClimberDirection.RETRACT && climberWinchSubsystem.getRightOnBarSwitch() && climberWinchSubsystem.getLeftOnBarSwitch()) {
+      climberWinchSubsystem.movePiston(false);
+    }
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (climberWinchSubsystem.getRightVoltage() == 0 && climberWinchSubsystem.getLeftVoltage() == 0) || initTime > Constants.CLIMBER_ARM_TIMEOUT;
+    if ((Timer.getFPGATimestamp() - initTime) >= Constants.CLIMBER_WINCH_TIMEOUT) {
+      return true;
+    }
+
+    if (direction == ClimberDirection.RETRACT) {
+      return ((climberWinchSubsystem.getLeftOnBarSwitch() && climberWinchSubsystem.getRightOnBarSwitch()) ||
+          (climberWinchSubsystem.isLeftEverStalled() && climberWinchSubsystem.isRightEverStalled()));
+    }
+
+    return 
+    (climberWinchSubsystem.getRightStrapExtendedSwitch() && climberWinchSubsystem.getLeftStrapExtendedSwitch() && (direction == ClimberDirection.EXTEND));
   }
 }

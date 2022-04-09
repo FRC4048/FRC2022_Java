@@ -5,24 +5,27 @@
 package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.commands.LoggedCommandBase;
+import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.utils.SmartShuffleboard;
 
-public class WaitForRPM extends LoggedCommandBase {
-  /** Creates a new WaitForRPM. */
-  private double targetRPM;
-  ShooterSubsystem shooter;
+public class AdjustShooter extends CommandBase {
+  /** Creates a new AdjustShooter. */
+  private ShooterSubsystem shooter;
+  private double adjustment;
+  private Hood hood;
 
-  public WaitForRPM(ShooterSubsystem shooter) {
+  public AdjustShooter(ShooterSubsystem shooter, Hood hood, double adjustment) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooter = shooter;
+    this.adjustment = adjustment;
+    this.hood = hood;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    targetRPM = shooter.getVelocity() * .29;
+    shooter.setShooterAdj(adjustment);
+    hood.setHoodAdj(adjustment);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -36,6 +39,6 @@ public class WaitForRPM extends LoggedCommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (shooter.getShooterRPM() >= targetRPM * 0.9);
+    return true;
   }
 }

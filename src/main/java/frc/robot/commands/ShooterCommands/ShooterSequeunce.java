@@ -27,8 +27,7 @@ public class ShooterSequeunce extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new LogCommandWrapper(new VisionAutoShooter(vision, shooterSubsystem)),
-      new LogCommandWrapper(new ElevatorSequence(shooterSubsystem)),
-      new LogCommandWrapper(new SetStateOff())
+      new LogCommandWrapper(new ElevatorSequence(shooterSubsystem))
     );
   }
 }

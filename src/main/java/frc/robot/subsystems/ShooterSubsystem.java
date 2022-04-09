@@ -30,6 +30,7 @@ public class ShooterSubsystem extends SubsystemBase {
   private SparkMaxPIDController shooterPID;
   private double targetVelocity;
   private Solenoid blockPiston;
+  private double shooterAdjustment;
 
   public ShooterSubsystem() {
     //climberSolenoid = new Solenoid(Constants.PCM_CAN_ID, Constants.CLIMBER_PISTON_ID);
@@ -38,6 +39,7 @@ public class ShooterSubsystem extends SubsystemBase {
     blockPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.STOP_SOLENOID_ID);
     shooterPID = shooterMotor.getPIDController();
     isRunning = false;
+    shooterAdjustment = 0;
     
     targetVelocity = 0;
 
@@ -76,6 +78,18 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void stopShooter() {
     shooterMotor.set(0);
+  }
+
+  public void setShooterAdj(double adjustment) {
+    shooterAdjustment += adjustment;
+  }
+
+  public double getShooterAdj() {
+    return shooterAdjustment;
+  }
+
+  public void resetShooterAdj() {
+    shooterAdjustment = 0;
   }
 
   public boolean getBlockState() {
@@ -126,6 +140,7 @@ public class ShooterSubsystem extends SubsystemBase {
       SmartShuffleboard.put("Shooter", "Data", "Piston State", getPistonState());
       SmartShuffleboard.put("Shooter", "Data", "Shooter RPM", getShooterRPM());
     }
+    SmartShuffleboard.put("Driver", "Data", getShooterAdj());
   }
 
   
