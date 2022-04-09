@@ -25,6 +25,14 @@ public class TurretSubsystem extends SubsystemBase {
         Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Turret Reverse Switch", turretMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
     }
 
+    public Logging.LoggingContext loggingContext = new Logging.LoggingContext(this.getClass()) {
+
+        @Override
+        protected void addAll() {
+            add("Targeting State", Robot.getTargetState());
+        }
+    };
+
     public void setTurret(double speed) {
         turretMotor.set(speed);
     }

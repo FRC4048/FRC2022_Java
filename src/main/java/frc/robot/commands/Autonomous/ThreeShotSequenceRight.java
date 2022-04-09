@@ -37,7 +37,7 @@ public class ThreeShotSequenceRight extends SequentialCommandGroup {
       new ShooterSequeunce(shooterSubsystem, limeLightVision),
       new WaitCommand(0.5),
       new ShooterSequeunce(shooterSubsystem, limeLightVision),
-      new AutoTurnDegrees(driveTrain, -113),
+      new AutoTurnDegrees(driveTrain, -111),
       new ParralelMoveAndIntakeAndSetTurret(driveTrain, 0.6, 90, turretSubsystem, -turretSpeed, intakeSubsystem, hood, turretSubsystem),
       new AutoTurnDegrees(driveTrain, 65),
       new AutoTargetSequence(turretSubsystem, limeLightVision, hood),

@@ -70,6 +70,8 @@ public class Robot extends TimedRobot {
 
     SmartShuffleboard.putCommand("Driver", "Enable Logging", new EnableLogging());
 
+    SmartShuffleboard.put("Driver", "Targeting?", target_state == TARGETING_STATE.LOCK);
+
     if (isLogging) {
       Logging.instance().writeAllData();
     }
