@@ -22,18 +22,16 @@ import frc.robot.commands.Autonomous.OneShotSequenceMiddle;
 import frc.robot.commands.Autonomous.TwoShotSequenceLeft;
 import frc.robot.commands.Autonomous.TwoShotSequenceRight;
 import frc.robot.commands.ClimberCommands.AutoMoveClimberArm;
-import frc.robot.commands.ClimberCommands.AutoMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.AutoMoveClimberArm.ClimberDirection;
+import frc.robot.commands.ClimberCommands.ClimberExtendSequence;
 import frc.robot.commands.ClimberCommands.CloseStaticHooks;
 import frc.robot.commands.ClimberCommands.InitialClimbSequence;
-import frc.robot.commands.ClimberCommands.ClimberExtendSequence;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.MoveClimberToNextBar;
 import frc.robot.commands.ClimberCommands.OpenStaticHooks;
 import frc.robot.commands.ClimberCommands.RetractClimberSequence;
 import frc.robot.commands.ClimberCommands.Traversal;
-import frc.robot.commands.ClimberCommands.WinchExtend;
 import frc.robot.commands.DriveCommands.AutoTurnDegrees;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.DriveCommands.TurnDegrees;
@@ -58,7 +56,6 @@ import frc.robot.commands.ShooterCommands.AdjustShooter;
 import frc.robot.commands.ShooterCommands.AutoTargetSequence;
 import frc.robot.commands.ShooterCommands.ExtendShooterPiston;
 import frc.robot.commands.ShooterCommands.LaunchpadSetPoint;
-import frc.robot.commands.ShooterCommands.ResetShooterAdjustment;
 import frc.robot.commands.ShooterCommands.RetractShooterPiston;
 import frc.robot.commands.ShooterCommands.RunShooterMotor;
 import frc.robot.commands.ShooterCommands.SetShooterMotor;
@@ -207,16 +204,18 @@ public class RobotContainer {
     SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
     SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
 
+    /*
+        climberAButton.whenPressed(new LogCommandWrapper(new WinchExtend(climberWinchSubsystem)));
+    */
+
     // Climber Controls
-    //TRAVERSAL CLIMB BUTTONS ARE COMMENTED OUT
-    //climberAButton.whenPressed(new LogCommandWrapper(new InitialExtendSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision())));
-    climberAButton.whenPressed(new LogCommandWrapper(new WinchExtend(climberWinchSubsystem)));
-    //climberBButton.whenPressed(new LogCommandWrapper(new RetractClimberSequence(climberWinchSubsystem, climberArmSubsystem)));
-    //staticLock.whenPressed(new LogCommandWrapper(new CloseStaticHooks(climberWinchSubsystem)));
-    //staticUnlock.whenPressed(new LogCommandWrapper(new OpenStaticHooks(climberWinchSubsystem)));
-    //climberYButton.whenPressed(new LogCommandWrapper(new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, climberController)));
-    //climberXButton.whenPressed(new LogCommandWrapper(new InitialClimbSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
-    //climberBackButton.whenPressed(new LogCommandWrapper(new Traversal(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
+    climberAButton.whenPressed(new LogCommandWrapper(new ClimberExtendSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision())));
+    climberBButton.whenPressed(new LogCommandWrapper(new RetractClimberSequence(climberWinchSubsystem, climberArmSubsystem)));
+    staticLock.whenPressed(new LogCommandWrapper(new CloseStaticHooks(climberWinchSubsystem)));
+    staticUnlock.whenPressed(new LogCommandWrapper(new OpenStaticHooks(climberWinchSubsystem)));
+    climberYButton.whenPressed(new LogCommandWrapper(new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
+    climberXButton.whenPressed(new LogCommandWrapper(new InitialClimbSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
+    climberBackButton.whenPressed(new LogCommandWrapper(new Traversal(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
     
     buttonA.whenPressed(new LogCommandWrapper(new IntakeSequence(intakeSubsystem)));
     buttonB.whenPressed(new LogCommandWrapper(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED)));
