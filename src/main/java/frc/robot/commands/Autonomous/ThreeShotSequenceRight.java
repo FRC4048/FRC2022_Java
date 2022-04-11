@@ -5,10 +5,12 @@
 package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants;
 import frc.robot.commands.WaitCommand;
-import frc.robot.commands.DriveCommands.TurnDegrees;
+import frc.robot.commands.DriveCommands.AutoTurnDegrees;
+import frc.robot.commands.DriveCommands.MoveDistance;
+import frc.robot.commands.HoodCommands.MoveHoodToAngle;
 import frc.robot.commands.ShooterCommands.AutoTargetSequence;
+import frc.robot.commands.ShooterCommands.NonVisionParallelShoot;
 import frc.robot.commands.ShooterCommands.ShooterSequeunce;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
@@ -28,15 +30,16 @@ public class ThreeShotSequenceRight extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ParallelMoveAndTurretResetAndIntake(driveTrain, speed, 40, turretSubsystem, turretSpeed, intakeSubsystem, hood),
+      //new MoveHoodToAngle(hood, 109.0),
+      //new NonVisionParallelShoot(shooterSubsystem, intakeSubsystem, 12000.0),
+      new ParallelMoveAndTurretResetAndIntake(driveTrain, 0.4, 40, turretSubsystem, turretSpeed, intakeSubsystem, hood),
       new AutoTargetSequence(turretSubsystem, limeLightVision, hood),
-      //new WaitCommand(0.8),
       new ShooterSequeunce(shooterSubsystem, limeLightVision),
-      new WaitCommand(0.8),
+      new WaitCommand(0.5),
       new ShooterSequeunce(shooterSubsystem, limeLightVision),
-      new TurnDegrees(driveTrain, 105),
-      new ParallelMoveAndIntake(driveTrain, speed, 60, turretSubsystem, turretSpeed, intakeSubsystem, hood, turretSubsystem),
-      new TurnDegrees(driveTrain, -30),
+      new AutoTurnDegrees(driveTrain, -111),
+      new ParralelMoveAndIntakeAndSetTurret(driveTrain, 0.5, 90, turretSubsystem, -turretSpeed, intakeSubsystem, hood, turretSubsystem),
+      new AutoTurnDegrees(driveTrain, 65),
       new AutoTargetSequence(turretSubsystem, limeLightVision, hood),
       new ShooterSequeunce(shooterSubsystem, limeLightVision)
     );

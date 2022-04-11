@@ -7,6 +7,7 @@ import frc.robot.Robot;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.DiagTalonSrxEncoder;
 import frc.robot.utils.diag.DiagTalonSrxSwitch;
+import frc.robot.utils.logging.Logging;
 
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
@@ -24,6 +25,14 @@ public class TurretSubsystem extends SubsystemBase {
         Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Turret Forward Switch", turretMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
         Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Turret Reverse Switch", turretMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
     }
+
+    public Logging.LoggingContext loggingContext = new Logging.LoggingContext(this.getClass()) {
+
+        @Override
+        protected void addAll() {
+            add("Targeting State", Robot.getTargetState().name());
+        }
+    };
 
     public void setTurret(double speed) {
         turretMotor.set(speed);

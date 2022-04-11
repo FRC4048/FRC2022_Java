@@ -79,6 +79,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
+import frc.robot.subsystems.PowerDistPanel;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.subsystems.Climber.ClimberArmSubsystem;
@@ -134,12 +135,12 @@ public class RobotContainer {
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   private final DriveTrain driveTrain = new DriveTrain();
   private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-  private final PowerDistribution m_PowerDistPanel = new PowerDistribution();
-  private final ClimberArmSubsystem climberArmSubsystem = new ClimberArmSubsystem(m_PowerDistPanel);
-  private final ClimberWinchSubsystem climberWinchSubsystem = new ClimberWinchSubsystem(m_PowerDistPanel);
+  private final PowerDistPanel m_PowerDistPanel = new PowerDistPanel();
+  private final ClimberArmSubsystem climberArmSubsystem = new ClimberArmSubsystem(m_PowerDistPanel.getPDP());
+  private final ClimberWinchSubsystem climberWinchSubsystem = new ClimberWinchSubsystem(m_PowerDistPanel.getPDP());
   
   private final Hood hood = new Hood();
-  private final TurretSubsystem turretSubsystem= new TurretSubsystem(); 
+  private final TurretSubsystem turretSubsystem = new TurretSubsystem();  
 
   public AutoChooser autoChooser = new AutoChooser(intakeSubsystem, driveTrain, shooterSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), hood);
 
@@ -168,7 +169,7 @@ public class RobotContainer {
   }
 
   public PowerDistribution getPowerDistPanel(){
-    return m_PowerDistPanel;
+    return m_PowerDistPanel.getPDP();
   }
 
   public TurretSubsystem getTurretSubsystem() {
@@ -310,8 +311,8 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Autonomous", "Two Shot Left", new TwoShotSequenceLeft(turretSubsystem, Constants.AUTO_TURRET_SPEED,  intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED, Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision.getLimeLightVision(), hood));
       SmartShuffleboard.putCommand("Autonomous", "Two Shot Right", new TwoShotSequenceRight(turretSubsystem, Constants.AUTO_TURRET_SPEED,  intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED, Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision.getLimeLightVision(), hood));
       SmartShuffleboard.putCommand("Autonomous", "Two Shot Middle", new OneShotSequenceMiddle(turretSubsystem, intakeSubsystem, driveTrain, shooterSubsystem, limeLightVision.getLimeLightVision(), hood, Constants.AUTO_MOVE_SPEED, Constants.AUTO_DISTANCE_INCHES));
-      SmartShuffleboard.putCommand("Autonomous", "Cross Line", new CrossTheLineSequence(driveTrain));
-      SmartShuffleboard.putCommand("Autonomous", "Do Nothing", new DoNothingSequence());
+      SmartShuffleboard.putCommand("Autonomous", "Cross Line", new CrossTheLineSequence(driveTrain, turretSubsystem, Constants.AUTO_TURRET_SPEED));
+      SmartShuffleboard.putCommand("Autonomous", "Do Nothing", new DoNothingSequence(turretSubsystem, Constants.AUTO_TURRET_SPEED));
       SmartShuffleboard.putCommand("Autonomous", "Turret Reset", new AutoSetShootingPosition(turretSubsystem, Constants.AUTO_TURRET_SPEED, Constants.AUTO_TURRET_CENTER_ANGLE));
       SmartShuffleboard.putCommand("Autonomous", "Run Turret To Switch", new RunTurretUntilLimitSwitch(turretSubsystem));
       SmartShuffleboard.putCommand("Autonomous", "Set Turret Middle", new AutoSetTurretPosition(turretSubsystem, Constants.AUTO_TURRET_SPEED, Constants.AUTO_TURRET_CENTER_ANGLE));

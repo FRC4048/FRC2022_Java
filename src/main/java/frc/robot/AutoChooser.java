@@ -41,7 +41,7 @@ public class AutoChooser {
 
     // all actions driver choose at beginning of match
     enum Action {
-        THREE_SHOT, TWO_SHOT_RIGHT, TWO_SHOT_LEFT, ONE_SHOT, CROSS_LINE, DO_NOTHING;
+        THREE_SHOT_RIGHT, TWO_SHOT_RIGHT, TWO_SHOT_LEFT, ONE_SHOT, CROSS_LINE, DO_NOTHING;
     }
 
 
@@ -59,7 +59,7 @@ public class AutoChooser {
         
          
          actionChooser.setDefaultOption(Action.TWO_SHOT_RIGHT.name(), Action.TWO_SHOT_RIGHT);
-         //actionChooser.addOption(Action.THREE_SHOT.name(), Action.THREE_SHOT); 
+         actionChooser.addOption(Action.THREE_SHOT_RIGHT.name(), Action.THREE_SHOT_RIGHT); 
          actionChooser.addOption(Action.TWO_SHOT_LEFT.name(), Action.TWO_SHOT_LEFT);
          actionChooser.addOption(Action.ONE_SHOT.name(), Action.ONE_SHOT);
          actionChooser.addOption(Action.CROSS_LINE.name(), Action.CROSS_LINE);
@@ -86,7 +86,8 @@ public class AutoChooser {
         if (a == Action.TWO_SHOT_RIGHT) {return new TwoShotSequenceRight(turretSubsystem,
             Constants.AUTO_TURRET_SPEED, intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED,
             Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision, hood);}
-        else if (a == Action.THREE_SHOT) {return new ThreeShotSequenceRight(turretSubsystem, 
+        else if (a == Action.THREE_SHOT_RIGHT
+        ) {return new ThreeShotSequenceRight(turretSubsystem, 
             Constants.AUTO_TURRET_SPEED,  intakeSubsystem, driveTrain, Constants.AUTO_MOVE_SPEED, 
             Constants.AUTO_DISTANCE_INCHES, shooterSubsystem, limeLightVision, hood);}
         else if (a == Action.TWO_SHOT_LEFT) {return new TwoShotSequenceLeft(turretSubsystem, 
@@ -95,8 +96,8 @@ public class AutoChooser {
         else if (a == Action.ONE_SHOT) {return new OneShotSequenceMiddle(turretSubsystem, intakeSubsystem, 
             driveTrain, shooterSubsystem, limeLightVision, hood, Constants.AUTO_MOVE_SPEED, 
             Constants.AUTO_DISTANCE_INCHES);}
-        else if (a == Action.CROSS_LINE) {return new CrossTheLineSequence(driveTrain);}
-        else if (a == Action.DO_NOTHING) {return new DoNothingSequence();}
+        else if (a == Action.CROSS_LINE) {return new CrossTheLineSequence(driveTrain, turretSubsystem, Constants.AUTO_TURRET_SPEED);}
+        else if (a == Action.DO_NOTHING) {return new DoNothingSequence(turretSubsystem, Constants.AUTO_TURRET_SPEED);}
         return new WaitCommand(0);
     }
 }

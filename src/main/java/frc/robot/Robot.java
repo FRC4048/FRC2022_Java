@@ -70,6 +70,8 @@ public class Robot extends TimedRobot {
 
     SmartShuffleboard.putCommand("Driver", "Enable Logging", new EnableLogging());
 
+    SmartShuffleboard.put("Driver", "Targeting?", target_state == TARGETING_STATE.LOCK);
+
     if (isLogging) {
       Logging.instance().writeAllData();
     }
@@ -106,6 +108,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    target_state = TARGETING_STATE.OFF;
 
     // schedule the autonomous command (example)
     Logging.instance().traceMessage(Logging.MessageLevel.INFORMATION, "-----------AUTO INIT----------");

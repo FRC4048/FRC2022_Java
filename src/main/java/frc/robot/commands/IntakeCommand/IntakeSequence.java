@@ -21,7 +21,7 @@ public class IntakeSequence extends SequentialCommandGroup {
         new LogCommandWrapper(new IntakeBallCommand(intakeSubsystem)),
         new LogCommandWrapper(new RaiseIntakeCommand(intakeSubsystem)),
         new LogCommandWrapper(new IntakeWait()),
-        new LogCommandWrapper(new DropBallCommandManual(intakeSubsystem, .5))
+        new LogCommandWrapper(new DropBallCommandManual(intakeSubsystem, 0.8))
     );
   }
 
