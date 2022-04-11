@@ -10,6 +10,7 @@ import frc.robot.commands.HoodCommands.MoveHoodToAngle;
 import frc.robot.commands.ShooterCommands.AutoTargetSequence;
 import frc.robot.commands.ShooterCommands.NonVisionParallelShootDeployIntake;
 import frc.robot.commands.ShooterCommands.ShooterSequeunce;
+import frc.robot.commands.TurretCommands.ToggleTargetState;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -32,7 +33,7 @@ public class TwoShotSequenceRight extends SequentialCommandGroup {
       new MoveHoodToAngle(hood, 109.0),
       new NonVisionParallelShootDeployIntake(shooterSubsystem, intakeSubsystem, 11900),
       new ParallelMoveAndTurretResetAndIntake(driveTrain, 0.4, 40, turretSubsystem, turretSpeed, intakeSubsystem, hood),
-      new AutoTargetSequence(turretSubsystem, limeLightVision, hood),
+      new ToggleTargetState(),
       //new WaitCommand(0.8),
       new ShooterSequeunce(shooterSubsystem, limeLightVision),
       new MoveDistance(driveTrain, speed, 12)
