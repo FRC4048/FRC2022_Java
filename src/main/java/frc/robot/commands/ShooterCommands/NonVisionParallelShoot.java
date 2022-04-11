@@ -22,7 +22,8 @@ public class NonVisionParallelShoot extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new LogCommandWrapper(new SetShooterMotor(shooterSubsystem, rpm)),
-      new LogCommandWrapper(new ElevatorSequence(shooterSubsystem))
+      new LogCommandWrapper(new ElevatorSequence(shooterSubsystem)),
+      new LogCommandWrapper(new SetShooterMotor(shooterSubsystem, 0))
     );
   }
 }

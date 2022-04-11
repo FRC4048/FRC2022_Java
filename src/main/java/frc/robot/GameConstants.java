@@ -22,6 +22,7 @@ public interface GameConstants {
   public static final double INTAKE_MOTOR_SPEED = 1;
 
   //Timeouts
+  public static final double EXTRA_SHOOTER_SPIN_TIME = 2.5; //this is used to reduce spinup time for double shots
   public static final int DEPLOYED_INTAKE_TIMEOUT = 6;
   public static final int RAISED_INTAKE_TIMEOUT = 3;
   public static final int SHOOTER_TIMEOUT = 4;

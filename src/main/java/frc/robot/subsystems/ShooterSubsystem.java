@@ -60,14 +60,17 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterPID.setOutputRange(Constants.SHOOTER_MIN_OUTPUT, Constants.SHOOTER_MAX_OUTPUT);
   }
 
+  //set motor power
   public void setShooterSpeed(double speed) {
     shooterMotor.set(speed);
   }
 
+  //set rpm with pid
   public void setShooterRPM(double rpm) {
     shooterPID.setReference(rpm, CANSparkMax.ControlType.kVelocity);
   } 
 
+  //set desired velocity
   public double getVelocity() {
     return targetVelocity;
   }

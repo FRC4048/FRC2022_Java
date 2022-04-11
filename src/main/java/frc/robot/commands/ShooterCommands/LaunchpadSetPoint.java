@@ -6,6 +6,8 @@ package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
+import frc.robot.commands.WaitCommand;
 import frc.robot.commands.HoodCommands.MoveHoodToAngle;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -18,6 +20,9 @@ public class LaunchpadSetPoint extends SequentialCommandGroup {
     addCommands(
       new LogCommandWrapper(new MoveHoodToAngle(hood, 140.0)),
       new LogCommandWrapper(new SetShooterMotor(shooterSubsystem, 14000.0)),
-      new LogCommandWrapper(new ElevatorSequence(shooterSubsystem)));
+      new LogCommandWrapper(new ElevatorSequence(shooterSubsystem)),
+      new LogCommandWrapper(new WaitCommand(Constants.EXTRA_SHOOTER_SPIN_TIME)),
+      new LogCommandWrapper(new SetShooterMotor(shooterSubsystem, 0))
+    );
   }
 }

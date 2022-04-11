@@ -23,7 +23,8 @@ public class NonVisionParallelShootDeployIntake extends ParallelCommandGroup {
     addCommands(
       new LogCommandWrapper(new SetShooterMotor(shooterSubsystem, rpm)),
       new LogCommandWrapper(new ElevatorSequence(shooterSubsystem)),
-      new LogCommandWrapper(new DeployIntakeCommand(intakeSubsystem))
+      new LogCommandWrapper(new DeployIntakeCommand(intakeSubsystem)),
+      new LogCommandWrapper(new SetShooterMotor(shooterSubsystem, 0))
     );
   }
 }

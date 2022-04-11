@@ -24,6 +24,7 @@ public class VisionAutoShooter extends LoggedCommandBase {
   private ShooterSubsystem shooter;
   private double startTime;
   private boolean done;
+  private double waitTime;
 
   static {
     // Conversion Map from feet to pot ticks

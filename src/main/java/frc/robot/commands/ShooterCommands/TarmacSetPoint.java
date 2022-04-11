@@ -4,8 +4,9 @@
 
 package frc.robot.commands.ShooterCommands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants;
 import frc.robot.commands.HoodCommands.MoveHoodToAngle;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -18,6 +19,9 @@ public class TarmacSetPoint extends SequentialCommandGroup {
     addCommands(
       new LogCommandWrapper(new MoveHoodToAngle(hood, 121.0)),
       new LogCommandWrapper(new SetShooterMotor(shooterSubsystem, 12100.0)),
-      new LogCommandWrapper(new ElevatorSequence(shooterSubsystem)));
+      new LogCommandWrapper(new ElevatorSequence(shooterSubsystem)),
+      new LogCommandWrapper(new WaitCommand(Constants.EXTRA_SHOOTER_SPIN_TIME)), 
+      new LogCommandWrapper(new SetShooterMotor(shooterSubsystem, 0))
+      );
   }
 }
