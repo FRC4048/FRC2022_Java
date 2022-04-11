@@ -29,6 +29,8 @@ public class TwoShotSequenceMiddle extends SequentialCommandGroup {
   public TwoShotSequenceMiddle(TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, double speed, double distanceInches, ShooterSubsystem shooterSubsystem, LimeLightVision limeLightVision, Hood hood) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+
+    //UNUSED RIGHT NOW
     addCommands(
       new MoveAndMoveHood(driveTrain, speed, 12, hood),
       new NonVisionParallelShoot(shooterSubsystem, intakeSubsystem, 11800),

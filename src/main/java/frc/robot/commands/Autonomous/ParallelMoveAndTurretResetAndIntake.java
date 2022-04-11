@@ -17,7 +17,7 @@ public class ParallelMoveAndTurretResetAndIntake extends ParallelCommandGroup {
         addCommands(
             new MoveDistance(driveTrain, speed, distanceInches),
             new AutoSetShootingPosition(turretSubsystem, turretSpeed, Constants.AUTO_TURRET_CENTER_ANGLE),
-            new IntakeSequence(intakeSubsystem)
+            new IntakeSequence(intakeSubsystem, 4)
         );
     }
 }
