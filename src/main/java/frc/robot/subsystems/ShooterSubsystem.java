@@ -10,8 +10,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -31,6 +30,7 @@ public class ShooterSubsystem extends SubsystemBase {
   private double targetVelocity;
   private Solenoid blockPiston;
   private double shooterAdjustment;
+  private DigitalInput elevatorSensor;
 
   public ShooterSubsystem() {
     //climberSolenoid = new Solenoid(Constants.PCM_CAN_ID, Constants.CLIMBER_PISTON_ID);
@@ -40,6 +40,8 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterPID = shooterMotor.getPIDController();
     isRunning = false;
     shooterAdjustment = 0;
+
+    elevatorSensor = new DigitalInput(Constants.ELEVATOR_SENSOR_ID);
     
     targetVelocity = 0;
 
@@ -132,6 +134,10 @@ public class ShooterSubsystem extends SubsystemBase {
     return shooterSolenoid.get();
   }
 
+  public boolean getElevatorSensor() {
+    return elevatorSensor.get();
+  }
+
 
   @Override
   public void periodic() {
@@ -141,8 +147,11 @@ public class ShooterSubsystem extends SubsystemBase {
       SmartShuffleboard.put("Shooter", "Data", "Shooter RPM", getShooterRPM());
     }
     SmartShuffleboard.put("Driver", "Data", getShooterAdj());
-  }
 
+    if (!(getElevatorSensor() || getPistonState())) {
+      blockPiston.set(true);
+    }
+  }
   
   public final Logging.LoggingContext loggingContext = new Logging.LoggingContext(this.getClass()) {
       protected void addAll() {
