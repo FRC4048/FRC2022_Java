@@ -29,12 +29,20 @@ public class ClimberWinchSubsystem extends SubsystemBase {
   private PowerDistribution powerDistribution;
   private Solenoid climberLPiston, climberRPiston;
 
+  private SparkMaxLimitSwitch leftStrapSwitch;
+  private SparkMaxLimitSwitch rightStrapSwitch;
+
   public ClimberWinchSubsystem(PowerDistribution m_PowerDistPanel) {
   
     leftWinch = new CANSparkMax(Constants.CLIMBER_LEFT_WINCH_ID, MotorType.kBrushless);
     rightWinch = new CANSparkMax(Constants.CLIMBER_RIGHT_WINCH_ID, MotorType.kBrushless);
     leftSensor = new DigitalInput(Constants.CLIMBER_L_WINCH_SENSOR);
     rightSensor = new DigitalInput(Constants.CLIMBER_R_WINCH_SENSOR);
+
+    leftStrapSwitch = leftWinch.getForwardLimitSwitch(Type.kNormallyOpen);
+    leftStrapSwitch.enableLimitSwitch(true);
+    rightStrapSwitch = rightWinch.getForwardLimitSwitch(Type.kNormallyOpen);
+    rightStrapSwitch.enableLimitSwitch(true);
     
     climberLPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_L_PISTON_ID);
 
@@ -151,16 +159,14 @@ public class ClimberWinchSubsystem extends SubsystemBase {
    * True when tripped, false when open
    */
   public boolean getLeftStrapExtendedSwitch() {
-    SparkMaxLimitSwitch limitSwitch = leftWinch.getForwardLimitSwitch(Type.kNormallyOpen);
-    return limitSwitch.isPressed();
+    return leftStrapSwitch.isPressed();
   }
 
   /**
    * True when tripped, false when open
    */
   public boolean getRightStrapExtendedSwitch() {
-    SparkMaxLimitSwitch limitSwitch = rightWinch.getForwardLimitSwitch(Type.kNormallyOpen);
-    return limitSwitch.isPressed();
+    return rightStrapSwitch.isPressed();
   }
 
   /** 
