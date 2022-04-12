@@ -109,8 +109,8 @@ public class RobotContainer {
 
   private JoystickButton climberAButton = new JoystickButton(climberController, Constants.XBOX_A_BUTTON);
   private JoystickButton climberBButton = new JoystickButton(climberController, Constants.XBOX_B_BUTTON);
-  private JoystickButton staticLock = new JoystickButton(climberController, Constants.XBOX_LEFT_BUMPER);
-  private JoystickButton staticUnlock = new JoystickButton(climberController, Constants.XBOX_RIGHT_BUMPER);
+  private JoystickButton climberLeftBumper = new JoystickButton(climberController, Constants.XBOX_LEFT_BUMPER);
+  private JoystickButton climberRightBumper = new JoystickButton(climberController, Constants.XBOX_RIGHT_BUMPER);
   private JoystickButton climberYButton = new JoystickButton(climberController, Constants.XBOX_Y_BUTTON);
   private JoystickButton climberXButton = new JoystickButton(climberController, Constants.XBOX_X_BUTTON);
   private JoystickButton climberBackButton = new JoystickButton(climberController, Constants.XBOX_BACK_BUTTON);
@@ -211,8 +211,8 @@ public class RobotContainer {
     // Climber Controls
     climberAButton.whenPressed(new LogCommandWrapper(new ClimberExtendSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision())));
     climberBButton.whenPressed(new LogCommandWrapper(new RetractClimberSequence(climberWinchSubsystem, climberArmSubsystem)));
-    staticLock.whenPressed(new LogCommandWrapper(new CloseStaticHooks(climberWinchSubsystem)));
-    staticUnlock.whenPressed(new LogCommandWrapper(new OpenStaticHooks(climberWinchSubsystem)));
+    climberLeftBumper.whenPressed(new LogCommandWrapper(new CloseStaticHooks(climberWinchSubsystem)));
+    climberRightBumper.whenPressed(new LogCommandWrapper(new OpenStaticHooks(climberWinchSubsystem)));
     climberYButton.whenPressed(new LogCommandWrapper(new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
     climberXButton.whenPressed(new LogCommandWrapper(new InitialClimbSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
     climberBackButton.whenPressed(new LogCommandWrapper(new Traversal(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
