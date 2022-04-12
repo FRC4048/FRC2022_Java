@@ -7,8 +7,6 @@ package frc.robot.subsystems.Climber;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.SparkMaxLimitSwitch;
-import com.revrobotics.SparkMaxLimitSwitch.Type;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -25,24 +23,27 @@ public class ClimberWinchSubsystem extends SubsystemBase {
   /** Creates a new ClimberWinchSubsystem. */
   private CANSparkMax leftWinch, rightWinch;
   private MotorUtils leftMotorStall, rightMotorStall;
-  private DigitalInput leftSensor, rightSensor;
+  private DigitalInput leftStaticHookSensor, rightStaticHookSensor;
   private PowerDistribution powerDistribution;
   private Solenoid climberLPiston, climberRPiston;
 
-  private SparkMaxLimitSwitch leftStrapSwitch;
-  private SparkMaxLimitSwitch rightStrapSwitch;
+  private DigitalInput leftStrapSwitch;
+  private DigitalInput rightStrapSwitch;
 
   public ClimberWinchSubsystem(PowerDistribution m_PowerDistPanel) {
   
     leftWinch = new CANSparkMax(Constants.CLIMBER_LEFT_WINCH_ID, MotorType.kBrushless);
     rightWinch = new CANSparkMax(Constants.CLIMBER_RIGHT_WINCH_ID, MotorType.kBrushless);
-    leftSensor = new DigitalInput(Constants.CLIMBER_L_WINCH_SENSOR);
-    rightSensor = new DigitalInput(Constants.CLIMBER_R_WINCH_SENSOR);
+    leftStaticHookSensor = new DigitalInput(Constants.CLIMBER_L_HOOK_SENSOR);
+    rightStaticHookSensor = new DigitalInput(Constants.CLIMBER_R_HOOK_SENSOR);
 
-    leftStrapSwitch = leftWinch.getForwardLimitSwitch(Type.kNormallyOpen);
+    leftStrapSwitch = new DigitalInput(Constants.CLIMBER_L_WINCH_SENSOR);
+    rightStrapSwitch = new DigitalInput(Constants.CLIMBER_R_WINCH_SENSOR);
+
+    /* leftStrapSwitch = leftWinch.getForwardLimitSwitch(Type.kNormallyOpen);
     leftStrapSwitch.enableLimitSwitch(true);
     rightStrapSwitch = rightWinch.getForwardLimitSwitch(Type.kNormallyOpen);
-    rightStrapSwitch.enableLimitSwitch(true);
+    rightStrapSwitch.enableLimitSwitch(true); */
     
     climberLPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_L_PISTON_ID);
 
@@ -51,8 +52,8 @@ public class ClimberWinchSubsystem extends SubsystemBase {
     leftMotorStall = new MotorUtils(Constants.PDP_CLIMBER_L_WINCH, Constants.WINCH_CURR_LIMIT, Constants.CLIMBER_WINCH_CURR_TIMEOUT, m_PowerDistPanel);
     rightMotorStall = new MotorUtils(Constants.PDP_CLIMBER_R_WINCH, Constants.WINCH_CURR_LIMIT, Constants.CLIMBER_WINCH_CURR_TIMEOUT, m_PowerDistPanel);
 
-    Robot.getDiagnostics().addDiagnosable(new DiagSwitch("L Winch Switch", leftSensor));
-    Robot.getDiagnostics().addDiagnosable(new DiagSwitch("R Winch Switch", rightSensor));
+    Robot.getDiagnostics().addDiagnosable(new DiagSwitch("L Winch Switch", leftStaticHookSensor));
+    Robot.getDiagnostics().addDiagnosable(new DiagSwitch("R Winch Switch", rightStaticHookSensor));
 
     leftWinch.restoreFactoryDefaults();
     rightWinch.restoreFactoryDefaults();
@@ -159,36 +160,36 @@ public class ClimberWinchSubsystem extends SubsystemBase {
    * True when tripped, false when open
    */
   public boolean getLeftStrapExtendedSwitch() {
-    return leftStrapSwitch.isPressed();
+    return leftStrapSwitch.get();
   }
 
   /**
    * True when tripped, false when open
    */
   public boolean getRightStrapExtendedSwitch() {
-    return rightStrapSwitch.isPressed();
+    return rightStrapSwitch.get();
   }
 
   /** 
    * True when tripped, false when open
    */
   public boolean getLeftOnBarSwitch() {
-    return !leftSensor.get();
+    return !leftStaticHookSensor.get();
   }
 
   /**
    * True when tripped, false when open
    */
   public boolean getRightOnBarSwitch() {
-    return !rightSensor.get();
+    return !rightStaticHookSensor.get();
   }
 
   public boolean getLeftSwitch() {
-    return leftSensor.get();
+    return leftStaticHookSensor.get();
   }
 
   public boolean getRightSwitch() {
-    return rightSensor.get();
+    return rightStaticHookSensor.get();
   }
 
   @Override
