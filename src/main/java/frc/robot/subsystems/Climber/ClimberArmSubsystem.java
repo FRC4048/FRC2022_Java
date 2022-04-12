@@ -52,13 +52,24 @@ public class ClimberArmSubsystem extends SubsystemBase {
   }
 
   public void setLeftArmSpeed(double speed) {
-    leftArm.set(ControlMode.PercentOutput, speed);
+    if ((speed < 0) && (!getLeftTopSensor())) {
+      leftArm.set(ControlMode.PercentOutput, speed);  
+    } else if ((speed > 0) && (!getLeftBotSensor())) {
+      leftArm.set(ControlMode.PercentOutput, speed);
+    } else {
+      leftArm.set(ControlMode.PercentOutput, 0);
+    }
   }
 
   public void setRightArmSpeed(double speed) {
-    rightArm.set(ControlMode.PercentOutput, speed);  
+    if ((speed < 0) && (!getRightTopSensor())) {
+      rightArm.set(ControlMode.PercentOutput, speed);  
+    } else if ((speed > 0) && (!getRightBotSensor())) {
+      rightArm.set(ControlMode.PercentOutput, speed);
+    } else {
+      rightArm.set(ControlMode.PercentOutput, 0);
+    }
   }
-
 
   public void stopArms() {
     leftArm.set(ControlMode.PercentOutput, 0);

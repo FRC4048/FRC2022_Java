@@ -75,7 +75,9 @@ public class ClimberWinchSubsystem extends SubsystemBase {
    * Positive Speed is Expanding
    */
   public void setLeftWinchSpeed(double speed) {
-
+    if ((speed > 0) && (getLeftStrapExtendedSwitch())) {
+      speed = 0;
+    }
     if (speed < 0) {
       // Retracting, chance of stall here
       if (leftMotorStall.everStalled()) {
@@ -86,7 +88,6 @@ public class ClimberWinchSubsystem extends SubsystemBase {
       // Cant stall on expand, reset motor stall state
       leftMotorStall.resetStall();
     }
-
     leftWinch.set(speed);
   }
 
@@ -95,7 +96,9 @@ public class ClimberWinchSubsystem extends SubsystemBase {
    * Positive Speed is Expanding
    */
   public void setRightWinchSpeed(double speed) {
-
+    if ((speed > 0) && (getRightStrapExtendedSwitch())) {
+      speed = 0;
+    }
     if (speed < 0) {
       // Retracting, chance of stall here
       if (rightMotorStall.everStalled()) {
