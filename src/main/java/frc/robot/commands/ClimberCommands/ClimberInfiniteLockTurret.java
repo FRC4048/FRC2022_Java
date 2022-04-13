@@ -13,6 +13,7 @@ public class ClimberInfiniteLockTurret extends LoggedCommandBase{
     public ClimberInfiniteLockTurret (TurretSubsystem turret, LimeLightVision limelight) {
         this.turret = turret;
         this.limelight = limelight;
+        addRequirements(turret);
     }
 
     @Override

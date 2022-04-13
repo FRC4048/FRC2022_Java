@@ -213,7 +213,7 @@ public class RobotContainer {
     climberLeftBumper.whenPressed(new LogCommandWrapper(new CloseStaticHooks(climberWinchSubsystem)));
     climberRightBumper.whenPressed(new LogCommandWrapper(new OpenStaticHooks(climberWinchSubsystem)));
     climberBackButton.whenPressed(new LogCommandWrapper(new ClimberInfiniteLockTurret(turretSubsystem, limeLightVision.getLimeLightVision())));
-    climberAButton.whenPressed(new LogCommandWrapper(new InitialClimbSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
+    climberXButton.whenPressed(new LogCommandWrapper(new InitialClimbSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
     climberYButton.whenPressed(new LogCommandWrapper(new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
     
     buttonA.whenPressed(new LogCommandWrapper(new IntakeSequence(intakeSubsystem)));
