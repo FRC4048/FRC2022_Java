@@ -56,9 +56,8 @@ public class ClimberArmSubsystem extends SubsystemBase {
   }
 
   public void setRightArmSpeed(double speed) {
-    rightArm.set(ControlMode.PercentOutput, speed);  
+    rightArm.set(ControlMode.PercentOutput, speed);
   }
-
 
   public void stopArms() {
     leftArm.set(ControlMode.PercentOutput, 0);

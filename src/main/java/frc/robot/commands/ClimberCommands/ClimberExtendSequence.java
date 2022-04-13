@@ -23,7 +23,6 @@ public class ClimberExtendSequence extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
 
     addCommands(
-      new LogCommandWrapper(new ExtendArmForTimeout(climberArmSubsystem)),
       new LogCommandWrapper(new AutoMoveClimberWinch(climberWinchSubsystem, ClimberDirection.EXTEND)),
       new LogCommandWrapper(new AutoMoveClimberArm(climberArmSubsystem, ClimberDirection.EXTEND))
     );

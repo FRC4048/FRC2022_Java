@@ -75,6 +75,5 @@ public class AutoMoveClimberArm extends LoggedCommandBase {
         (climberArmSubsystem.getRightTopSensor() && climberArmSubsystem.getLeftTopSensor() && (direction == ClimberDirection.RETRACT)) 
         ||
         ((Timer.getFPGATimestamp() - initTime) >= Constants.CLIMBER_ARM_TIMEOUT)));
-
   }
 }
