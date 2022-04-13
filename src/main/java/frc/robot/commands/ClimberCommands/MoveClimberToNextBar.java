@@ -24,7 +24,6 @@ public class MoveClimberToNextBar extends SequentialCommandGroup {
     addCommands(
       new LogCommandWrapper(new ClimberExtendSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, vision)),
       new LogCommandWrapper(new OpenStaticHooks(climberWinchSubsystem)),
-      new LogCommandWrapper(new RetractWinchForTimeout(climberWinchSubsystem)),
       new LogCommandWrapper(new ConfirmTransition(climberController)),
       new LogCommandWrapper(new RetractClimberSequence(climberWinchSubsystem, climberArmSubsystem))
     );
