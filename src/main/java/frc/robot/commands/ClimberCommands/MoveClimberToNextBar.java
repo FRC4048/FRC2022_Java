@@ -6,6 +6,7 @@ package frc.robot.commands.ClimberCommands;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.ClimberCommands.AutoMoveClimberArm.ClimberDirection;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.subsystems.Climber.ClimberArmSubsystem;
 import frc.robot.subsystems.Climber.ClimberWinchSubsystem;
@@ -21,7 +22,9 @@ public class MoveClimberToNextBar extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      new LogCommandWrapper(new AutoMoveClimberArm(climberArmSubsystem, ClimberDirection.RETRACT)),
       new LogCommandWrapper(new ClimberExtendSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, vision)),
+      new LogCommandWrapper(new OpenStaticHooks(climberWinchSubsystem)),
       new LogCommandWrapper(new RetractWinchForTimeout(climberWinchSubsystem)),
       new LogCommandWrapper(new ConfirmTransition(climberController)),
       new LogCommandWrapper(new RetractClimberSequence(climberWinchSubsystem, climberArmSubsystem))
