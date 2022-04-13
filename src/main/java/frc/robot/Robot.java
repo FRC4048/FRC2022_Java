@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
   private static RobotContainer m_robotContainer;
   private static Diagnostics diagnostics;
 
-  private static boolean isLogging = false;
+  private static boolean isLogging = true;
 
   private static TARGETING_STATE target_state;
 
