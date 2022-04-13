@@ -25,7 +25,7 @@ public class ClimberWinchSubsystem extends SubsystemBase {
   private MotorUtils leftMotorStall, rightMotorStall;
   private DigitalInput leftStaticHookSensor, rightStaticHookSensor;
   private PowerDistribution powerDistribution;
-  private Solenoid climberLPiston, climberRPiston;
+  private Solenoid climberPiston;
 
   private DigitalInput leftStrapSwitch;
   private DigitalInput rightStrapSwitch;
@@ -45,7 +45,7 @@ public class ClimberWinchSubsystem extends SubsystemBase {
     rightStrapSwitch = rightWinch.getForwardLimitSwitch(Type.kNormallyOpen);
     rightStrapSwitch.enableLimitSwitch(true); */
     
-    climberLPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_L_PISTON_ID);
+    climberPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.CLIMBER_L_PISTON_ID);
 
     powerDistribution = m_PowerDistPanel;
 
@@ -75,9 +75,9 @@ public class ClimberWinchSubsystem extends SubsystemBase {
    * Positive Speed is Expanding
    */
   public void setLeftWinchSpeed(double speed) {
-    if ((speed > 0) && (getLeftStrapExtendedSwitch())) {
+     if ((speed > 0) && (getLeftStrapExtendedSwitch())) {
       speed = 0;
-    }
+    } 
     if (speed < 0) {
       // Retracting, chance of stall here
       if (leftMotorStall.everStalled()) {
@@ -96,9 +96,9 @@ public class ClimberWinchSubsystem extends SubsystemBase {
    * Positive Speed is Expanding
    */
   public void setRightWinchSpeed(double speed) {
-    if ((speed > 0) && (getRightStrapExtendedSwitch())) {
+     if ((speed > 0) && (getRightStrapExtendedSwitch())) {
       speed = 0;
-    }
+    } 
     if (speed < 0) {
       // Retracting, chance of stall here
       if (rightMotorStall.everStalled()) {
@@ -119,12 +119,11 @@ public class ClimberWinchSubsystem extends SubsystemBase {
   }
 
   public void movePiston(boolean state) {
-    climberLPiston.set(state);
-    climberRPiston.set(state);
+    climberPiston.set(state);
   }
 
   public boolean getPistonState() {
-    return climberLPiston.get();
+    return climberPiston.get();
   }
 
   public void stopLeftWinch() {
@@ -163,14 +162,14 @@ public class ClimberWinchSubsystem extends SubsystemBase {
    * True when tripped, false when open
    */
   public boolean getLeftStrapExtendedSwitch() {
-    return leftStrapSwitch.get();
+    return !leftStrapSwitch.get();
   }
 
   /**
    * True when tripped, false when open
    */
   public boolean getRightStrapExtendedSwitch() {
-    return rightStrapSwitch.get();
+    return !rightStrapSwitch.get();
   }
 
   /** 
