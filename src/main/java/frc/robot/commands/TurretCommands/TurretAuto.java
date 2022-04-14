@@ -19,7 +19,7 @@ public class TurretAuto extends LoggedCommandBase {
     // bad readings
     private double speed;
     private double initTime;
-    private static double CAMERA_OFFSET = 4;
+    private static double CAMERA_OFFSET = 6;
 
     public TurretAuto(TurretSubsystem turretSubsystem, LimeLightVision limeLight) {
         this.limeLight = limeLight;

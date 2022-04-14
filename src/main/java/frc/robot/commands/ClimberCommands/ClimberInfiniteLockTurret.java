@@ -23,7 +23,7 @@ public class ClimberInfiniteLockTurret extends LoggedCommandBase{
 
     @Override
     public void execute() {
-        turret.setTurret(.3);
+        turret.setTurret(.15);
     }
 
     @Override
