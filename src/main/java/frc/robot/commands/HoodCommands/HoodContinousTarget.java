@@ -61,6 +61,7 @@ public class HoodContinousTarget extends CommandBase {
     boolean hoodState = false;
     switch (Robot.getTargetState()) {
       case OFF:
+      case CLIMB:
         if (Math.abs(rightJoystickY.getAsDouble()) < Constants.HOOD_JOYSTICK_THRESHOLD) {
           hood.setHood(0);
         } else {
