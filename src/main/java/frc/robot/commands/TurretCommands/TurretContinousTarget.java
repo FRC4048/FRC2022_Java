@@ -14,7 +14,7 @@ import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.limelight.LimeLightVision;
 
-public class TurretContinousTarget extends CommandBase {
+public class  TurretContinousTarget extends CommandBase {
   /** Creates a new TurretAutoCommand. */
   private TurretSubsystem turret;
   private LimeLightVision limelight;
@@ -48,6 +48,10 @@ public class TurretContinousTarget extends CommandBase {
     switch (Robot.getTargetState()) {
       case OFF:
         turret.setTurret((joystick.getAsDouble() * Constants.TURRETSPIN_SCALEFACTOR));
+        break;
+      
+      case CLIMB:
+        turret.setTurret(0.15);
         break;
 
       case LOCK:

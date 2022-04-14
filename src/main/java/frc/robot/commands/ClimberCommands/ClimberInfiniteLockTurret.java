@@ -1,6 +1,8 @@
 package frc.robot.commands.ClimberCommands;
 
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.Robot;
+import frc.robot.Robot.TARGETING_STATE;
 import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.utils.limelight.LimeLightVision;
@@ -23,17 +25,16 @@ public class ClimberInfiniteLockTurret extends LoggedCommandBase{
 
     @Override
     public void execute() {
-        turret.setTurret(.15);
+        Robot.setTargetState(TARGETING_STATE.CLIMB);
     }
 
     @Override
     public void end(boolean interrupted) {
-        turret.setTurret(0);
     }
 
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
     
 }
