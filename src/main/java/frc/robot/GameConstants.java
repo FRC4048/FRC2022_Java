@@ -64,7 +64,7 @@ public interface GameConstants {
   public static final double CLIMBER_DEAD_ZONE = 0.2;
   public static final double CLIMBER_PULL_OFF_TIMEOUT = 1;
   public static final double SWING_STOP_TIMEOUT = 5;
-  public static final double CLIMBER_ARM_EXTEND_TIMEOUT = 0.5;
+  public static final double CLIMBER_ARM_EXTEND_TIMEOUT = 0.2;
   public static final double CLIMBER_MAX_ACCEL = 5;
   public static final double CLIMBER_ACCEL_ERROR = 0.2;
   

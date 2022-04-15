@@ -21,7 +21,7 @@ public class  TurretContinousTarget extends CommandBase {
   private DoubleSupplier joystick;
   private double turretSpeed;
 
-  private static final double TARGET_ANGLE = 6;
+  private static final double TARGET_ANGLE = 4;
 
   public TurretContinousTarget(TurretSubsystem turret, LimeLightVision limelight, DoubleSupplier joystick) {
     // Use addRequirements() here to declare subsystem dependencies.
