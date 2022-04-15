@@ -69,7 +69,7 @@ public class HoodAutoCommand extends LoggedCommandBase {
   }
 
   private Double calculateAngle(LimeLightVision vision) {
-    double tempDistance = vision.calcHorizontalDistanceToTarget(vision.getCameraAngles().getTy()) / 12;
+    double tempDistance = vision.calcHorizontalDistanceToTarget(vision.getCameraAngles().getTy()) / 12 + hoodSubsystem.getHoodAdj();
     addLog(tempDistance);
     int distance = (int)Math.round(tempDistance);
     return angleLookupMap.get(distance);
