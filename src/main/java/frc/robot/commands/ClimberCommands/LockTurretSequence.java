@@ -15,7 +15,7 @@ import frc.robot.utils.logging.LogCommandWrapper;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class LockTurretSequence extends SequentialCommandGroup {
   /** Creates a new InitialClimbSequence. */
-  public LockTurretSequence(TurretSubsystem turretSubsystem, LimeLightVision vision, RobotContainer robotContainer) {
+  public LockTurretSequence(TurretSubsystem turretSubsystem, LimeLightVision vision) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     RobotContainer.canClimb = true;
