@@ -43,7 +43,9 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterPID = shooterMotor.getPIDController();
     elevatorSensor = new DigitalInput(Constants.ELEVATOR_SENSOR_ID);
     isRunning = false;
-    shooterAdjustment = 1;
+    shooterAdjustment = 0;
+
+    elevatorSensor = new DigitalInput(Constants.ELEVATOR_SENSOR_ID);
     
     targetVelocity = 0;
 
@@ -157,8 +159,11 @@ public class ShooterSubsystem extends SubsystemBase {
     } */
     
     SmartShuffleboard.put("Driver", "Data", getShooterAdj());
-  }
 
+    if (!(getElevatorSensor() || getPistonState())) {
+      blockPiston.set(true);
+    }
+  }
   
   public final Logging.LoggingContext loggingContext = new Logging.LoggingContext(this.getClass()) {
       protected void addAll() {
