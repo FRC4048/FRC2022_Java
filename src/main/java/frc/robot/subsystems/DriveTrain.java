@@ -4,6 +4,11 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -22,6 +27,11 @@ public class DriveTrain extends SubsystemBase {
   // private AHRS navX;
   private ADIS16470_IMU gyro;
   private Solenoid gearSolenoid;
+  private SlewRateLimiter linearFilter;
+  private SlewRateLimiter angularFilter;
+  private DifferentialDriveKinematics kinematics;
+  private DifferentialDriveWheelSpeeds wheelSpeeds;
+  private ChassisSpeeds chassisSpeeds;
 
   /**
    * Creates a new DriveTrain.
@@ -31,6 +41,11 @@ public class DriveTrain extends SubsystemBase {
     left2 = new WPI_TalonSRX(3);
     right1 = new WPI_TalonSRX(7);
     right2 = new WPI_TalonSRX(8);
+
+    linearFilter = new SlewRateLimiter(4);
+    angularFilter = new SlewRateLimiter(8);
+
+    kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(19.25));
 
     gyro = new ADIS16470_IMU();
     gyro.reset();
@@ -57,7 +72,6 @@ public class DriveTrain extends SubsystemBase {
     SmartShuffleboard.put("Drive", "angle", gyro.getAngle());
     SmartShuffleboard.put("Drive", "Gyro", "X filtered acceleration angle", gyro.getXFilteredAccelAngle());
     SmartShuffleboard.put("Drive", "Gyro", "Y filtered acceleration angle", gyro.getYFilteredAccelAngle());
-    SmartShuffleboard.put("Drive", "Gyro", "Z axis", gyro.getYawAxis());
     SmartShuffleboard.put("Drive", "Gyro", "Z acceleration angle", gyro.getAccelZ());
     SmartShuffleboard.put("Drive", "Gyro", "X acceleration angle", gyro.getAccelX());
     SmartShuffleboard.put("Drive", "Gyro", "Y acceleration angle", gyro.getAccelY());
@@ -76,8 +90,23 @@ public class DriveTrain extends SubsystemBase {
     }
     // driveTrain.tankDrive(speedLeft, speedRight);
     //The joysticks are inverted so inverting this makes it drive correctly.
-    left1.set(ControlMode.PercentOutput, speedLeft);
-    right1.set(ControlMode.PercentOutput, speedRight);
+    wheelSpeeds.leftMetersPerSecond = speedLeft;
+    wheelSpeeds.rightMetersPerSecond = speedRight;
+    chassisSpeeds = kinematics.toChassisSpeeds(wheelSpeeds);
+    double linear = linearFilter.calculate(chassisSpeeds.vxMetersPerSecond);
+    double angular = angularFilter.calculate(chassisSpeeds.omegaRadiansPerSecond);
+    ChassisSpeeds filteredChassisSpeeds = new ChassisSpeeds(linear, 0.0, angular); 
+    wheelSpeeds = kinematics.toWheelSpeeds(filteredChassisSpeeds);
+    left1.set(ControlMode.PercentOutput, wheelSpeeds.leftMetersPerSecond);
+    right1.set(ControlMode.PercentOutput, wheelSpeeds.rightMetersPerSecond);
+    //left1.set(ControlMode.PercentOutput, (lFilter.calculate(speedLeft)) * 0.75);
+    //right1.set(ControlMode.PercentOutput, (rFilter.calculate(speedRight)) * 0.75);\
+    SmartShuffleboard.put("Drive", "leftEncoder", leftEncoder.get());
+    SmartShuffleboard.put("Drive", "rightEncoder", rightEncoder.get());
+    SmartShuffleboard.put("Drive", "limited left speed", linearFilter.calculate(speedLeft));
+    SmartShuffleboard.put("Drive", "limited right speed", angularFilter.calculate(speedRight));
+    SmartShuffleboard.put("Drive", "left speed", speedLeft);
+    SmartShuffleboard.put("Drive", "right speed", speedRight);
   }
 
   public double getAngle() {
