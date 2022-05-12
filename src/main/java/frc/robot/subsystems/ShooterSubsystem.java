@@ -44,8 +44,6 @@ public class ShooterSubsystem extends SubsystemBase {
     elevatorSensor = new DigitalInput(Constants.ELEVATOR_SENSOR_ID);
     isRunning = false;
     shooterAdjustment = 0;
-
-    elevatorSensor = new DigitalInput(Constants.ELEVATOR_SENSOR_ID);
     
     targetVelocity = 0;
 
@@ -159,6 +157,7 @@ public class ShooterSubsystem extends SubsystemBase {
     } */
     
     SmartShuffleboard.put("Driver", "Data", getShooterAdj());
+    SmartShuffleboard.put("Intake", "Elevator Sensor", elevatorSensor.get());
 
     if (!(getElevatorSensor() || getPistonState())) {
       blockPiston.set(true);

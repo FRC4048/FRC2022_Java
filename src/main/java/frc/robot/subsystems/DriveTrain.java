@@ -5,6 +5,10 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -19,7 +23,12 @@ public class DriveTrain extends SubsystemBase {
     private CANSparkMax right2;
     private RelativeEncoder leftEncoder;
     private RelativeEncoder rightEncoder;
-
+    /*private SlewRateLimiter linearFilter;
+    private SlewRateLimiter angularFilter;
+    private DifferentialDriveKinematics kinematics;
+    private DifferentialDriveWheelSpeeds wheelSpeeds;
+    private ChassisSpeeds chassisSpeeds;
+    */
     private final ADIS16470_IMU imu;
 
     public DriveTrain(){
@@ -62,6 +71,17 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void drive(double speedLeft, double speedRight, boolean isSquared) {
+      /*
+      wheelSpeeds.leftMetersPerSecond = speedLeft;
+      wheelSpeeds.rightMetersPerSecond = speedRight;
+      chassisSpeeds = kinematics.toChassisSpeeds(wheelSpeeds);
+      double linear = linearFilter.calculate(chassisSpeeds.vxMetersPerSecond);
+      double angular = angularFilter.calculate(chassisSpeeds.omegaRadiansPerSecond);
+      ChassisSpeeds filteredChassisSpeeds = new ChassisSpeeds(linear, 0.0, angular); 
+      wheelSpeeds = kinematics.toWheelSpeeds(filteredChassisSpeeds);
+      left1.set(wheelSpeeds.leftMetersPerSecond);
+      right1.set(wheelSpeeds.rightMetersPerSecond);
+      */
         if(isSquared) {
             speedLeft = Math.signum(speedLeft) * Math.pow(speedLeft, 2);
             speedRight = Math.signum(speedRight) * Math.pow(speedRight, 2);
