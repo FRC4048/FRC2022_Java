@@ -9,6 +9,7 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -38,7 +39,11 @@ public class DriveTrain extends SubsystemBase {
         right2 = new CANSparkMax(Constants.DRIVE_RIGHT2_ID, MotorType.kBrushless);
 
         linearFilter = new SlewRateLimiter(4);
-        angularFilter = new SlewRateLimiter(4);
+        angularFilter = new SlewRateLimiter(6);
+
+        kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(19.25));
+        wheelSpeeds = new DifferentialDriveWheelSpeeds();
+        chassisSpeeds = new ChassisSpeeds();
 
         imu = new ADIS16470_IMU();
 
