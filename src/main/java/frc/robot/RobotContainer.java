@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.AutoTurnDegrees;
 import frc.robot.commands.Drive;
+import frc.robot.commands.ResetLeftEncoder;
+import frc.robot.commands.ResetRightEncoder;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.utils.SmartShuffleboard;
 
@@ -53,6 +55,8 @@ public class RobotContainer {
     SmartShuffleboard.putCommand("Drive", "Turn 120 Degrees", new AutoTurnDegrees(drivetrain, 120));
     SmartShuffleboard.putCommand("Drive", "Turn 150 Degrees", new AutoTurnDegrees(drivetrain, 150));
     SmartShuffleboard.putCommand("Drive", "Turn 180 Degrees", new AutoTurnDegrees(drivetrain, 180));
+    SmartShuffleboard.putCommand("Drive", "Reset Left Encoder", new ResetLeftEncoder(drivetrain));
+    SmartShuffleboard.putCommand("Drive", "Reset Right Encoder", new ResetRightEncoder(drivetrain));
   }
 
   /**
