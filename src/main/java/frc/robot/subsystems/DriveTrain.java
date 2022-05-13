@@ -5,7 +5,10 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -19,6 +22,8 @@ public class DriveTrain extends SubsystemBase {
     private CANSparkMax right2;
     private RelativeEncoder leftEncoder;
     private RelativeEncoder rightEncoder;
+    private DifferentialDriveOdometry odometry;
+    private Field2d fieldMap = new Field2d();
 
     private final ADIS16470_IMU imu;
 
@@ -101,6 +106,9 @@ public class DriveTrain extends SubsystemBase {
             SmartShuffleboard.put("Drive", "Gyro", "Y Comp Angle", imu.getYComplementaryAngle());
             SmartShuffleboard.put("Drive", "Gyro", "X filtered acceleration angle", imu.getXFilteredAccelAngle());
             SmartShuffleboard.put("Drive", "Gyro", "Y filtered acceleration angle", imu.getYFilteredAccelAngle());
+            odometry.update(Rotation2d.fromDegrees(-imu.getAngle()), getLeftEncoder() * 8 * Math.PI, getRightEncoder() * 8 * Math.PI);
+            fieldMap.setRobotPose(odometry.getPoseMeters());
+            SmartShuffleboard.put("Drive", "Field", fieldMap);
          }
     }
 
