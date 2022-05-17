@@ -27,14 +27,13 @@ public class ElevatorSequence extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new LogCommandWrapper(new ToggleBlockerPiston(shooterSubsystem, true)),
       new LogCommandWrapper(new WaitForRPM(shooterSubsystem)),
       new LogCommandWrapper(new SetStateOff()),
       new LogCommandWrapper(new ExtendShooterPiston(shooterSubsystem)), 
       new LogCommandWrapper(new WaitCommand(Constants.SHOOTER_PISTON_WAIT)),
       new LogCommandWrapper(new RetractShooterPiston(shooterSubsystem)),
-      new LogCommandWrapper(new SetShooterMotor(shooterSubsystem, 0)),
-      new LogCommandWrapper(new ToggleBlockerPiston(shooterSubsystem, false))
+      new LogCommandWrapper(new ToggleBlockerPiston(shooterSubsystem, false)),
+      new LogCommandWrapper(new SetShooterMotor(shooterSubsystem, 0))
     );
     this.shooterSubsystem = shooterSubsystem;
   }
