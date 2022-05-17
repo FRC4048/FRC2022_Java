@@ -58,6 +58,9 @@ public class DriveTrain extends SubsystemBase {
         right1.setIdleMode(IdleMode.kBrake);
         right2.setIdleMode(IdleMode.kBrake);
 
+        rightEncoder.setPosition(0.0);
+        leftEncoder.setPosition(0.0);
+
         resetGyro();
         
 
