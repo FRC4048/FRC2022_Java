@@ -27,6 +27,7 @@ public class ElevatorSequence extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      new LogCommandWrapper(new ToggleBlockerPiston(shooterSubsystem, true)),
       new LogCommandWrapper(new WaitForRPM(shooterSubsystem)),
       new LogCommandWrapper(new SetStateOff()),
       new LogCommandWrapper(new ExtendShooterPiston(shooterSubsystem)), 
