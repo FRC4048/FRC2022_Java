@@ -41,7 +41,7 @@ public class DriveTrain extends SubsystemBase {
         linearFilter = new SlewRateLimiter(4);
         angularFilter = new SlewRateLimiter(6);
 
-        kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(19.25));
+        kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(22));
         wheelSpeeds = new DifferentialDriveWheelSpeeds();
         chassisSpeeds = new ChassisSpeeds();
 

@@ -161,6 +161,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
     if (!(getElevatorSensor() || getPistonState())) {
       blockPiston.set(true);
+    } else {
+      blockPiston.set(false);
     }
   }
   
