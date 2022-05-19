@@ -149,7 +149,7 @@ public class RobotContainer {
   private final HoodContinousTarget hoodCommand = new HoodContinousTarget(hood, () -> xboxController.getRightY(), limeLightVision.getLimeLightVision());
 
   public boolean canShoot = false;
-  public static boolean canClimb = false;
+  public boolean canClimb = false;
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -157,10 +157,9 @@ public class RobotContainer {
     autoChooser.addOptions();
     driveTrain.setDefaultCommand(driveCommand);
     turretSubsystem.setDefaultCommand(turretCommand);
-    if (canClimb) {
-      climberArmSubsystem.setDefaultCommand(new ManualMoveClimberArm(climberArmSubsystem, climberController));
-      climberWinchSubsystem.setDefaultCommand(new ManualMoveClimberWinch(climberWinchSubsystem, climberController));
-    }
+    climberArmSubsystem.setDefaultCommand(new ManualMoveClimberArm(climberArmSubsystem, climberController, this));
+    climberWinchSubsystem.setDefaultCommand(new ManualMoveClimberWinch(climberWinchSubsystem, climberController, this));
+    
     shooterSubsystem.setDefaultCommand(new RunShooterMotor(shooterSubsystem));
 
     hood.setDefaultCommand(hoodCommand);
@@ -181,6 +180,10 @@ public class RobotContainer {
 
   public Hood getHood() {
     return hood;
+  }
+
+  public void setCanClimb(boolean state) {
+    canClimb = state;
   }
 
   /*
@@ -216,12 +219,10 @@ public class RobotContainer {
 
     // Climber Controls
     climberYButton.whenPressed(new LogCommandWrapper(new LockTurretSequence(turretSubsystem, limeLightVision.getLimeLightVision())));
-    if (canClimb) {
-      climberLeftBumper.whenPressed(new LogCommandWrapper(new CloseStaticHooks(climberWinchSubsystem)));
-      climberRightBumper.whenPressed(new LogCommandWrapper(new OpenStaticHooks(climberWinchSubsystem)));
-      //climberXButton.whenPressed(new LogCommandWrapper(new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
-      climberAButton.whenPressed(new LogCommandWrapper(new AutoMoveClimberWinch(climberWinchSubsystem, ClimberDirection.EXTEND)));
-    }
+    climberLeftBumper.whenPressed(new LogCommandWrapper(new CloseStaticHooks(climberWinchSubsystem)));
+    climberRightBumper.whenPressed(new LogCommandWrapper(new OpenStaticHooks(climberWinchSubsystem)));
+    //climberXButton.whenPressed(new LogCommandWrapper(new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, limeLightVision.getLimeLightVision(), climberController)));
+    climberAButton.whenPressed(new LogCommandWrapper(new AutoMoveClimberWinch(climberWinchSubsystem, ClimberDirection.EXTEND)));
 
     buttonA.whenPressed(new LogCommandWrapper(new IntakeSequence(intakeSubsystem)));
     buttonB.whenPressed(new LogCommandWrapper(new ManuallyRunIntakeMotor(intakeSubsystem, Constants.INTAKE_MOTOR_SPEED)));

@@ -18,7 +18,6 @@ public class LockTurretSequence extends SequentialCommandGroup {
   public LockTurretSequence(TurretSubsystem turretSubsystem, LimeLightVision vision) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    RobotContainer.canClimb = true;
     addCommands(
       new LogCommandWrapper(new ClimberLockTurret(turretSubsystem, vision)),
       new LogCommandWrapper(new ClimberInfiniteLockTurret(turretSubsystem, vision))

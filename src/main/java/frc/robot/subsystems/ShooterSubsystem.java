@@ -19,6 +19,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.commands.WaitAndToggleBlockerPiston;
+import frc.robot.commands.ShooterCommands.ElevatorSequence;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.DiagOpticalSensor;
 import frc.robot.utils.diag.DiagSparkMaxEncoder;
@@ -149,17 +151,11 @@ public class ShooterSubsystem extends SubsystemBase {
       SmartShuffleboard.put("Shooter", "Data", "Piston State", getPistonState());
       SmartShuffleboard.put("Shooter", "Data", "Shooter RPM", getShooterRPM());
     }
-
-    /* if (!(getElevatorSensor() || getPistonState())) {
-      blockPiston.set(true);
-    } else {
-      blockPiston.set(false);
-    } */
     
     SmartShuffleboard.put("Driver", "Data", getShooterAdj());
     SmartShuffleboard.put("Intake", "Elevator Sensor", elevatorSensor.get());
 
-    if (!(getElevatorSensor() || getPistonState())) {
+    if (shooterSolenoid.get() || !elevatorSensor.get()) {
       blockPiston.set(true);
     } else {
       blockPiston.set(false);

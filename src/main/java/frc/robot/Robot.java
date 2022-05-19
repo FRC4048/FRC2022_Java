@@ -11,9 +11,11 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.EnableLogging;
+import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.Diagnostics;
 import frc.robot.utils.logging.Logging;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -68,6 +70,8 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
+    SmartShuffleboard.put("Climber", "Can Climb", m_robotContainer.canClimb);
+
     SmartShuffleboard.putCommand("Driver", "Enable Logging", new EnableLogging());
 
     SmartShuffleboard.put("Driver", "Targeting?", target_state == TARGETING_STATE.LOCK);
@@ -75,6 +79,9 @@ public class Robot extends TimedRobot {
     if (isLogging) {
       Logging.instance().writeAllData();
     }
+
+    //IF THE TURRET LIMIT SWITCH IS TRIPPED, YOU CAN CLIMB
+    m_robotContainer.setCanClimb(m_robotContainer.getTurretSubsystem().getLeftSwitch());
 
     if (Constants.ENABLE_DEBUG) {
       SmartShuffleboard.put("Shooter", "State", target_state.name());
