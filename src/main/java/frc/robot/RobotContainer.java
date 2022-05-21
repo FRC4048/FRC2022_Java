@@ -27,7 +27,6 @@ import frc.robot.commands.ClimberCommands.AutoMoveClimberArm.ClimberDirection;
 import frc.robot.commands.ClimberCommands.ClimberExtendSequence;
 import frc.robot.commands.ClimberCommands.ClimberInfiniteLockTurret;
 import frc.robot.commands.ClimberCommands.CloseStaticHooks;
-import frc.robot.commands.ClimberCommands.InitialClimbSequence;
 import frc.robot.commands.ClimberCommands.LockTurretSequence;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
@@ -184,6 +183,10 @@ public class RobotContainer {
 
   public void setCanClimb(boolean state) {
     canClimb = state;
+  }
+
+  public boolean getCanClimb() {
+    return canClimb;
   }
 
   /*

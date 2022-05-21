@@ -34,7 +34,7 @@ public class ManualMoveClimberWinch extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (robotContainer.canClimb) {
+    if (robotContainer.getCanClimb()) {
     double rightSpeed = 0, leftSpeed = 0;
     // Right and Left Ys move backwards (up is -1, down is +1)
     double joySpeed = -climberController.getRightY();

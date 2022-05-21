@@ -32,7 +32,7 @@ public class ManualMoveClimberArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (robotContainer.canClimb) {
+    if (robotContainer.getCanClimb()) {
     double rightSpeed = 0, leftSpeed = 0; 
 
     double joySpeed = climberController.getLeftY();

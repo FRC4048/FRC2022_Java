@@ -70,7 +70,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    SmartShuffleboard.put("Climber", "Can Climb", m_robotContainer.canClimb);
+    SmartShuffleboard.put("Climber", "Can Climb", m_robotContainer.getCanClimb());
 
     SmartShuffleboard.putCommand("Driver", "Enable Logging", new EnableLogging());
 

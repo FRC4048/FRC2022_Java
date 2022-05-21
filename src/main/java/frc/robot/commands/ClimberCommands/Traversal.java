@@ -22,11 +22,11 @@ public class Traversal extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new LogCommandWrapper(new InitialClimbSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, vision, climberController)), 
+      /*new LogCommandWrapper(new LockTurretSequence(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, vision, climberController)), 
       new LogCommandWrapper(new ConfirmTransition(climberController)),
       new LogCommandWrapper(new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, vision, climberController)),
       new LogCommandWrapper(new ConfirmTransition(climberController)),
-      new LogCommandWrapper(new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, vision, climberController))
+      new LogCommandWrapper(new MoveClimberToNextBar(climberArmSubsystem, climberWinchSubsystem, turretSubsystem, vision, climberController))*/
     );
   }
 }
