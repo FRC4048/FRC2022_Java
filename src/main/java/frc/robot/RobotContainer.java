@@ -33,7 +33,6 @@ import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.MoveClimberToNextBar;
 import frc.robot.commands.ClimberCommands.OpenStaticHooks;
 import frc.robot.commands.ClimberCommands.RetractClimberSequence;
-import frc.robot.commands.ClimberCommands.Traversal;
 import frc.robot.commands.DriveCommands.AutoTurnDegrees;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.DriveCommands.TurnDegrees;
