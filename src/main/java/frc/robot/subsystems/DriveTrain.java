@@ -62,8 +62,8 @@ public class DriveTrain extends SubsystemBase {
         leftEncoder = left1.getEncoder();
         rightEncoder = right1.getEncoder();
 
-        leftEncoder.setPositionConversionFactor(2);
-        rightEncoder.setPositionConversionFactor(2);
+        leftEncoder.setPositionConversionFactor(Constants.WHEEL_DIAMETER * Math.PI);
+        rightEncoder.setPositionConversionFactor(Constants.WHEEL_DIAMETER * Math.PI);
 
         left2.follow(left1);
         right2.follow(right1);
@@ -140,7 +140,7 @@ public class DriveTrain extends SubsystemBase {
             SmartShuffleboard.put("Drive", "Gyro", "Y Comp Angle", imu.getYComplementaryAngle());
             SmartShuffleboard.put("Drive", "Gyro", "X filtered acceleration angle", imu.getXFilteredAccelAngle());
             SmartShuffleboard.put("Drive", "Gyro", "Y filtered acceleration angle", imu.getYFilteredAccelAngle());
-            odometry.update(Rotation2d.fromDegrees(-imu.getAngle()), getLeftEncoder() * 8 * Math.PI, getRightEncoder() * 8 * Math.PI);
+            odometry.update(Rotation2d.fromDegrees(-imu.getAngle()), getLeftEncoder(), getRightEncoder());
             fieldMap.setRobotPose(odometry.getPoseMeters());
             SmartShuffleboard.put("Drive", "Field", fieldMap);
          }
