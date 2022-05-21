@@ -35,6 +35,7 @@ import frc.robot.commands.ClimberCommands.OpenStaticHooks;
 import frc.robot.commands.ClimberCommands.RetractClimberSequence;
 import frc.robot.commands.DriveCommands.AutoTurnDegrees;
 import frc.robot.commands.DriveCommands.Drive;
+import frc.robot.commands.DriveCommands.PidTurnDegrees;
 import frc.robot.commands.DriveCommands.TurnDegrees;
 import frc.robot.commands.HoodCommands.HoodAutoCommand;
 import frc.robot.commands.HoodCommands.HoodContinousTarget;
@@ -307,12 +308,12 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline to 0", new SetPipeline(0));
       SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline to 1", new SetPipeline(1));
       SmartShuffleboard.putCommand("Turn", "Turn Degrees", new TurnDegrees(driveTrain, 90));
-      SmartShuffleboard.putCommand("Drive", "Turn 30 Degrees", new AutoTurnDegrees(driveTrain, 30));
-      SmartShuffleboard.putCommand("Drive", "Turn -30 Degrees", new AutoTurnDegrees(driveTrain, -30));
-      SmartShuffleboard.putCommand("Drive", "Turn 90 Degrees", new AutoTurnDegrees(driveTrain, 90));
-      SmartShuffleboard.putCommand("Drive", "Turn 120 Degrees", new AutoTurnDegrees(driveTrain, 120));
-      SmartShuffleboard.putCommand("Drive", "Turn 150 Degrees", new AutoTurnDegrees(driveTrain, 150));
-      SmartShuffleboard.putCommand("Drive", "Turn 180 Degrees", new AutoTurnDegrees(driveTrain, 180));
+      SmartShuffleboard.putCommand("Drive", "Turn 30 Degrees", new PidTurnDegrees(driveTrain, 30));
+      SmartShuffleboard.putCommand("Drive", "Turn -30 Degrees", new PidTurnDegrees(driveTrain, -30));
+      SmartShuffleboard.putCommand("Drive", "Turn 90 Degrees", new PidTurnDegrees(driveTrain, 90));
+      SmartShuffleboard.putCommand("Drive", "Turn 120 Degrees", new PidTurnDegrees(driveTrain, 120));
+      SmartShuffleboard.putCommand("Drive", "Turn 150 Degrees", new PidTurnDegrees(driveTrain, 150));
+      SmartShuffleboard.putCommand("Drive", "Turn 180 Degrees", new PidTurnDegrees(driveTrain, 180));
 
 
       SmartShuffleboard.putCommand("Hood", "Move Hood Down", new MoveHoodDown(hood));
