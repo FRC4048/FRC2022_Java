@@ -7,17 +7,21 @@ package frc.robot.commands.ClimberCommands;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Climber.ClimberArmSubsystem;
 
 public class ManualMoveClimberArm extends CommandBase {
   /** Creates a new ManualMoveClimbArm. */
   private ClimberArmSubsystem climberArmSubsystem;
   private XboxController climberController;
+  private RobotContainer robotContainer;
   
-  public ManualMoveClimberArm(ClimberArmSubsystem climberArmSubsystem, XboxController climberController) {
+  public ManualMoveClimberArm(ClimberArmSubsystem climberArmSubsystem, XboxController climberController, RobotContainer robotContainer) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.climberArmSubsystem = climberArmSubsystem;
     this.climberController = climberController;
+    this.robotContainer = robotContainer;
     addRequirements(climberArmSubsystem);
   }
 
@@ -28,18 +32,20 @@ public class ManualMoveClimberArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (robotContainer.getCanClimb()) {
     double rightSpeed = 0, leftSpeed = 0; 
 
     double joySpeed = climberController.getLeftY();
     
-    if (Math.abs(joySpeed) > Constants.CLIMBER_DEAD_ZONE) {
-      rightSpeed = Constants.CLIMBER_ARM_SPEED * joySpeed;
-      leftSpeed = Constants.CLIMBER_ARM_SPEED * joySpeed;
-    }
+      if (Math.abs(joySpeed) > Constants.CLIMBER_DEAD_ZONE) {
+        rightSpeed = Constants.CLIMBER_ARM_SPEED * joySpeed;
+        leftSpeed = Constants.CLIMBER_ARM_SPEED * joySpeed;
+      }
 
 
     climberArmSubsystem.setRightArmSpeed(rightSpeed);
     climberArmSubsystem.setLeftArmSpeed(leftSpeed);
+    }
   }
 
   // Called once the command ends or is interrupted.

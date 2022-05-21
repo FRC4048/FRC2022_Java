@@ -64,7 +64,7 @@ public interface GameConstants {
   public static final double CLIMBER_DEAD_ZONE = 0.2;
   public static final double CLIMBER_PULL_OFF_TIMEOUT = 1;
   public static final double SWING_STOP_TIMEOUT = 5;
-  public static final double CLIMBER_ARM_EXTEND_TIMEOUT = 0.5;
+  public static final double CLIMBER_ARM_EXTEND_TIMEOUT = 0.2;
   public static final double CLIMBER_MAX_ACCEL = 5;
   public static final double CLIMBER_ACCEL_ERROR = 0.2;
   
@@ -88,8 +88,8 @@ public interface GameConstants {
   public static final double SHOOTER_MIN_OUTPUT = -1;
 
   //Drive
-  public static final double AUTO_MOVE_TURN_MAX_SPEED = 0.2;
-  public static final double AUTO_MOVE_TURN_MIN_SPEED = 0.05;
+  public static final double AUTO_MOVE_TURN_MAX_SPEED = 0.4;
+  public static final double AUTO_MOVE_TURN_MIN_SPEED = 0.1;
   public static final double AUTO_MOVE_TURN_SLOWDOWN_ERROR = 50;
   public static final double AUTO_MOVE_TURN_TIMEOUT = 5;
   public static final double AUTO_MOVE_TURN_THRESHOLD = 2;

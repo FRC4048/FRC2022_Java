@@ -10,8 +10,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -19,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.utils.SmartShuffleboard;
+import frc.robot.utils.diag.DiagOpticalSensor;
 import frc.robot.utils.diag.DiagSparkMaxEncoder;
 import frc.robot.utils.logging.Logging;
 
@@ -31,6 +31,7 @@ public class ShooterSubsystem extends SubsystemBase {
   private double targetVelocity;
   private Solenoid blockPiston;
   private double shooterAdjustment;
+  private DigitalInput elevatorSensor;
 
   public ShooterSubsystem() {
     //climberSolenoid = new Solenoid(Constants.PCM_CAN_ID, Constants.CLIMBER_PISTON_ID);
@@ -38,6 +39,7 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_ID, MotorType.kBrushless);
     blockPiston = new Solenoid(Constants.PCM_CAN_ID, PneumaticsModuleType.CTREPCM, Constants.STOP_SOLENOID_ID);
     shooterPID = shooterMotor.getPIDController();
+    elevatorSensor = new DigitalInput(Constants.ELEVATOR_SENSOR_ID);
     isRunning = false;
     shooterAdjustment = 0;
     
@@ -48,6 +50,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
 
     Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Shooter Encoder", 100, shooterMotor));
+    Robot.getDiagnostics().addDiagnosable(new DiagOpticalSensor("Elevator Sensor", elevatorSensor));
 
     shooterMotor.setIdleMode(IdleMode.kCoast);
     shooterMotor.setInverted(false);
@@ -132,6 +135,10 @@ public class ShooterSubsystem extends SubsystemBase {
     return shooterSolenoid.get();
   }
 
+  public boolean getElevatorSensor() {
+    return elevatorSensor.get();
+  }
+
 
   @Override
   public void periodic() {
@@ -140,9 +147,16 @@ public class ShooterSubsystem extends SubsystemBase {
       SmartShuffleboard.put("Shooter", "Data", "Piston State", getPistonState());
       SmartShuffleboard.put("Shooter", "Data", "Shooter RPM", getShooterRPM());
     }
+    
     SmartShuffleboard.put("Driver", "Data", getShooterAdj());
-  }
+    SmartShuffleboard.put("Intake", "Elevator Sensor", elevatorSensor.get());
 
+    if (shooterSolenoid.get() || !elevatorSensor.get()) {
+      blockPiston.set(true);
+    } else {
+      blockPiston.set(false);
+    }
+  }
   
   public final Logging.LoggingContext loggingContext = new Logging.LoggingContext(this.getClass()) {
       protected void addAll() {
