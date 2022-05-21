@@ -17,7 +17,7 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 
 public class TurretSubsystem extends SubsystemBase {
     private WPI_TalonSRX turretMotor;
-    private PIDController pid;
+    private PIDController turretPID;
     private boolean turretLockState;
     
 
@@ -30,7 +30,8 @@ public class TurretSubsystem extends SubsystemBase {
         Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Turret Forward Switch", turretMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
         Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Turret Reverse Switch", turretMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
 
-        PIDController pid = new PIDController(0.0000001, 0, 0);
+        turretPID = new PIDController(0.075, 0, 0);
+        turretPID.setTolerance(2);
     }
 
     public Logging.LoggingContext loggingContext = new Logging.LoggingContext(this.getClass()) {
@@ -42,7 +43,7 @@ public class TurretSubsystem extends SubsystemBase {
     };
 
     public PIDController getPID() {
-        return pid;
+        return turretPID;
     }
 
     public void setTurret(double speed) {
@@ -85,7 +86,7 @@ public class TurretSubsystem extends SubsystemBase {
             SmartShuffleboard.put("Shooter", "Left Limit Switch", getLeftSwitch());
             SmartShuffleboard.put("Shooter", "Right Limit Switch", getRightSwitch());
         }
-        SmartDashboard.putData(pid);
+        SmartDashboard.putData(turretPID);
     }
 
     @Override

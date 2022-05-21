@@ -59,8 +59,8 @@ public class  TurretContinousTarget extends CommandBase {
         double speed;
         if (limelight.hasTarget()) {
           double tx = limelight.getCameraAngles().getTx();
-          //turret.setTurret(turret.getPID().calculate(tx, 4));
-          if (Math.abs(tx - TARGET_ANGLE) > Constants.TURRET_ERROR_THRESHOLD) {
+          turret.setTurret(turret.getPID().calculate(tx, 4));
+          /*if (Math.abs(tx - TARGET_ANGLE) > Constants.TURRET_ERROR_THRESHOLD) {
             speed = Constants.TURRET_FAST_SPEED;
           } else {
             speed = Constants.TURRET_SLOW_SPEED * (Math.abs(tx - TARGET_ANGLE) / Constants.TURRET_ERROR_THRESHOLD);
@@ -71,7 +71,7 @@ public class  TurretContinousTarget extends CommandBase {
           } else {
             turretState = true;
             turret.setTurret(0);
-          } 
+          } */
           
           
           
