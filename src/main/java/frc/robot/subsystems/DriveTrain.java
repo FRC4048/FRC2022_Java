@@ -5,12 +5,15 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -25,6 +28,9 @@ public class DriveTrain extends SubsystemBase {
     private CANSparkMax right2;
     private RelativeEncoder leftEncoder;
     private RelativeEncoder rightEncoder;
+    private DifferentialDriveOdometry odometry;
+    private Field2d fieldMap = new Field2d();
+
     private SlewRateLimiter linearFilter;
     private SlewRateLimiter angularFilter;
     private DifferentialDriveKinematics kinematics;
@@ -57,8 +63,8 @@ public class DriveTrain extends SubsystemBase {
         leftEncoder = left1.getEncoder();
         rightEncoder = right1.getEncoder();
 
-        leftEncoder.setPositionConversionFactor(2);
-        rightEncoder.setPositionConversionFactor(2);
+        leftEncoder.setPositionConversionFactor(Constants.WHEEL_DIAMETER * Math.PI);
+        rightEncoder.setPositionConversionFactor(Constants.WHEEL_DIAMETER * Math.PI);
 
         left2.follow(left1);
         right2.follow(right1);
@@ -70,6 +76,9 @@ public class DriveTrain extends SubsystemBase {
         left2.setIdleMode(IdleMode.kBrake);
         right1.setIdleMode(IdleMode.kBrake);
         right2.setIdleMode(IdleMode.kBrake);
+
+        rightEncoder.setPosition(0.0);
+        leftEncoder.setPosition(0.0);
 
         resetGyro();
         
@@ -132,6 +141,9 @@ public class DriveTrain extends SubsystemBase {
             SmartShuffleboard.put("Drive", "Gyro", "Y Comp Angle", imu.getYComplementaryAngle());
             SmartShuffleboard.put("Drive", "Gyro", "X filtered acceleration angle", imu.getXFilteredAccelAngle());
             SmartShuffleboard.put("Drive", "Gyro", "Y filtered acceleration angle", imu.getYFilteredAccelAngle());
+            odometry.update(Rotation2d.fromDegrees(-imu.getAngle()), getLeftEncoder(), getRightEncoder());
+            fieldMap.setRobotPose(odometry.getPoseMeters());
+            SmartShuffleboard.put("Drive", "Field", fieldMap);
          }
     }
 
