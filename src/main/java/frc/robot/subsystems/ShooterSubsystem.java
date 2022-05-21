@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
-import frc.robot.commands.WaitAndToggleBlockerPiston;
 import frc.robot.commands.ShooterCommands.ElevatorSequence;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.DiagOpticalSensor;
