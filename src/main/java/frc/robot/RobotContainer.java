@@ -72,6 +72,7 @@ import frc.robot.commands.TurretCommands.RunTurretUntilLimitSwitch;
 import frc.robot.commands.TurretCommands.RunTurretUntilTarget;
 import frc.robot.commands.TurretCommands.ToggleTargetState;
 import frc.robot.commands.TurretCommands.TurretContinousTarget;
+import frc.robot.commands.TurretCommands.TurretPIDTurn;
 import frc.robot.commands.TurretCommands.TurretSweepSequence;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hood;
@@ -281,6 +282,7 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Shooter", "Shooter Motor 12900", new SetShooterMotor(shooterSubsystem, 12900));
       SmartShuffleboard.putCommand("Shooter", "Shooter Motor 0", new SetShooterMotor(shooterSubsystem, 0));
       SmartShuffleboard.putCommand("Shooter", "Wait For RPM", new WaitForRPM(shooterSubsystem));
+      SmartShuffleboard.putCommand("Shooter", "Turret PID aim", new TurretPIDTurn(turretSubsystem, limeLightVision.getLimeLightVision()));
 
       SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
