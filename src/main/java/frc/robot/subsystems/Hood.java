@@ -34,7 +34,7 @@ public class Hood extends SubsystemBase {
         Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Hood Reverse Switch", hoodMotor,
                 frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
 
-        hoodAdjustment = 0;
+        hoodAdjustment = 1;
     }
 
     public void setHood(double speed) {

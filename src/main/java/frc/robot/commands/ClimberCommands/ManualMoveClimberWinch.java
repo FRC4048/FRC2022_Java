@@ -7,17 +7,21 @@ package frc.robot.commands.ClimberCommands;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Climber.ClimberWinchSubsystem;
 
 public class ManualMoveClimberWinch extends CommandBase {
   /** Creates a new ManualMoveClimberWinch. */
   private ClimberWinchSubsystem climberWinchSubsystem;
   private XboxController climberController;
+  private RobotContainer robotContainer;
 
-  public ManualMoveClimberWinch(ClimberWinchSubsystem climberWinchSubsystem, XboxController climberController) {
+  public ManualMoveClimberWinch(ClimberWinchSubsystem climberWinchSubsystem, XboxController climberController, RobotContainer robotContainer) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.climberWinchSubsystem = climberWinchSubsystem;
     this.climberController = climberController;
+    this.robotContainer = robotContainer;
     addRequirements(climberWinchSubsystem);
 
   }
@@ -30,6 +34,7 @@ public class ManualMoveClimberWinch extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (robotContainer.getCanClimb()) {
     double rightSpeed = 0, leftSpeed = 0;
     // Right and Left Ys move backwards (up is -1, down is +1)
     double joySpeed = -climberController.getRightY();
@@ -42,6 +47,7 @@ public class ManualMoveClimberWinch extends CommandBase {
 
     climberWinchSubsystem.setRightWinchSpeed(rightSpeed);
     climberWinchSubsystem.setLeftWinchSpeed(leftSpeed);
+  }
     
   }
 
