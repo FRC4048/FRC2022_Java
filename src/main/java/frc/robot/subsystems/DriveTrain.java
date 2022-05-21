@@ -16,6 +16,7 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.DiagSparkMaxEncoder;
+import frc.robot.utils.logging.Logging;
 
 public class DriveTrain extends SubsystemBase {
     public CANSparkMax left1;
@@ -141,6 +142,18 @@ public class DriveTrain extends SubsystemBase {
     public double getRightEncoder(){
         return rightEncoder.getPosition();
     }
+
+    public Logging.LoggingContext loggingContext = new Logging.LoggingContext(this.getClass()) {
+
+        @Override
+        protected void addAll() {
+            add("Left Ecnoder", getLeftEncoder());
+            add("Right Encoder", getRightEncoder());
+            add("AccelX", imu.getAccelX());
+            add("AccelY", imu.getAccelY());
+            add("Angle", imu.getAngle());
+        }
+    };
 
     @Override
     public void simulationPeriodic() {
