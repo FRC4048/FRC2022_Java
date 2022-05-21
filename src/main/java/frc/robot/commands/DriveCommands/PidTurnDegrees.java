@@ -27,18 +27,29 @@ public class PidTurnDegrees extends CommandBase{
     public void initialize() {
         this.startTime = Timer.getFPGATimestamp();
         this.startDegrees = driveTrain.getAngle();
-        pid = new PIDController(0.005, 0.005, 0.002);
+        pid = new PIDController(1.2, 0.4, 0);
     }
 
     @Override
     public void execute() {
-        double rawError = (startDegrees + turnDegrees - driveTrain.getAngle());
-        double error = Math.abs(rawError);
-        double direction = Math.signum(rawError);
-        turnSpeed= pid.calculate(driveTrain.getAngle(), startDegrees + turnDegrees);
-        if (Math.abs(turnSpeed)>0.7){
-            turnSpeed=0.7 * Math.signum(turnSpeed);
+        double setPoint = (startDegrees + turnDegrees)/180.0;
+        double currentLocation = driveTrain.getAngle()/180.0;
+        double error = setPoint - currentLocation;
+
+        turnSpeed = pid.calculate(currentLocation, setPoint);
+        SmartShuffleboard.put("BZ","calculated power", turnSpeed);
+        SmartShuffleboard.put("BZ","error", error*180.0);
+        SmartShuffleboard.put("BZ","normalized error", error);
+        SmartShuffleboard.put("BZ","start angle",startDegrees);
+        SmartShuffleboard.put("BZ","turn to", setPoint);
+        
+        SmartShuffleboard.put("BZ","gyro", driveTrain.getAngle());
+
+        if (Math.abs(turnSpeed) > 0.5) {
+            turnSpeed = 0.5 * Math.signum(turnSpeed);
         }
+        SmartShuffleboard.put("BZ","real power", turnSpeed);
+
         driveTrain.drive(-1.0 * turnSpeed, turnSpeed, false);
         /*if (error > Constants.AUTO_MOVE_TURN_SLOWDOWN_ERROR) {
             turnSpeed = Constants.AUTO_MOVE_TURN_MAX_SPEED;
@@ -57,7 +68,7 @@ public class PidTurnDegrees extends CommandBase{
 
     @Override
     public boolean isFinished() {
-        if (Timer.getFPGATimestamp() - startTime >= 3) {
+        if (Timer.getFPGATimestamp() - startTime >= 33333) {
             return true;
         }
         return false;

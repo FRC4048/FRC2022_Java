@@ -308,14 +308,15 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline to 0", new SetPipeline(0));
       SmartShuffleboard.putCommand("Miscellaneous", "Set Pipeline to 1", new SetPipeline(1));
       SmartShuffleboard.putCommand("Turn", "Turn Degrees", new TurnDegrees(driveTrain, 90));
-      SmartShuffleboard.putCommand("Drive", "Turn 30 Degrees", new PidTurnDegrees(driveTrain, 30));
-      SmartShuffleboard.putCommand("Drive", "Turn -30 Degrees", new PidTurnDegrees(driveTrain, -30));
-      SmartShuffleboard.putCommand("Drive", "Turn 90 Degrees", new PidTurnDegrees(driveTrain, 90));
-      SmartShuffleboard.putCommand("Drive", "Turn 120 Degrees", new PidTurnDegrees(driveTrain, 120));
-      SmartShuffleboard.putCommand("Drive", "Turn 150 Degrees", new PidTurnDegrees(driveTrain, 150));
-      SmartShuffleboard.putCommand("Drive", "Turn 180 Degrees", new PidTurnDegrees(driveTrain, 180));
+    }
+      SmartShuffleboard.putCommand("BZ", "Turn 30 Degrees", new PidTurnDegrees(driveTrain, 30));
+      SmartShuffleboard.putCommand("BZ", "Turn -30 Degrees", new PidTurnDegrees(driveTrain, -30));
+      SmartShuffleboard.putCommand("BZ", "Turn 90 Degrees", new PidTurnDegrees(driveTrain, 90));
+      SmartShuffleboard.putCommand("BZ", "Turn 120 Degrees", new PidTurnDegrees(driveTrain, 120));
+      SmartShuffleboard.putCommand("BZ", "Turn 150 Degrees", new PidTurnDegrees(driveTrain, 150));
+      SmartShuffleboard.putCommand("BZ", "Turn 180 Degrees", new PidTurnDegrees(driveTrain, 180));
 
-
+      if (Constants.ENABLE_DEBUG) {
       SmartShuffleboard.putCommand("Hood", "Move Hood Down", new MoveHoodDown(hood));
       SmartShuffleboard.putCommand("Hood", "Move Hood Up", new MoveHoodUp(hood));
 
