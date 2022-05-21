@@ -89,15 +89,17 @@ public class DriveTrain extends SubsystemBase {
         wheelSpeeds = kinematics.toWheelSpeeds(filteredChassisSpeeds);
         left1.set(wheelSpeeds.leftMetersPerSecond);
         right1.set(wheelSpeeds.rightMetersPerSecond);
+        
       
-        if(isSquared) {
+        /*if(isSquared) {
             speedLeft = Math.signum(speedLeft) * Math.pow(speedLeft, 2);
             speedRight = Math.signum(speedRight) * Math.pow(speedRight, 2);
           }
+
+          */
+
           // driveTrain.tankDrive(speedLeft, speedRight);
           //The joysticks are inverted so inverting this makes it drive correctly.
-          left1.set(speedLeft);
-          right1.set(speedRight);
     }
 
       /**
