@@ -30,7 +30,8 @@ public class OneShotSequenceMiddle extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new MoveAndMoveHood(driveTrain, 0.4, 12, hood),
+      //new MoveAndMoveHood(driveTrain, 0.4, 12, hood),
+      new MoveDistance(driveTrain, .4, 12),
       new NonVisionParallelShoot(shooterSubsystem, intakeSubsystem, 12000),
       new ParallelMoveAndTurretReset(driveTrain, speed, 65, turretSubsystem, Constants.AUTO_TURRET_SPEED, intakeSubsystem)
     );
