@@ -5,24 +5,23 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 
-import edu.wpi.first.math.filter.SlewRateLimiter;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.math.util.Units;
+import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.DiagSparkMaxEncoder;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class DriveTrain extends SubsystemBase {
@@ -37,6 +36,7 @@ public class DriveTrain extends SubsystemBase {
     private DifferentialDriveKinematics kinematics;
     private DifferentialDriveWheelSpeeds wheelSpeeds;
     private ChassisSpeeds chassisSpeeds;
+    
 
     private double p;
     private double i;
@@ -59,7 +59,8 @@ public class DriveTrain extends SubsystemBase {
     // Gains are for example purposes only - must be determined for your own robot!
     private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(1, 3);
 
-    private final DifferentialDriveOdometry odometry;
+    private DifferentialDriveOdometry odometry;
+    private Field2d fieldMap = new Field2d();
 
     public DriveTrain(){
 
@@ -76,6 +77,8 @@ public class DriveTrain extends SubsystemBase {
         chassisSpeeds = new ChassisSpeeds();
 
         imu = new ADIS16470_IMU();
+        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getAngle()), new Pose2d( 0.0, 0.0, new Rotation2d()));
+        fieldMap = new Field2d();
 
         resetGyro();
 
@@ -198,6 +201,9 @@ public class DriveTrain extends SubsystemBase {
          rightPIDController.setP(p);
          rightPIDController.setI(i);
          rightPIDController.setD(d);
+         odometry.update(Rotation2d.fromDegrees(imu.getAngle()), getLeftEncoder(), getRightEncoder());
+         fieldMap.setRobotPose(odometry.getPoseMeters());
+         SmartDashboard.putData("Field", fieldMap);
     }
 
     public double getLeftEncoder(){
