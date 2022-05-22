@@ -22,11 +22,11 @@ import frc.robot.utils.logging.LogCommandWrapper;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ShooterSequeunce extends SequentialCommandGroup {
   /** Creates a new ShootSequence. */
-  public ShooterSequeunce(ShooterSubsystem shooterSubsystem, LimeLightVision vision) {
+  public ShooterSequeunce(ShooterSubsystem shooterSubsystem, LimeLightVision vision, TurretSubsystem turret) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new LogCommandWrapper(new VisionAutoShooter(vision, shooterSubsystem)),
+      new LogCommandWrapper(new VisionAutoShooter(vision, shooterSubsystem, turret)),
       new LogCommandWrapper(new ElevatorSequence(shooterSubsystem))
     );
   }

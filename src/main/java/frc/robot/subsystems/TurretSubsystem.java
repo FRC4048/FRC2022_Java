@@ -31,7 +31,6 @@ public class TurretSubsystem extends SubsystemBase {
         @Override
         protected void addAll() {
             add("Targeting State", Robot.getTargetState().name());
-            add("TurretEncoder", getEncoder());
         }
     };
 

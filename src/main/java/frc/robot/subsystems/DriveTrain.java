@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -54,6 +55,9 @@ public class DriveTrain extends SubsystemBase {
 
         imu = new ADIS16470_IMU();
 
+        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getAngle()), new Pose2d( 0.0, 0.0, new Rotation2d()));
+        fieldMap = new Field2d();
+
         left1.restoreFactoryDefaults();
         left2.restoreFactoryDefaults();
 
@@ -63,8 +67,8 @@ public class DriveTrain extends SubsystemBase {
         leftEncoder = left1.getEncoder();
         rightEncoder = right1.getEncoder();
 
-        leftEncoder.setPositionConversionFactor(Constants.WHEEL_DIAMETER * Math.PI);
-        rightEncoder.setPositionConversionFactor(Constants.WHEEL_DIAMETER * Math.PI);
+        leftEncoder.setPositionConversionFactor(Constants.WHEEL_DIAMETER * Math.PI / 10.75);
+        rightEncoder.setPositionConversionFactor(Constants.WHEEL_DIAMETER * Math.PI / 10.75);
 
         left2.follow(left1);
         right2.follow(right1);
@@ -141,10 +145,9 @@ public class DriveTrain extends SubsystemBase {
             SmartShuffleboard.put("Drive", "Gyro", "Y Comp Angle", imu.getYComplementaryAngle());
             SmartShuffleboard.put("Drive", "Gyro", "X filtered acceleration angle", imu.getXFilteredAccelAngle());
             SmartShuffleboard.put("Drive", "Gyro", "Y filtered acceleration angle", imu.getYFilteredAccelAngle());
-            odometry.update(Rotation2d.fromDegrees(-imu.getAngle()), getLeftEncoder(), getRightEncoder());
-            fieldMap.setRobotPose(odometry.getPoseMeters());
-            SmartShuffleboard.put("Drive", "Field", fieldMap);
-         }
+        }
+        odometry.update(Rotation2d.fromDegrees(-imu.getAngle()), getLeftEncoder(), getRightEncoder());
+        fieldMap.setRobotPose(odometry.getPoseMeters());
     }
 
     public double getLeftEncoder(){
