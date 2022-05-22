@@ -59,22 +59,7 @@ public class  TurretContinousTarget extends CommandBase {
         double speed;
         if (limelight.hasTarget()) {
           double tx = limelight.getCameraAngles().getTx();
-          turret.setTurret(turret.getPID().calculate(tx, Constants.TURRET_ALIGN_OFFSET));
-          //this is the non-pid turret alignment code, we no longer use it.
-          /*if (Math.abs(tx - TARGET_ANGLE) > Constants.TURRET_ERROR_THRESHOLD) {
-            speed = Constants.TURRET_FAST_SPEED;
-          } else {
-            speed = Constants.TURRET_SLOW_SPEED * (Math.abs(tx - TARGET_ANGLE) / Constants.TURRET_ERROR_THRESHOLD);
-          }
-          if (Math.abs(TARGET_ANGLE - tx) > .5) {
-            turret.setTurret(speed * Math.signum(TARGET_ANGLE - tx));
-            
-          } else {
-            turretState = true;
-            turret.setTurret(0);
-          } */
-          
-          
+          turret.setTurret(turret.getPID().calculate(tx, Constants.TURRET_ALIGN_OFFSET)); 
           
         } else {
           if ((((turret.getEncoder() >= Constants.TURRET_RIGHT_THRESHOLD) || turret.getRightSwitch()) && turretSpeed < 0) ||
