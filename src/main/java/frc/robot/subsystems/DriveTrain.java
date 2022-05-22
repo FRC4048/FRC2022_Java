@@ -44,7 +44,7 @@ public class DriveTrain extends SubsystemBase {
     
     private final ADIS16470_IMU imu;
 
-    public static final double maxSpeed = 3.0 * 3; // meters per second
+    public static final double maxSpeed = 3.0; // meters per second
     public static final double maxAngularSpeed = 2 * Math.PI; // one rotation per second
 
     private static final double trackWidth = 0.5461; // meters
