@@ -77,8 +77,9 @@ public class DriveTrain extends SubsystemBase {
         chassisSpeeds = new ChassisSpeeds();
 
         imu = new ADIS16470_IMU();
-        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getAngle()), new Pose2d( 0.0, 0.0, new Rotation2d()));
+        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getAngle()), new Pose2d( 5.0, 5.0, new Rotation2d()));
         fieldMap = new Field2d();
+        fieldMap.setRobotPose(odometry.getPoseMeters());
 
         resetGyro();
 
