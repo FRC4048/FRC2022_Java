@@ -54,8 +54,8 @@ public class DriveTrain extends SubsystemBase {
 
         imu = new ADIS16470_IMU();
 
-        DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getAngle()), new Pose2d( 0.0, 0.0, new Rotation2d()));
-        this.odometry = odometry;
+        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getAngle()), new Pose2d( 0.0, 0.0, new Rotation2d()));
+        fieldMap = new Field2d();
 
         left1.restoreFactoryDefaults();
         left2.restoreFactoryDefaults();
