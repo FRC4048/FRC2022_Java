@@ -1,6 +1,9 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -14,7 +17,9 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 
 public class TurretSubsystem extends SubsystemBase {
     private WPI_TalonSRX turretMotor;
+    private PIDController turretPID;
     private boolean turretLockState;
+    
 
     public TurretSubsystem() {
         turretMotor = new WPI_TalonSRX(Constants.TURRET_MOTOR_ID);
@@ -24,6 +29,9 @@ public class TurretSubsystem extends SubsystemBase {
         Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxEncoder("Turret  Encoder", 100, turretMotor));
         Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Turret Forward Switch", turretMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.FORWARD));
         Robot.getDiagnostics().addDiagnosable(new DiagTalonSrxSwitch("Turret Reverse Switch", turretMotor, frc.robot.utils.diag.DiagTalonSrxSwitch.Direction.REVERSE));
+
+        turretPID = new PIDController(0.075, 0, 0);
+        turretPID.setTolerance(2);
     }
 
     public Logging.LoggingContext loggingContext = new Logging.LoggingContext(this.getClass()) {
@@ -33,6 +41,10 @@ public class TurretSubsystem extends SubsystemBase {
             add("Targeting State", Robot.getTargetState().name());
         }
     };
+
+    public PIDController getPID() {
+        return turretPID;
+    }
 
     public void setTurret(double speed) {
         turretMotor.set(speed);
@@ -73,6 +85,7 @@ public class TurretSubsystem extends SubsystemBase {
             SmartShuffleboard.put("Shooter", "Turret Encoder", getEncoder());
             SmartShuffleboard.put("Shooter", "Left Limit Switch", getLeftSwitch());
             SmartShuffleboard.put("Shooter", "Right Limit Switch", getRightSwitch());
+            SmartDashboard.putData(turretPID);
         }
     }
 
