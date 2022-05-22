@@ -33,7 +33,7 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double lSpeed = leftSpeed.getAsDouble(), rSpeed = rightSpeed.getAsDouble();
+    double lSpeed = leftSpeed.getAsDouble() * driveTrain.maxSpeed, rSpeed = rightSpeed.getAsDouble() * driveTrain.maxSpeed;
     if (Math.abs(lSpeed) < Constants.CONTROLLER_DEAD_ZONE) {
       lSpeed = 0;
     }

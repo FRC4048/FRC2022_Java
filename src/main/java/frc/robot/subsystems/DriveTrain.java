@@ -124,12 +124,15 @@ public class DriveTrain extends SubsystemBase {
         wheelSpeeds.leftMetersPerSecond = speedLeft;
         wheelSpeeds.rightMetersPerSecond = speedRight;
 
+        SmartShuffleboard.put("DriveTrain", "LeftWheel", "LeftWheelSpeed", wheelSpeeds.leftMetersPerSecond);
+
         //Use kinematics library to filter drive speed
         chassisSpeeds = kinematics.toChassisSpeeds(wheelSpeeds);
         double linear = linearFilter.calculate(chassisSpeeds.vxMetersPerSecond);
         double angular = angularFilter.calculate(chassisSpeeds.omegaRadiansPerSecond);
         ChassisSpeeds filteredChassisSpeeds = new ChassisSpeeds(linear, 0.0, angular); 
         wheelSpeeds = kinematics.toWheelSpeeds(filteredChassisSpeeds);
+        SmartShuffleboard.put("DriveTrain", "LeftWheel", "LeftWheelFilteredSpeed", wheelSpeeds.leftMetersPerSecond);
         
         //Set feedforwards and PIDs
         final double leftFeedforward = feedforward.calculate(wheelSpeeds.leftMetersPerSecond);
@@ -145,14 +148,12 @@ public class DriveTrain extends SubsystemBase {
         SmartShuffleboard.put("DriveTrain", "Right", "Right", rightPIDOutput + rightFeedforward);
 
         //TODO move this to filter joystick inputs
-        if(isSquared) {
+        /* if(isSquared) {
             speedLeft = Math.signum(speedLeft) * Math.pow(speedLeft, 2);
             speedRight = Math.signum(speedRight) * Math.pow(speedRight, 2);
-          }
+          } */
           // driveTrain.tankDrive(speedLeft, speedRight);
           //The joysticks are inverted so inverting this makes it drive correctly.
-          left1.set(speedLeft);
-          right1.set(speedRight);
         }
 
       /**
