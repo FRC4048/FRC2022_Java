@@ -110,7 +110,7 @@ public class DriveTrain extends SubsystemBase {
         Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Right Drive Encoder", 10, right1));
         // TODO: Are there diags for the IMU?
 
-        SmartDashboard.putNumber("P Left", 1);
+        SmartDashboard.putNumber("P Left", 0.0001);
         SmartDashboard.putNumber("I Left", 0);
         SmartDashboard.putNumber("D Left", 0);
     }
