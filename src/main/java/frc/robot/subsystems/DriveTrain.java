@@ -200,9 +200,9 @@ public class DriveTrain extends SubsystemBase {
          rightPIDController.setP(p);
          rightPIDController.setI(i);
          rightPIDController.setD(d);
-         odometry.update(Rotation2d.fromDegrees(-imu.getAngle()), getLeftEncoder(), getRightEncoder());
+         odometry.update(Rotation2d.fromDegrees(imu.getAngle()), getLeftEncoder(), getRightEncoder());
          fieldMap.setRobotPose(odometry.getPoseMeters());
-         SmartShuffleboard.put("Drive", "Field", fieldMap);
+         SmartDashboard.putData("Field", fieldMap);
     }
 
     public double getLeftEncoder(){
