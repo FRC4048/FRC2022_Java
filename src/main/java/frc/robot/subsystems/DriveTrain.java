@@ -164,6 +164,8 @@ public class DriveTrain extends SubsystemBase {
             add("AccelX", imu.getAccelX());
             add("AccelY", imu.getAccelY());
             add("Angle", imu.getAngle());
+            add("Pose2dX", odometry.getPoseMeters().getX());
+            add("Pose2dY", odometry.getPoseMeters().getY());
         }
     };
 
