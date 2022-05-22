@@ -6,8 +6,9 @@ package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.WaitCommand;
-import frc.robot.commands.DriveCommands.AutoTurnDegrees;
+import frc.robot.commands.DriveCommands.PidTurnDegrees;
 import frc.robot.commands.DriveCommands.MoveDistance;
+import frc.robot.commands.DriveCommands.PidTurnDegrees;
 import frc.robot.commands.HoodCommands.MoveHoodToAngle;
 import frc.robot.commands.ShooterCommands.AutoTargetSequence;
 import frc.robot.commands.ShooterCommands.NonVisionParallelShoot;
@@ -37,9 +38,9 @@ public class ThreeShotSequenceRight extends SequentialCommandGroup {
       new ShooterSequeunce(shooterSubsystem, limeLightVision),
       new WaitCommand(0.5),
       new ShooterSequeunce(shooterSubsystem, limeLightVision),
-      new AutoTurnDegrees(driveTrain, -111),
+      new PidTurnDegrees(driveTrain, -111),
       new ParralelMoveAndIntakeAndSetTurret(driveTrain, 0.5, 90, turretSubsystem, -turretSpeed, intakeSubsystem, hood, turretSubsystem),
-      new AutoTurnDegrees(driveTrain, 65),
+      new PidTurnDegrees(driveTrain, 65),
       new AutoTargetSequence(turretSubsystem, limeLightVision, hood),
       new ShooterSequeunce(shooterSubsystem, limeLightVision)
     );
