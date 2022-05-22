@@ -15,6 +15,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -152,7 +153,7 @@ public class DriveTrain extends SubsystemBase {
          }
         odometry.update(Rotation2d.fromDegrees(-imu.getAngle()), getLeftEncoder(), getRightEncoder());
         fieldMap.setRobotPose(odometry.getPoseMeters());
-        SmartShuffleboard.put("Drive", "Field", fieldMap);
+        SmartDashboard.putData("Field", fieldMap);
     }
 
     public double getLeftEncoder(){
