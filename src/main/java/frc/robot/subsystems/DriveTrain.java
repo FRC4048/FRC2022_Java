@@ -119,7 +119,9 @@ public class DriveTrain extends SubsystemBase {
         imu.reset();
         imu.calibrate();
     }
-
+    /**
+     * Resets Odometry and both encoders
+     */
     public void resetOdometry() {
         leftEncoder.setPosition(0.0);
         rightEncoder.setPosition(0.0);
