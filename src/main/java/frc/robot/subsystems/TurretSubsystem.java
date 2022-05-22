@@ -85,8 +85,8 @@ public class TurretSubsystem extends SubsystemBase {
             SmartShuffleboard.put("Shooter", "Turret Encoder", getEncoder());
             SmartShuffleboard.put("Shooter", "Left Limit Switch", getLeftSwitch());
             SmartShuffleboard.put("Shooter", "Right Limit Switch", getRightSwitch());
+            SmartDashboard.putData(turretPID);
         }
-        SmartDashboard.putData(turretPID);
     }
 
     @Override
