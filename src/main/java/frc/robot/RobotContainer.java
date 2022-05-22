@@ -335,5 +335,9 @@ public class RobotContainer {
 
       SmartShuffleboard.putCommand("Hood", "Auto", new HoodAutoCommand(hood, limeLightVision.getLimeLightVision()));
     }
+
+    SmartShuffleboard.put("test", "Input", 0.0);
+    SmartShuffleboard.put("test", "Output", 0.0);
+    SmartShuffleboard.putCommand("test", "Do it", new CopyCommand());
   }
 } 

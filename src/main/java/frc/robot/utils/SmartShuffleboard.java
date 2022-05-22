@@ -4,6 +4,7 @@
 
 package frc.robot.utils;
 
+import edu.wpi.first.networktables.NetworkTableValue;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
@@ -41,6 +42,38 @@ public class SmartShuffleboard {
     {
         SmartShuffleboardTab smartTab = getOrCreateTab(tabName);
         smartTab.put(fieldName, layoutName, value);
+    }
+
+    public static boolean getBoolean(String tabName, String fieldName, boolean defaultValue) {
+        SmartShuffleboardTab smartTab = smartTabMap.get(tabName);
+        if (smartTab == null) {
+            return defaultValue;
+        }
+        return smartTab.getBoolean(fieldName, defaultValue);
+    }
+
+    public static double getDouble(String tabName, String fieldName, double defaultValue) {
+        SmartShuffleboardTab smartTab = smartTabMap.get(tabName);
+        if (smartTab == null) {
+            return defaultValue;
+        }
+        return smartTab.getDouble(fieldName, defaultValue);
+    }
+
+    public static String getString(String tabName, String fieldName, String defaultValue) {
+        SmartShuffleboardTab smartTab = smartTabMap.get(tabName);
+        if (smartTab == null) {
+            return defaultValue;
+        }
+        return smartTab.getString(fieldName, defaultValue);
+    }
+
+    public static NetworkTableValue getValue(String tabName, String fieldName) {
+        SmartShuffleboardTab smartTab = smartTabMap.get(tabName);
+        if (smartTab == null) {
+            return null;
+        }
+        return smartTab.getValue(fieldName);
     }
 
     public static void putCommand(String tabName, String fieldName, CommandBase cmd)    // value is primitive
