@@ -91,8 +91,17 @@ public interface GameConstants {
   public static final double AUTO_MOVE_TURN_MAX_SPEED = 0.4;
   public static final double AUTO_MOVE_TURN_MIN_SPEED = 0.1;
   public static final double AUTO_MOVE_TURN_SLOWDOWN_ERROR = 50;
-  public static final double AUTO_MOVE_TURN_TIMEOUT = 5;
+  public static final double AUTO_MOVE_TURN_TIMEOUT = 4;
   public static final double AUTO_MOVE_TURN_THRESHOLD = 2;
+
+  public static final double AUTO_MOVE_TURN_DEGREES_THRESHOLD = 30.0;
+
+  public static final double AUTO_MOVE_TURN_P_CONSTANT = 27.0;
+  public static final double AUTO_MOVE_TURN_I_CONSTANT = 18.0;
+  public static final double AUTO_MOVE_TURN_D_CONSTANT = 0.0;
+
+  public static final double AUTO_MOVE_TURN_VOLTAGE = 3.0;
+
 
   public static final double CONTROLLER_DEAD_ZONE = 0;
 
