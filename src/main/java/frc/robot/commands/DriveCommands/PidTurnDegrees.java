@@ -16,6 +16,9 @@ public class PidTurnDegrees extends CommandBase{
     private double startDegrees;
     private double turnSpeed;
     private PIDController pid; 
+    private double setPoint;
+    private double currentLocation;
+    private double error;
 
     public PidTurnDegrees(DriveTrain driveTrain, double turnDegrees) {
         this.driveTrain = driveTrain;
@@ -32,13 +35,13 @@ public class PidTurnDegrees extends CommandBase{
 
     @Override
     public void execute() {
-        double setPoint = (startDegrees + turnDegrees)/180.0;
-        double currentLocation = driveTrain.getAngle()/180.0;
-        double error = setPoint - currentLocation;
+        setPoint = (startDegrees + turnDegrees)/180.0;
+        currentLocation = driveTrain.getAngle()/180.0;
+        error = setPoint - currentLocation;
 
-        if(Math.abs(error)*180 >Constants.AUTO_MOVE_TURN_DEGREES_THRESHOLD){
+        if (Math.abs(error)*180 >Constants.AUTO_MOVE_TURN_DEGREES_THRESHOLD){
             turnSpeed = Constants.AUTO_MOVE_TURN_VOLTAGE* Math.signum(error);
-        }else{
+        } else {
             turnSpeed = pid.calculate(currentLocation, setPoint);
         }
 
@@ -52,12 +55,6 @@ public class PidTurnDegrees extends CommandBase{
         }
 
         driveTrain.driveVoltage(-1.0*turnSpeed, turnSpeed);
-
-    }
-
-    @Override
-    public void end(boolean interrupted) {
-        driveTrain.drive(0, 0, false);
     }
 
     @Override
@@ -65,8 +62,12 @@ public class PidTurnDegrees extends CommandBase{
         if (Timer.getFPGATimestamp() - startTime >= Constants.AUTO_MOVE_TURN_TIMEOUT) {
             return true;
         }
-        return false;
+        return (Math.abs(error) * 180 <= Constants.AUTO_MOVE_TURN_THRESHOLD);
+    }
 
+    @Override
+    public void end(boolean interrupted) {
+        driveTrain.drive(0, 0, false);
     }
     
 }
