@@ -14,10 +14,8 @@ public class PidTurnDegrees extends CommandBase{
     private double turnDegrees;
     private double startTime;
     private double startDegrees;
-    private double turnSpeed;
     private PIDController pid; 
     private double setPoint;
-    private double currentLocation;
     private double error;
 
     public PidTurnDegrees(DriveTrain driveTrain, double turnDegrees) {
@@ -30,31 +28,33 @@ public class PidTurnDegrees extends CommandBase{
     public void initialize() {
         this.startTime = Timer.getFPGATimestamp();
         this.startDegrees = driveTrain.getAngle();
+        setPoint = (startDegrees + turnDegrees)/180.0;
         pid = new PIDController(Constants.AUTO_MOVE_TURN_P_CONSTANT, Constants.AUTO_MOVE_TURN_I_CONSTANT, Constants.AUTO_MOVE_TURN_D_CONSTANT);
     }
 
     @Override
     public void execute() {
-        setPoint = (startDegrees + turnDegrees)/180.0;
-        currentLocation = driveTrain.getAngle()/180.0;
+        double motorVoltage;
+        double currentLocation = driveTrain.getAngle()/180.0;
+
         error = setPoint - currentLocation;
 
         if (Math.abs(error)*180 >Constants.AUTO_MOVE_TURN_DEGREES_THRESHOLD){
-            turnSpeed = Constants.AUTO_MOVE_TURN_VOLTAGE* Math.signum(error);
+            motorVoltage = Constants.AUTO_MOVE_TURN_VOLTAGE* Math.signum(error);
         } else {
-            turnSpeed = pid.calculate(currentLocation, setPoint);
+            motorVoltage = pid.calculate(currentLocation, setPoint);
         }
 
         if (Constants.ENABLE_DEBUG) {
-            SmartShuffleboard.put("Drive","calculated power", turnSpeed);
+            SmartShuffleboard.put("Drive","calculated power", motorVoltage);
             SmartShuffleboard.put("Drive","error", error*180.0);
         }
 
-        if (Math.abs(turnSpeed) > Constants.AUTO_MOVE_TURN_VOLTAGE) {
-            turnSpeed = Constants.AUTO_MOVE_TURN_VOLTAGE * Math.signum(turnSpeed);
+        if (Math.abs(motorVoltage) > Constants.AUTO_MOVE_TURN_VOLTAGE) {
+            motorVoltage = Constants.AUTO_MOVE_TURN_VOLTAGE * Math.signum(motorVoltage);
         }
 
-        driveTrain.driveVoltage(-1.0*turnSpeed, turnSpeed);
+        driveTrain.driveVoltage(-1.0*motorVoltage, motorVoltage);
     }
 
     @Override
