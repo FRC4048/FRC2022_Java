@@ -40,7 +40,7 @@ public class TwoShotSequenceMiddle extends SequentialCommandGroup {
       new TurnDegrees(driveTrain, 30),
       new MoveDistance(driveTrain, speed, 40),
       new AutoTargetSequence(turretSubsystem, limeLightVision, hood),
-      new ShooterSequeunce(shooterSubsystem, limeLightVision)
+      new ShooterSequeunce(shooterSubsystem, limeLightVision, turretSubsystem)
     );
   }
 }

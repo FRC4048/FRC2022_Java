@@ -34,14 +34,14 @@ public class ThreeShotSequenceRight extends SequentialCommandGroup {
       //new NonVisionParallelShoot(shooterSubsystem, intakeSubsystem, 12000.0),
       new ParallelMoveAndTurretResetAndIntake(driveTrain, 0.4, 40, turretSubsystem, turretSpeed, intakeSubsystem, hood),
       new AutoTargetSequence(turretSubsystem, limeLightVision, hood),
-      new ShooterSequeunce(shooterSubsystem, limeLightVision),
+      new ShooterSequeunce(shooterSubsystem, limeLightVision, turretSubsystem),
       new WaitCommand(0.5),
-      new ShooterSequeunce(shooterSubsystem, limeLightVision),
+      new ShooterSequeunce(shooterSubsystem, limeLightVision, turretSubsystem),
       new AutoTurnDegrees(driveTrain, -101),
       new ParralelMoveAndIntakeAndSetTurret(driveTrain, 0.5, 90, turretSubsystem, -turretSpeed, intakeSubsystem, hood, turretSubsystem),
       new AutoTurnDegrees(driveTrain, 65),
       new AutoTargetSequence(turretSubsystem, limeLightVision, hood),
-      new ShooterSequeunce(shooterSubsystem, limeLightVision)
+      new ShooterSequeunce(shooterSubsystem, limeLightVision, turretSubsystem)
     );
   }
 }
