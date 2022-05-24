@@ -53,8 +53,6 @@ public class DriveTrain extends SubsystemBase {
     public static final double maxAngularSpeed = 2 * Math.PI; // one rotation per second
 
     private static final double trackWidth = 0.5461; // meters
-    private static final double wheelRadius = 0.0762; // meters
-    private static final double chassisGearRatio = 10.75; // this value should be x:1
     //private static final int encoderResolution = 42 * 3; //Ticks per revolution ; for NEO it's 42*3
 
     // Tune PIDs
@@ -97,8 +95,8 @@ public class DriveTrain extends SubsystemBase {
         leftEncoder = left1.getEncoder();
         rightEncoder = right1.getEncoder();
 
-        leftEncoder.setPositionConversionFactor(2*wheelRadius*Math.PI/chassisGearRatio);
-        rightEncoder.setPositionConversionFactor(2*wheelRadius*Math.PI/chassisGearRatio);
+        leftEncoder.setPositionConversionFactor(2 * Constants.WHEEL_RADIUS * Math.PI / Constants.CHASSIS_GEAR_RATIO);
+        rightEncoder.setPositionConversionFactor(2 * Constants.WHEEL_RADIUS * Math.PI / Constants.CHASSIS_GEAR_RATIO);
 
         left2.follow(left1);
         right2.follow(right1);
