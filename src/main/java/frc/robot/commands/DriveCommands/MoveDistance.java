@@ -4,14 +4,10 @@
 
 package frc.robot.commands.DriveCommands;
 
-import java.util.function.DoubleSupplier;
-
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.commands.LoggedCommandBase;
 import frc.robot.Constants;
+import frc.robot.commands.LoggedCommandBase;
+import frc.robot.subsystems.DriveTrain;
 
 /** An example command that uses an example subsystem. */
 public class MoveDistance extends LoggedCommandBase {
@@ -20,11 +16,8 @@ public class MoveDistance extends LoggedCommandBase {
   private double speed;
   private double distanceInches;
   private double startTime;
-  //Still need to assign this a value 1.0 is temporary
-  private double encoderPerInch=1.0;
-
   
-
+  
   /**
    * Creates a new ExampleCommand.
    *
@@ -55,13 +48,15 @@ public class MoveDistance extends LoggedCommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+
+    System.out.println("finished");
     driveTrain.drive(0, 0, false);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if ((encoderPerInch * distanceInches) < (driveTrain.getLeftEncoder() - encoder)) {
+    if ((distanceInches / 44.905922263461282401981639271768 < (driveTrain.getLeftEncoder() - encoder))) {
       return true;
     }
     else {
