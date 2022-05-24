@@ -65,7 +65,7 @@ public class DriveTrain extends SubsystemBase {
     private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(1, 3);
 
     private DifferentialDriveOdometry odometry;
-    private Field2d fieldMap = new Field2d();
+    private Field2d fieldMap;
 
     public DriveTrain(){
 
@@ -87,9 +87,6 @@ public class DriveTrain extends SubsystemBase {
         fieldMap.setRobotPose(odometry.getPoseMeters());
 
         resetGyro();
-
-        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getAngle()), new Pose2d( 0.0, 0.0, new Rotation2d()));
-        fieldMap = new Field2d();
 
         left1.restoreFactoryDefaults();
         left2.restoreFactoryDefaults();
@@ -117,7 +114,7 @@ public class DriveTrain extends SubsystemBase {
         leftEncoder.setPosition(0);
         rightEncoder.setPosition(0);
 
-        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(imu.getAngle()));
+        
         Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Left Drive Encoder", 10, left1));
         Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Right Drive Encoder", 10, right1));
         // TODO: Are there diags for the IMU?
