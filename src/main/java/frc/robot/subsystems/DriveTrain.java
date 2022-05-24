@@ -60,7 +60,7 @@ public class DriveTrain extends SubsystemBase {
     private final PIDController rightPIDController = new PIDController(1, 0, 0);
 
     // Gains are for example purposes only - must be determined for your own robot!
-    private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(0, 0);
+    private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(1, 1);
 
     private DifferentialDriveOdometry odometry;
     private Field2d fieldMap;
@@ -144,8 +144,8 @@ public class DriveTrain extends SubsystemBase {
         final double rightPIDOutput = rightPIDController.calculate(rightEncoder.getVelocity(), wheelSpeeds.rightMetersPerSecond);
         
         //Set wheel voltage
-        left1.setVoltage(leftPIDOutput + leftFeedforward);
-        right1.setVoltage(rightPIDOutput + rightFeedforward);
+        left1.setVoltage(leftPIDOutput);
+        right1.setVoltage(rightPIDOutput);
 
         SmartShuffleboard.put("DriveTrain", "Left", "Left", leftPIDOutput + leftFeedforward);
         SmartShuffleboard.put("DriveTrain", "Right", "Right", rightPIDOutput + rightFeedforward);
