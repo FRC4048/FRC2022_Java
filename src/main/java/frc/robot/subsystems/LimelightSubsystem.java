@@ -42,13 +42,13 @@ public class LimelightSubsystem extends SubsystemBase {
     protected void addAll() {
         add("Target", vision.hasTarget());
 
-        if (vision.hasTarget()) {
+        /*if (vision.hasTarget()) {
           add("DistanceInInches", vision.calcHorizontalDistanceToTarget(vision.getCameraAngles().getTy()));
           add("XOffset", vision.getCameraAngles().getTx());
-        }
+        } */
     }
 
-  };
+  }; 
 
   public LimeLightVision getLimeLightVision() {
     return vision;

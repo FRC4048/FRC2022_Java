@@ -60,7 +60,7 @@ public class DriveTrain extends SubsystemBase {
     private final PIDController rightPIDController = new PIDController(1, 0, 0);
 
     // Gains are for example purposes only - must be determined for your own robot!
-    private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(1, 3);
+    private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(0, 0);
 
     private DifferentialDriveOdometry odometry;
     private Field2d fieldMap;
