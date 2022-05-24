@@ -79,4 +79,5 @@ public interface Constants2022Robot extends GameConstants {
 
     //Wheel
     public static final double WHEEL_DIAMETER = 6.0; //Remeasure
+    public static final double GEAR_RATIO = 10.75;
 }

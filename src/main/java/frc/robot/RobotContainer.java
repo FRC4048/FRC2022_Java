@@ -5,6 +5,8 @@
 package frc.robot;
 
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
@@ -22,17 +24,14 @@ import frc.robot.commands.Autonomous.OneShotSequenceMiddle;
 import frc.robot.commands.Autonomous.TwoShotSequenceLeft;
 import frc.robot.commands.Autonomous.TwoShotSequenceRight;
 import frc.robot.commands.ClimberCommands.AutoMoveClimberArm;
-import frc.robot.commands.ClimberCommands.AutoMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.AutoMoveClimberArm.ClimberDirection;
-import frc.robot.commands.ClimberCommands.ClimberExtendSequence;
-import frc.robot.commands.ClimberCommands.ClimberInfiniteLockTurret;
+import frc.robot.commands.ClimberCommands.AutoMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.CloseStaticHooks;
 import frc.robot.commands.ClimberCommands.LockTurretSequence;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.MoveClimberToNextBar;
 import frc.robot.commands.ClimberCommands.OpenStaticHooks;
-import frc.robot.commands.ClimberCommands.RetractClimberSequence;
 import frc.robot.commands.DriveCommands.AutoTurnDegrees;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.DriveCommands.TurnDegrees;
@@ -261,6 +260,56 @@ public class RobotContainer {
     return autoChooser.getAutonomousCommand(autoChooser.getAction());
   }
 
+  public double[] getStartPosition() {
+    switch (autoChooser.getAction()) {
+      case CROSS_LINE:
+      if (DriverStation.getAlliance() == Alliance.Red) {
+        return new double[] {1.1, 7.0}; //placeholder
+      }
+      else {
+        return new double[] {2.2, 8.1}; //placeholder
+      }
+      case DO_NOTHING:
+      if (DriverStation.getAlliance() == Alliance.Red) {
+        return new double[] {1.1, 7.0}; //placeholder
+      }
+      else {
+        return new double[] {2.2, 8.1}; //placeholder
+      }
+      case ONE_SHOT:
+        if (DriverStation.getAlliance() == Alliance.Red) {
+          return new double[] {1.1, 7.0}; //placeholder
+        }
+        else {
+          return new double[] {2.2, 8.1}; //placeholder
+        }
+      case THREE_SHOT_RIGHT:
+      if (DriverStation.getAlliance() == Alliance.Red) {
+        return new double[] {1.1, 7.0}; //placeholder
+      }
+      else {
+        return new double[] {2.2, 8.1}; //placeholder
+      }
+      case TWO_SHOT_LEFT:
+      if (DriverStation.getAlliance() == Alliance.Red) {
+        return new double[] {1.1, 7.0}; //placeholder
+      }
+      else {
+        return new double[] {2.2, 8.1}; //placeholder
+      }
+      case TWO_SHOT_RIGHT:
+      if (DriverStation.getAlliance() == Alliance.Red) {
+        return new double[] {1.1, 7.0}; //placeholder
+      }
+      else {
+        return new double[] {2.2, 8.1}; //placeholder
+      }
+      default:
+      return new double[] {2.4, 8.4}; //placeholder
+      
+    }
+  }
+
   public void installDriverShuffleboard() {
     SmartShuffleboard.putCommand("Driver", "Camera Detection", new SetPipeline(Constants.LIMELIGHT_TARGET_DETECTION));
     SmartShuffleboard.putCommand("Driver", "Camera Streaming", new SetPipeline(Constants.LIMELIGHT_STREAMING));
@@ -336,3 +385,5 @@ public class RobotContainer {
     }
   }
 } 
+
+
