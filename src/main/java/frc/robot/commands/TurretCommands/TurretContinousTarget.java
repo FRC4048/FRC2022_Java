@@ -6,6 +6,7 @@ package frc.robot.commands.TurretCommands;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -56,20 +57,10 @@ public class  TurretContinousTarget extends CommandBase {
 
       case LOCK:
         double speed;
-        
         if (limelight.hasTarget()) {
           double tx = limelight.getCameraAngles().getTx();
-          if (Math.abs(tx - TARGET_ANGLE) > Constants.TURRET_ERROR_THRESHOLD) {
-            speed = Constants.TURRET_FAST_SPEED;
-          } else {
-            speed = Constants.TURRET_SLOW_SPEED * (Math.abs(tx - TARGET_ANGLE) / Constants.TURRET_ERROR_THRESHOLD);
-          }
-          if (Math.abs(TARGET_ANGLE - tx) > .5) {
-            turret.setTurret(speed * Math.signum(TARGET_ANGLE - tx));
-          } else {
-            turretState = true;
-            turret.setTurret(0);
-          }
+          turret.setTurret(turret.getPID().calculate(tx, Constants.TURRET_ALIGN_OFFSET)); 
+          
         } else {
           if ((((turret.getEncoder() >= Constants.TURRET_RIGHT_THRESHOLD) || turret.getRightSwitch()) && turretSpeed < 0) ||
               (((turret.getEncoder() <= Constants.TURRET_LEFT_THRESHOLD) || turret.getLeftSwitch()) && turretSpeed > 0)) {
