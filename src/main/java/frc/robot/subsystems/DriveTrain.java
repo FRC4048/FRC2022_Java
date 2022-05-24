@@ -8,19 +8,25 @@ import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.diag.DiagSparkMaxEncoder;
 import frc.robot.utils.logging.Logging;
+
 
 public class DriveTrain extends SubsystemBase {
     public CANSparkMax left1;
@@ -29,8 +35,6 @@ public class DriveTrain extends SubsystemBase {
     private CANSparkMax right2;
     private RelativeEncoder leftEncoder;
     private RelativeEncoder rightEncoder;
-    private DifferentialDriveOdometry odometry;
-    private Field2d fieldMap = new Field2d();
 
     private SlewRateLimiter linearFilter;
     private SlewRateLimiter angularFilter;
@@ -38,9 +42,33 @@ public class DriveTrain extends SubsystemBase {
     private DifferentialDriveWheelSpeeds wheelSpeeds;
     private ChassisSpeeds chassisSpeeds;
     
+
+    private double p;
+    private double i;
+    private double d;
+    
     private final ADIS16470_IMU imu;
 
+    public static final double maxSpeed = 3.0; // meters per second
+    public static final double maxAngularSpeed = 2 * Math.PI; // one rotation per second
+
+    private static final double trackWidth = 0.5461; // meters
+    private static final double wheelRadius = 0.0762; // meters
+    private static final double chassisGearRatio = 10.75; // this value should be x:1
+    //private static final int encoderResolution = 42 * 3; //Ticks per revolution ; for NEO it's 42*3
+
+    // Tune PIDs
+    private final PIDController leftPIDController = new PIDController(1, 0, 0);
+    private final PIDController rightPIDController = new PIDController(1, 0, 0);
+
+    // Gains are for example purposes only - must be determined for your own robot!
+    private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(1, 3);
+
+    private DifferentialDriveOdometry odometry;
+    private Field2d fieldMap = new Field2d();
+
     public DriveTrain(){
+
         left1 = new CANSparkMax(Constants.DRIVE_LEFT1_ID, MotorType.kBrushless);
         left2 = new CANSparkMax(Constants.DRIVE_LEFT2_ID, MotorType.kBrushless);
         right1 = new CANSparkMax(Constants.DRIVE_RIGHT1_ID, MotorType.kBrushless);
@@ -49,11 +77,16 @@ public class DriveTrain extends SubsystemBase {
         linearFilter = new SlewRateLimiter(4);
         angularFilter = new SlewRateLimiter(6);
 
-        kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(22));
+        kinematics = new DifferentialDriveKinematics(trackWidth);
         wheelSpeeds = new DifferentialDriveWheelSpeeds();
         chassisSpeeds = new ChassisSpeeds();
 
         imu = new ADIS16470_IMU();
+        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getAngle()), new Pose2d( 5.0, 5.0, new Rotation2d()));
+        fieldMap = new Field2d();
+        fieldMap.setRobotPose(odometry.getPoseMeters());
+
+        resetGyro();
 
         odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getAngle()), new Pose2d( 0.0, 0.0, new Rotation2d()));
         fieldMap = new Field2d();
@@ -67,8 +100,8 @@ public class DriveTrain extends SubsystemBase {
         leftEncoder = left1.getEncoder();
         rightEncoder = right1.getEncoder();
 
-        leftEncoder.setPositionConversionFactor(Constants.WHEEL_DIAMETER * Math.PI / 10.75);
-        rightEncoder.setPositionConversionFactor(Constants.WHEEL_DIAMETER * Math.PI / 10.75);
+        leftEncoder.setPositionConversionFactor(2*wheelRadius*Math.PI/chassisGearRatio);
+        rightEncoder.setPositionConversionFactor(2*wheelRadius*Math.PI/chassisGearRatio);
 
         left2.follow(left1);
         right2.follow(right1);
@@ -80,48 +113,71 @@ public class DriveTrain extends SubsystemBase {
         left2.setIdleMode(IdleMode.kBrake);
         right1.setIdleMode(IdleMode.kBrake);
         right2.setIdleMode(IdleMode.kBrake);
-
-        rightEncoder.setPosition(0.0);
-        leftEncoder.setPosition(0.0);
-
-        resetGyro();
         
+        leftEncoder.setPosition(0);
+        rightEncoder.setPosition(0);
 
+        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(imu.getAngle()));
         Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Left Drive Encoder", 10, left1));
         Robot.getDiagnostics().addDiagnosable(new DiagSparkMaxEncoder("Right Drive Encoder", 10, right1));
         // TODO: Are there diags for the IMU?
+
+        SmartDashboard.putNumber("P Left", 0.0001);
+        SmartDashboard.putNumber("I Left", 0);
+        SmartDashboard.putNumber("D Left", 0);
     }
 
     public void drive(double speedLeft, double speedRight, boolean isSquared) {
 
         wheelSpeeds.leftMetersPerSecond = speedLeft;
         wheelSpeeds.rightMetersPerSecond = speedRight;
+
+        SmartShuffleboard.put("DriveTrain", "LeftWheel", "LeftWheelSpeed", wheelSpeeds.leftMetersPerSecond);
+
+        //Use kinematics library to filter drive speed
         chassisSpeeds = kinematics.toChassisSpeeds(wheelSpeeds);
         double linear = linearFilter.calculate(chassisSpeeds.vxMetersPerSecond);
         double angular = angularFilter.calculate(chassisSpeeds.omegaRadiansPerSecond);
         ChassisSpeeds filteredChassisSpeeds = new ChassisSpeeds(linear, 0.0, angular); 
         wheelSpeeds = kinematics.toWheelSpeeds(filteredChassisSpeeds);
-        left1.set(wheelSpeeds.leftMetersPerSecond);
-        right1.set(wheelSpeeds.rightMetersPerSecond);
+        SmartShuffleboard.put("DriveTrain", "LeftWheel", "LeftWheelFilteredSpeed", wheelSpeeds.leftMetersPerSecond);
         
-      
-        /*if(isSquared) {
+        //Set feedforwards and PIDs
+        final double leftFeedforward = feedforward.calculate(wheelSpeeds.leftMetersPerSecond);
+        final double rightFeedforward = feedforward.calculate(wheelSpeeds.rightMetersPerSecond);
+        final double leftPIDOutput = leftPIDController.calculate(leftEncoder.getVelocity(), wheelSpeeds.leftMetersPerSecond);
+        final double rightPIDOutput = rightPIDController.calculate(rightEncoder.getVelocity(), wheelSpeeds.rightMetersPerSecond);
+        
+        //Set wheel voltage
+        left1.setVoltage(leftPIDOutput + leftFeedforward);
+        right1.setVoltage(rightPIDOutput + rightFeedforward);
+
+        SmartShuffleboard.put("DriveTrain", "Left", "Left", leftPIDOutput + leftFeedforward);
+        SmartShuffleboard.put("DriveTrain", "Right", "Right", rightPIDOutput + rightFeedforward);
+
+        //TODO move this to filter joystick inputs
+        /* if(isSquared) {
             speedLeft = Math.signum(speedLeft) * Math.pow(speedLeft, 2);
             speedRight = Math.signum(speedRight) * Math.pow(speedRight, 2);
-          }
-
-          */
-
+          } */
           // driveTrain.tankDrive(speedLeft, speedRight);
           //The joysticks are inverted so inverting this makes it drive correctly.
-    }
+        }
 
+    public void driveVoltage(double voltageLeft, double voltageRight){
+        left1.setVoltage(voltageLeft);
+        right1.setVoltage(voltageRight);
+    }
       /**
    * Resets the Gyro
    */
     public void resetGyro() {
         imu.reset();
         imu.calibrate();
+    }
+
+    public void resetEncoders() {
+        
     }
 
       /**
@@ -145,9 +201,22 @@ public class DriveTrain extends SubsystemBase {
             SmartShuffleboard.put("Drive", "Gyro", "Y Comp Angle", imu.getYComplementaryAngle());
             SmartShuffleboard.put("Drive", "Gyro", "X filtered acceleration angle", imu.getXFilteredAccelAngle());
             SmartShuffleboard.put("Drive", "Gyro", "Y filtered acceleration angle", imu.getYFilteredAccelAngle());
-        }
-        odometry.update(Rotation2d.fromDegrees(-imu.getAngle()), getLeftEncoder(), getRightEncoder());
-        fieldMap.setRobotPose(odometry.getPoseMeters());
+         }
+
+         p = SmartDashboard.getNumber("P Left", 1);
+         i = SmartDashboard.getNumber("I Left", 0);
+         d = SmartDashboard.getNumber("D Left", 0);
+ 
+         leftPIDController.setP(p);
+         leftPIDController.setI(i);
+         leftPIDController.setD(d);
+ 
+         rightPIDController.setP(p);
+         rightPIDController.setI(i);
+         rightPIDController.setD(d);
+         odometry.update(Rotation2d.fromDegrees(imu.getAngle()), getLeftEncoder(), getRightEncoder());
+         fieldMap.setRobotPose(odometry.getPoseMeters());
+         SmartDashboard.putData("Field", fieldMap);
     }
 
     public double getLeftEncoder(){
