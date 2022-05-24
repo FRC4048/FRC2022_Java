@@ -164,6 +164,10 @@ public class DriveTrain extends SubsystemBase {
           //The joysticks are inverted so inverting this makes it drive correctly.
         }
 
+    public void driveVoltage(double voltageLeft, double voltageRight){
+        left1.setVoltage(voltageLeft);
+        right1.setVoltage(voltageRight);
+    }
       /**
    * Resets the Gyro
    */
