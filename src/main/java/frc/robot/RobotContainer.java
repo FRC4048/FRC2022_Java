@@ -263,50 +263,51 @@ public class RobotContainer {
 
   public double[] getStartPosition() {
     switch (autoChooser.getAction()) {
+      //double[] {X-axis, Y-axis, x component or cosine of the rotation, y component or sine of the rotation}
       case CROSS_LINE:
       if (DriverStation.getAlliance() == Alliance.Red) {
-        return new double[] {1.1, 7.0}; //placeholder
+        return new double[] {1.1, 7.0, 1.1, 7.0}; //placeholder
       }
       else {
-        return new double[] {2.2, 8.1}; //placeholder
+        return new double[] {2.2, 8.1, 1.1, 7.0}; //placeholder
       }
       case DO_NOTHING:
       if (DriverStation.getAlliance() == Alliance.Red) {
-        return new double[] {1.1, 7.0}; //placeholder
+        return new double[] {1.1, 7.0, 1.1, 7.0}; //placeholder
       }
       else {
-        return new double[] {2.2, 8.1}; //placeholder
+        return new double[] {2.2, 8.1, 1.1, 7.0}; //placeholder
       }
       case ONE_SHOT:
         if (DriverStation.getAlliance() == Alliance.Red) {
-          return new double[] {1.1, 7.0}; //placeholder
+          return new double[] {1.1, 7.0, 1.1, 7.0}; //placeholder
         }
         else {
-          return new double[] {2.2, 8.1}; //placeholder
+          return new double[] {2.2, 8.1, 1.1, 7.0}; //placeholder
         }
       case THREE_SHOT_RIGHT:
       if (DriverStation.getAlliance() == Alliance.Red) {
-        return new double[] {1.1, 7.0}; //placeholder
+        return new double[] {1.1, 7.0, 1.1, 7.0}; //placeholder
       }
       else {
-        return new double[] {2.2, 8.1}; //placeholder
+        return new double[] {2.2, 8.1, 1.1, 7.0}; //placeholder
       }
       case TWO_SHOT_LEFT:
       if (DriverStation.getAlliance() == Alliance.Red) {
-        return new double[] {1.1, 7.0}; //placeholder
+        return new double[] {1.1, 7.0, 1.1, 7.0}; //placeholder
       }
       else {
-        return new double[] {2.2, 8.1}; //placeholder
+        return new double[] {2.2, 8.1, 1.1, 7.0}; //placeholder
       }
       case TWO_SHOT_RIGHT:
       if (DriverStation.getAlliance() == Alliance.Red) {
-        return new double[] {1.1, 7.0}; //placeholder
+        return new double[] {1.1, 7.0, 1.1, 7.0}; //placeholder
       }
       else {
-        return new double[] {2.2, 8.1}; //placeholder
+        return new double[] {2.2, 8.1, 1.1, 7.0}; //placeholder
       }
       default:
-      return new double[] {2.4, 8.4}; //placeholder
+      return new double[] {2.4, 8.4, 1.1, 7.0}; //placeholder
       
     }
   }

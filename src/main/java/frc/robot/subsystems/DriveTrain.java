@@ -5,9 +5,6 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -80,7 +77,7 @@ public class DriveTrain extends SubsystemBase {
         chassisSpeeds = new ChassisSpeeds();
 
         imu = new ADIS16470_IMU();
-        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getAngle()), new Pose2d( 5.0, 5.0, new Rotation2d()));
+        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getAngle()), new Pose2d( 0.0, 0.0, new Rotation2d()));
         fieldMap = new Field2d();
         fieldMap.setRobotPose(odometry.getPoseMeters());
 
@@ -173,6 +170,10 @@ public class DriveTrain extends SubsystemBase {
 
     public void resetEncoders() {
         
+    }
+
+    public void setRobotPosition(double[] Robotposition) {
+        fieldMap.setRobotPose(new Pose2d(Robotposition[0], Robotposition[1], new Rotation2d(Robotposition[2], Robotposition[3])));
     }
 
       /**
