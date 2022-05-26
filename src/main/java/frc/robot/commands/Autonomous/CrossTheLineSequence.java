@@ -20,7 +20,7 @@ public class CrossTheLineSequence extends ParallelCommandGroup {
   public CrossTheLineSequence(DriveTrain driveTrain, TurretSubsystem turretSubsystem, double turretSpeed) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new MoveDistance(driveTrain, 0.4, 70),
+    addCommands(new MoveDistance(driveTrain, 0.4, 1.8),
     new AutoSetShootingPosition(turretSubsystem, turretSpeed, Constants.AUTO_TURRET_CENTER_ANGLE)
 
     );

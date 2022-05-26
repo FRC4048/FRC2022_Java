@@ -14,7 +14,7 @@ public class MoveDistance extends LoggedCommandBase {
   private final DriveTrain driveTrain;
   private double encoder;
   private double speed;
-  private double distanceInches;
+  private double distanceMeters;
   private double startTime;
   
   
@@ -24,7 +24,7 @@ public class MoveDistance extends LoggedCommandBase {
    * @param subsystem The subsystem used by this command.
    */
   public MoveDistance(DriveTrain driveTrain, double speed, double distanceInches) {
-    this.distanceInches = distanceInches;
+    this.distanceMeters = distanceInches;
     this.speed = speed;
     this.driveTrain = driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -34,8 +34,9 @@ public class MoveDistance extends LoggedCommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    //driveTrain.resetEncoders();
     encoder = driveTrain.getLeftEncoder();
-    addLog(distanceInches);
+    addLog(distanceMeters);
     startTime = Timer.getFPGATimestamp();
   }
 
@@ -48,15 +49,13 @@ public class MoveDistance extends LoggedCommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
-    System.out.println("finished");
-    driveTrain.drive(0, 0, false);
+    driveTrain.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if ((distanceInches / 44.905922263461282401981639271768 < (driveTrain.getLeftEncoder() - encoder))) {
+   if ((driveTrain.getLeftEncoder() - encoder) > distanceMeters) { 
       return true;
     }
     else {

@@ -103,7 +103,7 @@ public interface GameConstants {
   public static final double AUTO_MOVE_TURN_VOLTAGE = 3.0;
 
 
-  public static final double CONTROLLER_DEAD_ZONE = 0.01;
+  public static final double CONTROLLER_DEAD_ZONE = 0.03;
 
   // Turret 
   public static final double TURRET_CLOCKWISE_SPEED = .5;
