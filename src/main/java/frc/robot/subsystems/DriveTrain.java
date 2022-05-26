@@ -174,8 +174,7 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void resetEncoders() {
-        leftEncoder.setPosition(0.0);
-        rightEncoder.setPosition(0.0);
+        //DON'T USE IT RUINS ODOMETRY
     }
 
     public void setRobotPosition(double[] Robotposition) {
