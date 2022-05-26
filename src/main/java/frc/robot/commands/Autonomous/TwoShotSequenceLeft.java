@@ -25,7 +25,7 @@ import frc.robot.utils.limelight.LimeLightVision;
 public class TwoShotSequenceLeft extends SequentialCommandGroup {
   /** Creates a new Autonomous. 
   */
-  public TwoShotSequenceLeft(TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, double speed, double distanceInches, ShooterSubsystem shooterSubsystem, LimeLightVision limeLightVision, Hood hood) {
+  public TwoShotSequenceLeft(TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, double speed, double distanceMeters, ShooterSubsystem shooterSubsystem, LimeLightVision limeLightVision, Hood hood) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(

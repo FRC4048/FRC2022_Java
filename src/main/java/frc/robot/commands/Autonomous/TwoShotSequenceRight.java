@@ -24,7 +24,7 @@ public class TwoShotSequenceRight extends SequentialCommandGroup {
   /** Creates a new TwoShotSequenceRight. 
    * @param vision 
    * @param hoodSubsystem */
-  public TwoShotSequenceRight(TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, double speed, double distanceInches, ShooterSubsystem shooterSubsystem, LimeLightVision limeLightVision, Hood hood) {
+  public TwoShotSequenceRight(TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, double speed, double distanceMeters, ShooterSubsystem shooterSubsystem, LimeLightVision limeLightVision, Hood hood) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(

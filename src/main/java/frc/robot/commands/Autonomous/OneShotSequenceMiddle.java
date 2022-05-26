@@ -25,8 +25,8 @@ public class OneShotSequenceMiddle extends SequentialCommandGroup {
   /** Creates a new TwoShotSequenceMiddle. 
    * @param hood 
    * @param speed 
-   * @param distanceInches */
-  public OneShotSequenceMiddle(TurretSubsystem turretSubsystem, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, ShooterSubsystem shooterSubsystem, LimeLightVision limeLightVision, Hood hood, double speed, double distanceInches) {
+   * @param distanceMeters */
+  public OneShotSequenceMiddle(TurretSubsystem turretSubsystem, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, ShooterSubsystem shooterSubsystem, LimeLightVision limeLightVision, Hood hood, double speed, double distanceMeters) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(

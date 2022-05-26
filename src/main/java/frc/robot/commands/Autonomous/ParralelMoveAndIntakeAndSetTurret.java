@@ -9,9 +9,9 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
 
 public class ParralelMoveAndIntakeAndSetTurret extends ParallelCommandGroup {
-    public ParralelMoveAndIntakeAndSetTurret(DriveTrain driveTrain, double speed, double distanceInches, TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, Hood hood, TurretSubsystem TurretSubsystem) {
+    public ParralelMoveAndIntakeAndSetTurret(DriveTrain driveTrain, double speed, double distanceMeters, TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, Hood hood, TurretSubsystem TurretSubsystem) {
         addCommands(
-            new MoveDistance(driveTrain, speed, distanceInches),
+            new MoveDistance(driveTrain, speed, distanceMeters),
             new IntakeSequence(intakeSubsystem)
             //new AutoSetTurretPosition(turretSubsystem, speed, 425)
         );

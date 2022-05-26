@@ -27,7 +27,7 @@ public class ThreeShotSequenceRight extends SequentialCommandGroup {
   /** Creates a new TwoShotSequenceRight. 
    * @param vision 
    * @param hoodSubsystem */
-  public ThreeShotSequenceRight(TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, double speed, double distanceInches, ShooterSubsystem shooterSubsystem, LimeLightVision limeLightVision, Hood hood) {
+  public ThreeShotSequenceRight(TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, double speed, double distanceMeters, ShooterSubsystem shooterSubsystem, LimeLightVision limeLightVision, Hood hood) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(

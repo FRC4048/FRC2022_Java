@@ -23,8 +23,8 @@ public class MoveDistance extends LoggedCommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public MoveDistance(DriveTrain driveTrain, double speed, double distanceInches) {
-    this.distanceMeters = distanceInches;
+  public MoveDistance(DriveTrain driveTrain, double speed, double distanceMeters) {
+    this.distanceMeters = distanceMeters;
     this.speed = speed;
     this.driveTrain = driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
