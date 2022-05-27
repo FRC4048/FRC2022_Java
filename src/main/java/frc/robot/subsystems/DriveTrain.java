@@ -178,7 +178,7 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void setRobotPosition(double[] Robotposition) {
-        fieldMap.setRobotPose(new Pose2d(Robotposition[0], Robotposition[1], new Rotation2d(Robotposition[2], Robotposition[3])));
+        fieldMap.setRobotPose(new Pose2d(Robotposition[0], Robotposition[1], new Rotation2d(Math.cos(Robotposition[2]), Math.sin(Robotposition[2]))));
     }
 
       /**
