@@ -93,6 +93,7 @@ public interface GameConstants {
   public static final double AUTO_MOVE_TURN_SLOWDOWN_ERROR = 50;
   public static final double AUTO_MOVE_TURN_TIMEOUT = 4;
   public static final double AUTO_MOVE_TURN_THRESHOLD = 2;
+  public static final double AUTO_MOVE_TURN_COUNTER_THRESHOLD = 20; 
 
   public static final double AUTO_MOVE_TURN_DEGREES_THRESHOLD = 30.0;
 

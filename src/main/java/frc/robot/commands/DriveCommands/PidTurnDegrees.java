@@ -17,6 +17,7 @@ public class PidTurnDegrees extends CommandBase{
     private PIDController pid; 
     private double setPoint;
     private double error;
+    private int counter; 
 
     public PidTurnDegrees(DriveTrain driveTrain, double turnDegrees) {
         this.driveTrain = driveTrain;
@@ -29,6 +30,7 @@ public class PidTurnDegrees extends CommandBase{
         this.startTime = Timer.getFPGATimestamp();
         this.startDegrees = driveTrain.getAngle();
         setPoint = (startDegrees + turnDegrees)/180.0;
+        counter = 0;
         pid = new PIDController(Constants.AUTO_MOVE_TURN_P_CONSTANT, Constants.AUTO_MOVE_TURN_I_CONSTANT, Constants.AUTO_MOVE_TURN_D_CONSTANT);
     }
 
@@ -55,6 +57,8 @@ public class PidTurnDegrees extends CommandBase{
         }
 
         driveTrain.driveVoltage(-1.0*motorVoltage, motorVoltage);
+
+
     }
 
     @Override
@@ -62,12 +66,19 @@ public class PidTurnDegrees extends CommandBase{
         if (Timer.getFPGATimestamp() - startTime >= Constants.AUTO_MOVE_TURN_TIMEOUT) {
             return true;
         }
-        return (Math.abs(error) * 180 <= Constants.AUTO_MOVE_TURN_THRESHOLD);
+
+        if(Math.abs(error) * 180 <= Constants.AUTO_MOVE_TURN_THRESHOLD){
+            counter++; 
+        }else{
+            counter = 0;
+        }
+
+        return (counter > Constants.AUTO_MOVE_TURN_COUNTER_THRESHOLD);
     }
 
     @Override
     public void end(boolean interrupted) {
-        driveTrain.drive(0, 0, false);
+        driveTrain.stop();
     }
     
 }
