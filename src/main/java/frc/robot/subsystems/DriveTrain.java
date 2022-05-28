@@ -176,9 +176,12 @@ public class DriveTrain extends SubsystemBase {
     public void resetEncoders() {
         //DON'T USE IT RUINS ODOMETRY
     }
-
+    /**
+     * Sets the Postio of the robot
+     * @param Robotposition {x value, y value, rotation angle}
+     */
     public void setRobotPosition(double[] Robotposition) {
-        fieldMap.setRobotPose(new Pose2d(Robotposition[0], Robotposition[1], new Rotation2d(Math.cos(Robotposition[2]), Math.sin(Robotposition[2]))));
+        fieldMap.setRobotPose(new Pose2d(Robotposition[0], Robotposition[1], new Rotation2d(Math.cos(Math.toRadians(Robotposition[2])), Math.sin(Math.toRadians((Robotposition[2]))))));
     }
 
       /**
