@@ -259,9 +259,8 @@ public class RobotContainer {
     return autoChooser.getAutonomousCommand(autoChooser.getAction());
   }
 
-  public double[] getStartPosition() {
+  /* public double[] getStartPosition() {
     switch (autoChooser.getAction()) {
-      //double[] {X-axis, Y-axis, rotation}
       case CROSS_LINE:
       if (DriverStation.getAlliance() == Alliance.Red) {
         return new double[] {1.1, 7.0, 1.1}; //placeholder
@@ -308,7 +307,11 @@ public class RobotContainer {
       return new double[] {2.4, 8.4, 1.1}; //placeholder
       
     }
-  }
+  } */
+  //Do we want to merge setStartPosition and setRobotPosition instead?
+  /*public void setStartPosition(DriveTrain driveTrain) {
+    driveTrain.setRobotPosition(getStartPosition());
+  } */
 
   public void installDriverShuffleboard() {
     SmartShuffleboard.putCommand("Driver", "Camera Detection", new SetPipeline(Constants.LIMELIGHT_TARGET_DETECTION));
