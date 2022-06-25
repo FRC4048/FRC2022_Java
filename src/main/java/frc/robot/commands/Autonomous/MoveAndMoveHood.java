@@ -13,9 +13,9 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
 
 public class MoveAndMoveHood extends ParallelCommandGroup {
-    public MoveAndMoveHood(DriveTrain driveTrain, double speed, double distanceInches, Hood hood) {
+    public MoveAndMoveHood(DriveTrain driveTrain, double speed, double distanceMeters, Hood hood) {
         addCommands(
-            new MoveDistance(driveTrain, speed, distanceInches),
+            new MoveDistance(driveTrain, speed, distanceMeters),
             new MoveHoodToAngle(hood, 112.0)
         );
     }

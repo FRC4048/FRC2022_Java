@@ -93,6 +93,7 @@ public interface GameConstants {
   public static final double AUTO_MOVE_TURN_SLOWDOWN_ERROR = 50;
   public static final double AUTO_MOVE_TURN_TIMEOUT = 4;
   public static final double AUTO_MOVE_TURN_THRESHOLD = 2;
+  public static final double AUTO_MOVE_TURN_COUNTER_THRESHOLD = 20; 
 
   public static final double AUTO_MOVE_TURN_DEGREES_THRESHOLD = 30.0;
 
@@ -103,7 +104,7 @@ public interface GameConstants {
   public static final double AUTO_MOVE_TURN_VOLTAGE = 3.0;
 
 
-  public static final double CONTROLLER_DEAD_ZONE = 0;
+  public static final double CONTROLLER_DEAD_ZONE = 0.07;
 
   // Turret 
   public static final double TURRET_CLOCKWISE_SPEED = .5;

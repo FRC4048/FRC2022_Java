@@ -26,21 +26,21 @@ public class TwoShotSequenceMiddle extends SequentialCommandGroup {
   /** Creates a new TwoShotSequenceRight. 
    * @param vision 
    * @param hoodSubsystem */
-  public TwoShotSequenceMiddle(TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, double speed, double distanceInches, ShooterSubsystem shooterSubsystem, LimeLightVision limeLightVision, Hood hood) {
+  public TwoShotSequenceMiddle(TurretSubsystem turretSubsystem, double turretSpeed, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, double speed, double distanceMeters, ShooterSubsystem shooterSubsystem, LimeLightVision limeLightVision, Hood hood) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 
     //UNUSED RIGHT NOW
     addCommands(
-      new MoveAndMoveHood(driveTrain, speed, 12, hood),
+      new MoveAndMoveHood(driveTrain, speed, 0.3, hood),
       new NonVisionParallelShoot(shooterSubsystem, intakeSubsystem, 11800),
-      new ParallelMoveAndTurretReset(driveTrain, speed, 120, turretSubsystem, Constants.AUTO_TURRET_SPEED, intakeSubsystem),
+      new ParallelMoveAndTurretReset(driveTrain, speed, 3.0, turretSubsystem, Constants.AUTO_TURRET_SPEED, intakeSubsystem),
       new TurnDegrees(driveTrain, -105),
-      new ParallelMoveAndIntake(driveTrain, speed, 60, turretSubsystem, turretSpeed, intakeSubsystem, hood, turretSubsystem),
+      new ParallelMoveAndIntake(driveTrain, speed, 1.5, turretSubsystem, turretSpeed, intakeSubsystem, hood, turretSubsystem),
       new TurnDegrees(driveTrain, 30),
-      new MoveDistance(driveTrain, speed, 40),
+      new MoveDistance(driveTrain, speed, 1),
       new AutoTargetSequence(turretSubsystem, limeLightVision, hood),
-      new ShooterSequeunce(shooterSubsystem, limeLightVision)
+      new ShooterSequeunce(shooterSubsystem, limeLightVision, turretSubsystem)
     );
   }
 }

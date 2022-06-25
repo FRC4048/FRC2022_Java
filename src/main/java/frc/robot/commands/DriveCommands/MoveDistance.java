@@ -4,34 +4,27 @@
 
 package frc.robot.commands.DriveCommands;
 
-import java.util.function.DoubleSupplier;
-
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.commands.LoggedCommandBase;
 import frc.robot.Constants;
+import frc.robot.commands.LoggedCommandBase;
+import frc.robot.subsystems.DriveTrain;
 
 /** An example command that uses an example subsystem. */
 public class MoveDistance extends LoggedCommandBase {
   private final DriveTrain driveTrain;
   private double encoder;
   private double speed;
-  private double distanceInches;
+  private double distanceMeters;
   private double startTime;
-  //Still need to assign this a value 1.0 is temporary
-  private double encoderPerInch=1.0;
-
   
-
+  
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public MoveDistance(DriveTrain driveTrain, double speed, double distanceInches) {
-    this.distanceInches = distanceInches;
+  public MoveDistance(DriveTrain driveTrain, double speed, double distanceMeters) {
+    this.distanceMeters = distanceMeters;
     this.speed = speed;
     this.driveTrain = driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -41,8 +34,9 @@ public class MoveDistance extends LoggedCommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    //driveTrain.resetEncoders();
     encoder = driveTrain.getLeftEncoder();
-    addLog(distanceInches);
+    addLog(distanceMeters);
     startTime = Timer.getFPGATimestamp();
   }
 
@@ -55,13 +49,13 @@ public class MoveDistance extends LoggedCommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    driveTrain.drive(0, 0, false);
+    driveTrain.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if ((encoderPerInch * distanceInches) < (driveTrain.getLeftEncoder() - encoder)) {
+   if ((driveTrain.getLeftEncoder() - encoder) > distanceMeters) { 
       return true;
     }
     else {

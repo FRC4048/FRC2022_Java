@@ -14,6 +14,7 @@ import frc.robot.Constants;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.limelight.CameraAngles;
 import frc.robot.utils.limelight.LimeLightVision;
+import frc.robot.utils.logging.Logging;
 
 public class LimelightSubsystem extends SubsystemBase {
   /** Creates a new LimelightSubsystem. */
@@ -34,6 +35,20 @@ public class LimelightSubsystem extends SubsystemBase {
     SmartShuffleboard.put("Driver", "Limelight", "Feed URL", cameraFeedUrl);
 
   }
+  
+  public Logging.LoggingContext loggingContext = new Logging.LoggingContext(this.getClass()) {
+
+    @Override
+    protected void addAll() {
+        add("Target", vision.hasTarget());
+
+        /*if (vision.hasTarget()) {
+          add("DistanceInInches", vision.calcHorizontalDistanceToTarget(vision.getCameraAngles().getTy()));
+          add("XOffset", vision.getCameraAngles().getTx());
+        } */
+    }
+
+  }; 
 
   public LimeLightVision getLimeLightVision() {
     return vision;
@@ -56,4 +71,3 @@ public class LimelightSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 } 
- 

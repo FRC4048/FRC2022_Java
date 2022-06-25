@@ -25,14 +25,15 @@ public class OneShotSequenceMiddle extends SequentialCommandGroup {
   /** Creates a new TwoShotSequenceMiddle. 
    * @param hood 
    * @param speed 
-   * @param distanceInches */
-  public OneShotSequenceMiddle(TurretSubsystem turretSubsystem, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, ShooterSubsystem shooterSubsystem, LimeLightVision limeLightVision, Hood hood, double speed, double distanceInches) {
+   * @param distanceMeters */
+  public OneShotSequenceMiddle(TurretSubsystem turretSubsystem, IntakeSubsystem intakeSubsystem, DriveTrain driveTrain, ShooterSubsystem shooterSubsystem, LimeLightVision limeLightVision, Hood hood, double speed, double distanceMeters) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new MoveAndMoveHood(driveTrain, 0.4, 12, hood),
+      //new MoveAndMoveHood(driveTrain, 0.4, 12, hood),
+      new MoveDistance(driveTrain, .4, 0.3),
       new NonVisionParallelShoot(shooterSubsystem, intakeSubsystem, 12000),
-      new ParallelMoveAndTurretReset(driveTrain, speed, 65, turretSubsystem, Constants.AUTO_TURRET_SPEED, intakeSubsystem)
+      new ParallelMoveAndTurretReset(driveTrain, speed, 1.65, turretSubsystem, Constants.AUTO_TURRET_SPEED, intakeSubsystem)
     );
   }
 }

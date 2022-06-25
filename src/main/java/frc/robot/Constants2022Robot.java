@@ -76,4 +76,8 @@ public interface Constants2022Robot extends GameConstants {
 
     // Limelight
     public static final String LIMELIGHT_IP_ADDR = "10.40.48.33";
+
+    //Wheel
+    public static final double WHEEL_RADIUS = 0.0762; // meters
+    public static final double CHASSIS_GEAR_RATIO = 10.75; // this value should be x:1
 }

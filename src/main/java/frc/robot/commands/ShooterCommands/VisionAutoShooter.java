@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants;
 import frc.robot.commands.LoggedCommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.utils.SmartShuffleboard;
 import frc.robot.utils.limelight.LimeLightVision;
 import frc.robot.utils.logging.LogCommandWrapper;
@@ -24,6 +25,7 @@ public class VisionAutoShooter extends LoggedCommandBase {
   private ShooterSubsystem shooter;
   private double startTime;
   private boolean done;
+  private TurretSubsystem turret;
 
   static {
     // Conversion Map from feet to pot ticks
@@ -43,11 +45,11 @@ public class VisionAutoShooter extends LoggedCommandBase {
     rpmLookupMap.put(16, 14200.0);
   }
 
-  public VisionAutoShooter(LimeLightVision vision, ShooterSubsystem shooter) {
+  public VisionAutoShooter(LimeLightVision vision, ShooterSubsystem shooter, TurretSubsystem turret) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.vision = vision;
     this.shooter = shooter;
-
+    this.turret = turret;
   }
 
   // Called when the command is initially scheduled.
@@ -78,6 +80,7 @@ public class VisionAutoShooter extends LoggedCommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    addLog(turret.getEncoder());
     return (done || ((Timer.getFPGATimestamp() - startTime) >= Constants.HOOD_TARGET_TIMEOUT));
   }
 

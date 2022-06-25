@@ -5,6 +5,8 @@
 package frc.robot;
 
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
@@ -22,21 +24,16 @@ import frc.robot.commands.Autonomous.OneShotSequenceMiddle;
 import frc.robot.commands.Autonomous.TwoShotSequenceLeft;
 import frc.robot.commands.Autonomous.TwoShotSequenceRight;
 import frc.robot.commands.ClimberCommands.AutoMoveClimberArm;
-import frc.robot.commands.ClimberCommands.AutoMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.AutoMoveClimberArm.ClimberDirection;
-import frc.robot.commands.ClimberCommands.ClimberExtendSequence;
-import frc.robot.commands.ClimberCommands.ClimberInfiniteLockTurret;
+import frc.robot.commands.ClimberCommands.AutoMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.CloseStaticHooks;
 import frc.robot.commands.ClimberCommands.LockTurretSequence;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberArm;
 import frc.robot.commands.ClimberCommands.ManualMoveClimberWinch;
 import frc.robot.commands.ClimberCommands.MoveClimberToNextBar;
 import frc.robot.commands.ClimberCommands.OpenStaticHooks;
-import frc.robot.commands.ClimberCommands.RetractClimberSequence;
-import frc.robot.commands.DriveCommands.AutoTurnDegrees;
 import frc.robot.commands.DriveCommands.Drive;
 import frc.robot.commands.DriveCommands.PidTurnDegrees;
-import frc.robot.commands.DriveCommands.TurnDegrees;
 import frc.robot.commands.HoodCommands.HoodAutoCommand;
 import frc.robot.commands.HoodCommands.HoodContinousTarget;
 import frc.robot.commands.HoodCommands.MoveHoodDown;
@@ -233,7 +230,7 @@ public class RobotContainer {
     buttonY.whenPressed(new LogCommandWrapper(new ManuallyToggleIntake(intakeSubsystem)));
     buttonX.whenPressed(new LogCommandWrapper(new DropBallCommandManual(intakeSubsystem, 0.8)));
 
-    rightTrigger.whenActive(new LogCommandWrapper(new ShooterSequeunce(shooterSubsystem, limeLightVision.getLimeLightVision())));
+    rightTrigger.whenActive(new LogCommandWrapper(new ShooterSequeunce(shooterSubsystem, limeLightVision.getLimeLightVision(), turretSubsystem)));
     leftTrigger.whenActive(new LogCommandWrapper(new ToggleTargetState()));
     leftBumper.whenPressed(new LogCommandWrapper(new TarmacSetPoint(hood, shooterSubsystem)));
     rightBumper.whenPressed(new LogCommandWrapper(new LaunchpadSetPoint(hood, shooterSubsystem)));
@@ -261,6 +258,60 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     return autoChooser.getAutonomousCommand(autoChooser.getAction());
   }
+
+  /* public double[] getStartPosition() {
+    switch (autoChooser.getAction()) {
+      case CROSS_LINE:
+      if (DriverStation.getAlliance() == Alliance.Red) {
+        return new double[] {1.1, 7.0, 1.1}; //placeholder
+      }
+      else {
+        return new double[] {2.2, 8.1, 1.1}; //placeholder
+      }
+      case DO_NOTHING:
+      if (DriverStation.getAlliance() == Alliance.Red) {
+        return new double[] {1.1, 7.0, 1.1}; //placeholder
+      }
+      else {
+        return new double[] {2.2, 8.1, 1.1}; //placeholder
+      }
+      case ONE_SHOT:
+        if (DriverStation.getAlliance() == Alliance.Red) {
+          return new double[] {2.2, 8.1, 1.1}; //placeholder
+        }
+        else {
+          return new double[] {2.2, 8.1, 1.1}; //placeholder
+        }
+      case THREE_SHOT_RIGHT:
+      if (DriverStation.getAlliance() == Alliance.Red) {
+        return new double[] {2.2, 8.1, 1.1}; //placeholder
+      }
+      else {
+        return new double[] {2.2, 8.1, 1.1}; //placeholder
+      }
+      case TWO_SHOT_LEFT:
+      if (DriverStation.getAlliance() == Alliance.Red) {
+        return new double[] {2.2, 8.1, 1.1}; //placeholder
+      }
+      else {
+        return new double[] {2.2, 8.1, 1.1}; //placeholder
+      }
+      case TWO_SHOT_RIGHT:
+      if (DriverStation.getAlliance() == Alliance.Red) {
+        return new double[] {2.2, 8.1, 1.1}; //placeholder
+      }
+      else {
+        return new double[] {2.2, 8.1, 1.1}; //placeholder
+      }
+      default:
+      return new double[] {2.4, 8.4, 1.1}; //placeholder
+      
+    }
+  } */
+  //Do we want to merge setStartPosition and setRobotPosition instead?
+  /*public void setStartPosition(DriveTrain driveTrain) {
+    driveTrain.setRobotPosition(getStartPosition());
+  } */
 
   public void installDriverShuffleboard() {
     SmartShuffleboard.putCommand("Driver", "Camera Detection", new SetPipeline(Constants.LIMELIGHT_TARGET_DETECTION));
@@ -298,10 +349,10 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Shooter", "Extend Piston", new ExtendShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Retract Piston", new RetractShooterPiston(shooterSubsystem));
       SmartShuffleboard.putCommand("Shooter", "Aim Target", new AutoTargetSequence(turretSubsystem, limeLightVision.getLimeLightVision(), hood));
-      SmartShuffleboard.putCommand("Shooter", "Shooter Sequence", new ShooterSequeunce(shooterSubsystem, limeLightVision.getLimeLightVision()));
+      SmartShuffleboard.putCommand("Shooter", "Shooter Sequence", new ShooterSequeunce(shooterSubsystem, limeLightVision.getLimeLightVision(), turretSubsystem));
       SmartShuffleboard.putCommand("Block", "Extend Block", new ToggleBlockerPiston(shooterSubsystem, true));
       SmartShuffleboard.putCommand("Block", "Retract Block", new ToggleBlockerPiston(shooterSubsystem, false));
-      SmartShuffleboard.putCommand("Shooter", "Shoot on Vision", new VisionAutoShooter(limeLightVision.getLimeLightVision(), shooterSubsystem));
+      SmartShuffleboard.putCommand("Shooter", "Shoot on Vision", new VisionAutoShooter(limeLightVision.getLimeLightVision(), shooterSubsystem, turretSubsystem));
 
       SmartShuffleboard.putCommand("Miscellaneous", "Set LED Off", new SetLEDOff());
       SmartShuffleboard.putCommand("Miscellaneous", "Set LED On", new SetLEDOn());
@@ -336,3 +387,5 @@ public class RobotContainer {
     }
   }
 } 
+
+
