@@ -5,6 +5,7 @@
 package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.DriveCommands.MoveDistance;
 import frc.robot.commands.HoodCommands.MoveHoodToAngle;
@@ -30,8 +31,10 @@ public class OneShotSequenceMiddle extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      //new MoveAndMoveHood(driveTrain, 0.4, 12, hood),
-      new MoveDistance(driveTrain, .4, 0.3),
+      new MoveAndMoveHood(driveTrain, 0.4, 0.3, hood),
+      //new MoveDistance(driveTrain, .4, 0.3),
+      new NonVisionParallelShoot(shooterSubsystem, intakeSubsystem, 12000),
+      new WaitCommand(0.5),
       new NonVisionParallelShoot(shooterSubsystem, intakeSubsystem, 12000),
       new ParallelMoveAndTurretReset(driveTrain, speed, 1.65, turretSubsystem, Constants.AUTO_TURRET_SPEED, intakeSubsystem)
     );
