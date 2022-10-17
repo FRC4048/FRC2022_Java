@@ -34,7 +34,7 @@ public class OneShotSequenceMiddle extends SequentialCommandGroup {
       new MoveAndMoveHood(driveTrain, 0.4, 0.3, hood),
       //new MoveDistance(driveTrain, .4, 0.3),
       new NonVisionParallelShoot(shooterSubsystem, intakeSubsystem, 12000),
-      new WaitCommand(0.5),
+      new WaitCommand(1),
       new NonVisionParallelShoot(shooterSubsystem, intakeSubsystem, 12000),
       new ParallelMoveAndTurretReset(driveTrain, speed, 1.65, turretSubsystem, Constants.AUTO_TURRET_SPEED, intakeSubsystem)
     );
